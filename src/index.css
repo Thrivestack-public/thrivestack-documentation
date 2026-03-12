@@ -4,6 +4,18 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Brand colors — matches plg-crm-ui primary (#2F54EB geekblue) */
+  --color-indigo-50: #f0f5ff;
+  --color-indigo-100: #d6e4ff;
+  --color-indigo-200: #adc6ff;
+  --color-indigo-300: #85a5ff;
+  --color-indigo-400: #597ef7;
+  --color-indigo-500: #4070f4;
+  --color-indigo-600: #2f54eb;
+  --color-indigo-700: #1d39c4;
+  --color-indigo-800: #10239e;
+  --color-indigo-900: #061178;
 }
 
 @layer base {

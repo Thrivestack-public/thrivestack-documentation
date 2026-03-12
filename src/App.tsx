@@ -1,17 +1,13 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
-import { 
-  Search, 
-  Menu, 
-  X, 
-  ChevronRight, 
-  BookOpen, 
-  Zap, 
-  BarChart3, 
-  Layers, 
-  Activity, 
-  RefreshCw, 
-  Cpu, 
+import {
+  Search,
+  Menu,
+  X,
+  BarChart3,
+  Activity,
+  RefreshCw,
+  Cpu,
   ExternalLink,
   Github,
   ArrowRight,
@@ -19,9 +15,6 @@ import {
   Code2,
   Database,
   Globe,
-  Layout,
-  MessageSquare,
-  ShieldCheck,
   Sparkles,
   Target
 } from 'lucide-react';
@@ -43,11 +36,8 @@ const Sidebar = ({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: (v: boolea
     `}>
       <div className="h-full flex flex-col">
         <div className="p-6 border-b border-slate-50 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-200">
-              <Zap className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-bold text-xl tracking-tight text-slate-900">ThriveStack</span>
+          <Link to="/" className="flex items-center" onClick={() => setIsOpen(false)}>
+            <img src="/logo.png" alt="ThriveStack" className="h-8 w-auto" />
           </Link>
           <button onClick={() => setIsOpen(false)} className="lg:hidden p-2 text-slate-400 hover:text-slate-600">
             <X className="w-5 h-5" />
@@ -134,11 +124,8 @@ const Header = ({ setIsOpen }: { setIsOpen: (v: boolean) => void }) => {
           )}
           
           {location.pathname === '/' && (
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-200">
-                <Zap className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-bold text-xl tracking-tight text-slate-900">ThriveStack</span>
+            <Link to="/">
+              <img src="/logo.png" alt="ThriveStack" className="h-8 w-auto" />
             </Link>
           )}
 
@@ -194,8 +181,8 @@ const Header = ({ setIsOpen }: { setIsOpen: (v: boolean) => void }) => {
         <div className="flex items-center gap-6">
           <nav className="hidden lg:flex items-center gap-6">
             <Link to="/docs/introduction" className="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors">Documentation</Link>
-            <a href="#" className="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors">SDKs</a>
-            <a href="#" className="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors">API Reference</a>
+            <Link to="/docs/event-tracking" className="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors">SDKs</Link>
+            <Link to="/docs/events" className="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors">API Reference</Link>
           </nav>
           <div className="h-4 w-px bg-slate-200 hidden lg:block" />
           <a 
@@ -315,13 +302,13 @@ const Home = () => {
               Get Started
               <ArrowRight className="w-5 h-5" />
             </Link>
-            <a 
-              href="#" 
+            <Link
+              to="/docs/events"
               className="px-8 py-4 bg-white text-slate-900 font-bold rounded-2xl border border-slate-200 hover:border-indigo-600 hover:text-indigo-600 transition-all flex items-center gap-2"
             >
               API Reference
               <Terminal className="w-5 h-5" />
-            </a>
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -331,9 +318,9 @@ const Home = () => {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { 
-                icon: BookOpen, 
-                title: "Getting Started", 
+              {
+                icon: Database,
+                title: "Getting Started",
                 desc: "New to ThriveStack? Start here to understand the core concepts and setup.",
                 link: "/docs/introduction",
                 color: "bg-blue-500"
@@ -406,10 +393,10 @@ const Home = () => {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-12">
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Popular Resources</h2>
-            <a href="#" className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-2">
+            <Link to="/docs/introduction" className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-2">
               View all
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -422,9 +409,9 @@ const Home = () => {
                   Detailed documentation for our REST APIs, including authentication, 
                   endpoints, and response schemas.
                 </p>
-                <button className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-colors">
+                <Link to="/docs/events" className="inline-block px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-colors">
                   Explore API
-                </button>
+                </Link>
               </div>
             </div>
             
@@ -437,9 +424,9 @@ const Home = () => {
                   Step-by-step implementation guides for all major platforms 
                   and frameworks.
                 </p>
-                <button className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-colors">
+                <Link to="/docs/event-tracking" className="inline-block px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-colors">
                   View SDKs
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -483,45 +470,42 @@ const Home = () => {
             <div>
               <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Product</h4>
               <ul className="space-y-4">
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Features</a></li>
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Integrations</a></li>
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Pricing</a></li>
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Changelog</a></li>
+                <li><a href="https://thrivestack.ai/#features" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Features</a></li>
+                <li><Link to="/docs/crm-syncs" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Integrations</Link></li>
+                <li><a href="https://thrivestack.ai/pricing" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Pricing</a></li>
+                <li><a href="https://thrivestack.ai/blog" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Changelog</a></li>
               </ul>
             </div>
             <div>
               <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Resources</h4>
               <ul className="space-y-4">
                 <li><Link to="/docs/introduction" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Documentation</Link></li>
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">API Reference</a></li>
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Community</a></li>
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Support</a></li>
+                <li><Link to="/docs/events" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">API Reference</Link></li>
+                <li><a href="https://thrivestack.ai/community" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Community</a></li>
+                <li><a href="mailto:support@thrivestack.ai" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Support</a></li>
               </ul>
             </div>
             <div>
               <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Company</h4>
               <ul className="space-y-4">
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">About Us</a></li>
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Careers</a></li>
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Blog</a></li>
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Contact</a></li>
+                <li><a href="https://thrivestack.ai/about" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">About Us</a></li>
+                <li><a href="https://thrivestack.ai/careers" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Careers</a></li>
+                <li><a href="https://thrivestack.ai/blog" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Blog</a></li>
+                <li><a href="mailto:hello@thrivestack.ai" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>
               <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Legal</h4>
               <ul className="space-y-4">
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Security</a></li>
+                <li><a href="https://thrivestack.ai/privacy" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Privacy Policy</a></li>
+                <li><a href="https://thrivestack.ai/terms" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Terms of Service</a></li>
+                <li><a href="https://thrivestack.ai/security" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors">Security</a></li>
               </ul>
             </div>
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-12 border-t border-slate-100">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-indigo-600 rounded flex items-center justify-center">
-                <Zap className="w-3.5 h-3.5 text-white" />
-              </div>
-              <span className="font-bold text-lg tracking-tight text-slate-900">ThriveStack</span>
+            <div className="flex items-center">
+              <img src="/logo.png" alt="ThriveStack" className="h-7 w-auto" />
             </div>
             <p className="text-sm font-medium text-slate-400">
               © 2026 ThriveStack Inc. All rights reserved.

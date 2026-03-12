@@ -105,6 +105,394 @@ thrivestack.identify('user_123', {
     `,
   },
   {
+    id: "events",
+    title: "Events API Reference",
+    category: "Implementation",
+    description: "Complete API reference for Identify, Group, and Track calls with curl examples.",
+    content: `
+# Events API Reference
+
+ThriveStack collects three core call types that map users and accounts to your product journey.
+
+**Base URL:** \`https://api.app.thrivestack.ai\`
+**Authentication:** \`x-api-key: YOUR_API_KEY\` (find it in Settings → API Keys)
+
+---
+
+## Identify
+
+Links a user to their traits. Call this on every login or session start so ThriveStack can correlate product events to the right user.
+
+**Endpoint:** \`POST /api/identify\`
+
+### Request Body
+
+\`\`\`json
+[
+  {
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "device_id": "7d08298f",
+      "session_id": "session_e2iukz3vduo",
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+      "source": "product"
+    },
+    "traits": {
+      "user_email": "john.doe@acme.com",
+      "user_name": "John Doe"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]
+\`\`\`
+
+### cURL
+
+\`\`\`bash
+curl --location 'https://api.app.thrivestack.ai/api/identify' \\
+--header 'accept: */*' \\
+--header 'content-type: application/json' \\
+--header 'x-api-key: YOUR_API_KEY' \\
+--data '[
+  {
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "device_id": "7d08298f",
+      "session_id": "session_e2iukz3vduo",
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+      "source": "product"
+    },
+    "traits": {
+      "user_email": "john.doe@acme.com",
+      "user_name": "John Doe"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]'
+\`\`\`
+
+### Field Reference
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| \`user_id\` | string (UUID) | ✅ | Unique ID of the user in your system |
+| \`context.group_id\` | string (UUID) | ✅ | Account/organization the user belongs to |
+| \`context.source\` | string | ✅ | \`"product"\` or \`"marketing"\` |
+| \`context.device_id\` | string | | Persistent device fingerprint |
+| \`context.session_id\` | string | | Session identifier |
+| \`traits.user_email\` | string | ✅ | User's email address |
+| \`traits.user_name\` | string | | User's display name |
+| \`timestamp\` | ISO 8601 | ✅ | When the event occurred |
+
+---
+
+## Group
+
+Links an account/organization to its traits. Call this on every login alongside \`identify\` so account-level signals stay up to date.
+
+**Endpoint:** \`POST /api/group\`
+
+### Request Body
+
+\`\`\`json
+[
+  {
+    "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "device_id": "7d08298f",
+      "session_id": "session_e2iukz3vduo",
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+      "source": "product"
+    },
+    "traits": {
+      "group_type": "Account",
+      "account_domain": "acme.com",
+      "account_name": "Acme Corporation"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]
+\`\`\`
+
+### cURL
+
+\`\`\`bash
+curl --location 'https://api.app.thrivestack.ai/api/group' \\
+--header 'accept: */*' \\
+--header 'content-type: application/json' \\
+--header 'x-api-key: YOUR_API_KEY' \\
+--data '[
+  {
+    "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "device_id": "7d08298f",
+      "session_id": "session_e2iukz3vduo",
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+      "source": "product"
+    },
+    "traits": {
+      "group_type": "Account",
+      "account_domain": "acme.com",
+      "account_name": "Acme Corporation"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]'
+\`\`\`
+
+### Field Reference
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| \`group_id\` | string (UUID) | ✅ | Unique ID of the account/organization |
+| \`user_id\` | string (UUID) | ✅ | User performing the group call |
+| \`traits.group_type\` | string | ✅ | Must be \`"Account"\` |
+| \`traits.account_name\` | string | ✅ | Display name of the account |
+| \`traits.account_domain\` | string | ✅ | Email domain (e.g., \`acme.com\`) |
+
+> **Important:** Always call \`identify\` before \`group\`, and \`group\` before \`track\` in a session flow.
+
+---
+
+## Track
+
+Records a specific user action or event. All product events use this endpoint with a unique \`event_name\`.
+
+**Endpoint:** \`POST /api/track\`
+
+---
+
+### page_visit
+
+Track every page or screen a user views.
+
+\`\`\`bash
+curl --location 'https://api.app.thrivestack.ai/api/track' \\
+--header 'accept: */*' \\
+--header 'content-type: application/json' \\
+--header 'x-api-key: YOUR_API_KEY' \\
+--data '[
+  {
+    "event_name": "page_visit",
+    "properties": {
+      "page_title": "What is Acme",
+      "page_url": "https://acme.com/what_is_acme",
+      "page_path": "/what_is_acme",
+      "page_referrer": "https://google.com",
+      "language": "en-GB",
+      "utm_source": "newsletter",
+      "utm_medium": "email",
+      "utm_campaign": "summer_promotion"
+    },
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+      "device_id": "7d08298f",
+      "session_id": "session_e2iukz3vduo",
+      "source": "product"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]'
+\`\`\`
+
+---
+
+### signed_up
+
+Fire when a new user creates an account.
+
+\`\`\`bash
+curl --location 'https://api.app.thrivestack.ai/api/track' \\
+--header 'accept: */*' \\
+--header 'content-type: application/json' \\
+--header 'x-api-key: YOUR_API_KEY' \\
+--data '[
+  {
+    "event_name": "signed_up",
+    "properties": {
+      "user_email": "john.doe@acme.com",
+      "user_name": "John Doe",
+      "utm_source": "twitter",
+      "utm_medium": "referral",
+      "utm_campaign": "customer_success",
+      "utm_term": "free_trial"
+    },
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]'
+\`\`\`
+
+---
+
+### account_created
+
+Fire when a new organization/account is created.
+
+\`\`\`bash
+curl --location 'https://api.app.thrivestack.ai/api/track' \\
+--header 'accept: */*' \\
+--header 'content-type: application/json' \\
+--header 'x-api-key: YOUR_API_KEY' \\
+--data '[
+  {
+    "event_name": "account_created",
+    "properties": {
+      "account_domain": "acme.com",
+      "account_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+      "account_name": "Acme Corporation"
+    },
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]'
+\`\`\`
+
+---
+
+### account_added_user
+
+Fire when a user is linked to an account (on signup or when added by an admin).
+
+\`\`\`bash
+curl --location 'https://api.app.thrivestack.ai/api/track' \\
+--header 'accept: */*' \\
+--header 'content-type: application/json' \\
+--header 'x-api-key: YOUR_API_KEY' \\
+--data '[
+  {
+    "event_name": "account_added_user",
+    "properties": {
+      "account_name": "Acme Corporation",
+      "user_email": "john.doe@acme.com"
+    },
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]'
+\`\`\`
+
+---
+
+### invite_sent
+
+Fire when a user invites a teammate (viral growth signal).
+
+\`\`\`bash
+curl --location 'https://api.app.thrivestack.ai/api/track' \\
+--header 'accept: */*' \\
+--header 'content-type: application/json' \\
+--header 'x-api-key: YOUR_API_KEY' \\
+--data '[
+  {
+    "event_name": "invite_sent",
+    "properties": {
+      "invitee_email": "jane.doe@acme.com",
+      "invitee_role": "Admin",
+      "invitee_team": "Finance Team",
+      "feature_name": "report",
+      "source_url": "https://acme.com/dashboard"
+    },
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]'
+\`\`\`
+
+---
+
+### feature_used
+
+Fire when a user interacts with a core product feature.
+
+\`\`\`bash
+curl --location 'https://api.app.thrivestack.ai/api/track' \\
+--header 'accept: */*' \\
+--header 'content-type: application/json' \\
+--header 'x-api-key: YOUR_API_KEY' \\
+--data '[
+  {
+    "event_name": "feature_used",
+    "properties": {
+      "feature_name": "export_report",
+      "feature_type": "core",
+      "user_role": "admin"
+    },
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]'
+\`\`\`
+
+---
+
+### profile_completed
+
+Fire when a user completes their onboarding profile step.
+
+\`\`\`bash
+curl --location 'https://api.app.thrivestack.ai/api/track' \\
+--header 'accept: */*' \\
+--header 'content-type: application/json' \\
+--header 'x-api-key: YOUR_API_KEY' \\
+--data '[
+  {
+    "event_name": "profile_completed",
+    "properties": {
+      "completion_status": "completed",
+      "user_role": "admin"
+    },
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+      "device_id": "7d08298f",
+      "session_id": "session_e2iukz3vduo"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]'
+\`\`\`
+
+---
+
+## Track Event Catalog
+
+| Event Name | Trigger | Journey Phase |
+|---|---|---|
+| \`page_visit\` | Every page/screen view | Acquisition → Retention |
+| \`signed_up\` | New user registration | Acquisition |
+| \`account_created\` | New organization created | Acquisition |
+| \`account_added_user\` | User linked to account | Acquisition |
+| \`profile_completed\` | Onboarding profile done | Activation |
+| \`feature_used\` | Core feature interaction | Engagement |
+| \`invite_sent\` | Teammate invited | Engagement (viral) |
+
+---
+
+## Common Rules
+
+- **Always** send \`identify\` → \`group\` → \`track\` in that order on session start.
+- \`group_type\` must be exactly \`"Account"\` — never \`"Organization"\`.
+- \`user_id\` and \`group_id\` must be UUIDs from your own system — never generate random ones.
+- Use \`source: "product"\` for in-app events, \`source: "marketing"\` for website/landing page events.
+    `,
+  },
+  {
     id: "journey-to-event",
     title: "Journey to Event",
     category: "Implementation",
