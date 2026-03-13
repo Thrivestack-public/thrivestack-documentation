@@ -18,7 +18,14 @@ import {
   Sparkles,
   Target
 } from 'lucide-react';
+import { SiStripe, SiHubspot, SiSalesforce } from 'react-icons/si';
 import { motion, AnimatePresence } from 'motion/react';
+
+/** Chargebee logo via Brandfetch CDN */
+const CHARGEBEE_LOGO_URL = 'https://cdn.brandfetch.io/idqx2Y_n5J/theme/dark/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1721202922616';
+const ChargebeeIcon = ({ className }: { className?: string }) => (
+  <img src={CHARGEBEE_LOGO_URL} alt="Chargebee" className={className} />
+);
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { DOCS, DocSection } from './data/docs';
@@ -443,18 +450,18 @@ const Home = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { name: "Stripe", id: "stripe", icon: "💳" },
-              { name: "HubSpot", id: "hubspot", icon: "🧡" },
-              { name: "Chargebee", id: "chargebee", icon: "🐝" },
-              { name: "Salesforce", id: "crm-syncs", icon: "☁️" },
+              { name: "Stripe", id: "stripe", icon: SiStripe, color: "#635BFF" },
+              { name: "HubSpot", id: "hubspot", icon: SiHubspot, color: "#FF7A59" },
+              { name: "Chargebee", id: "chargebee", icon: ChargebeeIcon },
+              { name: "Salesforce", id: "crm-syncs", icon: SiSalesforce, color: "#00A1E0" },
             ].map((item) => (
               <Link 
                 key={item.id}
                 to={`/docs/${item.id}`}
                 className="flex flex-col items-center p-8 bg-white border border-slate-100 rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all group"
               >
-                <div className="text-4xl mb-4 grayscale group-hover:grayscale-0 transition-all duration-300">
-                  {item.icon}
+                <div className="mb-4 grayscale group-hover:grayscale-0 transition-all duration-300" style={item.color ? { color: item.color } : undefined}>
+                  <item.icon className="w-10 h-10 [&_svg]:fill-current" />
                 </div>
                 <span className="font-bold text-slate-900">{item.name}</span>
               </Link>
