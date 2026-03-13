@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import {
   Search,
   Menu,
   X,
   BarChart3,
-  Activity,
   RefreshCw,
   Cpu,
   ExternalLink,
@@ -18,7 +17,14 @@ import {
   Sparkles,
   Target
 } from 'lucide-react';
+import { SiStripe, SiHubspot, SiSalesforce } from 'react-icons/si';
 import { motion, AnimatePresence } from 'motion/react';
+
+/** Chargebee logo via Brandfetch CDN */
+const CHARGEBEE_LOGO_URL = 'https://cdn.brandfetch.io/idqx2Y_n5J/theme/dark/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1721202922616';
+const ChargebeeIcon = ({ className }: { className?: string }) => (
+  <img src={CHARGEBEE_LOGO_URL} alt="Chargebee" className={className} />
+);
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { DOCS, DocSection } from './data/docs';
@@ -44,7 +50,7 @@ const Sidebar = ({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: (v: boolea
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto p-4 space-y-8 custom-scrollbar">
+        <nav className="flex-1 min-h-0 overflow-y-auto p-4 space-y-8 custom-scrollbar">
           {categories.map(category => (
             <div key={category}>
               <h3 className="px-4 text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
@@ -367,9 +373,9 @@ const Home = () => {
                 link: "/docs/revenue-intelligence",
                 color: "bg-rose-500"
               },
-            ].map((card, i) => (
+            ].map((card) => (
               <Link 
-                key={i} 
+                key={card.link} 
                 to={card.link}
                 className="group p-8 bg-white border border-slate-100 rounded-3xl hover:shadow-2xl hover:shadow-indigo-500/5 hover:-translate-y-1 transition-all duration-300"
               >
@@ -443,18 +449,18 @@ const Home = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { name: "Stripe", id: "stripe", icon: "💳" },
-              { name: "HubSpot", id: "hubspot", icon: "🧡" },
-              { name: "Chargebee", id: "chargebee", icon: "🐝" },
-              { name: "Salesforce", id: "crm-syncs", icon: "☁️" },
+              { name: "Stripe", id: "stripe", icon: SiStripe, color: "#635BFF" },
+              { name: "HubSpot", id: "hubspot", icon: SiHubspot, color: "#FF7A59" },
+              { name: "Chargebee", id: "chargebee", icon: ChargebeeIcon },
+              { name: "Salesforce", id: "crm-syncs", icon: SiSalesforce, color: "#00A1E0" },
             ].map((item) => (
               <Link 
                 key={item.id}
                 to={`/docs/${item.id}`}
                 className="flex flex-col items-center p-8 bg-white border border-slate-100 rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all group"
               >
-                <div className="text-4xl mb-4 grayscale group-hover:grayscale-0 transition-all duration-300">
-                  {item.icon}
+                <div className="mb-4 grayscale group-hover:grayscale-0 transition-all duration-300" style={item.color ? { color: item.color } : undefined}>
+                  <item.icon className="w-10 h-10 [&_svg]:fill-current" />
                 </div>
                 <span className="font-bold text-slate-900">{item.name}</span>
               </Link>
@@ -517,18 +523,24 @@ const Home = () => {
   );
 };
 
-export default function App() {
+function AppLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const mainRef = useRef<HTMLElement>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    mainRef.current?.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
-    <Router>
-      <div className="flex min-h-screen bg-white font-sans selection:bg-indigo-100 selection:text-indigo-900">
+    <>
+      <div className="flex h-screen overflow-hidden bg-white font-sans selection:bg-indigo-100 selection:text-indigo-900">
         <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
         
-        <div className="flex-1 flex flex-col min-w-0">
+        <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden">
           <Header setIsOpen={setIsSidebarOpen} />
           
-          <main className="flex-1 overflow-y-auto custom-scrollbar">
+          <main ref={mainRef} className="flex-1 min-h-0 overflow-y-auto custom-scrollbar">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/docs/:id" element={<DocPage />} />
@@ -550,6 +562,14 @@ export default function App() {
           )}
         </AnimatePresence>
       </div>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AppLayout />
     </Router>
   );
 }
