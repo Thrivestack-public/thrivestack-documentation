@@ -28,6 +28,166 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Search with live suggestions: scroll to a matching heading
+    const searchInput = document.querySelector('.search-bar input');
+    if (searchInput) {
+        // container for suggestions
+        const suggestions = document.createElement('div');
+        suggestions.className = 'search-suggestions';
+        searchInput.parentElement.appendChild(suggestions);
+
+        const getHeadings = () => {
+            const nodes = [];
+            document.querySelectorAll('.content-section h2, .content-section h3, .doc-page-body h1, .doc-page-body h2')
+                .forEach(h => {
+                    const text = h.textContent.trim();
+                    if (!text) return;
+                    nodes.push({
+                        text,
+                        element: h
+                    });
+                });
+            return nodes;
+        };
+
+        const headings = getHeadings();
+
+        // Lightweight cross-page index
+        const docsIndex = [
+            {
+                title: 'Getting Started with ThriveStack',
+                url: 'index.html#growth-intelligence',
+                terms: 'getting started growth intelligence overview unified dashboard signal correlation ai-powered insights'
+            },
+            {
+                title: 'Connect Your Stack',
+                url: 'connect-your-stack.html#connect-your-stack',
+                terms: 'connect your stack integrations unify data plug and play low code'
+            },
+            {
+                title: 'Analyze Correlated Signals',
+                url: 'analyze-correlated-signals.html#analyze-correlated-signals',
+                terms: 'analyze correlated signals ai comparison funnel leaks bottlenecks'
+            },
+            {
+                title: 'Drive Revenue Playbooks',
+                url: 'drive-revenue-playbooks.html#drive-revenue-playbooks',
+                terms: 'drive revenue playbooks alerts slack crm actions'
+            },
+            {
+                title: 'Accelerate Free-to-Paid',
+                url: 'accelerate-free-to-paid.html#accelerate-free-to-paid',
+                terms: 'accelerate free to paid onboarding funnel conversion'
+            },
+            {
+                title: 'Spot Expansion Signals',
+                url: 'spot-expansion-signals.html#spot-expansion-signals',
+                terms: 'spot expansion signals nrr upsell cross sell'
+            },
+            {
+                title: 'Stop Churn Early',
+                url: 'stop-churn-early.html#stop-churn-early',
+                terms: 'stop churn early contraction risk health widget'
+            },
+            {
+                title: 'Journey to Event',
+                url: 'journey-to-event.html#journey-to-event',
+                terms: 'journey to event bow tie phases telemetry mapping'
+            },
+            {
+                title: 'Vibe Analytics (AI)',
+                url: 'vibe-analytics.html#vibe-analytics',
+                terms: 'vibe analytics ai telemetry spec identify group track checklist'
+            }
+        ];
+
+        const clearSuggestions = () => {
+            suggestions.innerHTML = '';
+            suggestions.style.display = 'none';
+        };
+
+        const scrollToElement = (el) => {
+            const rect = el.getBoundingClientRect();
+            const offsetTop = rect.top + window.scrollY - 80;
+            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        };
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim().toLowerCase();
+            if (!query) {
+                clearSuggestions();
+                return;
+            }
+
+            const localMatches = headings
+                .filter(h => h.text.toLowerCase().includes(query))
+                .map(h => ({
+                    label: h.text,
+                    type: 'section',
+                    onSelect: () => scrollToElement(h.element)
+                }));
+
+            const path = window.location.pathname.split('/').pop() || 'index.html';
+
+            const globalMatches = docsIndex
+                .filter(d =>
+                    (d.title.toLowerCase().includes(query) ||
+                     d.terms.toLowerCase().includes(query))
+                )
+                .filter(d => !path.endsWith(d.url.split('#')[0])) // avoid duplicate current page entry
+                .map(d => ({
+                    label: d.title,
+                    type: 'page',
+                    onSelect: () => {
+                        clearSuggestions();
+                        window.location.href = d.url;
+                    }
+                }));
+
+            const allMatches = [...localMatches, ...globalMatches].slice(0, 7);
+
+            if (!allMatches.length) {
+                clearSuggestions();
+                return;
+            }
+
+            suggestions.innerHTML = '';
+            allMatches.forEach(match => {
+                const item = document.createElement('button');
+                item.type = 'button';
+                item.className = 'search-suggestion-item';
+                item.textContent = match.label;
+                if (match.type === 'page') {
+                    item.dataset.type = 'page';
+                }
+                item.addEventListener('click', match.onSelect);
+                suggestions.appendChild(item);
+            });
+            suggestions.style.display = 'block';
+        });
+
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                clearSuggestions();
+                searchInput.blur();
+                return;
+            }
+            if (e.key === 'Enter') {
+                const first = suggestions.querySelector('.search-suggestion-item');
+                if (first) {
+                    first.click();
+                    e.preventDefault();
+                }
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!suggestions.contains(e.target) && e.target !== searchInput) {
+                clearSuggestions();
+            }
+        });
+    }
+
     // ScrollSpy for Table of Contents
     const sections = document.querySelectorAll('.content-section');
     const navLinks = document.querySelectorAll('.toc-link');

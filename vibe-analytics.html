@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vibe Analytics (AI) - ThriveStack Documentation">
+    <title>Vibe Analytics (AI) - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="index.html">Get Started</a>
+                <a href="journey-to-event.html" class="active">Setup (Unify )</a>
+                <a href="#">Analyze Signals</a>
+                <a href="#">Take Action</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Setup (Unify)</h3>
+                <ul>
+                    <li><a href="journey-to-event.html">Journey to Event</a></li>
+                    <li><a href="vibe-analytics.html" class="active">Vibe Analytics (AI)</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="vibe-analytics" class="content-section">
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Advanced</span>
+                            <h1 class="doc-page-title">Vibe Analytics (AI)</h1>
+                            <p class="doc-page-description">
+                              Self-contained technical specification for AI-driven telemetry instrumentation.
+                            </p>
+                        </header>
+
+                        <article class="doc-page-body">
+                            <h1>SYSTEM INSTRUCTION: ThriveStack Telemetry Implementation Spec</h1>
+                            <p><strong>Version:</strong> 2.1<br /><strong>Target Audience:</strong> AI Coding Assistants (Claude, Gemini, Cursor, etc.)</p>
+
+                            <hr />
+
+                            <h2>1. CORE MISSION</h2>
+                            <p>
+                              You are tasked with instrumenting a web application with ThriveStack Product Telemetry.
+                              This telemetry powers "Vibe Analytics" — an AI-driven growth engine. You must follow the
+                              schemas, naming conventions, and structural rules below with 100% precision.
+                            </p>
+
+                            <hr />
+
+                            <h2>2. PREREQUISITES (STATE DISCOVERY)</h2>
+                            <p>Before writing code, you <strong>MUST</strong> locate the following variables in the existing codebase:</p>
+                            <ol>
+                              <li>
+                                <strong>userId</strong>: The authenticated user's unique UUID
+                                (e.g., <code>user.id</code>, <code>session.userId</code>).
+                              </li>
+                              <li>
+                                <strong>groupId</strong>: The organization/account/workspace unique UUID
+                                (e.g., <code>org.id</code>, <code>workspaceId</code>).
+                              </li>
+                            </ol>
+                            <blockquote>
+                              <strong>CRITICAL:</strong> If you cannot find a <code>groupId</code>, you must ask the user
+                              for the variable name representing the Account/Organization ID. Do not proceed with fake data.
+                            </blockquote>
+
+                            <hr />
+
+                            <h2>3. INITIALIZATION (ROOT LAYOUT)</h2>
+                            <p>
+                              Add the following script to the <code>&lt;head&gt;</code> of the root layout file
+                              (e.g., <code>layout.tsx</code>, <code>_app.tsx</code>, <code>index.html</code>).
+                            </p>
+
+<pre><code>&lt;script
+  src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+  api-key="process.env.THRIVESTACK_API_KEY"
+  source="product"&gt;
+&lt;/script&gt;
+</code></pre>
+
+                            <p><strong>RULES:</strong></p>
+                            <ul>
+                              <li>Global object: <code>thriveStack</code> (lowercase 's').</li>
+                              <li><code>api-key</code> MUST come from an environment variable.</li>
+                              <li><code>source</code> is always <code>"product"</code>.</li>
+                            </ul>
+
+                            <hr />
+
+                            <h2>4. MANDATORY EVENT SCHEMAS</h2>
+                            <p>Every call must be wrapped in an <strong>ARRAY</strong>: <code>method([{...}])</code>.</p>
+
+                            <h3>A. identify()</h3>
+                            <p><strong>When:</strong> Immediately after login or signup.</p>
+
+<pre><code>thriveStack.identify([{
+  "user_id": userId,
+  "traits": {
+    "user_email": user.email,
+    "user_name": user.name
+  },
+  "timestamp": new Date().toISOString()
+}]);
+</code></pre>
+
+                            <h3>B. group()</h3>
+                            <p><strong>When:</strong> Immediately after <code>identify()</code>. Establishes the Account context.</p>
+
+<pre><code>thriveStack.group([{
+  "user_id": userId,
+  "group_id": groupId,
+  "traits": {
+    "group_type": "Account",
+    "account_domain": org.domain,
+    "account_name": org.name,
+    "plan_id": org.planId,
+    "plan_name": org.planName
+  },
+  "context": {
+    "group_id": groupId,
+    "group_type": "Account"
+  },
+  "timestamp": new Date().toISOString()
+}]);
+</code></pre>
+
+                            <h3>C. track() - The Big 7</h3>
+                            <p>Every <code>track()</code> call <strong>REQUIRES</strong> the <code>context</code> block containing <code>group_id</code>.</p>
+
+                            <table>
+                              <thead>
+                                <tr>
+                                  <th>Event Name</th>
+                                  <th>When to Fire</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td><code>signed_up</code></td>
+                                  <td>New user registration success.</td>
+                                </tr>
+                                <tr>
+                                  <td><code>account_created</code></td>
+                                  <td>New organization/workspace creation success.</td>
+                                </tr>
+                                <tr>
+                                  <td><code>onboarding_step_completed</code></td>
+                                  <td>Completion of a setup wizard step.</td>
+                                </tr>
+                                <tr>
+                                  <td><code>invite_sent</code></td>
+                                  <td>Invitation sent to a teammate.</td>
+                                </tr>
+                                <tr>
+                                  <td><code>user_added_to_account</code></td>
+                                  <td>User joins an account via invite/SSO.</td>
+                                </tr>
+                                <tr>
+                                  <td><code>account_added_user</code></td>
+                                  <td>Admin adds a user to an account.</td>
+                                </tr>
+                                <tr>
+                                  <td><code>feature_used</code></td>
+                                  <td>Core product action (e.g., <code>report_generated</code>).</td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                            <p><strong>Example: <code>account_added_user</code></strong></p>
+
+<pre><code>thriveStack.track([{
+  "event_name": "account_added_user",
+  "user_id": adminId,
+  "properties": {
+    "user_email": adminEmail,
+    "added_user_id": newUserId,
+    "role": "member"
+  },
+  "context": {
+    "group_id": groupId,
+    "group_type": "Account"
+  },
+  "timestamp": new Date().toISOString()
+}]);
+</code></pre>
+
+                            <hr />
+
+                            <h2>5. IMPLEMENTATION CHECKLIST FOR AI</h2>
+                            <ol>
+                              <li><strong>Verify Global</strong>: Check <code>typeof thriveStack !== 'undefined'</code> before calling.</li>
+                              <li><strong>Array Wrapper</strong>: Ensure every call is <code>method([{...}])</code>.</li>
+                              <li><strong>Context Block</strong>: Ensure <code>context: { group_id, group_type: "Account" }</code> is on every <code>track()</code> call.</li>
+                              <li><strong>Snake Case</strong>: Use <code>snake_case</code> for event names and property keys.</li>
+                              <li><strong>No Blocking</strong>: Fire-and-forget. Do not <code>await</code> telemetry calls.</li>
+                            </ol>
+
+                            <hr />
+
+                            <h2>6. TROUBLESHOOTING / HARD RULES</h2>
+                            <ul>
+                              <li><strong>NEVER</strong> use <code>group_type: "Organization"</code>. It must be <code>"Account"</code>.</li>
+                              <li><strong>NEVER</strong> generate random UUIDs for <code>group_id</code>. Use the app's existing state.</li>
+                              <li><strong>ALWAYS</strong> call <code>identify()</code> before <code>group()</code>.</li>
+                              <li><strong>ALWAYS</strong> call <code>group()</code> before <code>track()</code> in a session flow.</li>
+                            </ul>
+                        </article>
+                    </section>
+                </section>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a href="#">Last updated 2 days ago</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#vibe-analytics" class="toc-link active">Vibe Analytics (AI)</a>
+                </nav>
+                <div class="toc-promo glass-panel">
+                    <div class="promo-icon"><i class="fa-solid fa-rocket gradient-text"></i></div>
+                    <h5>Ready to scale?</h5>
+                    <p>Book a demo with our growth team today.</p>
+                    <a href="https://outlook.office365.com/book/ThriveStackCustomerAnalytics@thrivestack.ai/?ismsaljsauthenabled=true" class="btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">Get Started</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

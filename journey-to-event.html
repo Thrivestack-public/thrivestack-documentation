@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Journey to Event - ThriveStack Documentation">
+    <title>Journey to Event - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="index.html">Get Started</a>
+                <a href="journey-to-event.html" class="active">Setup (Unify )</a>
+                <a href="#">Analyze Signals</a>
+                <a href="#">Take Action</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Setup (Unify)</h3>
+                <ul>
+                    <li><a href="journey-to-event.html" class="active">Journey to Event</a></li>
+                    <li><a href="vibe-analytics.html">Vibe Analytics (AI)</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="journey-to-event" class="content-section">
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Implementation</span>
+                            <h1 class="doc-page-title">Journey to Event</h1>
+                            <p class="doc-page-description">
+                              Mapping of customer journey phases to telemetry events.
+                            </p>
+                        </header>
+
+                        <article class="doc-page-body">
+                            <h1>Customer Journey Events</h1>
+                            <p>Mapping of journey phases to telemetry events.</p>
+
+                            <p><strong>Telemetry Events:</strong></p>
+                            <ul>
+                              <li><code>Track</code> → <code>POST /api/track</code></li>
+                              <li><code>Identify</code> → <code>POST /api/identify</code></li>
+                              <li><code>Group</code> → <code>POST /api/group</code></li>
+                              <li><code>Stripe</code> → Stripe Webhook / Integration</li>
+                            </ul>
+
+                            <table>
+                              <thead>
+                                <tr>
+                                  <th>Bow-Tie (Phase)</th>
+                                  <th>Object</th>
+                                  <th>Journey (Activity)</th>
+                                  <th>Track</th>
+                                  <th>Identify</th>
+                                  <th>Group</th>
+                                  <th>Stripe</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr><td><strong>Acquisition</strong></td><td>User</td><td>Signed Up</td><td>✅</td><td>✅</td><td></td><td></td></tr>
+                                <tr><td><strong>Acquisition</strong></td><td>User</td><td>Invite User</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Acquisition</strong></td><td>User</td><td>Login (Signed in)</td><td>N/A</td><td>✅</td><td>✅</td><td>✅</td></tr>
+                                <tr><td><strong>Acquisition</strong></td><td>Account</td><td>Created</td><td>✅</td><td></td><td>✅</td><td></td></tr>
+                                <tr><td><strong>Acquisition</strong></td><td>Account</td><td>Added User</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Activation</strong></td><td>Account</td><td>Profile completed</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Activation</strong></td><td>Account</td><td>Onboarding step completed</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Activation</strong></td><td>Account</td><td>First project created</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Activation</strong></td><td>Account</td><td>First Aha/Value moment</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Engagement</strong></td><td>Account</td><td>Product page visited</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Engagement</strong></td><td>Account</td><td>Feature used</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Engagement</strong></td><td>User</td><td>Invite user to feature</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Retention</strong></td><td>User</td><td>User returned / active session</td><td></td><td>✅</td><td></td><td></td></tr>
+                                <tr><td><strong>Retention</strong></td><td>Account</td><td>Product page visited</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Retention</strong></td><td>Account</td><td>Feature used (repeat)</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Contraction</strong></td><td>Account</td><td>User removed from account</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Contraction</strong></td><td>Account</td><td>Feature usage dropped (absence signal)</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Contraction</strong></td><td>Account</td><td>Plan downgraded</td><td></td><td></td><td></td><td>✅</td></tr>
+                                <tr><td><strong>Expansion</strong></td><td>User</td><td>New user added to account</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Expansion</strong></td><td>User</td><td>Invite sent</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Expansion</strong></td><td>Account</td><td>Account traits updated (plan upgrade)</td><td></td><td></td><td></td><td>✅</td></tr>
+                                <tr><td><strong>Churn</strong></td><td>User</td><td>User deleted / deactivated</td><td>✅</td><td></td><td></td><td></td></tr>
+                                <tr><td><strong>Churn</strong></td><td>Account</td><td>Subscription cancelled</td><td></td><td></td><td></td><td>✅</td></tr>
+                                <tr><td><strong>Churn</strong></td><td>Account</td><td>Account deleted</td><td>✅</td><td></td><td></td><td></td></tr>
+                              </tbody>
+                            </table>
+                        </article>
+                    </section>
+                </section>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a href="#">Last updated 2 days ago</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#journey-to-event" class="toc-link active">Customer Journey Events</a>
+                </nav>
+                <div class="toc-promo glass-panel">
+                    <div class="promo-icon"><i class="fa-solid fa-rocket gradient-text"></i></div>
+                    <h5>Ready to scale?</h5>
+                    <p>Book a demo with our growth team today.</p>
+                    <a href="https://outlook.office365.com/book/ThriveStackCustomerAnalytics@thrivestack.ai/?ismsaljsauthenabled=true" class="btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">Get Started</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
