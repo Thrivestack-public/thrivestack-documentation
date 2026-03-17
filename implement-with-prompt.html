@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Implement with Prompt - ThriveStack Documentation">
+    <!-- Theme bootstrapping: pick saved theme before paint -->
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Implement with Prompt - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script
+      src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+      api-key="{{THRIVESTACK_API_KEY}}"
+      source="marketing">
+    </script>
+    <script
+      src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+      api-key="{{THRIVESTACK_API_KEY}}"
+      source="product">
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="index.html">Get Started</a>
+                <a href="journey-to-event.html" class="active">Setup (Unify )</a>
+                <a href="#">Analyze Signals</a>
+                <a href="#">Take Action</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Setup (Unify)</h3>
+                <ul>
+                    <li><a href="journey-to-event.html">Journey to Event</a></li>
+                    <li><a href="vibe-analytics.html">Vibe Analytics (AI)</a></li>
+                    <li><a href="implement-with-prompt.html" class="active">Implement with Prompt</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="implement-with-prompt" class="content-section">
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Setup (Unify)</span>
+                            <h1 class="doc-page-title">Implement with Prompt</h1>
+                            <p class="doc-page-description">
+                                Use an AI coding assistant to instrument your codebase with ThriveStack telemetry in minutes.
+                            </p>
+                        </header>
+
+                        <article class="doc-page-body">
+
+                            <h2>Step 1 — Get your API key</h2>
+                            <p>Go to <a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank" rel="noopener noreferrer">Settings → API Keys</a> and copy your API key.</p>
+
+                            <hr />
+
+                            <h2>Step 2 — Copy a prompt</h2>
+                            <p>Pick the prompt that matches what you want to instrument, copy it, and replace <code>YOUR_API_KEY_HERE</code> with your key from Step 1.</p>
+
+                            <h3>Marketing / Docs site</h3>
+                            <p>Use this to track visitors on any public-facing website.</p>
+                            <div class="code-block-wrapper">
+                                <button class="copy-btn" onclick="copyPrompt('prompt-marketing', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <pre><code id="prompt-marketing">You are a ThriveStack marketing telemetry installation wizard.
+Read https://thrivestack-temp-static-assets.s3.us-east-1.amazonaws.com/vibe-code/marketing/llms.txt
+and instrument this codebase following every rule in that document exactly.
+Your API key is YOUR_API_KEY_HERE</code></pre>
+                            </div>
+
+                            <h3>Product / App</h3>
+                            <p>Use this to track signed-in users and lifecycle events inside your product.</p>
+                            <div class="code-block-wrapper">
+                                <button class="copy-btn" onclick="copyPrompt('prompt-product', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <pre><code id="prompt-product">You are a ThriveStack product telemetry installation wizard.
+Read https://thrivestack-temp-static-assets.s3.us-east-1.amazonaws.com/vibe-code/llms.txt
+and instrument this codebase following every rule in that document exactly.
+Your API key is YOUR_API_KEY_HERE</code></pre>
+                            </div>
+
+                            <hr />
+
+                            <h2>Step 3 — Run it in your AI coding assistant</h2>
+                            <p>Paste the prompt into Claude, Cursor, Copilot, or any AI coding tool. It will read the full instrumentation guide and add the correct telemetry to your codebase automatically.</p>
+
+                            <hr />
+
+                            <h2>Step 4 — Verify</h2>
+                            <p>Once the AI is done, check your events are arriving:</p>
+                            <ul>
+                                <li><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank" rel="noopener noreferrer">Diagnostics Report</a> — confirms events are being received</li>
+                                <li><a href="https://app.thrivestack.ai/analyze/events" target="_blank" rel="noopener noreferrer">API / Audit Logs</a> — inspect raw events as they arrive</li>
+                            </ul>
+
+                        </article>
+
+                        <style>
+                            .code-block-wrapper {
+                                position: relative;
+                                margin: 12px 0 24px;
+                            }
+                            .code-block-wrapper pre {
+                                margin: 0;
+                                padding-top: 40px;
+                            }
+                            .copy-btn {
+                                position: absolute;
+                                top: 8px;
+                                right: 8px;
+                                z-index: 1;
+                                display: flex;
+                                align-items: center;
+                                gap: 6px;
+                                padding: 4px 10px;
+                                font-size: 12px;
+                                font-family: inherit;
+                                cursor: pointer;
+                                border-radius: 5px;
+                                border: 1px solid var(--border-color, #333);
+                                background: var(--code-bg, #1e1e1e);
+                                color: var(--text-muted, #aaa);
+                                transition: color 0.15s, border-color 0.15s;
+                            }
+                            .copy-btn:hover {
+                                color: var(--text-primary, #fff);
+                                border-color: var(--text-muted, #888);
+                            }
+                            .copy-btn.copied {
+                                color: #4ade80;
+                                border-color: #4ade80;
+                            }
+                        </style>
+
+                        <script>
+                            function copyPrompt(id, btn) {
+                                var text = document.getElementById(id).innerText;
+                                navigator.clipboard.writeText(text).then(function() {
+                                    btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+                                    btn.classList.add('copied');
+                                    setTimeout(function() {
+                                        btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
+                                        btn.classList.remove('copied');
+                                    }, 2000);
+                                });
+                            }
+                        </script>
+                    </section>
+                </section>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a href="#">Last updated today</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#implement-with-prompt" class="toc-link active">Implement with Prompt</a>
+                    <a href="#step1" class="toc-link">1. Get API key</a>
+                    <a href="#step2" class="toc-link">2. Copy a prompt</a>
+                    <a href="#step3" class="toc-link">3. Run it</a>
+                    <a href="#step4" class="toc-link">4. Verify</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

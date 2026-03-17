@@ -1,0 +1,666 @@
+# ThriveStack Product Telemetry — AI Instrumentation Guide
+# Version: 3.2
+# Hosted at: https://thrivestack-temp-static-assets.s3.us-east-1.amazonaws.com/vibe-code/llms.txt
+
+---
+
+## PURPOSE
+
+This file gives AI coding assistants complete, executable instructions for instrumenting
+any existing web app with ThriveStack product telemetry.
+Every rule, schema, and example here is authoritative — follow exactly, do not deviate.
+
+All event schemas are non-exhaustive. Additional properties beyond those listed are always allowed.
+
+---
+
+## HOW TO USE THIS GUIDE
+
+Work through these phases in order. Do not write any code until Phase 0 is complete.
+
+### Phase 0 — Understand the codebase first
+1. Identify the tech stack, auth library, and state management
+2. Find `userId` — see STEP 2 for search patterns and rules
+3. Find `groupId` — see STEP 2 for hierarchy, search patterns, and fallbacks
+4. Find all instrumentable feature actions — ask the developer to classify each as `"core"`, `"sticky"`, or `"support"` before writing any code
+
+### Phase 1 — Install the script tag
+Add once to the root layout. Follow STEP 1 exactly for the detected framework.
+
+### Phase 2 — Instrument lifecycle events
+Follow the FIRING ORDER section exactly for each flow found: signup, login, invite.
+
+### Phase 3 — Instrument feature events
+One `feature_used` event per confirmed feature action. `feature_name` in `[noun]_[verb]` snake_case.
+
+### Phase 4 — Verify then summarise
+Run through the VERIFICATION CHECKLIST. Fix anything missing. Then output the summary.
+
+**REQUIRED OUTPUT FORMAT — strictly follow this, no exceptions.**
+Do NOT write a narrative summary. Do NOT output a "Summary of Changes" section. Do NOT describe what you did in prose.
+Your only output after instrumentation is complete is the table below, printed inline in the chat. No files. No markdown files. No prose before or after it.
+
+```
+ThriveStack Instrumentation Summary
+X/9 implemented
+
+| # | Event | Status | Notes |
+|---|-------|--------|-------|
+| 1 | identify | ✅/⚠️/❌ | Field used, file |
+| 2 | group | ✅/⚠️/❌ | Entity levels, billing root |
+| 3 | signed_up | ✅/⚠️/❌ | Handler, file |
+| 4 | signed_in | ✅/⚠️/❌ | Handler, file |
+| 5 | account_created | ✅/⚠️/❌ | Handler, file or N/A |
+| 6 | account_added_user | ✅/⚠️/❌ | Entry points covered |
+| 7 | feature_used | ✅/⚠️/❌ | Features and their feature_type |
+| 8 | invite_sent | ✅/⚠️/❌ | Handler, file or N/A |
+| 9 | onboarding_step_completed | ✅/⚠️/❌ | Steps found or N/A |
+
+User ID: [field] in [file]
+Group hierarchy: [e.g. Organization → Account (billing root) → Workspace] or [B2C fallback]
+Unresolved: [anything skipped and why, or "None"]
+
+---
+Handy ThriveStack Resources
+- Setup Progress: https://app.thrivestack.ai/analyze/onboarding/product-analytics/telemetry
+- Diagnostics: https://app.thrivestack.ai/analyze/diagnostics-report
+- API / Audit Logs: https://app.thrivestack.ai/analyze/events
+- Developer Tools: https://app.thrivestack.ai/analyze/developer-tool
+```
+
+---
+
+## STEP 1 — INSTALL THE SCRIPT TAG
+
+This is the ONLY initialization method. There is no npm package. There is no init() call.
+
+Add once to the root layout file. Never inside a component or page.
+
+### Next.js App Router (app/layout.tsx)
+```tsx
+import Script from 'next/script'
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <head>
+        <Script
+          src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+          strategy="afterInteractive"
+          data-api-key={process.env.NEXT_PUBLIC_THRIVESTACK_API_KEY}
+          data-source="product"
+        />
+      </head>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+### React (public/index.html)
+```html
+<script
+  src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+  api-key="%REACT_APP_THRIVESTACK_API_KEY%"
+  source="product">
+</script>
+```
+
+### Vue / Nuxt / Plain HTML
+```html
+<script
+  src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+  api-key="YOUR_ENV_VAR_HERE"
+  source="product">
+</script>
+```
+
+Rules:
+- Write the API key to the environment variable file appropriate for this stack (.env, .env.local, application.yml, etc.) — never in source code
+- `api-key` must reference that environment variable — never hardcoded
+- `source="product"` — always this exact string, never change it
+- Global object after load: `thriveStack` — camelCase, lowercase 's'
+- Place in root layout ONCE only
+
+---
+
+## STEP 2 — FIND userId AND groupId
+
+### userId
+Must be a stable unique identifier that does not change across sessions.
+May be a UUID, integer, or any format the auth provider uses.
+Must NOT be an email, display name, or session token.
+
+Search patterns:
+```javascript
+const { user } = useAuth()               → user.id
+const session = useSession()             → session.user.id
+useContext(AuthContext)                  → context.user.id
+const { userId } = auth()               → userId  (Clerk)
+store.auth.user.id                       → (Redux/Zustand)
+claims.sub, claims.user_id              → (JWT)
+```
+
+If no stable identifier found — stop and ask:
+"What field uniquely identifies a user in your database — their ID, not their email?"
+
+---
+
+### groupId — Entity Hierarchy
+
+Account is always mandatory — it is the billing/contractual root entity.
+All other levels are additional and each gets its own `group()` call.
+
+Default hierarchy:
+```
+Organization   (brand/company umbrella)
+  └── Account  ← MANDATORY — billing root
+        └── Tenant
+              └── Workspace
+                    └── Team
+```
+
+This is a default — if the developer confirms a different entity is their billing root,
+treat that as Account regardless of what it is called in code.
+
+Search patterns:
+```
+AUTH CONTEXT:
+  user.accountId / user.account.id
+  user.orgId / user.organizationId / user.organization.id
+  user.tenantId / user.workspaceId / user.companyId
+  session.organization.id / session.account.id
+
+JWT CUSTOM CLAIMS:
+  claims.org_id / claims.account_id / claims.tenant_id
+  claims['https://yourapp.com/org_id']   ← Auth0 pattern
+
+STORE (Redux/Zustand/Pinia):
+  store.currentOrg.id / store.activeWorkspace.id
+  useOrganization().organization.id
+
+POST-LOGIN API RESPONSE:
+  loginResponse.organization.id / meResponse.current_organization.id
+
+URL PARAMS:
+  /app/:accountId / /org/:orgId / /workspace/:workspaceId
+  Note: if only in URL params, ask developer if always available
+```
+
+B2C / no-org fallback:
+```javascript
+group_id       = user.id         // same as userId
+account_name   = user.name       // user's full name
+account_domain = user.email      // full email address — not just domain
+// omit plan_id and plan_name entirely
+```
+`group()` fires only once on first registration — never again.
+
+Stop and ask if:
+- No org-like field found after exhaustive search
+- Multiple top-level entities exist and billing root is unclear
+- groupId only in URL params and may not always be available
+
+Never proceed without groupId. Never generate a fake ID.
+
+### Context switching
+When user switches active workspace/tenant/org:
+- Do NOT re-fire `group()`
+- Update `context.group_id` to the new entity's ID for all subsequent `track()` calls
+
+---
+
+## STEP 3 — identify()
+
+Call on signup, login, and whenever new/updated user info is gathered.
+`user_id` is always mandatory. Send whatever is known at the time.
+
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.identify([{
+  "user_id": userId,
+  "traits": {
+    "user_email": user.email,
+    "user_name": user.name
+  },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+## STEP 4 — group()
+
+Fire when an entity is first created. One call per entity level found.
+Never fire on login, context switch, or invite acceptance.
+
+### Account (mandatory)
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.group([{
+  "user_id": userId,
+  "group_id": account.id,
+  "traits": {
+    "group_type": "Account",
+    "account_domain": account.domain,
+    "account_name": account.name,
+    "plan_id": account.plan?.id,      // omit if unavailable
+    "plan_name": account.plan?.name   // omit if unavailable
+  },
+  "context": {
+    "group_id": account.id,           // must match group_id exactly
+    "group_type": "Account"
+  },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+### Additional levels (same signature, change group_type and ID)
+```javascript
+thriveStack.group([{
+  "user_id": userId,
+  "group_id": org.id,
+  "traits": {
+    "group_type": "Organization",     // "Organization"|"Tenant"|"Workspace"|"Team"
+    "account_domain": org.domain,
+    "account_name": org.name
+  },
+  "context": { "group_id": org.id, "group_type": "Organization" },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+`"Account"` is reserved for the billing root only.
+
+---
+
+## STEP 5 — TRACK EVENTS
+
+### Base signature
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.track([{
+  "event_name": "event_name_here",
+  "user_id": userId,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name
+  },
+  "context": { "group_id": groupId },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+## EVENT SCHEMAS
+
+### signed_up
+When: New user registration completes.
+Context: Include if groupId available. Omit if account doesn't exist yet.
+
+```javascript
+thriveStack.track([{
+  "event_name": "signed_up",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "utm_source": getUTMParam('utm_source'),
+    "utm_medium": getUTMParam('utm_medium'),
+    "utm_campaign": getUTMParam('utm_campaign'),
+    "utm_term": getUTMParam('utm_term')
+  },
+  "context": { "group_id": user.orgId },   // omit if not yet available
+  "timestamp": new Date().toISOString()
+}])
+
+function getUTMParam(param) {
+  return new URLSearchParams(window.location.search).get(param)
+    || sessionStorage.getItem(param)
+    || null
+}
+```
+
+---
+
+### signed_in
+When: Existing user logs in successfully.
+No UTM params. `context` is mandatory — groupId is always available at login.
+
+```javascript
+thriveStack.track([{
+  "event_name": "signed_in",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "user_role": user.role    // omit if unavailable
+  },
+  "context": { "group_id": groupId },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### account_created
+When: New account/org/workspace is first created.
+`group()` must fire BEFORE this. Do not fire if joining an existing account.
+
+```javascript
+thriveStack.track([{
+  "event_name": "account_created",
+  "user_id": user.id,
+  "properties": {
+    "account_id": org.id,
+    "account_name": org.name,
+    "account_domain": org.domain,
+    "user_email": user.email,
+    "user_name": user.name,
+    "plan_name": org.plan?.name   // omit if unavailable
+  },
+  "context": { "group_id": org.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### account_added_user
+When: Account membership grows. Fire in ALL applicable entry points — missing any one is wrong.
+
+Entry points:
+1. New user direct signup + new account → after `account_created` → `join_method: "signup"`, `is_first_user: true`
+2. New user invited to existing account → after `signed_up` → `join_method: "invite"`, `is_first_user: false`
+3. Existing user invited, not yet in account → after `signed_in` → `join_method: "invite"`, `is_first_user: false`
+4. SSO/SCIM/admin provisioning → `join_method: "sso"` / `"scim"` / `"admin"`
+
+Do NOT fire if user is already a member of the account.
+
+```javascript
+thriveStack.track([{
+  "event_name": "account_added_user",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "account_id": org.id,
+    "account_name": org.name,
+    "account_domain": org.domain,
+    "role": user.role,
+    "join_method": "signup",      // "signup"|"invite"|"sso"|"scim"|"admin"
+    "is_first_user": true
+  },
+  "context": { "group_id": org.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### onboarding_step_completed
+When: User completes a discrete setup step.
+Search for: `<Stepper>` `onStepComplete` `handleNext` `setCurrentStep` `markStepComplete`
+
+```javascript
+thriveStack.track([{
+  "event_name": "onboarding_step_completed",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "step_name": stepName,      // snake_case: "connected_data_source"
+    "step_index": stepIndex,    // 0-based integer
+    "total_steps": totalSteps
+  },
+  "context": { "group_id": org.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### invite_sent
+When: User sends a team invitation.
+Search for: `inviteUser` `sendInvite` `inviteTeamMember` — forms with email + role fields.
+All properties beyond `user_email` and `invitee_email` are send-if-available.
+
+```javascript
+thriveStack.track([{
+  "event_name": "invite_sent",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "invitee_email": invitee.email,
+    "invitee_role": invitee.role,
+    "invitee_role_id": invitee.roleId,
+    "invitee_user_id": invitee.userId,
+    "invitee_team_id": invitee.teamId,
+    "invitee_team": invitee.teamName,
+    "feature_name": featureName,
+    "sub_feature_name": subFeatureName,
+    "source_url": window.location.href
+  },
+  "context": { "group_id": org.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### feature_used
+When: User performs any core product action.
+
+- `event_name` is ALWAYS the literal string `"feature_used"` — never a custom verb
+- `feature_name` is always `[noun]_[verb]` snake_case
+- `feature_type` must be confirmed with developer before instrumenting — never assume
+
+Ask the developer which applies:
+- `"core"` — primary value driver, reason users signed up (e.g. Report builder, Pipeline view)
+- `"sticky"` — habit-forming, pulls users back daily/weekly (e.g. Notifications, Workflow automation)
+- `"support"` — switching cost builder, embeds product in operations (e.g. SSO, Billing, Audit logs)
+
+```javascript
+thriveStack.track([{
+  "event_name": "feature_used",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "feature_name": "export_report",
+    "feature_type": "core",
+    "user_role": user.role    // omit if unavailable
+  },
+  "context": { "group_id": org.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+## FIRING ORDER
+
+### Direct signup — new account
+```
+identify → group(Account) → [group(Org/Workspace if present)] → signed_up → account_created → account_added_user
+```
+
+### Direct signup — no new account (B2C or account pre-exists)
+```
+identify → signed_up → account_added_user
+```
+
+### Login
+```
+identify → signed_in
+```
+
+### Invite — new user, existing account
+```
+identify → signed_up → account_added_user
+```
+
+### Invite — new user, new account
+```
+identify → group(Account) → signed_up → account_created → account_added_user
+```
+
+### Invite — existing user, not yet in account
+```
+identify → signed_in → account_added_user
+```
+
+### Invite — existing user, already in account
+```
+No events.
+```
+
+### SSO / SCIM / admin provisioning
+```
+identify → account_added_user
+```
+
+---
+
+## VERIFICATION CHECKLIST
+
+Before delivering the summary, verify all 9 points. Fix anything missing first.
+
+- [ ] 1. identify — fires on signup, login, profile/info updates
+- [ ] 2. group — fires on entity creation only, correct group_type per level
+- [ ] 3. signed_up — correct flow, UTM captured
+- [ ] 4. signed_in — fires on every login, context block present
+- [ ] 5. account_created — only when new account actually created
+- [ ] 6. account_added_user — all applicable entry points covered
+- [ ] 7. feature_used — at least one, feature_type confirmed with developer
+- [ ] 8. invite_sent — all invite handlers found
+- [ ] 9. onboarding_step_completed — all stepper/wizard flows found
+
+### Summary format
+
+Output this summary directly in the chat as your final message. Do not create any files for this summary. Do not write it to markdown. Print it inline.
+
+**ThriveStack Instrumentation Summary**
+X/9 implemented
+
+| # | Event | Status | Notes |
+|---|-------|--------|-------|
+| 1 | identify | ✅/⚠️/❌ | Field used, file |
+| 2 | group | ✅/⚠️/❌ | Entity levels, billing root |
+| 3 | signed_up | ✅/⚠️/❌ | Handler, file |
+| 4 | signed_in | ✅/⚠️/❌ | Handler, file |
+| 5 | account_created | ✅/⚠️/❌ | Handler, file or N/A |
+| 6 | account_added_user | ✅/⚠️/❌ | Entry points covered |
+| 7 | feature_used | ✅/⚠️/❌ | Features and their feature_type |
+| 8 | invite_sent | ✅/⚠️/❌ | Handler, file or N/A |
+| 9 | onboarding_step_completed | ✅/⚠️/❌ | Steps found or N/A |
+
+**User ID:** [field] in [file]
+**Group hierarchy:** [e.g. Organization → Account (billing root) → Workspace] or [B2C fallback]
+**Unresolved:** [anything skipped and why, or "None"]
+
+---
+
+**Handy ThriveStack Resources**
+- Setup Progress: https://app.thrivestack.ai/analyze/onboarding/product-analytics/telemetry
+- Diagnostics: https://app.thrivestack.ai/analyze/diagnostics-report
+- API / Audit Logs: https://app.thrivestack.ai/analyze/events
+- Developer Tools: https://app.thrivestack.ai/analyze/developer-tool
+
+---
+
+## HARD RULES
+
+1. Global object: `thriveStack` — never `ThriveStack` or `thrivestack`
+2. Every method takes an array: `identify([{...}])` `group([{...}])` `track([{...}])`
+3. Guard every call: `if (typeof thriveStack === 'undefined') return`
+4. timestamp: `new Date().toISOString()` on every call
+5. `group_type: "Account"` reserved for billing root only
+6. `context.group_id` must equal `group_id` on group() — same variable always
+7. `context` required on every `track()` — except `signed_up` when groupId not yet available
+8. userId and groupId from auth context only — never hardcode, never generate
+9. `api-key` from environment variable only — never in source code
+10. Fire-and-forget — never `await` thriveStack calls
+11. Fire after action succeeds — inside `.then()` or after `await`
+12. `group()` on entity creation only — never on login or context switch
+13. `feature_used` is always the literal event_name — never a custom verb
+14. `feature_type` confirmed with developer — never assumed
+15. `account_added_user` fires in all entry points — signup, invite, SSO/SCIM/admin
+16. Do not fire `account_added_user` if user is already a member
+17. `user_added_to_account` does not exist — use `account_added_user`
+18. Additional properties beyond documented ones are always permitted
+
+---
+
+## CRITICAL MISTAKES
+
+WRONG — missing array:
+```javascript
+thriveStack.track({ "event_name": "signed_up" })
+```
+RIGHT:
+```javascript
+thriveStack.track([{ "event_name": "signed_up" }])
+```
+
+WRONG — no guard:
+```javascript
+thriveStack.identify([{ "user_id": user.id }])
+```
+RIGHT:
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.identify([{ "user_id": user.id }])
+```
+
+WRONG — group() on login:
+```javascript
+async function handleLogin() {
+  const { user, org } = await auth.signIn(...)
+  thriveStack.group([{ "group_id": org.id }])
+}
+```
+RIGHT:
+```javascript
+async function handleLogin() {
+  const { user, org } = await auth.signIn(...)
+  thriveStack.identify([{ "user_id": user.id, ... }])
+  thriveStack.track([{ "event_name": "signed_in", ... }])
+}
+```
+
+WRONG — custom event_name for feature:
+```javascript
+thriveStack.track([{ "event_name": "report_exported" }])
+```
+RIGHT:
+```javascript
+thriveStack.track([{
+  "event_name": "feature_used",
+  "properties": { "feature_name": "report_exported", "feature_type": "core" }
+}])
+```
+
+WRONG — generating groupId:
+```javascript
+thriveStack.group([{ "group_id": uuidv4() }])
+```
+RIGHT:
+```javascript
+thriveStack.group([{ "group_id": user.orgId }])
+```
+
+WRONG — context.group_id mismatch:
+```javascript
+thriveStack.group([{
+  "group_id": org.id,
+  "context": { "group_id": uuidv4() }
+}])
+```
+RIGHT:
+```javascript
+thriveStack.group([{
+  "group_id": org.id,
+  "context": { "group_id": org.id }
+}])
+```
