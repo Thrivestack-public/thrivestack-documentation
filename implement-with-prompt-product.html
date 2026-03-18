@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Implement with Prompt - ThriveStack Documentation">
+    <meta name="description" content="Implement with Prompt (Product) - ThriveStack Documentation">
     <!-- Theme bootstrapping: pick saved theme before paint -->
     <script>
         (function() {
@@ -15,7 +15,7 @@
             }
         })();
     </script>
-    <title>Implement with Prompt - ThriveStack</title>
+    <title>Implement with Prompt (Product) - ThriveStack</title>
     <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,11 +23,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <script
-      src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
-      api-key="{{THRIVESTACK_API_KEY}}"
-      source="marketing">
-    </script>
     <script
       src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
       api-key="{{THRIVESTACK_API_KEY}}"
@@ -80,10 +75,10 @@
                     <li><a href="vibe-analytics.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
                     <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
                     <li><a href="saas-growth-events.html" class="nav-item"><span>Events Telemetry</span></a></li>
-                    <li><a href="implement-with-prompt-product.html" class="nav-item"><span>Implement with Prompt</span></a></li>
+                    <li><a href="implement-with-prompt-product.html" class="nav-item active"><span>Implement with Prompt</span></a></li>
                 </ul>
             </div>
-            
+
             <div class="sidebar-section">
                 <h3>Revenue Intelligence</h3>
                 <ul>
@@ -91,14 +86,14 @@
                     <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
                 </ul>
             </div>
-            
+
             <div class="sidebar-section">
                 <h3>CRM Sync</h3>
                 <ul>
                     <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
                 </ul>
             </div>
-            
+
             <div class="sidebar-section">
                 <h3>Customer Success</h3>
                 <ul>
@@ -110,13 +105,13 @@
 
         <main class="main-content">
             <div class="content-wrapper">
-                <section id="implement-with-prompt" class="content-section">
+                <section id="implement-with-prompt-product" class="content-section">
                     <section class="doc-page">
                         <header class="doc-page-header">
-                            <span class="doc-page-header-eyebrow">Setup (Unify)</span>
+                            <span class="doc-page-header-eyebrow">Product Intelligence</span>
                             <h1 class="doc-page-title">Implement with Prompt</h1>
                             <p class="doc-page-description">
-                                Use an AI coding assistant to instrument your codebase with ThriveStack telemetry in minutes.
+                                Use an AI coding assistant to instrument your app with ThriveStack product telemetry in minutes.
                             </p>
                         </header>
 
@@ -127,20 +122,9 @@
 
                             <hr />
 
-                            <h2>Step 2 — Copy a prompt</h2>
-                            <p>Pick the prompt that matches what you want to instrument, copy it, and replace <code>YOUR_API_KEY_HERE</code> with your key from Step 1.</p>
+                            <h2>Step 2 — Copy the prompt</h2>
+                            <p>Copy the prompt below and replace <code>YOUR_API_KEY_HERE</code> with your key from Step 1.</p>
 
-                            <h3>Marketing / Docs site</h3>
-                            <p>Use this to track visitors on any public-facing website.</p>
-                            <div class="code-block-wrapper">
-                                <button class="copy-btn" onclick="copyPrompt('prompt-marketing', this)"><i class="fa-regular fa-copy"></i> Copy</button>
-                                <pre><code id="prompt-marketing">You are a ThriveStack marketing telemetry installation wizard.
-Read https://thrivestack-temp-static-assets.s3.us-east-1.amazonaws.com/vibe-code/marketing/llms.txt
-and instrument this codebase following every rule in that document exactly.
-Your API key is YOUR_API_KEY_HERE</code></pre>
-                            </div>
-
-                            <h3>Product / App</h3>
                             <p>Use this to track signed-in users and lifecycle events inside your product.</p>
                             <div class="code-block-wrapper">
                                 <button class="copy-btn" onclick="copyPrompt('prompt-product', this)"><i class="fa-regular fa-copy"></i> Copy</button>
@@ -237,9 +221,9 @@ Your API key is YOUR_API_KEY_HERE</code></pre>
             <div class="toc-container sticky-top">
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
-                    <a href="#implement-with-prompt" class="toc-link active">Implement with Prompt</a>
+                    <a href="#implement-with-prompt-product" class="toc-link active">Implement with Prompt</a>
                     <a href="#step1" class="toc-link">1. Get API key</a>
-                    <a href="#step2" class="toc-link">2. Copy a prompt</a>
+                    <a href="#step2" class="toc-link">2. Copy the prompt</a>
                     <a href="#step3" class="toc-link">3. Run it</a>
                     <a href="#step4" class="toc-link">4. Verify</a>
                 </nav>
