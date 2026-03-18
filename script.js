@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 terms: 'stop churn early contraction risk health widget'
             },
             {
-                title: 'Journey to Event',
-                url: 'journey-to-event.html#journey-to-event',
+                title: 'Events Telemetry',
+                url: 'saas-growth-events.html#saas-growth-events',
                 terms: 'journey to event bow tie phases telemetry mapping'
             },
             {
@@ -258,6 +258,40 @@ document.addEventListener('DOMContentLoaded', () => {
         yesBtn.addEventListener('click', () => handleClick(true));
         noBtn.addEventListener('click', () => handleClick(false));
     });
+
+    // Sidebar Resizer logic
+    const sidebar = document.getElementById('sidebar');
+    const resizer = document.getElementById('sidebar-resizer');
+    
+    if (sidebar && resizer) {
+        let isResizing = false;
+
+        resizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            document.body.style.cursor = 'col-resize';
+            resizer.classList.add('dragging');
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            const containerOffsetLeft = sidebar.parentElement.getBoundingClientRect().left;
+            let newWidth = e.clientX - containerOffsetLeft;
+            
+            if (newWidth < 200) newWidth = 200;
+            if (newWidth > 600) newWidth = 600;
+            
+            sidebar.style.width = newWidth + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                document.body.style.cursor = '';
+                resizer.classList.remove('dragging');
+            }
+        });
+    }
 });
 
 class ReadyToScalePromo extends HTMLElement {
