@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Take Action - ThriveStack Documentation">
+    <!-- Theme bootstrapping: pick saved theme before paint -->
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Take Action - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="index.html">Get Started</a>
+                <a href="vibe-analytics.html">Setup (Unify )</a>
+                <a href="analyze-signals.html">Analyze Signals</a>
+                <a href="take-action.html" class="active">Take Action</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Take Action</h3>
+                <ul>
+                    <li><a href="#automate-workflow-responses" class="active">Automate Workflow Responses</a></li>
+                    <li><a href="#drive-revenue-playbooks">Drive Revenue Playbooks</a></li>
+                    <li><a href="#accelerate-free-to-paid">Accelerate Free-to-Paid</a></li>
+                    <li><a href="#stop-churn-early">Stop Churn Early</a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <header class="content-header take-action-hero">
+                    <div class="breadcrumbs">
+                        <a href="index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                        <a href="take-action.html">Take Action</a> <i class="fa-solid fa-chevron-right"></i>
+                        <span>Overview</span>
+                    </div>
+                    <h1>Take Action</h1>
+                    <p class="lead">Turn product, CRM, billing, and support signals into automated revenue plays.</p>
+                    <div class="action-hero-grid">
+                        <div class="action-hero-card glass-panel">
+                            <span class="signals-kicker">Workflow Volume</span>
+                            <strong>Launch activation, adoption, renewal, and expansion workflows from one unified signal engine.</strong>
+                            <p>ThriveStack turns cross-functional customer data into actions your GTM teams can execute immediately.</p>
+                        </div>
+                        <div class="action-hero-card glass-panel">
+                            <span class="signals-kicker">Execution Layer</span>
+                            <strong>Push context into Slack, HubSpot, Salesforce, and outbound workflows without manual stitching.</strong>
+                            <p>Instead of exporting reports and chasing owners, route the right signal to the right tool at the right time.</p>
+                        </div>
+                    </div>
+                </header>
+
+                <section id="automate-workflow-responses" class="content-section take-action-section">
+                    <h2>Automate Workflow Responses</h2>
+                    <p>ThriveStack is the action layer on top of your existing stack. Once signals are unified, you can sync context back into CRM, trigger alerts, and standardize revenue orchestration playbooks across Sales, Customer Success, Marketing, and RevOps.</p>
+                    <div class="cards-grid action-workflow-grid">
+                        <div class="feature-card glass-panel action-workflow-card">
+                            <div class="card-icon blue"><i class="fa-solid fa-rotate"></i></div>
+                            <h3>Bi-directional CRM Sync</h3>
+                            <p>Sync account health, usage milestones, billing context, and lifecycle changes back into HubSpot or Salesforce so revenue teams always work from current customer reality.</p>
+                            <div class="workflow-card-footer">
+                                <strong>Account updates, routing, ownership</strong>
+                            </div>
+                        </div>
+                        <div class="feature-card glass-panel action-workflow-card">
+                            <div class="card-icon purple"><i class="fa-solid fa-bolt"></i></div>
+                            <h3>Revenue Orchestration Playbooks</h3>
+                            <p>Trigger workflows for activation, adoption, renewals, and expansion when a customer reaches a usage milestone, risk threshold, or health score.</p>
+                            <div class="workflow-card-footer">
+                                <strong>Expansion, retention, lifecycle automation</strong>
+                            </div>
+                        </div>
+                        <div class="feature-card glass-panel action-workflow-card">
+                            <div class="card-icon blue"><i class="fa-solid fa-bell"></i></div>
+                            <h3>Alerts &amp; Notifications</h3>
+                            <p>Push usage context directly into Slack and other team workflows so Account Owners, CSMs, and GTM leads can respond before signals turn into lost revenue.</p>
+                            <div class="workflow-card-footer">
+                                <strong>Slack alerts, handoffs, guided follow-up</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-timeline glass-panel">
+                        <div class="workflow-timeline-header">
+                            <div>
+                                <span class="signals-kicker">Automation Path</span>
+                                <h3>From customer signal to revenue action</h3>
+                            </div>
+                            <span class="signal-badge">Rules engine healthy</span>
+                        </div>
+                        <div class="workflow-steps">
+                            <div class="workflow-step">
+                                <strong>1. Detect</strong>
+                                <span>Unify 200+ signals across product usage, GTM activity, billing, and support into one customer view.</span>
+                            </div>
+                            <div class="workflow-step">
+                                <strong>2. Decide</strong>
+                                <span>Evaluate lifecycle stage, account health, expansion readiness, and churn risk to choose the right motion.</span>
+                            </div>
+                            <div class="workflow-step">
+                                <strong>3. Act</strong>
+                                <span>Trigger CRM updates, Slack alerts, tasks, and outbound plays that move the account toward retention or revenue.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="drive-revenue-playbooks" class="content-section take-action-section">
+                    <h2>Drive Revenue Playbooks</h2>
+                    <p>Once high-confidence signals are detected, ThriveStack helps teams operationalize them inside the tools they already use. Sync context into HubSpot or Salesforce, alert Account Owners in Slack, and trigger the right next step without forcing teams to reconcile product data manually.</p>
+
+                    <div class="slack-mockup glass-panel">
+                        <div class="slack-header"><i class="fa-brands fa-slack"></i> #revenue-alerts</div>
+                        <div class="slack-message">
+                            <div class="slack-avatar"><img src="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" alt="ThriveStack Bot"></div>
+                            <div class="slack-content">
+                                <strong>ThriveStack Bot</strong> <small>10:42 AM</small>
+                                <div class="slack-card">
+                                    <p><strong>Expansion Opportunity Detected</strong></p>
+                                    <p><strong>Account:</strong> Acme Corp</p>
+                                    <p><strong>Signal:</strong> Advanced Reporting usage tripled in the last 7 days and 5 new seats were added.</p>
+                                    <p><strong>Playbook:</strong> Notify AE, update CRM stage, and launch expansion follow-up.</p>
+                                    <button class="btn-slack">Create Deal in HubSpot</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="accelerate-free-to-paid" class="content-section take-action-section">
+                    <h2>Accelerate Free-to-Paid</h2>
+                    <p>Use activation and usage signals to identify the true product-qualified leads in your free user base. ThriveStack helps you isolate the behaviors tied to conversion so teams can intervene at the right moment instead of treating every free signup the same.</p>
+
+                    <div class="css-funnel-container glass-panel">
+                        <div class="funnel-step f-1">
+                            <span>Free Signups (10,000)</span>
+                            <div class="f-bar"></div>
+                        </div>
+                        <div class="f-drop"><i class="fa-solid fa-arrow-down"></i> +20% Lift Identified</div>
+                        <div class="funnel-step f-2">
+                            <span>Reached 'Aha' Moment (4,500)</span>
+                            <div class="f-bar"></div>
+                        </div>
+                        <div class="funnel-step f-3">
+                            <span>Paid Conversion (800)</span>
+                            <div class="f-bar"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="stop-churn-early" class="content-section take-action-section">
+                    <h2>Stop Churn Early</h2>
+                    <p>Churn prevention starts before a renewal conversation ever happens. ThriveStack flags declining feature breadth, seat contraction, billing friction, and unresolved support issues early enough for CS and Revenue teams to intervene while there is still time to change the outcome.</p>
+
+                    <div class="health-widget glass-panel border-red-glow">
+                        <div class="hw-header">
+                            <h5>Globex Inc. Health Score</h5>
+                            <span class="hw-badge bg-red-light text-red">AT RISK</span>
+                        </div>
+                        <div class="hw-slider">
+                            <div class="hw-track">
+                                <div class="hw-fill" style="width: 35%;"></div>
+                                <div class="hw-thumb" style="left: 35%;">35</div>
+                            </div>
+                            <div class="hw-labels">
+                                <span>0</span><span>100</span>
+                            </div>
+                        </div>
+                        <div class="hw-reason">
+                            <i class="fa-solid fa-warning"></i> Champion user left + 40% drop in active seats.
+                        </div>
+                    </div>
+                </section>
+
+                <div class="page-nav">
+                    <a href="analyze-signals.html" class="nav-card prev-card">
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">Analyze Signals</span>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="take-action.html">Last updated: March 17, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#automate-workflow-responses" class="toc-link active">Automate Workflow Responses</a>
+                    <a href="#drive-revenue-playbooks" class="toc-link">Drive Revenue Playbooks</a>
+                    <a href="#accelerate-free-to-paid" class="toc-link">Accelerate Free-to-Paid</a>
+                    <a href="#stop-churn-early" class="toc-link">Stop Churn Early</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

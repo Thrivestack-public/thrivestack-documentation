@@ -60,6 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 terms: 'getting started growth intelligence overview unified dashboard signal correlation ai-powered insights'
             },
             {
+                title: 'Analyze Signals',
+                url: 'analyze-signals.html#overview',
+                terms: 'analyze signals identify high-intent signals account intelligence bow-tie revenue model analyze revenue & churn churn prediction revenue analytics nrr waterfall cac payback ltv/cac expansion'
+            },
+            {
+                title: 'Take Action',
+                url: 'take-action.html#overview',
+                terms: 'take action automate workflow responses act on signals automated workflow engine signal detected action triggered slack alert account owner'
+            },
+            {
                 title: 'Connect Your Stack',
                 url: 'connect-your-stack.html#connect-your-stack',
                 terms: 'connect your stack integrations unify data plug and play low code'

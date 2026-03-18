@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Analyze Signals - ThriveStack Documentation">
+    <!-- Theme bootstrapping: pick saved theme before paint -->
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Analyze Signals - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="index.html">Get Started</a>
+                <a href="vibe-analytics.html">Setup (Unify )</a>
+                <a href="analyze-signals.html" class="active">Analyze Signals</a>
+                <a href="take-action.html">Take Action</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Analyze Signals</h3>
+                <ul>
+                    <li><a href="#identify-high-intent-signals" class="active">Detect Growth Leaks</a></li>
+                    <li><a href="#analyze-correlated-signals">Analyze Correlated Signals</a></li>
+                    <li><a href="#analyze-revenue-churn">Revenue &amp; Churn Correlation</a></li>
+                    <li><a href="#spot-expansion-signals">Spot Expansion Signals</a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <header class="content-header analyze-signals-hero">
+                    <div class="breadcrumbs">
+                        <a href="index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                        <a href="analyze-signals.html">Analyze Signals</a> <i class="fa-solid fa-chevron-right"></i>
+                        <span>Overview</span>
+                    </div>
+                    <h1>Analyze Signals</h1>
+                    <p class="lead">Find the signals behind growth leaks, stalled activation, weak monetization, and churn risk before revenue slips away.</p>
+                    <div class="signals-overview-grid">
+                        <div class="signals-overview-card glass-panel">
+                            <span class="signals-kicker">Leak Detection</span>
+                            <strong>Track hidden leaks across awareness, acquisition, activation, monetization, engagement, and retention.</strong>
+                            <p>ThriveStack turns fragmented product, campaign, billing, and CRM data into a signal system that shows where growth is breaking down.</p>
+                        </div>
+                        <div class="signals-overview-card glass-panel">
+                            <span class="signals-kicker">Business Impact</span>
+                            <strong>Connect early warning signals to conversion, expansion, retention, and churn outcomes.</strong>
+                            <p>Instead of isolated dashboards, analyze which signals matter, where they appear in the journey, and how they affect revenue.</p>
+                        </div>
+                    </div>
+                </header>
+
+                <section id="identify-high-intent-signals" class="content-section signal-section">
+                    <h2>Detect Growth Leaks Early</h2>
+                    <p>Every growth leak starts as a signal pattern. ThriveStack helps you detect where users are leaking out of the journey, which accounts are stalling, and which behaviors are predictive of churn, failed monetization, or expansion readiness.</p>
+
+                    <div class="signal-alerts-card glass-panel">
+                        <div class="signal-alerts-header">
+                            <div>
+                                <span class="signals-kicker">Leak Queue</span>
+                                <h3>High-priority signals across the funnel</h3>
+                            </div>
+                            <span class="signal-badge">Updated from live journey data</span>
+                        </div>
+                        <div class="signal-alert-list">
+                            <article class="signal-alert-item">
+                                <div class="list-icon text-green bg-green-light"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                                <div class="list-content">
+                                    <strong>Awareness Leak</strong>
+                                    <span>Repeat visitors are increasing, but first-touch attribution and UTM source quality are missing for 38% of converted traffic.</span>
+                                </div>
+                                <span class="signal-score neutral">Attribution risk</span>
+                            </article>
+                            <article class="signal-alert-item">
+                                <div class="list-icon text-orange bg-orange-light"><i class="fa-solid fa-hourglass-half"></i></div>
+                                <div class="list-content">
+                                    <strong>Acquisition Leak</strong>
+                                    <span>Paid signup volume is rising, but low-intent signups and fake accounts are suppressing activation and trial-to-paid conversion.</span>
+                                </div>
+                                <span class="signal-score negative">Quality leak</span>
+                            </article>
+                            <article class="signal-alert-item">
+                                <div class="list-icon text-red bg-red-light"><i class="fa-solid fa-heart-crack"></i></div>
+                                <div class="list-content">
+                                    <strong>Activation Leak</strong>
+                                    <span>Accounts are dropping out between signup, setup, and first value, with time-to-value and onboarding friction rising together.</span>
+                                </div>
+                                <span class="signal-score negative">Funnel trap</span>
+                            </article>
+                            <article class="signal-alert-item">
+                                <div class="list-icon text-orange bg-orange-light"><i class="fa-solid fa-chart-simple"></i></div>
+                                <div class="list-content">
+                                    <strong>Engagement Leak</strong>
+                                    <span>Core features are underused, session intensity is shallow, and collaboration behaviors are missing in accounts that should be expanding.</span>
+                                </div>
+                                <span class="signal-score neutral">Usage decay</span>
+                            </article>
+                            <article class="signal-alert-item">
+                                <div class="list-icon text-red bg-red-light"><i class="fa-solid fa-credit-card"></i></div>
+                                <div class="list-content">
+                                    <strong>Retention Leak</strong>
+                                    <span>Payment failures, seat shrinkage, and product usage decline are appearing before churn is visible in revenue reports.</span>
+                                </div>
+                                <span class="signal-score negative">Churn risk</span>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="analyze-correlated-signals" class="content-section signal-section">
+                    <h2>Analyze Correlated Signals</h2>
+                    <p>Single events rarely explain revenue outcomes on their own. ThriveStack connects product usage, campaign touchpoints, CRM stages, billing behavior, and renewal history into a correlation layer so teams can see which combinations of signals actually drive pipeline, conversion, expansion, and churn.</p>
+                    <p>Instead of relying on AI-only pattern matching, ThriveStack uses structured identity and account mapping to connect visitor IDs, user IDs, account records, and deal data before applying intelligence on top. That gives teams a reliable view of causation, not just coincidence.</p>
+
+                    <div class="ai-comparison glass-panel">
+                        <div class="comp-side success-side">
+                            <h4><i class="fa-solid fa-check-circle text-green"></i> ThriveStack Correlation</h4>
+                            <ul>
+                                <li>Connects anonymous visitors, users, accounts, and revenue records</li>
+                                <li>Shows which signal clusters actually influence conversion and expansion</li>
+                                <li>Creates an audit-ready view of customer and revenue journeys</li>
+                            </ul>
+                        </div>
+                        <div class="comp-vs">VS</div>
+                        <div class="comp-side fail-side">
+                            <h4><i class="fa-solid fa-times-circle text-red"></i> Isolated Analytics</h4>
+                            <ul>
+                                <li>Leaves marketing, product, and CRM data in separate systems</li>
+                                <li>Misses the multi-signal patterns behind leaks and churn</li>
+                                <li>Forces teams to patch together answers manually</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="analyze-revenue-churn" class="content-section signal-section">
+                    <h2>Correlate Signals to Revenue &amp; Churn</h2>
+                    <p>Signals are only useful if they explain business outcomes. ThriveStack correlates journey-stage leaks with conversion, monetization, churn, and expansion metrics so teams know which issues are expensive, which are emerging, and which need immediate action.</p>
+                    <div class="cards-grid revenue-signal-grid">
+                        <div class="feature-card glass-panel revenue-focus-card">
+                            <div class="card-icon purple"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <h3>Churn Prediction</h3>
+                            <p>Detect churn risk by combining retention leaks like payment failures, seat shrinkage, value erosion, and declining feature usage before they surface in renewal conversations.</p>
+                            <div class="revenue-stat-list">
+                                <div class="revenue-stat">
+                                    <span>Common early warnings</span>
+                                    <strong>Usage drop + billing stress</strong>
+                                </div>
+                                <div class="revenue-stat">
+                                    <span>Typical question</span>
+                                    <strong>Which accounts are quietly eroding?</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-card glass-panel revenue-metrics-card">
+                            <div class="card-icon blue"><i class="fa-solid fa-chart-line"></i></div>
+                            <h3>Revenue Correlation</h3>
+                            <div class="revenue-metric-grid">
+                                <div class="revenue-metric">
+                                    <span>Awareness to Acquisition</span>
+                                    <strong>Attribution quality</strong>
+                                    <small>Channel fit, visitor return rate, first-touch accuracy</small>
+                                </div>
+                                <div class="revenue-metric">
+                                    <span>Activation Efficiency</span>
+                                    <strong>Time to Value</strong>
+                                    <small>Step drop-off, setup friction, success metric visibility</small>
+                                </div>
+                                <div class="revenue-metric">
+                                    <span>Monetization Readiness</span>
+                                    <strong>Upgrade signals</strong>
+                                    <small>Trial stall, plan fit, conversion likelihood</small>
+                                </div>
+                                <div class="revenue-metric">
+                                    <span>Retention Health</span>
+                                    <strong>Leak severity</strong>
+                                    <small>Payment issues, seat contraction, value erosion</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="spot-expansion-signals" class="content-section signal-section">
+                    <h2>Spot Expansion Signals Early</h2>
+                    <p>Expansion rarely starts with a direct request. It appears first in usage depth, seat pressure, cross-team adoption, feature breadth, and billing context. ThriveStack surfaces those patterns early so Sales and Customer Success can prioritize the accounts most likely to grow.</p>
+                    <p>By correlating telemetry spikes with account health, plan data, and team growth, you can separate healthy expansion intent from noisy activity and route the right accounts into the right playbooks before the moment passes.</p>
+
+                    <div class="chart-mockup glass-panel">
+                        <div class="chart-title">Acme Corp - Expansion Activity Index</div>
+                        <div class="chart-area">
+                            <svg viewBox="0 0 400 150" class="sparkline">
+                                <path class="sparkline-path" d="M0,130 C50,124 100,132 150,110 C200,82 250,88 300,42 C350,8 400,18 400,18" fill="none" stroke="var(--brand-primary)" stroke-width="4"></path>
+                                <circle cx="300" cy="42" r="6" fill="var(--brand-accent)"></circle>
+                            </svg>
+                            <div class="chart-tooltip pulse-glow">
+                                <i class="fa-solid fa-bell text-green"></i> Expansion signal detected
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="page-nav">
+                    <a href="vibe-analytics.html" class="nav-card prev-card">
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">Setup (Unify)</span>
+                    </a>
+                    <a href="take-action.html" class="nav-card next-card">
+                        <span class="nav-label">Next</span>
+                        <span class="nav-title">Take Action</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="analyze-signals.html">Last updated: March 17, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#identify-high-intent-signals" class="toc-link active">Detect Growth Leaks</a>
+                    <a href="#analyze-correlated-signals" class="toc-link">Analyze Correlated Signals</a>
+                    <a href="#analyze-revenue-churn" class="toc-link">Revenue &amp; Churn Correlation</a>
+                    <a href="#spot-expansion-signals" class="toc-link">Spot Expansion Signals</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
