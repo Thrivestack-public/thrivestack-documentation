@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Implement with Prompt (Product) - ThriveStack Documentation">
     <!-- Theme bootstrapping: pick saved theme before paint -->
     <script>
-        (function() {
+        (function () {
             try {
                 var saved = localStorage.getItem('theme') || 'dark';
                 document.documentElement.setAttribute('data-theme', saved);
@@ -16,24 +17,25 @@
         })();
     </script>
     <title>Implement with Prompt (Product) - ThriveStack</title>
-    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
-    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <script
-      src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
-      api-key="{{THRIVESTACK_API_KEY}}"
-      source="product">
-    </script>
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js" api-key="{{THRIVESTACK_API_KEY}}"
+        source="product">
+        </script>
 </head>
+
 <body>
     <nav class="top-nav">
         <div class="nav-left">
-            <a href="index.html" class="logo">
-                <img src="logo.png" alt="ThriveStack" class="logo-img">
+            <a href="../../../index.html" class="logo">
+                <img src="../../../logo.png" alt="ThriveStack" class="logo-img">
                 <span class="logo-text"></span>
             </a>
             <div class="search-bar">
@@ -43,8 +45,8 @@
         </div>
         <div class="nav-center">
             <div class="nav-links">
-                <a href="index.html">Get Started</a>
-                <a href="vibe-analytics.html" class="active">Setup (Unify)</a>
+                <a href="../../../index.html">Get Started</a>
+                <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
                 <a href="#">Analyze Signals</a>
                 <a href="#">Take Action</a>
             </div>
@@ -53,7 +55,8 @@
             <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
                 <i class="fa-solid fa-sun" id="theme-icon"></i>
             </button>
-            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
             <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
@@ -61,29 +64,46 @@
     <div class="layout-container">
         <aside class="left-sidebar" id="sidebar">
             <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
                 <h3>Marketing Intelligence</h3>
                 <ul>
-                    <li><a href="#" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
-                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
-                    <li><a href="implement-with-prompt-marketing.html" class="nav-item"><span>Implement with Prompt</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2
+                                mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10
+                                mins</span></a></li>
+                    <li><a href="../../../public/marketing/setup/implement-with-prompt-marketing.html"
+                            class="nav-item"><span>Implement with Prompt</span></a></li>
                 </ul>
             </div>
 
             <div class="sidebar-section">
                 <h3>Product Intelligence</h3>
                 <ul>
-                    <li><a href="vibe-analytics.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
-                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
-                    <li><a href="saas-growth-events.html" class="nav-item"><span>Events Telemetry</span></a></li>
-                    <li><a href="implement-with-prompt-product.html" class="nav-item active"><span>Implement with Prompt</span></a></li>
+                    <li><a href="../../../vibe-analytics.html" class="nav-item"><span>Setup with AI (LLM)</span><span
+                                class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a>
+                    </li>
+                    <li><a href="../../../public/product/setup/saas-growth-events.html" class="nav-item"><span>Events
+                                Telemetry</span></a></li>
+                    <li><a href="../../../public/product/setup/implement-with-prompt-product.html"
+                            class="nav-item active"><span>Implement with Prompt</span></a></li>
                 </ul>
             </div>
 
             <div class="sidebar-section">
                 <h3>Revenue Intelligence</h3>
                 <ul>
-                    <li><a href="#" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
-                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2
+                                mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a>
+                    </li>
                 </ul>
             </div>
 
@@ -111,42 +131,77 @@
                             <span class="doc-page-header-eyebrow">Product Intelligence</span>
                             <h1 class="doc-page-title">Implement with Prompt</h1>
                             <p class="doc-page-description">
-                                Use an AI coding assistant to instrument your app with ThriveStack product telemetry in minutes.
+                                Use an AI coding assistant to instrument your app with ThriveStack product telemetry in
+                                minutes.
                             </p>
                         </header>
 
                         <article class="doc-page-body">
 
-                            <h2>Step 1 — Get your API key</h2>
-                            <p>Go to <a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank" rel="noopener noreferrer">Settings → API Keys</a> and copy your API key.</p>
 
-                            <hr />
+                            <h2>How does it work?</h2>
+                            <div>
+                                <script async src="https://js.storylane.io/js/v2/storylane.js"></script>
+                                <div class="sl-embed"
+                                    style="position:relative;padding-bottom:calc(52.54% + 25px);width:100%;height:0;transform:scale(1)">
+                                    <iframe loading="lazy" class="sl-demo"
+                                        src="https://thrivestack.storylane.io/demo/cmsersgaszgh?embed=popup"
+                                        name="sl-embed" allow="fullscreen" allowfullscreen
+                                        style="position:absolute;top:0;left:0;width:100%!important;height:100%!important;border:1px solid rgba(63,95,172,0.35);box-shadow: 0px 0px 18px rgba(26, 19, 72, 0.15);border-radius:10px;box-sizing:border-box;"></iframe>
+                                </div>
+                            </div>
+                            <h2>Step 1: Get your API key</h2>
+                            <p><a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank"
+                                    rel="noopener noreferrer">Create / Reuse your API Key</a></p>
 
-                            <h2>Step 2 — Copy the prompt</h2>
-                            <p>Copy the prompt below and replace <code>YOUR_API_KEY_HERE</code> with your key from Step 1.</p>
 
-                            <p>Use this to track signed-in users and lifecycle events inside your product.</p>
+
+                            <h2>Step 2: Copy the Prompt</h2>
                             <div class="code-block-wrapper">
-                                <button class="copy-btn" onclick="copyPrompt('prompt-product', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <button class="copy-btn" onclick="copyPrompt('prompt-product', this)"><i
+                                        class="fa-regular fa-copy"></i> Copy</button>
                                 <pre><code id="prompt-product">You are a ThriveStack product telemetry installation wizard.
-Read https://thrivestack-temp-static-assets.s3.us-east-1.amazonaws.com/vibe-code/llms.txt
+Read https://docs.thrivestack.ai/product/setup/llms.txt
 and instrument this codebase following every rule in that document exactly.
 Your API key is YOUR_API_KEY_HERE</code></pre>
                             </div>
 
-                            <hr />
 
-                            <h2>Step 3 — Run it in your AI coding assistant</h2>
-                            <p>Paste the prompt into Claude, Cursor, Copilot, or any AI coding tool. It will read the full instrumentation guide and add the correct telemetry to your codebase automatically.</p>
-
-                            <hr />
-
-                            <h2>Step 4 — Verify</h2>
-                            <p>Once the AI is done, check your events are arriving:</p>
+                            <h2>Step 3: Run it on your AI coding assistant</h2>
                             <ul>
-                                <li><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank" rel="noopener noreferrer">Diagnostics Report</a> — confirms events are being received</li>
-                                <li><a href="https://app.thrivestack.ai/analyze/events" target="_blank" rel="noopener noreferrer">API / Audit Logs</a> — inspect raw events as they arrive</li>
+                                <li>Run it</li>
+                                <li>Read the output, if there are any errors, prompt to fix it</li>
                             </ul>
+
+                            <hr />
+
+                            <h2>Step 4: Run your application to verify all events are flowing to ThriveStack</h2>
+                            <ul>
+                                <li>Try to signup, Login, navigate various pages, just as your end-user would ...</li>
+                                <li>Verify the setup</li>
+                                <li>Check out event errors <a href="https://app.thrivestack.ai/analyze/developer-tool"
+                                        target="_blank" rel="noopener noreferrer">here</a></li>
+                                <li><a href="https://app.thrivestack.ai/analyze/events" target="_blank"
+                                        rel="noopener noreferrer">API / Logs</a></li>
+                                <li><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank"
+                                        rel="noopener noreferrer">Diagnose Health of the setup</a></li>
+                            </ul>
+
+                            <h2>Analytics Reports are now available 🎆</h2>
+
+                            <ul>
+                                <li>Various Product Analytics reports are now available.</li>
+                                <li>Out of box reports are setup. Share it with your Product, Sales</li>
+                                <li>Account level Analytics, including 40+ metrics across Activation, Feature Usage, API
+                                    Usage, are available in the in-built <a
+                                        href="https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list"
+                                        target="_blank" rel="noopener noreferrer">Full Journey CRM</a></li>
+                            </ul>
+
+                            <blockquote>
+                                <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i> <strong>Note:</strong> As a bonus, you'll also receive an email notification of all the
+                                events logged and issues to be fixed
+                            </blockquote>
 
                         </article>
 
@@ -155,10 +210,12 @@ Your API key is YOUR_API_KEY_HERE</code></pre>
                                 position: relative;
                                 margin: 12px 0 24px;
                             }
+
                             .code-block-wrapper pre {
                                 margin: 0;
                                 padding-top: 40px;
                             }
+
                             .copy-btn {
                                 position: absolute;
                                 top: 8px;
@@ -177,10 +234,12 @@ Your API key is YOUR_API_KEY_HERE</code></pre>
                                 color: var(--text-muted, #aaa);
                                 transition: color 0.15s, border-color 0.15s;
                             }
+
                             .copy-btn:hover {
                                 color: var(--text-primary, #fff);
                                 border-color: var(--text-muted, #888);
                             }
+
                             .copy-btn.copied {
                                 color: #4ade80;
                                 border-color: #4ade80;
@@ -190,10 +249,10 @@ Your API key is YOUR_API_KEY_HERE</code></pre>
                         <script>
                             function copyPrompt(id, btn) {
                                 var text = document.getElementById(id).innerText;
-                                navigator.clipboard.writeText(text).then(function() {
+                                navigator.clipboard.writeText(text).then(function () {
                                     btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
                                     btn.classList.add('copied');
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
                                         btn.classList.remove('copied');
                                     }, 2000);
@@ -232,6 +291,7 @@ Your API key is YOUR_API_KEY_HERE</code></pre>
         </aside>
     </div>
 
-    <script src="script.js"></script>
+    <script src="../../../script.js"></script>
 </body>
+
 </html>

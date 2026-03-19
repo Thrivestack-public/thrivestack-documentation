@@ -49,7 +49,7 @@
         <div class="nav-center">
             <div class="nav-links">
                 <a href="index.html">Get Started</a>
-                <a href="vibe-analytics.html" class="active">Setup (Unify)</a>
+                <a href="setup-overview.html" class="active">Setup (Unify)</a>
                 <a href="#">Analyze Signals</a>
                 <a href="#">Take Action</a>
             </div>
@@ -66,11 +66,18 @@
     <div class="layout-container">
         <aside class="left-sidebar" id="sidebar">
             <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
                 <h3>Marketing Intelligence</h3>
                 <ul>
                     <li><a href="#" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
                     <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
-                    <li><a href="implement-with-prompt-marketing.html" class="nav-item"><span>Implement with Prompt</span></a></li>
+                    <li><a href="public/marketing/setup/implement-with-prompt-marketing.html" class="nav-item"><span>Implement with Prompt</span></a></li>
                 </ul>
             </div>
 
@@ -79,8 +86,8 @@
                 <ul>
                     <li><a href="vibe-analytics.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
                     <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
-                    <li><a href="saas-growth-events.html" class="nav-item"><span>Events Telemetry</span></a></li>
-                    <li><a href="implement-with-prompt-product.html" class="nav-item"><span>Implement with Prompt</span></a></li>
+                    <li><a href="public/product/setup/saas-growth-events.html" class="nav-item"><span>Events Telemetry</span></a></li>
+                    <li><a href="public/product/setup/implement-with-prompt-product.html" class="nav-item"><span>Implement with Prompt</span></a></li>
                 </ul>
             </div>
             
@@ -135,7 +142,7 @@
                             <div class="code-block-wrapper">
                                 <button class="copy-btn" onclick="copyPrompt('prompt-marketing', this)"><i class="fa-regular fa-copy"></i> Copy</button>
                                 <pre><code id="prompt-marketing">You are a ThriveStack marketing telemetry installation wizard.
-Read https://thrivestack-temp-static-assets.s3.us-east-1.amazonaws.com/vibe-code/marketing/llms.txt
+Read https://docs.thrivestack.ai/marketing/setup/llms.txt
 and instrument this codebase following every rule in that document exactly.
 Your API key is YOUR_API_KEY_HERE</code></pre>
                             </div>
@@ -145,7 +152,7 @@ Your API key is YOUR_API_KEY_HERE</code></pre>
                             <div class="code-block-wrapper">
                                 <button class="copy-btn" onclick="copyPrompt('prompt-product', this)"><i class="fa-regular fa-copy"></i> Copy</button>
                                 <pre><code id="prompt-product">You are a ThriveStack product telemetry installation wizard.
-Read https://thrivestack-temp-static-assets.s3.us-east-1.amazonaws.com/vibe-code/llms.txt
+Read https://docs.thrivestack.ai/product/setup/llms.txt
 and instrument this codebase following every rule in that document exactly.
 Your API key is YOUR_API_KEY_HERE</code></pre>
                             </div>

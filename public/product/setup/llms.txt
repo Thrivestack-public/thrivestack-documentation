@@ -1,6 +1,6 @@
 # ThriveStack Product Telemetry — AI Instrumentation Guide
 # Version: 3.2
-# Hosted at: https://thrivestack-temp-static-assets.s3.us-east-1.amazonaws.com/vibe-code/llms.txt
+# Hosted at: https://docs.thrivestack.ai/product/setup/llms.txt
 
 ---
 
