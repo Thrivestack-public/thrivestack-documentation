@@ -33,7 +33,6 @@ foreach ($f in $files) {
         "script.js",
         "logo.png",
         "index.html",
-        "vibe-analytics.html",
         "setup-overview.html",
         "analyze-signals.html",
         "take-action.html",
@@ -54,8 +53,10 @@ foreach ($f in $files) {
     # These pages only exist in their respective subfolders
     $subpages = @{
         "saas-growth-events.html" = "public/product/setup/saas-growth-events.html";
+        "setup-with-ai.html" = "public/product/setup/setup-with-ai.html";
         "implement-with-prompt-product.html" = "public/product/setup/implement-with-prompt-product.html";
-        "implement-with-prompt-marketing.html" = "public/marketing/setup/implement-with-prompt-marketing.html"
+        "implement-with-prompt-marketing.html" = "public/marketing/setup/implement-with-prompt-marketing.html";
+        "vibe-analytics.html" = "public/product/setup/vibe-analytics.html"
     }
 
     foreach ($page in $subpages.GetEnumerator()) {

@@ -27,7 +27,7 @@ foreach ($f in $files) {
         $vibeCls = "nav-item active"
     }
 
-    $newBlock = "<h3>Product Intelligence</h3>`n                <ul>`n                    <li><a href=`"$prefix`public/product/setup/setup-with-ai.html`" class=`"$setupWithAiCls`"><span>Setup with AI</span><span class=`"time-badge`">2 mins</span></a></li>`n                    <li><a href=`"#`" class=`"nav-item`"><span>Setup Manually</span><span class=`"time-badge`">~1hr</span></a></li>`n                    <li><a href=`"$prefix`public/product/setup/saas-growth-events.html`" class=`"$saasCls`"><span>Understand Events Telemetry</span></a></li>`n                    <li><a href=`"$prefix`vibe-analytics.html`" class=`"$vibeCls`"><span>Instructions (temp)</span></a></li>`n                </ul>"
+    $newBlock = "<h3>Product Intelligence</h3>`n                <ul>`n                    <li><a href=`"$prefix`public/product/setup/setup-with-ai.html`" class=`"$setupWithAiCls`"><span>Setup with AI</span><span class=`"time-badge`">2 mins</span></a></li>`n                    <li><a href=`"#`" class=`"nav-item`"><span>Setup Manually</span><span class=`"time-badge`">~1hr</span></a></li>`n                    <li><a href=`"$prefix`public/product/setup/saas-growth-events.html`" class=`"$saasCls`"><span>Understand Events Telemetry</span></a></li>`n                    <li><a href=`"$prefix`public/product/setup/vibe-analytics.html`" class=`"$vibeCls`"><span>Instructions</span></a></li>`n                </ul>"
 
     $content = [regex]::Replace($content, "(?s)<h3>Product Intelligence</h3>\s*<ul>.*?</ul>", $newBlock, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
 
