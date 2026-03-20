@@ -19,7 +19,7 @@ foreach ($f in $files) {
     $saasCls = "nav-item"
     $vibeCls = "nav-item"
 
-    if ($f.Name -eq "setup-with-ai.html") {
+    if ($f.Name -eq "setup-with-ai.html" -and $f.FullName -match "product") {
         $setupWithAiCls = "nav-item active"
     } elseif ($f.Name -eq "saas-growth-events.html") {
         $saasCls = "nav-item active"

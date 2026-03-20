@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Implement with Prompt (Product) - ThriveStack Documentation">
+    <meta name="description" content="Implement with Prompt (Marketing) - ThriveStack Documentation">
     <!-- Theme bootstrapping: pick saved theme before paint -->
     <script>
         (function () {
@@ -16,7 +16,7 @@
             }
         })();
     </script>
-    <title>Implement with Prompt (Product) - ThriveStack</title>
+    <title>Implement with Prompt (Marketing) - ThriveStack</title>
     <link rel="icon" type="image/png"
         href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="apple-touch-icon"
@@ -74,7 +74,7 @@
             <div class="sidebar-section">
                 <h3>Marketing Intelligence</h3>
                 <ul>
-                    <li><a href="../../../public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2
+                    <li><a href="../../../public/marketing/setup/setup-with-ai.html" class="nav-item active"><span>Setup with AI (LLM)</span><span class="time-badge">2
                                 mins</span></a></li>
                     <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10
                                 mins</span></a></li>
@@ -86,7 +86,7 @@
             <div class="sidebar-section">
                 <h3>Product Intelligence</h3>
                 <ul>
-                    <li><a href="../../../public/product/setup/setup-with-ai.html" class="nav-item active"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
                     <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
                     <li><a href="../../../public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
                     <li><a href="../../../public/product/setup/vibe-analytics.html" class="nav-item"><span>Instructions</span></a></li>
@@ -121,10 +121,10 @@
 
         <main class="main-content">
             <div class="content-wrapper">
-                <section id="implement-with-prompt-product" class="content-section">
+                <section id="implement-with-prompt-marketing" class="content-section">
                     <section class="doc-page">
                         <header class="doc-page-header">
-                            <span class="doc-page-header-eyebrow">Product Intelligence</span>
+                            <span class="doc-page-header-eyebrow">Marketing Intelligence</span>
                             <h1 class="doc-page-title">Setup with AI Coding Assistants</h1>
                             <p class="doc-page-description">
                                 Use an AI coding assistant to instrument your app with ThriveStack product telemetry in
@@ -188,12 +188,12 @@
 
                             <h2>Step 2: Copy the Prompt</h2>
                             <div class="code-block-wrapper">
-                                <button class="copy-btn" onclick="copyPrompt('prompt-product', this)"><i
+                                <button class="copy-btn" onclick="copyPrompt('prompt-marketing', this)"><i
                                         class="fa-regular fa-copy"></i> Copy</button>
-                                <pre><code id="prompt-product">You are a ThriveStack product telemetry installation wizard.
-Read https://docs.thrivestack.ai/product/setup/llms.txt
+                                <pre><code id="prompt-marketing">You are a ThriveStack marketing analytics installation wizard.
+Read https://docs.thrivestack.ai/marketing/setup/llms.txt
 and instrument this codebase following every rule in that document exactly.
-Your API key is YOUR_API_KEY_HERE</code></pre>
+Your API key is [YOUR_API_KEY_HERE]</code></pre>
                             </div>
 
 
@@ -220,8 +220,7 @@ Your API key is YOUR_API_KEY_HERE</code></pre>
                             <h2>What did you just achieve? 🎆</h2>
                             <p
                                 style="margin-bottom: 24px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
-                                Traditional product Analytics tools try to sell you a platform to track clicks and
-                                events, but you have to setup and configure separately.
+                                Traditional Marketing Analytics tools typically just show you vanity metrics like Traffic, Page Visits, and Visitor Trends — and most of that is free with tools like Google Analytics. ThriveStack goes far beyond that. It gives you full‑journey correlation by stitching together Marketing touchpoints, Product usage, Account behavior, and Billing events.
                             </p>
 
                             <div
@@ -231,78 +230,75 @@ Your API key is YOUR_API_KEY_HERE</code></pre>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <th style="padding: 14px 16px; font-weight: 600;">Feature</th>
                                             <th style="padding: 14px 16px; font-weight: 600; text-align: center;">
-                                                Traditional Product Analytics</th>
+                                                Traditional Marketing Analytics</th>
                                             <th
                                                 style="padding: 14px 16px; font-weight: 600; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                ThriveStack Product Intelligence</th>
+                                                ThriveStack Marketing Intelligence</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <td style="padding: 14px 16px;">Track events</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark" style="margin-right: 6px;"></i> Manual
-                                            </td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-check" style="margin-right: 6px;"></i> Automatic
-                                            </td>
-                                        </tr>
-                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Track pages</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark" style="margin-right: 6px;"></i> Manual
-                                            </td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-check" style="margin-right: 6px;"></i> Automatic
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-check"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-check"></i></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <td style="padding: 14px 16px;">Track <a
-                                                    href="../../../public/product/setup/saas-growth-events.html"
-                                                    style="color: var(--brand-primary);">Growth events</a></td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark" style="margin-right: 6px;"></i> Manual
-                                            </td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-check" style="margin-right: 6px;"></i> Automatic
-                                            </td>
+                                            <td style="padding: 14px 16px;">Track New Visitors</td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-check"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-check"></i></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <td style="padding: 14px 16px;">User Level Analytics</td>
-                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i
-                                                    class="fa-solid fa-check"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-check"></i></td>
+                                            <td style="padding: 14px 16px;">Traffic by UTM</td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-check"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-check"></i></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <td style="padding: 14px 16px;">Account level analytics</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;">40-50%
-                                                surcharge</td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-check" style="margin-right: 6px;"></i> Included
-                                            </td>
+                                            <td style="padding: 14px 16px;">Track Returning Visitors</td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                            <td style="padding: 14px 16px;">Content Performace</td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-check"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                            <td style="padding: 14px 16px;">Goal Conversions</td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                            <td style="padding: 14px 16px;">Channel Performance (correlated with Product and Revenue)</td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                            <td style="padding: 14px 16px;">Time to Acquisition</td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                            <td style="padding: 14px 16px;">Touchpoints to Acquisition</td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                            <td style="padding: 14px 16px;">New Signups (correlation with Product )</td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-check"></i></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding: 14px 16px;">Full Bow-tie Journey</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;">Buy
-                                                multiple analytics tools</td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-check" style="margin-right: 6px;"></i> Included
-                                            </td>
+                                            <td style="padding: 14px 16px;">Lead Quality</td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-check"></i></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
 
                             <ul>
-                                <li>Various Product Analytics reports are now available.</li>
-                                <li>Out of box reports are setup. Share it with your Product, Sales</li>
+                                <li>Various Marketing Intelligence reports are now available.</li>
+                                <li>Out of box reports are setup. Share it with your Marketing, Product, and Sales teams.</li>
                                 <li>Account level Analytics, including 40+ metrics across Activation, Feature Usage, API
                                     Usage, are available in the in-built <a
                                         href="https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list"
@@ -392,7 +388,7 @@ Your API key is YOUR_API_KEY_HERE</code></pre>
             <div class="toc-container sticky-top">
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
-                    <a href="#implement-with-prompt-product" class="toc-link active">Implement with Prompt</a>
+                    <a href="#implement-with-prompt-marketing" class="toc-link active">Implement with Prompt</a>
                     <a href="#step1" class="toc-link">1. Get API key</a>
                     <a href="#step2" class="toc-link">2. Copy the prompt</a>
                     <a href="#step3" class="toc-link">3. Run it</a>
