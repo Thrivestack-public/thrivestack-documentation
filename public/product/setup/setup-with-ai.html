@@ -353,7 +353,7 @@
                         </style>
 
                         <script>
-                            fetch('https://docs.thrivestack.ai/ai-setup/product/prompt.txt')
+                            fetch('/ai-setup/product/prompt.txt')
                                 .then(function(r) { return r.text(); })
                                 .then(function(t) {
                                     document.getElementById('prompt-product').textContent =
