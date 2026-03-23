@@ -108,6 +108,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'Vibe Analytics (AI)',
                 url: 'vibe-analytics.html#vibe-analytics',
                 terms: 'vibe analytics ai telemetry spec identify group track checklist'
+            },
+            {
+                title: 'API Reference',
+                url: 'api-reference.html#overview',
+                terms: 'api reference public endpoints rest http authentication bearer key'
+            },
+            {
+                title: 'Identify Endpoint',
+                url: 'public/api/identify.html#identify',
+                terms: 'identify user traits email name user_id context group_id device_id session_id'
+            },
+            {
+                title: 'Group Endpoint',
+                url: 'public/api/group.html#group',
+                terms: 'group account traits group_id user_id account_name account_domain group_type'
+            },
+            {
+                title: 'Track Endpoint',
+                url: 'public/api/track.html#track',
+                terms: 'track event signed_up account_created feature_used invite_sent page_visit onboarding event_name properties'
+            },
+            {
+                title: 'GetAccountById',
+                url: 'public/api/get-account-by-id.html#get-account-by-id',
+                terms: 'get account by id graphql growth intelligence acquisition activation monetization engagement firmographics mrr arr dau mau'
+            },
+            {
+                title: 'GetUserById',
+                url: 'public/api/get-user-by-id.html#get-user-by-id',
+                terms: 'get user by id graphql growth intelligence acquisition engagement demographics employment title role signin'
+            },
+            {
+                title: 'GetAccountEnrichment',
+                url: 'public/api/get-account-enrichment.html#get-account-enrichment',
+                terms: 'get account enrichment graphql domain firmographic industry employees revenue technology stack social linkedin twitter'
+            },
+            {
+                title: 'GetUserEnrichment',
+                url: 'public/api/get-user-enrichment.html#get-user-enrichment',
+                terms: 'get user enrichment graphql email job title role seniority company linkedin social profiles location personalize onboarding'
             }
         ];
 

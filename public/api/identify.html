@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Identify Endpoint - ThriveStack API Reference">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Identify - ThriveStack API Reference</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../index.html">Get Started</a>
+                <a href="../../setup-overview.html">Setup (Unify)</a>
+                <a href="../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../take-action.html">Take Action</a>
+                <a href="../../api-reference.html" class="active">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../api-reference.html" class="nav-item"><span>API Reference</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Telemetry</h3>
+                <ul>
+                    <li><a href="../../public/api/identify.html" class="nav-item active"><span>Identify</span></a></li>
+                    <li><a href="../../public/api/group.html" class="nav-item"><span>Group</span></a></li>
+                    <li><a href="../../public/api/track.html" class="nav-item"><span>Track</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Growth Intelligence</h3>
+                <ul>
+                    <li><a href="../../public/api/get-account-by-id.html" class="nav-item"><span>GetAccountById</span></a></li>
+                    <li><a href="../../public/api/get-user-by-id.html" class="nav-item"><span>GetUserById</span></a></li>
+                    <li><a href="../../public/api/get-account-enrichment.html" class="nav-item"><span>GetAccountEnrichment</span></a></li>
+                    <li><a href="../../public/api/get-user-enrichment.html" class="nav-item"><span>GetUserEnrichment</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+
+                <section id="identify" class="content-section">
+                    <div class="breadcrumbs">
+                        <a href="../../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                        <a href="../../api-reference.html">API Reference</a> <i class="fa-solid fa-chevron-right"></i>
+                        <span>Identify</span>
+                    </div>
+                    <header class="doc-page-header">
+                        <span class="doc-page-header-eyebrow">API Reference</span>
+                        <h1 class="doc-page-title">Identify</h1>
+                        <p class="doc-page-description">
+                            The Identify call lets you associate actions with a specific user and capture descriptive traits about them — such as their email, name, and account membership. It is the foundation of user-level analytics in ThriveStack.
+                        </p>
+                    </header>
+
+                    <article class="doc-page-body">
+
+                        <section id="when-to-call" class="content-section">
+                            <h2>When to call</h2>
+                            <p>Call <code>identify</code> at the following moments in your application:</p>
+                            <ul class="styled-list">
+                                <li>
+                                    <div class="list-icon text-blue bg-blue-light"><i class="fa-solid fa-user-plus"></i></div>
+                                    <div class="list-content"><strong>After registration</strong><span>When a new user completes sign-up for the first time.</span></div>
+                                </li>
+                                <li>
+                                    <div class="list-icon text-green bg-green-light"><i class="fa-solid fa-right-to-bracket"></i></div>
+                                    <div class="list-content"><strong>After login</strong><span>Each time a returning user successfully authenticates.</span></div>
+                                </li>
+                                <li>
+                                    <div class="list-icon text-purple bg-purple-light"><i class="fa-solid fa-pen-to-square"></i></div>
+                                    <div class="list-content"><strong>When profile changes</strong><span>Whenever a user updates their email, name, or other profile attributes.</span></div>
+                                </li>
+                            </ul>
+                            <p class="mt-4">Use your internal database ID (UUID v4 recommended) as <code>user_id</code>. Database IDs never change, making them more reliable than emails or usernames.</p>
+                        </section>
+
+                        <section id="endpoint" class="content-section">
+                            <h2>Endpoint</h2>
+                            <pre><code>POST /api/identify</code></pre>
+                        </section>
+
+                        <section id="authentication" class="content-section">
+                            <h2>Authentication</h2>
+                            <p>Pass your API key in the <code>x-api-key</code> header on every request. You can find your key in the ThriveStack dashboard under <strong>Settings → API Keys</strong>.</p>
+                            <pre><code>accept: */*
+content-type: application/json
+x-api-key: YOUR_API_KEY</code></pre>
+                        </section>
+
+                        <section id="request-body" class="content-section">
+                            <h2>Request body</h2>
+                            <p>Send an array containing one or more identify objects.</p>
+                            <table class="params-table">
+                                <thead>
+                                    <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><code>user_id</code></td><td>string</td><td>Yes</td><td>Unique identifier for the user. Use a stable database ID (UUID recommended) — never use email as the ID.</td></tr>
+                                    <tr><td><code>traits</code></td><td>object</td><td>No</td><td>Free-form dictionary of descriptive attributes about the user. See <a href="#reserved-traits">Reserved traits</a> below.</td></tr>
+                                    <tr><td><code>context.group_id</code></td><td>string</td><td>No</td><td>The account or organization this user belongs to. Required to link user activity to account-level signals.</td></tr>
+                                    <tr><td><code>context.device_id</code></td><td>string</td><td>No</td><td>Unique identifier for the user's device.</td></tr>
+                                    <tr><td><code>context.session_id</code></td><td>string</td><td>No</td><td>Current session identifier.</td></tr>
+                                    <tr><td><code>context.source</code></td><td>string</td><td>No</td><td><code>"product"</code> for in-app events, <code>"marketing"</code> for public-facing website events.</td></tr>
+                                    <tr><td><code>timestamp</code></td><td>string</td><td>No</td><td>ISO 8601 timestamp of when the event occurred. Defaults to the time the server receives the request.</td></tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                        <section id="reserved-traits" class="content-section">
+                            <h2>Reserved traits</h2>
+                            <p>ThriveStack recognises the following trait names and gives them special handling across the platform. Use these exact names when sending standard user attributes.</p>
+                            <table class="params-table">
+                                <thead>
+                                    <tr><th>Trait</th><th>Type</th><th>Description</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><code>user_email</code></td><td>string</td><td>User's email address.</td></tr>
+                                    <tr><td><code>user_name</code></td><td>string</td><td>User's full display name.</td></tr>
+                                    <tr><td><code>first_name</code></td><td>string</td><td>First name.</td></tr>
+                                    <tr><td><code>last_name</code></td><td>string</td><td>Last name.</td></tr>
+                                    <tr><td><code>phone</code></td><td>string</td><td>Phone number.</td></tr>
+                                    <tr><td><code>avatar</code></td><td>string</td><td>URL of the user's avatar image.</td></tr>
+                                    <tr><td><code>title</code></td><td>string</td><td>Job title or professional role.</td></tr>
+                                    <tr><td><code>username</code></td><td>string</td><td>Username or handle.</td></tr>
+                                    <tr><td><code>created_at</code></td><td>string</td><td>ISO 8601 date when the user account was created.</td></tr>
+                                    <tr><td><code>plan</code></td><td>string</td><td>Current subscription plan (e.g., <code>"free"</code>, <code>"pro"</code>).</td></tr>
+                                </tbody>
+                            </table>
+                            <p>You can also include any custom traits alongside the reserved ones.</p>
+                        </section>
+
+                        <section id="example" class="content-section">
+                            <h2>Example</h2>
+
+                            <h3>cURL</h3>
+                            <pre><code>curl --location 'https://api.thrivestack.ai/api/identify' \
+--header 'accept: */*' \
+--header 'content-type: application/json' \
+--header 'x-api-key: YOUR_API_KEY' \
+--data '[
+  {
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "device_id": "7d08298f",
+      "session_id": "session_e2iukz3vduo",
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+      "source": "product"
+    },
+    "traits": {
+      "user_email": "john.doe@acme.com",
+      "user_name": "John Doe"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]'</code></pre>
+
+                            <h3>JavaScript</h3>
+                            <pre><code>const myHeaders = new Headers();
+myHeaders.append("accept", "*/*");
+myHeaders.append("content-type", "application/json");
+myHeaders.append("x-api-key", "YOUR_API_KEY");
+
+const raw = JSON.stringify([
+  {
+    user_id: "18f716ac-37a4-464f-adb7-3cc30032308c",
+    context: {
+      device_id: "7d08298f",
+      session_id: "session_e2iukz3vduo",
+      group_id: "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+      source: "product"
+    },
+    traits: {
+      user_email: "john.doe@acme.com",
+      user_name: "John Doe"
+    },
+    timestamp: "2024-01-15T10:30:00Z"
+  }
+]);
+
+fetch("https://api.thrivestack.ai/api/identify", {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow"
+})
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));</code></pre>
+
+                            <h3>Python</h3>
+                            <pre><code>import requests
+import json
+
+url = "https://api.thrivestack.ai/api/identify"
+
+payload = json.dumps([
+  {
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "device_id": "7d08298f",
+      "session_id": "session_e2iukz3vduo",
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+      "source": "product"
+    },
+    "traits": {
+      "user_email": "john.doe@acme.com",
+      "user_name": "John Doe"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+])
+headers = {
+  'accept': '*/*',
+  'content-type': 'application/json',
+  'x-api-key': 'YOUR_API_KEY'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+print(response.text)</code></pre>
+
+                            <h3>Go</h3>
+                            <pre><code>package main
+
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io"
+)
+
+func main() {
+  url := "https://api.thrivestack.ai/api/identify"
+  method := "POST"
+
+  payload := strings.NewReader(`[
+  {
+    "user_id": "18f716ac-37a4-464f-adb7-3cc30032308c",
+    "context": {
+      "device_id": "7d08298f",
+      "session_id": "session_e2iukz3vduo",
+      "group_id": "ac8db7ba-5139-4911-ba6e-523fd9c4704b",
+      "source": "product"
+    },
+    "traits": {
+      "user_email": "john.doe@acme.com",
+      "user_name": "John Doe"
+    },
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+]`)
+
+  client := &http.Client{}
+  req, err := http.NewRequest(method, url, payload)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("accept", "*/*")
+  req.Header.Add("content-type", "application/json")
+  req.Header.Add("x-api-key", "YOUR_API_KEY")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := io.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}</code></pre>
+                        </section>
+
+                        <section id="response" class="content-section">
+                            <h2>Response</h2>
+                            <h3>200 OK</h3>
+                            <pre><code>{
+  "success": true,
+  "eventId": "evt_abc123xyz"
+}</code></pre>
+                            <h3>Error codes</h3>
+                            <table class="params-table">
+                                <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>400</code></td><td>Bad Request — invalid JSON or missing required fields</td></tr>
+                                    <tr><td><code>401</code></td><td>Unauthorized — invalid or missing API key</td></tr>
+                                    <tr><td><code>429</code></td><td>Rate Limit Exceeded</td></tr>
+                                    <tr><td><code>500</code></td><td>Server Error — try again later</td></tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                    </article>
+                </section>
+
+                <div class="page-nav">
+                    <a href="../../api-reference.html" class="nav-card prev-card">
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">API Reference</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <a href="../../public/api/group.html" class="nav-card next-card">
+                        <span class="nav-label">Next</span>
+                        <span class="nav-title">Group</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="identify.html">Last updated: March 23, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#when-to-call" class="toc-link active">When to call</a>
+                    <a href="#endpoint" class="toc-link">Endpoint</a>
+                    <a href="#authentication" class="toc-link">Authentication</a>
+                    <a href="#request-body" class="toc-link">Request body</a>
+                    <a href="#reserved-traits" class="toc-link">Reserved traits</a>
+                    <a href="#example" class="toc-link">Example</a>
+                    <a href="#response" class="toc-link">Response</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../../script.js"></script>
+</body>
+</html>
