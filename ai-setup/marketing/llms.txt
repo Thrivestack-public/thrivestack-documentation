@@ -177,8 +177,9 @@ Rules:
 
 ## VERIFICATION CHECKLIST
 
-Before delivering the summary, verify this one point. Fix anything missing first.
+Before delivering the summary, verify both points. Fix anything missing first.
 
+- [ ] 0. script tag — src is exactly `https://ts-script.app.thrivestack.ai/latest/thrivestack.js` — no variation, no substitution
 - [ ] 1. Script tag present in <head> on all public pages via a single central file
 
 ### Summary format
@@ -216,3 +217,4 @@ Handy ThriveStack Resources
 4. Never hardcode the API key anywhere in source code
 5. The env var name is recommended as THRIVESTACK_MARKETING_API_KEY
    (prefix with NEXT_PUBLIC_, PUBLIC_, REACT_APP_, etc. as required by the framework)
+6. Script src must be exactly `https://ts-script.app.thrivestack.ai/latest/thrivestack.js` — never alter the URL

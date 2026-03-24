@@ -524,8 +524,9 @@ identify → account_added_user
 
 ## VERIFICATION CHECKLIST
 
-Before delivering the summary, verify all 9 points. Fix anything missing first.
+Before delivering the summary, verify all 10 points. Fix anything missing first.
 
+- [ ] 0. script tag — src is exactly `https://ts-script.app.thrivestack.ai/latest/thrivestack.js` — no variation, no substitution
 - [ ] 1. identify — fires on signup, login, profile/info updates
 - [ ] 2. group — fires on entity creation only, correct group_type per level
 - [ ] 3. signed_up — correct flow, UTM captured
@@ -589,6 +590,7 @@ X/9 implemented
 16. Do not fire `account_added_user` if user is already a member
 17. `user_added_to_account` does not exist — use `account_added_user`
 18. Additional properties beyond documented ones are always permitted
+19. Script src must be exactly `https://ts-script.app.thrivestack.ai/latest/thrivestack.js` — never alter the URL
 
 ---
 
