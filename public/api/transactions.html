@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Transactions API - ThriveStack Revenue Intelligence">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Transactions - ThriveStack API Reference</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../index.html">Get Started</a>
+                <a href="../../setup-overview.html">Setup (Unify)</a>
+                <a href="../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../take-action.html">Take Action</a>
+                <a href="../../api-reference.html" class="active">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../api-reference.html" class="nav-item"><span>API Reference</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Telemetry</h3>
+                <ul>
+                    <li><a href="../../public/api/identify.html" class="nav-item"><span>Identify</span></a></li>
+                    <li><a href="../../public/api/group.html" class="nav-item"><span>Group</span></a></li>
+                    <li><a href="../../public/api/track.html" class="nav-item"><span>Track</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Growth Intelligence</h3>
+                <ul>
+                    <li><a href="../../public/api/get-account-by-id.html" class="nav-item"><span>GetAccountById</span></a></li>
+                    <li><a href="../../public/api/get-user-by-id.html" class="nav-item"><span>GetUserById</span></a></li>
+                    <li><a href="../../public/api/get-account-enrichment.html" class="nav-item"><span>GetAccountEnrichment</span></a></li>
+                    <li><a href="../../public/api/get-user-enrichment.html" class="nav-item"><span>GetUserEnrichment</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../public/api/transactions.html" class="nav-item active"><span>Transactions</span></a></li>
+                    <li><a href="../../public/api/invoices.html" class="nav-item"><span>Invoices</span></a></li>
+                    <li><a href="../../public/api/subscriptions.html" class="nav-item"><span>Subscriptions</span></a></li>
+                    <li><a href="../../public/api/customers.html" class="nav-item"><span>Customers <span class="coming-soon-badge">Soon</span></span></a></li>
+                    <li><a href="../../public/api/invoice-line-items.html" class="nav-item"><span>Invoice Line Items <span class="coming-soon-badge">Soon</span></span></a></li>
+                    <li><a href="../../public/api/plans.html" class="nav-item"><span>Plans <span class="coming-soon-badge">Soon</span></span></a></li>
+                    <li><a href="../../public/api/prices.html" class="nav-item"><span>Prices <span class="coming-soon-badge">Soon</span></span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+
+                <section id="transactions" class="content-section">
+                    <div class="breadcrumbs">
+                        <a href="../../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                        <a href="../../api-reference.html">API Reference</a> <i class="fa-solid fa-chevron-right"></i>
+                        <span>Transactions</span>
+                    </div>
+                    <header class="doc-page-header">
+                        <span class="doc-page-header-eyebrow">Revenue Intelligence</span>
+                        <h1 class="doc-page-title">Transactions</h1>
+                        <p class="doc-page-description">
+                            The Transactions API lets you create, update, and delete payment transaction records in ThriveStack. Transactions represent individual payment events — charges or refunds — tied to customers and invoices.
+                        </p>
+                    </header>
+
+                    <article class="doc-page-body">
+
+                        <!-- ─── CREATE ─────────────────────────────────────── -->
+                        <section id="create-transaction" class="content-section">
+                            <h2>Create a transaction</h2>
+                            <pre><code>POST https://api.app.thrivestack.ai/revenue/transactions</code></pre>
+
+                            <h3>Authentication</h3>
+                            <p>Pass your API key in the <code>x-api-key</code> header. Your key must have the <strong>Revenue APIs</strong> scope enabled.</p>
+                            <pre><code>x-api-key: &lt;Your API Key with Revenue APIs Scope&gt;</code></pre>
+
+                            <h3>Request body</h3>
+                            <table class="params-table">
+                                <thead>
+                                    <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><code>transaction_id</code></td><td>string</td><td>Yes</td><td>Your unique identifier for this transaction.</td></tr>
+                                    <tr><td><code>customer_id</code></td><td>string</td><td>Yes</td><td>Customer ID in your billing system. Can be the same as <code>group_id</code>.</td></tr>
+                                    <tr><td><code>group_id</code></td><td>string</td><td>Yes</td><td>Group ID from product telemetry (links billing to product events).</td></tr>
+                                    <tr><td><code>customer_name</code></td><td>string</td><td>No</td><td>Display name of the customer.</td></tr>
+                                    <tr><td><code>invoice_id</code></td><td>string</td><td>No</td><td>ID of the associated invoice.</td></tr>
+                                    <tr><td><code>type</code></td><td>string</td><td>Yes</td><td><code>"payment"</code> or <code>"refund"</code>.</td></tr>
+                                    <tr><td><code>status</code></td><td>string</td><td>Yes</td><td><code>"paid"</code>, <code>"cancelled"</code>, <code>"failed"</code>, <code>"refund"</code>, or <code>"charged_back"</code>.</td></tr>
+                                    <tr><td><code>transaction_date</code></td><td>string</td><td>Yes</td><td>ISO 8601 timestamp when the transaction occurred.</td></tr>
+                                    <tr><td><code>amount</code></td><td>number</td><td>Yes</td><td>Transaction amount (e.g., <code>99.99</code>).</td></tr>
+                                    <tr><td><code>currency</code></td><td>string</td><td>No</td><td>ISO 4217 currency code: <code>"USD"</code>, <code>"EUR"</code>, <code>"GBP"</code>. Default: <code>"USD"</code>.</td></tr>
+                                    <tr><td><code>payment_method</code></td><td>string</td><td>No</td><td><code>"credit_card"</code>, <code>"paypal"</code>, or <code>"stripe"</code>.</td></tr>
+                                    <tr><td><code>transaction_fee</code></td><td>number</td><td>No</td><td>Processing fee charged by the payment gateway.</td></tr>
+                                    <tr><td><code>tax_amount</code></td><td>number</td><td>No</td><td>Tax applied to this transaction.</td></tr>
+                                    <tr><td><code>discount_amount</code></td><td>number</td><td>No</td><td>Discount applied before billing.</td></tr>
+                                    <tr><td><code>term_frequency</code></td><td>integer</td><td>No</td><td>Number of <code>term_unit</code> intervals in the billing period. Default: <code>1</code>.</td></tr>
+                                    <tr><td><code>term_unit</code></td><td>string</td><td>No</td><td><code>"day"</code>, <code>"week"</code>, <code>"month"</code>, or <code>"year"</code>. Default: <code>"month"</code>.</td></tr>
+                                    <tr><td><code>period_start_date</code></td><td>string</td><td>No</td><td>ISO 8601 start of the billing period.</td></tr>
+                                    <tr><td><code>period_end_date</code></td><td>string</td><td>No</td><td>ISO 8601 end of the billing period.</td></tr>
+                                    <tr><td><code>line_item_type</code></td><td>string</td><td>Yes</td><td><code>"subscription"</code> for recurring revenue, or <code>"one_time"</code> for setup or professional charges.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h3>Example</h3>
+                            <div class="code-tabs">
+                                <div class="tab-bar">
+                                    <button class="tab-btn active" data-tab="curl">cURL</button>
+                                    <button class="tab-btn" data-tab="js">JavaScript</button>
+                                    <button class="tab-btn" data-tab="go">Go</button>
+                                </div>
+                                <div class="tab-pane active" data-tab="curl">
+<pre><code>curl -X POST https://api.app.thrivestack.ai/revenue/transactions \
+  -H "x-api-key: &lt;Your API Key with Revenue APIs Scope&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "transaction_id": "txn_123",
+    "customer_id": "cust_123",
+    "group_id": "group_456",
+    "customer_name": "John Doe",
+    "invoice_id": "inv_123",
+    "type": "payment",
+    "status": "paid",
+    "transaction_date": "2024-01-15T14:30:00Z",
+    "amount": 99.99,
+    "currency": "USD",
+    "payment_method": "credit_card",
+    "transaction_fee": 2.99,
+    "tax_amount": 5.00,
+    "discount_amount": 10.00,
+    "term_frequency": 1,
+    "term_unit": "month",
+    "period_start_date": "2024-01-01T00:00:00Z",
+    "period_end_date": "2024-01-31T23:59:59Z",
+    "line_item_type": "subscription"
+  }'</code></pre>
+                                </div>
+                                <div class="tab-pane" data-tab="js">
+<pre><code>const response = await fetch(
+  'https://api.app.thrivestack.ai/revenue/transactions',
+  {
+    method: 'POST',
+    headers: {
+      'x-api-key': '&lt;Your API Key with Revenue APIs Scope&gt;',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      transaction_id: 'txn_123',
+      customer_id: 'cust_123',
+      group_id: 'group_456',
+      customer_name: 'John Doe',
+      invoice_id: 'inv_123',
+      type: 'payment',
+      status: 'paid',
+      transaction_date: '2024-01-15T14:30:00Z',
+      amount: 99.99,
+      currency: 'USD',
+      payment_method: 'credit_card',
+      transaction_fee: 2.99,
+      tax_amount: 5.00,
+      discount_amount: 10.00,
+      term_frequency: 1,
+      term_unit: 'month',
+      period_start_date: '2024-01-01T00:00:00Z',
+      period_end_date: '2024-01-31T23:59:59Z',
+      line_item_type: 'subscription'
+    })
+  }
+);
+const data = await response.json();
+console.log(data);</code></pre>
+                                </div>
+                                <div class="tab-pane" data-tab="go">
+<pre><code>package main
+
+import (
+  "bytes"
+  "encoding/json"
+  "fmt"
+  "io"
+  "net/http"
+)
+
+func main() {
+  payload := map[string]interface{}{
+    "transaction_id":   "txn_123",
+    "customer_id":      "cust_123",
+    "group_id":         "group_456",
+    "customer_name":    "John Doe",
+    "invoice_id":       "inv_123",
+    "type":             "payment",
+    "status":           "paid",
+    "transaction_date": "2024-01-15T14:30:00Z",
+    "amount":           99.99,
+    "currency":         "USD",
+    "payment_method":   "credit_card",
+    "transaction_fee":  2.99,
+    "tax_amount":       5.00,
+    "discount_amount":  10.00,
+    "term_frequency":   1,
+    "term_unit":        "month",
+    "period_start_date": "2024-01-01T00:00:00Z",
+    "period_end_date":   "2024-01-31T23:59:59Z",
+    "line_item_type":   "subscription",
+  }
+  body, _ := json.Marshal(payload)
+
+  req, _ := http.NewRequest("POST",
+    "https://api.app.thrivestack.ai/revenue/transactions",
+    bytes.NewBuffer(body))
+  req.Header.Set("x-api-key", "&lt;Your API Key with Revenue APIs Scope&gt;")
+  req.Header.Set("Content-Type", "application/json")
+
+  resp, err := http.DefaultClient.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer resp.Body.Close()
+  result, _ := io.ReadAll(resp.Body)
+  fmt.Println(string(result))
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <h3>Response</h3>
+                            <pre><code>{
+  "success": true,
+  "transaction_id": "txn_123"
+}</code></pre>
+                        </section>
+
+                        <!-- ─── UPDATE ─────────────────────────────────────── -->
+                        <section id="update-transaction" class="content-section">
+                            <h2>Update a transaction</h2>
+                            <pre><code>PUT https://api.app.thrivestack.ai/revenue/transactions</code></pre>
+
+                            <h3>Request body</h3>
+                            <table class="params-table">
+                                <thead>
+                                    <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><code>transaction_id</code></td><td>string</td><td>Yes</td><td>ID of the transaction to update.</td></tr>
+                                    <tr><td><code>status</code></td><td>string</td><td>No</td><td><code>"paid"</code>, <code>"cancelled"</code>, <code>"failed"</code>, <code>"refund"</code>, or <code>"charged_back"</code>.</td></tr>
+                                    <tr><td><code>type</code></td><td>string</td><td>No</td><td><code>"payment"</code> or <code>"refund"</code>.</td></tr>
+                                    <tr><td><code>date</code></td><td>string</td><td>No</td><td>ISO 8601 updated transaction date.</td></tr>
+                                    <tr><td><code>amount</code></td><td>number</td><td>No</td><td>Updated transaction amount.</td></tr>
+                                    <tr><td><code>currency</code></td><td>string</td><td>No</td><td>ISO 4217 currency code. Default: <code>"USD"</code>.</td></tr>
+                                    <tr><td><code>payment_method</code></td><td>string</td><td>No</td><td><code>"credit_card"</code>, <code>"paypal"</code>, or <code>"stripe"</code>.</td></tr>
+                                    <tr><td><code>transaction_fee</code></td><td>number</td><td>No</td><td>Updated processing fee.</td></tr>
+                                    <tr><td><code>tax_amount</code></td><td>number</td><td>No</td><td>Updated tax amount.</td></tr>
+                                    <tr><td><code>discount_amount</code></td><td>number</td><td>No</td><td>Updated discount amount.</td></tr>
+                                    <tr><td><code>term_frequency</code></td><td>integer</td><td>No</td><td>Billing period frequency. Default: <code>1</code>.</td></tr>
+                                    <tr><td><code>term_unit</code></td><td>string</td><td>No</td><td><code>"day"</code>, <code>"week"</code>, <code>"month"</code>, or <code>"year"</code>. Default: <code>"month"</code>.</td></tr>
+                                    <tr><td><code>period_start_date</code></td><td>string</td><td>No</td><td>ISO 8601 start of the billing period.</td></tr>
+                                    <tr><td><code>period_end_date</code></td><td>string</td><td>No</td><td>ISO 8601 end of the billing period.</td></tr>
+                                    <tr><td><code>line_item_type</code></td><td>string</td><td>No</td><td><code>"subscription"</code> or <code>"one_time"</code>.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h3>Example</h3>
+                            <div class="code-tabs">
+                                <div class="tab-bar">
+                                    <button class="tab-btn active" data-tab="curl">cURL</button>
+                                    <button class="tab-btn" data-tab="js">JavaScript</button>
+                                    <button class="tab-btn" data-tab="go">Go</button>
+                                </div>
+                                <div class="tab-pane active" data-tab="curl">
+<pre><code>curl -X PUT https://api.app.thrivestack.ai/revenue/transactions \
+  -H "x-api-key: &lt;Your API Key with Revenue APIs Scope&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "transaction_id": "txn_123",
+    "status": "paid",
+    "type": "payment",
+    "date": "2024-01-20T10:30:00Z",
+    "amount": 149.99,
+    "currency": "USD",
+    "payment_method": "credit_card",
+    "transaction_fee": 3.50,
+    "tax_amount": 7.50,
+    "discount_amount": 15.00,
+    "term_frequency": 1,
+    "term_unit": "month",
+    "period_start_date": "2024-01-01T00:00:00Z",
+    "period_end_date": "2024-01-31T23:59:59Z",
+    "line_item_type": "subscription"
+  }'</code></pre>
+                                </div>
+                                <div class="tab-pane" data-tab="js">
+<pre><code>const response = await fetch(
+  'https://api.app.thrivestack.ai/revenue/transactions',
+  {
+    method: 'PUT',
+    headers: {
+      'x-api-key': '&lt;Your API Key with Revenue APIs Scope&gt;',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      transaction_id: 'txn_123',
+      status: 'paid',
+      type: 'payment',
+      date: '2024-01-20T10:30:00Z',
+      amount: 149.99,
+      currency: 'USD',
+      payment_method: 'credit_card',
+      transaction_fee: 3.50,
+      tax_amount: 7.50,
+      discount_amount: 15.00,
+      term_frequency: 1,
+      term_unit: 'month',
+      period_start_date: '2024-01-01T00:00:00Z',
+      period_end_date: '2024-01-31T23:59:59Z',
+      line_item_type: 'subscription'
+    })
+  }
+);
+const data = await response.json();
+console.log(data);</code></pre>
+                                </div>
+                                <div class="tab-pane" data-tab="go">
+<pre><code>package main
+
+import (
+  "bytes"
+  "encoding/json"
+  "fmt"
+  "io"
+  "net/http"
+)
+
+func main() {
+  payload := map[string]interface{}{
+    "transaction_id":   "txn_123",
+    "status":           "paid",
+    "type":             "payment",
+    "date":             "2024-01-20T10:30:00Z",
+    "amount":           149.99,
+    "currency":         "USD",
+    "payment_method":   "credit_card",
+    "transaction_fee":  3.50,
+    "tax_amount":       7.50,
+    "discount_amount":  15.00,
+    "term_frequency":   1,
+    "term_unit":        "month",
+    "period_start_date": "2024-01-01T00:00:00Z",
+    "period_end_date":   "2024-01-31T23:59:59Z",
+    "line_item_type":   "subscription",
+  }
+  body, _ := json.Marshal(payload)
+
+  req, _ := http.NewRequest("PUT",
+    "https://api.app.thrivestack.ai/revenue/transactions",
+    bytes.NewBuffer(body))
+  req.Header.Set("x-api-key", "&lt;Your API Key with Revenue APIs Scope&gt;")
+  req.Header.Set("Content-Type", "application/json")
+
+  resp, err := http.DefaultClient.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer resp.Body.Close()
+  result, _ := io.ReadAll(resp.Body)
+  fmt.Println(string(result))
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <h3>Response</h3>
+                            <pre><code>{
+  "success": true,
+  "transaction_id": "txn_123"
+}</code></pre>
+                        </section>
+
+                        <!-- ─── DELETE ─────────────────────────────────────── -->
+                        <section id="delete-transaction" class="content-section">
+                            <h2>Delete a transaction</h2>
+                            <pre><code>DELETE https://api.app.thrivestack.ai/revenue/transactions</code></pre>
+
+                            <h3>Request body</h3>
+                            <table class="params-table">
+                                <thead>
+                                    <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><code>transaction_id</code></td><td>string</td><td>Yes</td><td>ID of the transaction to delete.</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h3>Example</h3>
+                            <div class="code-tabs">
+                                <div class="tab-bar">
+                                    <button class="tab-btn active" data-tab="curl">cURL</button>
+                                    <button class="tab-btn" data-tab="js">JavaScript</button>
+                                    <button class="tab-btn" data-tab="go">Go</button>
+                                </div>
+                                <div class="tab-pane active" data-tab="curl">
+<pre><code>curl -X DELETE https://api.app.thrivestack.ai/revenue/transactions \
+  -H "x-api-key: &lt;Your API Key with Revenue APIs Scope&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "transaction_id": "txn_123"
+  }'</code></pre>
+                                </div>
+                                <div class="tab-pane" data-tab="js">
+<pre><code>const response = await fetch(
+  'https://api.app.thrivestack.ai/revenue/transactions',
+  {
+    method: 'DELETE',
+    headers: {
+      'x-api-key': '&lt;Your API Key with Revenue APIs Scope&gt;',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      transaction_id: 'txn_123'
+    })
+  }
+);
+const data = await response.json();
+console.log(data);</code></pre>
+                                </div>
+                                <div class="tab-pane" data-tab="go">
+<pre><code>package main
+
+import (
+  "bytes"
+  "encoding/json"
+  "fmt"
+  "io"
+  "net/http"
+)
+
+func main() {
+  payload := map[string]string{
+    "transaction_id": "txn_123",
+  }
+  body, _ := json.Marshal(payload)
+
+  req, _ := http.NewRequest("DELETE",
+    "https://api.app.thrivestack.ai/revenue/transactions",
+    bytes.NewBuffer(body))
+  req.Header.Set("x-api-key", "&lt;Your API Key with Revenue APIs Scope&gt;")
+  req.Header.Set("Content-Type", "application/json")
+
+  resp, err := http.DefaultClient.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer resp.Body.Close()
+  result, _ := io.ReadAll(resp.Body)
+  fmt.Println(string(result))
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <h3>Response</h3>
+                            <pre><code>{
+  "success": true,
+  "transaction_id": "txn_123"
+}</code></pre>
+                        </section>
+
+                        <!-- ─── ERROR CODES ─────────────────────────────────── -->
+                        <section id="error-codes" class="content-section">
+                            <h2>Error codes</h2>
+                            <table class="params-table">
+                                <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>400</code></td><td>Bad Request — invalid JSON or missing required fields</td></tr>
+                                    <tr><td><code>401</code></td><td>Unauthorized — invalid or missing API key, or key lacks Revenue APIs scope</td></tr>
+                                    <tr><td><code>404</code></td><td>Not Found — transaction ID does not exist</td></tr>
+                                    <tr><td><code>429</code></td><td>Rate Limit Exceeded</td></tr>
+                                    <tr><td><code>500</code></td><td>Server Error — try again later</td></tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                    </article>
+                </section>
+
+                <div class="page-nav">
+                    <a href="../../public/api/get-user-enrichment.html" class="nav-card prev-card">
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">GetUserEnrichment</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <a href="../../public/api/invoices.html" class="nav-card next-card">
+                        <span class="nav-label">Next</span>
+                        <span class="nav-title">Invoices</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="transactions.html">Last updated: March 25, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#create-transaction" class="toc-link active">Create a transaction</a>
+                    <a href="#update-transaction" class="toc-link">Update a transaction</a>
+                    <a href="#delete-transaction" class="toc-link">Delete a transaction</a>
+                    <a href="#error-codes" class="toc-link">Error codes</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../../script.js"></script>
+</body>
+</html>

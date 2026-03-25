@@ -78,6 +78,14 @@
                     <li><a href="../../public/api/get-user-enrichment.html" class="nav-item"><span>GetUserEnrichment</span></a></li>
                 </ul>
             </div>
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../public/api/transactions.html" class="nav-item"><span>Transactions</span></a></li>
+                    <li><a href="../../public/api/invoices.html" class="nav-item"><span>Invoices</span></a></li>
+                    <li><a href="../../public/api/subscriptions.html" class="nav-item"><span>Subscriptions</span></a></li>
+                </ul>
+            </div>
         </aside>
         <div class="resizer" id="sidebar-resizer"></div>
 
@@ -215,7 +223,7 @@ x-api-key: YOUR_API_KEY</code></pre>
                             <h2>Examples</h2>
 
                             <h3>Signup</h3>
-                            <pre><code>curl --location 'https://api.thrivestack.ai/api/track' \
+                            <pre><code>curl --location 'https://api.app.thrivestack.ai/api/track' \
 --header 'accept: */*' \
 --header 'content-type: application/json' \
 --header 'x-api-key: YOUR_API_KEY' \
@@ -236,7 +244,7 @@ x-api-key: YOUR_API_KEY</code></pre>
 ]'</code></pre>
 
                             <h3>Account created</h3>
-                            <pre><code>curl --location 'https://api.thrivestack.ai/api/track' \
+                            <pre><code>curl --location 'https://api.app.thrivestack.ai/api/track' \
 --header 'accept: */*' \
 --header 'content-type: application/json' \
 --header 'x-api-key: YOUR_API_KEY' \
@@ -257,7 +265,7 @@ x-api-key: YOUR_API_KEY</code></pre>
 ]'</code></pre>
 
                             <h3>Feature engagement</h3>
-                            <pre><code>curl --location 'https://api.thrivestack.ai/api/track' \
+                            <pre><code>curl --location 'https://api.app.thrivestack.ai/api/track' \
 --header 'accept: */*' \
 --header 'content-type: application/json' \
 --header 'x-api-key: YOUR_API_KEY' \
@@ -278,7 +286,7 @@ x-api-key: YOUR_API_KEY</code></pre>
 ]'</code></pre>
 
                             <h3>Invite sent</h3>
-                            <pre><code>curl --location 'https://api.thrivestack.ai/api/track' \
+                            <pre><code>curl --location 'https://api.app.thrivestack.ai/api/track' \
 --header 'accept: */*' \
 --header 'content-type: application/json' \
 --header 'x-api-key: YOUR_API_KEY' \
@@ -302,7 +310,7 @@ x-api-key: YOUR_API_KEY</code></pre>
 ]'</code></pre>
 
                             <h3>Page visit</h3>
-                            <pre><code>curl --location 'https://api.thrivestack.ai/api/track' \
+                            <pre><code>curl --location 'https://api.app.thrivestack.ai/api/track' \
 --header 'accept: */*' \
 --header 'content-type: application/json' \
 --header 'x-api-key: YOUR_API_KEY' \
@@ -351,7 +359,7 @@ const raw = JSON.stringify([
   }
 ]);
 
-fetch("https://api.thrivestack.ai/api/track", {
+fetch("https://api.app.thrivestack.ai/api/track", {
   method: "POST",
   headers: myHeaders,
   body: raw,
@@ -365,7 +373,7 @@ fetch("https://api.thrivestack.ai/api/track", {
                             <pre><code>import requests
 import json
 
-url = "https://api.thrivestack.ai/api/track"
+url = "https://api.app.thrivestack.ai/api/track"
 
 payload = json.dumps([
   {

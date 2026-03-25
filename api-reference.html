@@ -72,6 +72,18 @@
                 </ul>
             </div>
             <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="public/api/subscriptions.html" class="nav-item"><span>Subscriptions</span></a></li>
+                    <li><a href="public/api/transactions.html" class="nav-item"><span>Transactions</span></a></li>
+                    <li><a href="public/api/invoices.html" class="nav-item"><span>Invoices</span></a></li>
+                    <li><a href="public/api/customers.html" class="nav-item"><span>Customers <span class="coming-soon-badge">Soon</span></span></a></li>
+                    <li><a href="public/api/invoice-line-items.html" class="nav-item"><span>Invoice Line Items <span class="coming-soon-badge">Soon</span></span></a></li>
+                    <li><a href="public/api/plans.html" class="nav-item"><span>Plans <span class="coming-soon-badge">Soon</span></span></a></li>
+                    <li><a href="public/api/prices.html" class="nav-item"><span>Prices <span class="coming-soon-badge">Soon</span></span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
                 <h3>Growth Intelligence</h3>
                 <ul>
                     <li><a href="public/api/get-account-by-id.html" class="nav-item"><span>GetAccountById</span></a></li>
@@ -121,9 +133,30 @@
                 <section id="base-url" class="content-section">
                     <h2>Base URL</h2>
                     <p>All API endpoints share the same base URL:</p>
-                    <pre><code>https://api.thrivestack.ai/v1</code></pre>
+                    <pre><code>https://api.app.thrivestack.ai/v1</code></pre>
                 </section>
+                <section id="revenue-intelligence" class="content-section">
+                    <h2>Revenue Intelligence</h2>
+                    <p>Manage billing objects — transactions, invoices, and subscriptions — to power MRR tracking, churn signals, and expansion analytics across your customer base.</p>
 
+                    <div class="cards-grid">
+                        <div class="feature-card glass-panel">
+                            <div class="card-icon purple"><i class="fa-solid fa-rotate"></i></div>
+                            <h3>Subscriptions</h3>
+                            <p>Create recurring subscriptions, handle upgrades, downgrades, and cancellations. <a href="public/api/subscriptions.html">View docs →</a></p>
+                        </div>
+                        <div class="feature-card glass-panel">
+                            <div class="card-icon blue"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                            <h3>Invoices</h3>
+                            <p>Manage billing invoices with line items, due dates, and status transitions. <a href="public/api/invoices.html">View docs →</a></p>
+                        </div>
+                        <div class="feature-card glass-panel">
+                            <div class="card-icon green"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+                            <h3>Transactions</h3>
+                            <p>Create, list, retrieve, update, and delete payment transaction records. <a href="public/api/transactions.html">View docs →</a></p>
+                        </div>
+                    </div>
+                </section>
                 <footer class="content-footer">
                     <p>Was this page helpful?</p>
                     <div class="feedback-btns">
@@ -145,6 +178,7 @@
                     <a href="#overview" class="toc-link active">Overview</a>
                     <a href="#authentication" class="toc-link">Authentication</a>
                     <a href="#base-url" class="toc-link">Base URL</a>
+                    <a href="#revenue-intelligence" class="toc-link">Revenue Intelligence</a>
                 </nav>
                 <ready-to-scale-promo></ready-to-scale-promo>
             </div>

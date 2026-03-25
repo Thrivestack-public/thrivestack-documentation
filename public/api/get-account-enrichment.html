@@ -72,6 +72,14 @@
                     <li><a href="../../public/api/get-user-enrichment.html" class="nav-item"><span>GetUserEnrichment</span></a></li>
                 </ul>
             </div>
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../public/api/transactions.html" class="nav-item"><span>Transactions</span></a></li>
+                    <li><a href="../../public/api/invoices.html" class="nav-item"><span>Invoices</span></a></li>
+                    <li><a href="../../public/api/subscriptions.html" class="nav-item"><span>Subscriptions</span></a></li>
+                </ul>
+            </div>
         </aside>
         <div class="resizer" id="sidebar-resizer"></div>
 
@@ -198,7 +206,7 @@ x-api-key: YOUR_API_KEY</code></pre>
                         <section id="example" class="content-section">
                             <h2>Example</h2>
                             <h3>cURL</h3>
-                            <pre><code>curl --location 'https://api.thrivestack.ai/growth-intelligence' \
+                            <pre><code>curl --location 'https://api.app.thrivestack.ai/growth-intelligence' \
 --header 'content-type: application/json' \
 --header 'x-api-key: YOUR_API_KEY' \
 --data '{
@@ -212,7 +220,7 @@ x-api-key: YOUR_API_KEY</code></pre>
 }'</code></pre>
 
                             <h3>JavaScript</h3>
-                            <pre><code>const response = await fetch("https://api.thrivestack.ai/growth-intelligence", {
+                            <pre><code>const response = await fetch("https://api.app.thrivestack.ai/growth-intelligence", {
   method: "POST",
   headers: {
     "content-type": "application/json",

@@ -78,6 +78,14 @@
                     <li><a href="../../public/api/get-user-enrichment.html" class="nav-item"><span>GetUserEnrichment</span></a></li>
                 </ul>
             </div>
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../public/api/transactions.html" class="nav-item"><span>Transactions</span></a></li>
+                    <li><a href="../../public/api/invoices.html" class="nav-item"><span>Invoices</span></a></li>
+                    <li><a href="../../public/api/subscriptions.html" class="nav-item"><span>Subscriptions</span></a></li>
+                </ul>
+            </div>
         </aside>
         <div class="resizer" id="sidebar-resizer"></div>
 
@@ -180,7 +188,7 @@ x-api-key: YOUR_API_KEY</code></pre>
                             <h2>Example</h2>
 
                             <h3>cURL</h3>
-                            <pre><code>curl --location 'https://api.thrivestack.ai/api/group' \
+                            <pre><code>curl --location 'https://api.app.thrivestack.ai/api/group' \
 --header 'accept: */*' \
 --header 'content-type: application/json' \
 --header 'x-api-key: YOUR_API_KEY' \
@@ -232,7 +240,7 @@ const raw = JSON.stringify([
   }
 ]);
 
-fetch("https://api.thrivestack.ai/api/group", {
+fetch("https://api.app.thrivestack.ai/api/group", {
   method: "POST",
   headers: myHeaders,
   body: raw,
@@ -246,7 +254,7 @@ fetch("https://api.thrivestack.ai/api/group", {
                             <pre><code>import requests
 import json
 
-url = "https://api.thrivestack.ai/api/group"
+url = "https://api.app.thrivestack.ai/api/group"
 
 payload = json.dumps([
   {
@@ -288,7 +296,7 @@ import (
 )
 
 func main() {
-  url := "https://api.thrivestack.ai/api/group"
+  url := "https://api.app.thrivestack.ai/api/group"
   method := "POST"
 
   payload := strings.NewReader(`[

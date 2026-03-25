@@ -148,6 +148,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'GetUserEnrichment',
                 url: 'public/api/get-user-enrichment.html#get-user-enrichment',
                 terms: 'get user enrichment graphql email job title role seniority company linkedin social profiles location personalize onboarding'
+            },
+            {
+                title: 'Transactions API',
+                url: 'public/api/transactions.html#transactions',
+                terms: 'transactions revenue billing crud create list get update delete payment amount currency status charge refund credit'
+            },
+            {
+                title: 'Invoices API',
+                url: 'public/api/invoices.html#invoices',
+                terms: 'invoices billing revenue crud create list get update void due_date line_items total draft open paid'
+            },
+            {
+                title: 'Subscriptions API',
+                url: 'public/api/subscriptions.html#subscriptions',
+                terms: 'subscriptions billing recurring revenue crud create list get update cancel plan interval status trial active past_due'
             }
         ];
 
