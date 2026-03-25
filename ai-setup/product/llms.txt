@@ -578,7 +578,7 @@ X/10 implemented
 2. Global object: `thriveStack` — never `ThriveStack` or `thrivestack`
 3. Every method takes an array: `identify([{...}])` `group([{...}])` `track([{...}])`
 4. Guard every call: `if (typeof thriveStack === 'undefined') return`
-5. timestamp: `new Date().toISOString()` on every call
+5. timestamp: `new Date().toISOString()` on every call — when multiple events fire in the same handler, use `const now = Date.now()` once and offset each by 1ms: `new Date(now).toISOString()`, `new Date(now + 1).toISOString()`, etc.
 6. `group_type: "Account"` reserved for billing root only
 7. `context.group_id` must equal `group_id` on group() — same variable always
 8. `context` required on every `track()` — except `signed_up` when groupId not yet available
