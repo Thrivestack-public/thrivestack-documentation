@@ -65,17 +65,17 @@ Never add it inside an individual page component or template. Never add it multi
     import Script from 'next/script'
     export default function RootLayout({ children }) {
       return (
-        <html>
-          <head>
-            <Script
+        &lt;html&gt;
+          &lt;head&gt;
+            &lt;Script
               src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
               strategy="afterInteractive"
               data-api-key={process.env.NEXT_PUBLIC_THRIVESTACK_MARKETING_API_KEY}
               data-source="marketing"
-            />
-          </head>
-          <body>{children}</body>
-        </html>
+            /&gt;
+          &lt;/head&gt;
+          &lt;body&gt;{children}&lt;/body&gt;
+        &lt;/html&gt;
       )
     }
 
@@ -84,19 +84,19 @@ Never add it inside an individual page component or template. Never add it multi
     import { Html, Head, Main, NextScript } from 'next/document'
     export default function Document() {
       return (
-        <Html>
-          <Head>
+        &lt;Html&gt;
+          &lt;Head&gt;
             &lt;script
               src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
               api-key={process.env.NEXT_PUBLIC_THRIVESTACK_MARKETING_API_KEY}
               source="marketing"
             /&gt;
-          </Head>
-          <body>
-            <Main />
-            <NextScript />
-          </body>
-        </Html>
+          &lt;/Head&gt;
+          &lt;body&gt;
+            &lt;Main /&gt;
+            &lt;NextScript /&gt;
+          &lt;/body&gt;
+        &lt;/Html&gt;
       )
     }
 
@@ -127,35 +127,35 @@ Never add it inside an individual page component or template. Never add it multi
 
 ### Astro (src/layouts/BaseLayout.astro or similar shared layout)
 
-    <head>
+    &lt;head&gt;
       &lt;script
         src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
         api-key={import.meta.env.PUBLIC_THRIVESTACK_MARKETING_API_KEY}
         source="marketing"
         is:inline&gt;
       &lt;/script&gt;
-    </head>
+    &lt;/head&gt;
 
 ### SvelteKit (src/app.html)
 
-    <head>
+    &lt;head&gt;
       &lt;script
         src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
         api-key="%PUBLIC_THRIVESTACK_MARKETING_API_KEY%"
         source="marketing"&gt;
       &lt;/script&gt;
-    </head>
+    &lt;/head&gt;
 
 ### Plain HTML / Static Site
-Add to the <head> of the shared base template or every public HTML page:
+Add to the &lt;head&gt; of the shared base template or every public HTML page:
 
-    <head>
+    &lt;head&gt;
       &lt;script
         src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
         api-key="YOUR_ENV_VAR_SUBSTITUTION_HERE"
         source="marketing"&gt;
       &lt;/script&gt;
-    </head>
+    &lt;/head&gt;
 
 ### WordPress / CMS
 Add via the theme's functions.php, a header injection plugin, or the theme's header.php:

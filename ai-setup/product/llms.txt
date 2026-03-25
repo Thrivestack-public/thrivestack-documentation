@@ -82,17 +82,17 @@ Add once to the root layout file. Never inside a component or page.
 import Script from 'next/script'
 export default function RootLayout({ children }) {
   return (
-    <html>
-      <head>
-        <Script
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;Script
           src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
           strategy="afterInteractive"
           data-api-key={process.env.NEXT_PUBLIC_THRIVESTACK_API_KEY}
           data-source="product"
-        />
-      </head>
-      <body>{children}</body>
-    </html>
+        /&gt;
+      &lt;/head&gt;
+      &lt;body&gt;{children}&lt;/body&gt;
+    &lt;/html&gt;
   )
 }
 ```
