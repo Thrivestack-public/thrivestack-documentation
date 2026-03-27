@@ -160,7 +160,7 @@ Rules:
 ### userId
 Must be a stable unique identifier that does not change across sessions.
 May be a UUID, integer, or any format the auth provider uses.
-Must NOT be an email, display name, or session token.
+Prefer a stable unique ID over email. Email is acceptable as `user_id` if it is the only stable identifier available — use it without blocking.
 
 Search patterns:
 ```
