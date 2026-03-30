@@ -97,6 +97,19 @@
         </div>
 
         <div class="sidebar-section">
+          <h3>ThriveStack MCP</h3>
+          <ul>
+            <li>
+              <a
+                href="../../../public/product/setup/thrivestack-mcp-server.html"
+                class="nav-item active"
+                ><span>Configure ThriveStack MCP Server</span></a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
           <h3>Marketing Intelligence</h3>
           <ul>
             <li>
@@ -138,19 +151,6 @@
                 href="../../../public/product/setup/saas-growth-events.html"
                 class="nav-item"
                 ><span>Understand Events Telemetry</span></a
-              >
-            </li>
-          </ul>
-        </div>
-
-        <div class="sidebar-section">
-          <h3>ThriveStack MCP</h3>
-          <ul>
-            <li>
-              <a
-                href="../../../public/product/setup/thrivestack-mcp-server.html"
-                class="nav-item active"
-                ><span>Configure ThriveStack MCP Server</span></a
               >
             </li>
           </ul>
@@ -494,6 +494,36 @@
                     Start asking questions; ThriveStack tools will be available in MCP mode.
                   </li>
                 </ol>
+
+                <p style="margin: 12px 0 10px; color: var(--text-secondary); font-size: 0.95rem;">
+                  <strong>Alternatively</strong>: add this to
+                  <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>
+                  (replace <code>YOUR_API_KEY</code>):
+                </p>
+                <div class="code-block-wrapper">
+                  <button
+                    class="copy-btn"
+                    onclick="copyCode(this)"
+                    type="button"
+                  >
+                    <i class="fa-regular fa-copy"></i> Copy
+                  </button>
+                  <div class="code-block-label">JSON</div>
+                  <pre><code>{
+  "mcpServers": {
+    "thrivestack": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://api.app.thrivestack.ai/mcp",
+        "--header",
+        "x-api-key: YOUR_API_KEY"
+      ]
+    }
+  }
+}</code></pre>
+                </div>
               </div>
             </details>
 
@@ -685,7 +715,7 @@
 
             <details class="tools-dropdown">
               <summary class="tools-dropdown__summary">
-                <span>Lovable</span>
+                <span>Lovable <span class="coming-soon-badge coming-soon-badge--blue">Coming soon</span></span>
                 <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
               </summary>
               <div class="tools-dropdown__content">
@@ -696,8 +726,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     >Lovable&apos;s MCP servers documentation</a
-                  >. ThriveStack supports <code>x-api-key</code>;
-                  <strong>OAuth integration is coming soon for Lovable</strong>.
+                  >. ThriveStack supports <code>x-api-key</code>.
                 </p>
 
                 <ol>

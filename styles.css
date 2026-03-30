@@ -1794,6 +1794,18 @@ ready-to-scale-promo {
     letter-spacing: 0.04em;
 }
 
+.coming-soon-badge--blue {
+    background: rgba(59, 130, 246, 0.14);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    color: var(--brand-primary);
+}
+
+[data-theme="dark"] .coming-soon-badge--blue {
+    background: rgba(96, 165, 250, 0.18);
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    color: var(--brand-primary);
+}
+
 /* Code tabs */
 .code-tabs {
     margin: 1.5rem 0;
