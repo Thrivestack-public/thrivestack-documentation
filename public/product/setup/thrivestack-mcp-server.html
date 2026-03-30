@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Configure ThriveStack MCP Server - ThriveStack Documentation"
+    />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme") || "dark";
+          document.documentElement.setAttribute("data-theme", saved);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+    <title>Configure ThriveStack MCP Server - ThriveStack</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../../../styles.css" />
+    <script
+      src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+      api-key="{{THRIVESTACK_API_KEY}}"
+      source="product"
+    ></script>
+  </head>
+  <body>
+    <nav class="top-nav">
+      <div class="nav-left">
+        <a href="../../../index.html" class="logo">
+          <img src="../../../logo.png" alt="ThriveStack" class="logo-img" />
+          <span class="logo-text"></span>
+        </a>
+        <div class="search-bar">
+          <i class="fa-solid fa-search"></i>
+          <input type="text" placeholder="Search documentation... (Ctrl+K)" />
+        </div>
+      </div>
+      <div class="nav-center">
+        <div class="nav-links">
+          <a href="../../../index.html">Get Started</a>
+          <a href="../../../setup-overview.html" class="active"
+            >Setup (Unify)</a
+          >
+          <a href="#">Analyze Signals</a>
+          <a href="#">Take Action</a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+          <i class="fa-solid fa-sun" id="theme-icon"></i>
+        </button>
+        <a
+          href="https://app.thrivestack.ai/auth/customer-analytics/sign-up"
+          class="btn-primary"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Sign In</a
+        >
+        <button class="mobile-menu-btn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <div class="layout-container">
+      <aside class="left-sidebar" id="sidebar">
+        <div class="sidebar-section">
+          <h3>Overview</h3>
+          <ul>
+            <li>
+              <a href="../../../setup-overview.html" class="nav-item"
+                ><span>Setup (Unify) Overview</span></a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Marketing Intelligence</h3>
+          <ul>
+            <li>
+              <a
+                href="../../../public/marketing/setup/setup-with-ai.html"
+                class="nav-item"
+                ><span>Setup with AI (LLM)</span
+                ><span class="time-badge">2 mins</span></a
+              >
+            </li>
+            <li>
+              <a href="#" class="nav-item"
+                ><span>Setup Manually</span
+                ><span class="time-badge">10 mins</span></a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Product Intelligence</h3>
+          <ul>
+            <li>
+              <a
+                href="../../../public/product/setup/setup-with-ai.html"
+                class="nav-item"
+                ><span>Setup with AI</span
+                ><span class="time-badge">2 mins</span></a
+              >
+            </li>
+            <li>
+              <a href="#" class="nav-item"
+                ><span>Setup Manually</span
+                ><span class="time-badge">~1hr</span></a
+              >
+            </li>
+            <li>
+              <a
+                href="../../../public/product/setup/saas-growth-events.html"
+                class="nav-item"
+                ><span>Understand Events Telemetry</span></a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>ThriveStack MCP</h3>
+          <ul>
+            <li>
+              <a
+                href="../../../public/product/setup/thrivestack-mcp-server.html"
+                class="nav-item active"
+                ><span>Configure ThriveStack MCP Server</span></a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Revenue Intelligence</h3>
+          <ul>
+            <li>
+              <a href="#" class="nav-item"
+                ><span>Setup with AI (LLM)</span
+                ><span class="time-badge">2 mins</span></a
+              >
+            </li>
+            <li>
+              <a href="#" class="nav-item"
+                ><span>Setup Manually</span
+                ><span class="time-badge">~1hr</span></a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>CRM Sync</h3>
+          <ul>
+            <li>
+              <a href="#" class="nav-item"><span>HubSpot</span></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Customer Success</h3>
+          <ul>
+            <li>
+              <a href="#" class="nav-item"><span>Setup Health Scores</span></a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+      <div class="resizer" id="sidebar-resizer"></div>
+
+      <main class="main-content">
+        <div class="content-wrapper">
+          <section id="overview" class="content-section">
+            <section class="doc-page">
+              <div class="breadcrumbs">
+                <a href="../../../index.html">Documentation</a>
+                <i class="fa-solid fa-chevron-right"></i>
+                <a href="../../../setup-overview.html">Setup (Unify)</a>
+                <i class="fa-solid fa-chevron-right"></i>
+                <span>Configure ThriveStack MCP Server</span>
+              </div>
+              <header class="doc-page-header">
+                <span class="doc-page-header-eyebrow">ThriveStack MCP</span>
+                <h1 class="doc-page-title">Configure ThriveStack MCP Server</h1>
+                <p style="margin-top: 12px">
+                  The ThriveStack
+                  <a
+                    href="https://modelcontextprotocol.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Model Context Protocol (MCP)
+                  </a>
+                  server enables AI tools to query and create ThriveStack
+                  artifacts (signals, charts, dashboards, experiments, cohorts)
+                  via conversational UI.
+                </p>
+              </header>
+
+              <p style="margin-top: 12px">
+                The
+                <a
+                  href="https://github.com/Thrivestack-public/thrivestack-mcp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Thrivestack MCP</a
+                > on GitHub. MCP integration guides and examples are available
+                in <a
+                  href="https://docs.anthropic.com/en/docs/claude-code/mcp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Anthropic Claude documentation</a
+                >, the
+                <a
+                  href="https://modelcontextprotocol.io/quickstart-resources"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >MCP quickstart resources</a
+                >, and <a
+                  href="https://www.cursor.com/docs/context/mcp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Cursor&apos;s MCP documentation</a
+                >.
+              </p>
+            </section>
+          </section>
+
+          <section id="remote-server" class="content-section">
+            <h2>Remote server</h2>
+            <ul>
+              <li>
+                Available to existing ThriveStack customers.
+              </li>
+              <li>
+                You must use a code editor or application that supports MCP
+                servers (for example, Cursor, Claude Code, ChatGPT, Lovable, or
+                Gemini CLI).
+              </li>
+              <li>
+                Configure ThriveStack MCP server URL:
+                <code>https://api.app.thrivestack.ai/mcp</code>.
+                Authenticate with <code>x-api-key</code> for any MCP client.
+                OAuth-style authorization is available for
+                <strong>Claude</strong> and <strong>Claude Desktop</strong>
+                only.
+              </li>
+            </ul>
+
+            <h3>Quick Connect</h3>
+            <table
+              style="width: 100%; border-collapse: collapse; margin-top: 12px"
+            >
+              <thead>
+                <tr>
+                  <th
+                    style="
+                      text-align: left;
+                      padding: 0.5rem 0.6rem;
+                      border-bottom: 1px solid var(--table-row-border);
+                    "
+                  >
+                    Endpoint
+                  </th>
+                  <th
+                    style="
+                      text-align: left;
+                      padding: 0.5rem 0.6rem;
+                      border-bottom: 1px solid var(--table-row-border);
+                    "
+                  >
+                    Configure ThriveStack MCP Server
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td
+                    style="
+                      padding: 0.5rem 0.6rem;
+                      border-bottom: 1px solid var(--table-row-border);
+                    "
+                  >
+                    Primary endpoint
+                  </td>
+                  <td
+                    style="
+                      padding: 0.5rem 0.6rem;
+                      border-bottom: 1px solid var(--table-row-border);
+                    "
+                  >
+                    <code>https://api.app.thrivestack.ai/mcp</code>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="capabilities" class="content-section">
+            <h2>Available tools and capabilities</h2>
+            <p>
+              The ThriveStack MCP provides comprehensive access to your
+              analytics through these tools:
+            </p>
+
+            <details class="tools-dropdown">
+              <summary class="tools-dropdown__summary">
+                <span>Available tools</span>
+                <i
+                  class="fa-solid fa-chevron-down tools-dropdown__chevron"
+                ></i>
+              </summary>
+              <div class="tools-dropdown__content">
+                <table
+                  style="width: 100%; border-collapse: collapse; margin-top: 0"
+                >
+              <thead>
+                <tr>
+                  <th
+                    style="
+                      text-align: left;
+                      padding: 0.5rem 0.6rem;
+                      border-bottom: 1px solid var(--table-row-border);
+                    "
+                  >
+                    Tool Name
+                  </th>
+                  <th
+                    style="
+                      text-align: left;
+                      padding: 0.5rem 0.6rem;
+                      border-bottom: 1px solid var(--table-row-border);
+                    "
+                  >
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    <code>Company Name from Contacts</code>
+                  </td>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    Resolve a company name from your contacts information.
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    <code>Event Count</code>
+                  </td>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    Get event totals to summarize usage activity.
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    <code>MAU &amp; MTU Count</code>
+                  </td>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    Return Monthly Active Users (MAU) and Monthly Tracked Users (MTU).
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    <code>PLG-Qualified Leads</code>
+                  </td>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    List PLG-qualified leads that are ready for sales follow-up.
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    <code>Get Setup Status</code>
+                  </td>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    Check whether ThriveStack telemetry setup is complete and connected.
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    <code>List Accounts</code>
+                  </td>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    List accounts with the metrics needed for PLG analytics.
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    <code>Start ThriveStack Telemetry Setup</code>
+                  </td>
+                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
+                    Start the telemetry setup workflow so your instance can generate data.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+              </div>
+            </details>
+          </section>
+
+          <section id="implementation" class="content-section">
+            <h2>Implementation instructions</h2>
+            <p>
+              Configure your MCP client to connect to
+              <code>https://api.app.thrivestack.ai/mcp</code>.
+              <code>x-api-key</code> authentication works across MCP clients
+              (ThriveStack Dashboard -> Settings -> API Keys).
+              <strong>Claude</strong> and <strong>Claude Desktop</strong> can
+              also authenticate via their OAuth-style authorization flow when
+              prompted.
+            </p>
+
+            <blockquote class="note-callout">
+              <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i>
+              <strong>Note:</strong> Get your ThriveStack API key from
+              <a
+                href="https://app.thrivestack.ai/analyze/settings/api-keys"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Settings &rarr; API Keys</a
+              >.
+            </blockquote>
+
+            <details class="tools-dropdown">
+              <summary class="tools-dropdown__summary">
+                <span>Claude Desktop</span>
+                <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+              </summary>
+              <div class="tools-dropdown__content">
+                <p class="mt-4">
+                  For general MCP connector setup, refer to
+                  <a
+                    href="https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Claude Desktop MCP servers documentation</a
+                  >.
+                </p>
+
+                <ol>
+                  <li>
+                    Navigate to
+                    <a
+                      href="https://claude.ai"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      ><strong>claude.ai</strong></a
+                    >
+                    (or open the Claude desktop app).
+                  </li>
+                  <li>
+                    Go to <strong>Settings</strong> &gt; <strong>Connectors</strong> &gt;
+                    <strong> Add custom connector</strong>.
+                  </li>
+                  <li>
+                    Configure the connector:
+                    <ul>
+                      <li><strong>Name</strong>: Thrivestack</li>
+                      <li><strong>URL</strong>: <code>https://api.app.thrivestack.ai/mcp</code></li>
+                    </ul>
+                  </li>
+                  <li>
+                    Complete the ThriveStack OAuth-style authorization flow when
+                    prompted.
+                  </li>
+                  <li>
+                    Start asking questions; ThriveStack tools will be available in MCP mode.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <details class="tools-dropdown">
+              <summary class="tools-dropdown__summary">
+                <span>Claude Code CLI</span>
+                <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+              </summary>
+              <div class="tools-dropdown__content">
+                <p class="mt-4">
+                  For general MCP setup, refer to
+                  <a
+                    href="https://docs.anthropic.com/en/docs/claude-code/mcp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Claude Code MCP documentation</a
+                  >.
+                </p>
+
+                <ol>
+                  <li>
+                    Add the ThriveStack MCP server globally:
+                    <div class="code-block-wrapper">
+                      <button
+                        class="copy-btn"
+                        onclick="copyCode(this)"
+                        type="button"
+                      >
+                        <i class="fa-regular fa-copy"></i> Copy
+                      </button>
+                      <div class="code-block-label">Shell</div>
+                      <pre><code>claude mcp add -t http -s user Thrivestack "https://api.app.thrivestack.ai/mcp"</code></pre>
+                    </div>
+                    <p style="margin: 12px 0 6px; color: var(--text-secondary); font-size: 0.95rem;">
+                      <strong>OR</strong>: use <code>x-api-key</code> authentication (works with any MCP client):
+                    </p>
+                    <div class="code-block-wrapper">
+                      <button
+                        class="copy-btn"
+                        onclick="copyCode(this)"
+                        type="button"
+                      >
+                        <i class="fa-regular fa-copy"></i> Copy
+                      </button>
+                      <div class="code-block-label">Shell</div>
+                      <pre><code>claude mcp add -t http -s user Thrivestack "https://api.app.thrivestack.ai/mcp" --header "x-api-key: YOUR_API_KEY"</code></pre>
+                    </div>
+                  </li>
+                  <li>
+                    Start Claude Code:
+                    <div class="code-block-wrapper">
+                      <button
+                        class="copy-btn"
+                        onclick="copyCode(this)"
+                        type="button"
+                      >
+                        <i class="fa-regular fa-copy"></i> Copy
+                      </button>
+                      <div class="code-block-label">Shell</div>
+                      <pre><code>claude</code></pre>
+                    </div>
+                  </li>
+                  <li>
+                    Enter MCP mode:
+                    <div class="code-block-wrapper">
+                      <button
+                        class="copy-btn"
+                        onclick="copyCode(this)"
+                        type="button"
+                      >
+                        <i class="fa-regular fa-copy"></i> Copy
+                      </button>
+                      <div class="code-block-label">Shell</div>
+                      <pre><code>/mcp</code></pre>
+                    </div>
+                  </li>
+                  <li>
+                    When prompted, complete ThriveStack OAuth-style authorization.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <details class="tools-dropdown">
+              <summary class="tools-dropdown__summary">
+                <span>Cursor / Windsurf</span>
+                <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+              </summary>
+              <div class="tools-dropdown__content">
+                <p class="mt-4">
+                  Use your ThriveStack API key via the <code>x-api-key</code>
+                  header. For general MCP setup, refer to
+                  <a
+                    href="https://www.cursor.com/docs/context/mcp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Cursor&apos;s MCP documentation</a
+                  >.
+                </p>
+
+                <ol>
+                  <li>Open Cursor Settings.</li>
+                  <li>
+                    Go to <strong>Tools &amp; Integrations</strong> &gt;
+                    <strong>New MCP Server</strong>.
+                  </li>
+                  <li>
+                    Add the ThriveStack MCP configuration (replace
+                    <code>YOUR_API_KEY</code>):
+                    <div class="code-block-wrapper">
+                      <button
+                        class="copy-btn"
+                        onclick="copyCode(this)"
+                        type="button"
+                      >
+                        <i class="fa-regular fa-copy"></i> Copy
+                      </button>
+                      <div class="code-block-label">JSON</div>
+                      <pre><code>{
+  "mcpServers": {
+    "thrivestack": {
+      "url": "https://api.app.thrivestack.ai/mcp",
+      "headers": {
+        "x-api-key": "YOUR_API_KEY"
+      }
+    }
+  }
+}</code></pre>
+                    </div>
+                  </li>
+                  <li>
+                    Complete the ThriveStack authentication flow (x-api-key)
+                    when prompted.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <details class="tools-dropdown">
+              <summary class="tools-dropdown__summary">
+                <span>Gemini CLI</span>
+                <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+              </summary>
+              <div class="tools-dropdown__content">
+                <p class="mt-4">
+                  For general MCP setup, refer to
+                  <a
+                    href="https://google-gemini.github.io/gemini-cli/docs/tools/mcp-server.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Gemini CLI MCP server documentation</a
+                  >.
+                </p>
+
+                <ol>
+                  <li>Ensure you&apos;re authenticated with Gemini.</li>
+                  <li>
+                    Add this to your <code>~/.gemini/settings.json</code>
+                    (replace <code>YOUR_API_KEY</code>):
+                    <div class="code-block-wrapper">
+                      <button
+                        class="copy-btn"
+                        onclick="copyCode(this)"
+                        type="button"
+                      >
+                        <i class="fa-regular fa-copy"></i> Copy
+                      </button>
+                      <div class="code-block-label">JSON</div>
+                      <pre><code>{
+  "mcpServers": {
+    "thrivestack": {
+      "httpUrl": "https://api.app.thrivestack.ai/mcp",
+      "headers": {
+        "x-api-key": "YOUR_API_KEY"
+      }
+    }
+  }
+}</code></pre>
+                    </div>
+                  </li>
+                  <li>Restart Gemini CLI to load the MCP server.</li>
+                  <li>
+                    Start asking questions; ThriveStack tools will be available
+                    in MCP mode.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <details class="tools-dropdown">
+              <summary class="tools-dropdown__summary">
+                <span>Lovable</span>
+                <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+              </summary>
+              <div class="tools-dropdown__content">
+                <p class="mt-4">
+                  For MCP connector setup, refer to
+                  <a
+                    href="https://docs.lovable.dev/integrations/mcp-servers"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Lovable&apos;s MCP servers documentation</a
+                  >. ThriveStack supports <code>x-api-key</code>;
+                  <strong>OAuth integration is coming soon for Lovable</strong>.
+                </p>
+
+                <ol>
+                  <li>Log in to Lovable.</li>
+                  <li>
+                    Open <strong>Settings</strong>, then go to
+                    <strong>Connectors</strong>.
+                  </li>
+                  <li>
+                    Add a new MCP connector (or search for
+                    <strong>Thrivestack</strong> if available).
+                  </li>
+                  <li>
+                    Configure the connector:
+                    <ul>
+                      <li>
+                        URL:
+                        <code>https://api.app.thrivestack.ai/mcp</code>
+                      </li>
+                      <li>
+                        Auth header:
+                        <code>x-api-key</code> = your ThriveStack API key
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    Complete the ThriveStack connection flow in Lovable.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <details class="tools-dropdown">
+              <summary class="tools-dropdown__summary">
+                <span>Other MCP clients</span>
+                <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+              </summary>
+              <div class="tools-dropdown__content">
+                <p class="mt-4">
+                  For MCP-compatible clients not listed above, configure the
+                  client to connect to
+                  <code>https://api.app.thrivestack.ai/mcp</code> and provide
+                  your ThriveStack API key as an <code>x-api-key</code> header.
+                </p>
+
+                <ol>
+                  <li>
+                    Configure your client&apos;s MCP server URL to
+                    <code>https://api.app.thrivestack.ai/mcp</code>.
+                  </li>
+                  <li>
+                    Ensure your client supports custom HTTP headers and set
+                    <code>x-api-key</code> to your ThriveStack API key.
+                  </li>
+                  <li>
+                    Authenticate/connect when prompted (if your client asks
+                    for it).
+                  </li>
+                  <li>
+                    Start using ThriveStack tools in MCP mode.
+                  </li>
+                </ol>
+              </div>
+            </details>
+          </section>
+
+          <section id="query-examples" class="content-section query-examples">
+            <h2>Query examples</h2>
+            <h3>Accounts</h3>
+            <h4 style="margin-top: 12px">List Accounts</h4>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Who are my top 10 accounts by engagement this month?&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;List accounts that have been active in the last 30 days,
+              sorted by last active time.&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Show me the first 20 accounts, sorted by health score
+              descending.&rdquo;
+            </blockquote>
+
+            <h4 style="margin-top: 18px">Company Name from Contacts</h4>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Given contacts with domain = thrivestack.ai, what company
+              name do you infer?&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Find the company name for contacts where email eq
+              engineerpersona@thrivestack.ai.&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Derive company name from contacts in country eq United
+              States and industry eq SaaS.&rdquo;
+            </blockquote>
+
+            <h3 style="margin-top: 22px">Analytics</h3>
+            <h4 style="margin-top: 12px">MAU &amp; MTU Count</h4>
+            <blockquote class="query-examples__prompt">
+              &ldquo;What are my MAU and MTU for 2026-03?&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Give me MAU vs MTU for 2026-01.&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;For last month (2026-02), what were MAU and MTU?&rdquo;
+            </blockquote>
+
+            <h4 style="margin-top: 18px">Event Count</h4>
+            <blockquote class="query-examples__prompt">
+              &ldquo;How many events did we track in 2026-03?&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;What&rsquo;s the total event count for last_30_days?&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Show event volume for last_7_days.&rdquo;
+            </blockquote>
+
+            <h3 style="margin-top: 22px">GTM</h3>
+            <h4 style="margin-top: 12px">PLG-Qualified Leads</h4>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Show me PLG leads ready for sales outreach (type identify),
+              first page.&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Get PLG leads of type group, page 2, 25 per page.&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Pull the newest 50 PLG-qualified leads (type identify).&rdquo;
+            </blockquote>
+
+            <h3 style="margin-top: 22px">Setup</h3>
+            <h4 style="margin-top: 12px">Start ThriveStack Telemetry Setup</h4>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Help me set up ThriveStack for marketing telemetry.
+              Here&rsquo;s my API key: &lt;key&gt;.&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;I need product instrumentation; use this ThriveStack API
+              key: &lt;key&gt;.&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Set up both marketing + product telemetry. API key:
+              &lt;key&gt;.&rdquo;
+            </blockquote>
+
+            <h4 style="margin-top: 18px">Get Setup Status</h4>
+            <blockquote class="query-examples__prompt">
+              &ldquo;What&rsquo;s my setup completion status right now?&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Which setup steps are still pending for my environment?&rdquo;
+            </blockquote>
+            <blockquote class="query-examples__prompt">
+              &ldquo;Show warnings/blockers in my onboarding/setup progress.&rdquo;
+            </blockquote>
+          </section>
+
+          <section id="plugins" class="content-section">
+            <h2>Plugins (coming soon)</h2>
+            <p>
+              ThriveStack plans to publish an MCP marketplace to extend MCP with
+              reusable analysis and instrumentation skills. Until released,
+              connect directly to the ThriveStack MCP server URL and use the
+              built-in tools it exposes.
+            </p>
+          </section>
+
+          <section id="troubleshooting" class="content-section">
+            <h2>Troubleshooting</h2>
+            <ul>
+              <li>
+                <strong>Authentication problems</strong>: confirm you completed
+                the ThriveStack auth flow and re-authenticate if tokens expire.
+              </li>
+              <li>
+                <strong>Missing data</strong>: ensure your ThriveStack account
+                has access to the target project and artifact exists.
+              </li>
+              <li>
+                <strong>Tool not found</strong>: tool availability depends on
+                what your MCP server exposes for your account.
+              </li>
+              <li>
+                <strong>Queries timing out</strong>: try smaller questions or
+                narrower date ranges.
+              </li>
+            </ul>
+
+          </section>
+
+          <section id="technical-specs" class="content-section">
+            <h2>Technical specifications</h2>
+            <ul>
+              <li><strong>Transport Type:</strong> Streaming HTTP (Remote)</li>
+              <li>
+                <strong>Authentication:</strong> <code>x-api-key</code> header
+                (API key) and OAuth 2.1 (Claude and Claude Desktop)
+              </li>
+            </ul>
+          </section>
+
+          <div class="page-nav">
+            <a
+              href="../../../public/product/setup/saas-growth-events.html"
+              class="nav-card prev-card"
+            >
+              <span class="nav-label">Previous</span>
+              <span class="nav-title">Events Telemetry</span>
+            </a>
+            <a
+              href="../../../public/product/setup/vibe-analytics.html"
+              class="nav-card next-card"
+            >
+              <span class="nav-label">Next</span>
+              <span class="nav-title">Vibe Analytics (AI)</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <footer class="content-footer">
+            <p>Was this page helpful?</p>
+            <div class="feedback-btns">
+              <button class="btn-icon">
+                <i class="fa-regular fa-thumbs-up"></i> Yes
+              </button>
+              <button class="btn-icon">
+                <i class="fa-regular fa-thumbs-down"></i> No
+              </button>
+            </div>
+            <div class="footer-links">
+              <a
+                href="https://github.com/Thrivestack-public/thrivestack-documentation"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><i class="fa-brands fa-github"></i> Edit on GitHub</a
+              >
+              <a
+                class="last-updated"
+                href="#"
+                tabindex="-1"
+                aria-disabled="true"
+                data-file="thrivestack-mcp-server.html"
+                >Last updated: March 30, 2026</a
+              >
+            </div>
+          </footer>
+        </div>
+      </main>
+
+      <aside class="right-sidebar">
+        <div class="toc-container sticky-top">
+          <h4>On this page</h4>
+          <nav id="toc" class="toc-nav">
+            <a href="#overview" class="toc-link active">Overview</a>
+            <a href="#remote-server" class="toc-link">Remote server</a>
+            <a href="#capabilities" class="toc-link">Tools & capabilities</a>
+            <a href="#implementation" class="toc-link">Implementation</a>
+            <a href="#query-examples" class="toc-link">Query examples</a>
+            <a href="#plugins" class="toc-link">Plugins</a>
+            <a href="#troubleshooting" class="toc-link">Troubleshooting</a>
+            <a href="#send-feedback" class="toc-link">Send feedback</a>
+            <a href="#technical-specs" class="toc-link">Technical specs</a>
+          </nav>
+          <ready-to-scale-promo></ready-to-scale-promo>
+        </div>
+      </aside>
+    </div>
+
+    <style>
+      /* Code blocks inside MCP setup dropdowns */
+      .code-block-wrapper {
+        position: relative;
+        margin: 14px 0 18px;
+      }
+
+      .code-block-wrapper pre {
+        margin: 0;
+        padding: 40px 16px 16px; /* room for label + copy button */
+        border-radius: 10px;
+        background: rgba(248, 250, 252, 0.95);
+        border: 1px solid rgba(148, 163, 184, 0.32);
+        overflow-x: auto;
+      }
+
+      .code-block-label {
+        position: absolute;
+        top: 8px;
+        left: 12px;
+        font-size: 12px;
+        color: rgba(71, 85, 105, 0.98);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(148, 163, 184, 0.38);
+        border-radius: 8px;
+        padding: 4px 8px;
+        pointer-events: none;
+      }
+
+      [data-theme="dark"] .code-block-label {
+        color: rgba(226, 232, 240, 0.95);
+        background: rgba(2, 6, 23, 0.55);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+      }
+
+      .code-block-wrapper pre code {
+        background: transparent;
+        color: rgba(15, 23, 42, 0.95);
+        padding: 0;
+        font-size: 0.88rem;
+      }
+
+      [data-theme="dark"] .code-block-wrapper pre code {
+        color: rgba(229, 231, 235, 0.95);
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 6px;
+        right: 8px;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        font-size: 12px;
+        font-family: inherit;
+        cursor: pointer;
+        border-radius: 8px;
+        border: 1px solid rgba(55, 65, 81, 0.55);
+        background: rgba(55, 65, 81, 0.95);
+        color: rgba(255, 255, 255, 0.97);
+        transition: color 0.15s, border-color 0.15s;
+      }
+
+      .copy-btn:hover {
+        border-color: rgba(55, 65, 81, 0.9);
+      }
+
+      .copy-btn.copied {
+        color: #4ade80;
+        border-color: #4ade80;
+      }
+    </style>
+
+    <script>
+      function copyCode(btn) {
+        var wrapper = btn.closest(".code-block-wrapper");
+        var codeEl = wrapper ? wrapper.querySelector("pre code") : null;
+        if (!codeEl) return;
+
+        var text = codeEl.innerText;
+        navigator.clipboard.writeText(text).then(function () {
+          btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Copied';
+          btn.classList.add("copied");
+          setTimeout(function () {
+            btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
+            btn.classList.remove("copied");
+          }, 2000);
+        });
+      }
+    </script>
+
+    <script src="../../../script.js"></script>
+  </body>
+</html>

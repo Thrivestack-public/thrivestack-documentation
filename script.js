@@ -110,6 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 terms: 'vibe analytics ai telemetry spec identify group track checklist'
             },
             {
+                title: 'Configure ThriveStack MCP Server',
+                url: 'public/product/setup/thrivestack-mcp-server.html#remote-server',
+                terms: 'thrivestack mcp setup model context protocol remote server tools capabilities implementation instructions'
+            },
+            {
                 title: 'API Reference',
                 url: 'api-reference.html#overview',
                 terms: 'api reference public endpoints rest http authentication bearer key'

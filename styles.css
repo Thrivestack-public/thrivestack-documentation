@@ -1838,3 +1838,233 @@ ready-to-scale-promo {
     border-radius: 0;
     border: none;
 }
+
+/* MCP tools dropdown (capabilities table) */
+.tools-dropdown {
+    border: 1px solid rgba(59, 130, 246, 0.18);
+    border-radius: 8px;
+    background: var(--card-bg);
+    overflow: hidden;
+}
+
+.tools-dropdown summary.tools-dropdown__summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 0.95rem 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 1px solid transparent;
+    background: rgba(59, 130, 246, 0.08); /* light blue header like reference */
+}
+
+.tools-dropdown summary.tools-dropdown__summary::-webkit-details-marker {
+    display: none;
+}
+
+.tools-dropdown__chevron {
+    transition: transform 0.2s ease;
+    color: var(--text-muted);
+}
+
+.tools-dropdown[open] .tools-dropdown__chevron {
+    transform: rotate(180deg);
+}
+
+.tools-dropdown__content {
+    padding: 0.15rem 1rem 0.95rem;
+    background: var(--card-bg);
+}
+
+.tools-dropdown__content table {
+    margin-top: 0 !important;
+    width: 100%;
+}
+
+.tools-dropdown__content td code {
+    font-family: SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
+    background: rgba(15, 23, 42, 0.035); /* lightest gray/near-white */
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.25rem;
+    font-size: 0.85em;
+    color: var(--brand-primary);
+}
+
+[data-theme="dark"] .tools-dropdown__content td code {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--brand-primary);
+}
+
+.tools-dropdown[open] summary.tools-dropdown__summary {
+    border-bottom-color: var(--table-row-border);
+}
+
+/* Step-wise content inside implementation dropdowns */
+.tools-dropdown__content p {
+    margin: 0.35rem 0 0.75rem;
+}
+
+.tools-dropdown__content ol,
+.tools-dropdown__content ul {
+    margin: 0.35rem 0 0.8rem;
+    padding-left: 1.35rem;
+}
+
+.tools-dropdown__content li {
+    margin: 0.25rem 0 0.55rem;
+}
+
+.tools-dropdown__content pre {
+    margin: 0.75rem 0;
+}
+
+/* Make blockquotes inside dropdowns look like "Note" callouts */
+.tools-dropdown__content blockquote {
+    margin: 0.85rem 0 0;
+    border-left: none;
+    border: 1px solid rgba(59, 130, 246, 0.6);
+    background: rgba(59, 130, 246, 0.05);
+    color: var(--text-primary);
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+[data-theme="dark"] .tools-dropdown__content blockquote {
+    border: 1px solid rgba(59, 130, 246, 0.85);
+    background: rgba(59, 130, 246, 0.14);
+}
+
+/* Remove extra divider under last tool row */
+.tools-dropdown__content table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* Query examples (Amplitude-like cards) */
+.query-examples .query-examples__section {
+    margin-top: 1.25rem;
+}
+
+.query-examples h3 {
+    margin-top: 0;
+}
+
+.query-examples .query-examples__subcard {
+    margin-top: 0.85rem;
+    background: var(--card-bg);
+    border: 1px solid rgba(59, 130, 246, 0.16);
+    border-radius: 12px;
+    padding: 0.95rem 1.05rem;
+}
+
+/* Override global h4 (uppercase) just for query examples */
+.query-examples h4 {
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.45rem;
+}
+
+.query-examples .query-examples__subcard ul {
+    margin: 0.1rem 0 0 1.25rem;
+    padding: 0;
+}
+
+.query-examples .query-examples__subcard li {
+    margin: 0.35rem 0;
+    color: var(--text-secondary);
+    font-size: 1.0rem;
+}
+
+/* Query examples (Amplitude-like quote blocks) */
+.query-examples blockquote.query-examples__prompt {
+    margin: 0.75rem 0;
+    padding: 0 0 0 1.05rem;
+    border-left: 4px solid rgba(148, 163, 184, 0.45);
+    background: transparent;
+    border-radius: 0;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 1.03rem;
+}
+
+[data-theme="dark"] .query-examples blockquote.query-examples__prompt {
+    border-left-color: rgba(148, 163, 184, 0.35);
+}
+
+/* Query examples hierarchy: category vs tool name */
+.query-examples h3 {
+    font-size: 1.25rem;
+    font-weight: 750;
+    margin-top: 1.65rem;
+    margin-bottom: 0.5rem;
+}
+
+.query-examples h3:first-of-type {
+    margin-top: 0.75rem;
+}
+
+.query-examples h4 {
+    font-size: 0.86rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.085em;
+    color: var(--text-muted);
+    margin-top: 0.95rem;
+    margin-bottom: 0.35rem;
+}
+
+/* Remote server bullets: align like reference */
+#remote-server ul {
+    margin: 0.75rem 0 0.75rem;
+    padding-left: 0.95rem;
+}
+
+#remote-server li {
+    margin: 0.45rem 0;
+}
+
+/* Bullets should sit "ahead" in these sections */
+#troubleshooting ul,
+#technical-specs ul {
+    margin: 0.75rem 0 0.75rem;
+    padding-left: 0.95rem;
+}
+
+/* Shared note callout (used outside dropdowns) */
+blockquote.note-callout {
+    margin: 0.75rem 0 1.05rem;
+    padding: 0.9rem 1rem;
+    border-left: none;
+    border: 1px solid rgba(59, 130, 246, 0.55);
+    background: rgba(59, 130, 246, 0.06);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 0.98rem;
+    box-shadow: 0 10px 24px rgba(2, 6, 23, 0.06);
+}
+
+[data-theme="dark"] blockquote.note-callout {
+    border: 1px solid rgba(59, 130, 246, 0.85);
+    background: rgba(59, 130, 246, 0.14);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+blockquote.note-callout i {
+    color: var(--brand-primary);
+}
+
+/* Implementation dropdown spacing (Amplitude-like accordions) */
+#implementation .tools-dropdown + .tools-dropdown {
+    margin-top: 0.95rem;
+}
+
+#implementation .tools-dropdown__content {
+    padding: 0.7rem 1.15rem 1.1rem;
+}
