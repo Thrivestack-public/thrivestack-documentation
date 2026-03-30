@@ -95,11 +95,12 @@
         }
 
         .tab-nav-inner {
-            max-width: 760px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 0 24px;
             display: flex;
             gap: 4px;
+            justify-content: center;
         }
 
         .tab-btn {
@@ -434,6 +435,82 @@
             color: var(--text-secondary);
             margin-bottom: 10px;
         }
+
+        /* Github Repos tab */
+        .repos-tool-section {
+            margin-top: 40px;
+        }
+        .repos-tool-section:first-child {
+            margin-top: 0;
+        }
+        .repos-tool-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .repos-tool-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+        .repos-tool-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .repos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .repo-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 18px;
+            transition: border-color 0.15s;
+        }
+        .repo-card:hover { border-color: var(--border-hover); }
+        .repo-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .repo-card-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .repo-badges {
+            display: flex;
+            gap: 5px;
+        }
+        .badge {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 2px 7px;
+            border-radius: 4px;
+        }
+        .badge-fe { background: #eff6ff; color: #3b82f6; }
+        .badge-be { background: #f0fdf4; color: #16a34a; }
+        .badge-b2b { background: #faf5ff; color: #9333ea; }
+        .badge-b2c { background: #fff7ed; color: #ea580c; }
+        .badge-mkt { background: #fef3c7; color: #b45309; }
+        [data-theme="dark"] .badge-fe { background: #1e3a5f; color: #93c5fd; }
+        [data-theme="dark"] .badge-be { background: #14532d; color: #86efac; }
+        [data-theme="dark"] .badge-b2b { background: #3b0764; color: #d8b4fe; }
+        [data-theme="dark"] .badge-b2c { background: #431407; color: #fdba74; }
+        [data-theme="dark"] .badge-mkt { background: #451a03; color: #fde68a; }
+        .repo-card pre {
+            padding: 12px 14px;
+            padding-top: 12px;
+            font-size: 12.5px;
+        }
+        .repo-card .copy-btn { top: 6px; right: 6px; }
     </style>
 </head>
 <body>
@@ -454,6 +531,7 @@
             <button class="tab-btn" data-tab="account">Account 360</button>
             <button class="tab-btn" data-tab="revenue">Revenue Analytics</button>
             <button class="tab-btn" data-tab="hubspot">Sync to HubSpot</button>
+            <button class="tab-btn" data-tab="repos">Github Repos</button>
         </div>
     </nav>
 
@@ -646,6 +724,190 @@ Your API key is YOUR_API_KEY_HERE</code></pre>
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Github Repos -->
+        <section class="tab-panel" id="tab-repos">
+            <div class="panel-eyebrow">Test Environments</div>
+            <h1 class="panel-title">Github Repos</h1>
+            <p class="panel-desc">Sample apps ready for ThriveStack instrumentation. One repo, multiple projects — pick an AI tool, run a project, and start instrumenting.</p>
+
+            <div class="steps">
+                <!-- Step 1: Clone -->
+                <div class="step-row">
+                    <div class="step-aside">
+                        <div class="step-dot">1</div>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="step-body">
+                        <div class="step-card">
+                            <div class="step-title">Clone the repository</div>
+                            <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Open your terminal and run these two commands. This downloads the repo and moves you into it.</p>
+                            <div class="code-wrap">
+                                <button class="copy-btn" onclick="copyCode('clone-cmd', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                <pre><code id="clone-cmd">git clone https://github.com/Thrivestack-public/thrivestack-testbench
+cd thrivestack-testbench</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Run a project -->
+                <div class="step-row">
+                    <div class="step-aside">
+                        <div class="step-dot">2</div>
+                    </div>
+                    <div class="step-body">
+                        <div class="step-card">
+                            <div class="step-title">Pick a project and run it</div>
+
+                            <!-- Claude -->
+                            <div class="repos-tool-section" style="margin-top:4px;">
+                                <div class="repos-tool-label">
+                                    <img src="https://www.google.com/s2/favicons?domain=claude.ai&sz=32" style="width:16px;height:16px;border-radius:3px;">
+                                    <span class="repos-tool-name">Claude</span>
+                                    <div class="repos-tool-line"></div>
+                                </div>
+                                <div class="repos-grid">
+                                    <div class="repo-card">
+                                        <div class="repo-card-header">
+                                            <span class="repo-card-name">fe-b2b</span>
+                                            <div class="repo-badges"><span class="badge badge-fe">Frontend</span><span class="badge badge-b2b">B2B</span></div>
+                                        </div>
+                                        <div class="code-wrap">
+                                            <button class="copy-btn" onclick="copyCode('c-fe-b2b', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            <pre><code id="c-fe-b2b">cd claude/fe-b2b
+npm install
+npm run dev</code></pre>
+                                        </div>
+                                    </div>
+                                    <div class="repo-card">
+                                        <div class="repo-card-header">
+                                            <span class="repo-card-name">fe-b2c</span>
+                                            <div class="repo-badges"><span class="badge badge-fe">Frontend</span><span class="badge badge-b2c">B2C</span></div>
+                                        </div>
+                                        <div class="code-wrap">
+                                            <button class="copy-btn" onclick="copyCode('c-fe-b2c', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            <pre><code id="c-fe-b2c">cd claude/fe-b2c
+npm install
+npm run dev</code></pre>
+                                        </div>
+                                    </div>
+                                    <div class="repo-card">
+                                        <div class="repo-card-header">
+                                            <span class="repo-card-name">fe-marketing</span>
+                                            <div class="repo-badges"><span class="badge badge-fe">Frontend</span><span class="badge badge-mkt">Marketing</span></div>
+                                        </div>
+                                        <div class="code-wrap">
+                                            <button class="copy-btn" onclick="copyCode('c-fe-mkt', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            <pre><code id="c-fe-mkt">cd claude/fe-marketing
+npm install
+npm run dev</code></pre>
+                                        </div>
+                                    </div>
+                                    <div class="repo-card">
+                                        <div class="repo-card-header">
+                                            <span class="repo-card-name">be-b2b</span>
+                                            <div class="repo-badges"><span class="badge badge-be">Backend</span><span class="badge badge-b2b">B2B</span></div>
+                                        </div>
+                                        <div class="code-wrap">
+                                            <button class="copy-btn" onclick="copyCode('c-be-b2b', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            <pre><code id="c-be-b2b">cd claude/be-b2b
+npm install --prefix api
+npm start</code></pre>
+                                        </div>
+                                    </div>
+                                    <div class="repo-card">
+                                        <div class="repo-card-header">
+                                            <span class="repo-card-name">be-b2c</span>
+                                            <div class="repo-badges"><span class="badge badge-be">Backend</span><span class="badge badge-b2c">B2C</span></div>
+                                        </div>
+                                        <div class="code-wrap">
+                                            <button class="copy-btn" onclick="copyCode('c-be-b2c', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            <pre><code id="c-be-b2c">cd claude/be-b2c
+npm install --prefix api
+npm start</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cursor -->
+                            <div class="repos-tool-section">
+                                <div class="repos-tool-label">
+                                    <img src="https://www.google.com/s2/favicons?domain=cursor.com&sz=32" style="width:16px;height:16px;border-radius:3px;">
+                                    <span class="repos-tool-name">Cursor</span>
+                                    <div class="repos-tool-line"></div>
+                                </div>
+                                <div class="repos-grid">
+                                    <div class="repo-card">
+                                        <div class="repo-card-header">
+                                            <span class="repo-card-name">fe-b2b</span>
+                                            <div class="repo-badges"><span class="badge badge-fe">Frontend</span><span class="badge badge-b2b">B2B</span></div>
+                                        </div>
+                                        <div class="code-wrap">
+                                            <button class="copy-btn" onclick="copyCode('cu-fe-b2b', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            <pre><code id="cu-fe-b2b">cd cursor/fe-b2b
+npm install
+npm run dev</code></pre>
+                                        </div>
+                                    </div>
+                                    <div class="repo-card">
+                                        <div class="repo-card-header">
+                                            <span class="repo-card-name">fe-b2c</span>
+                                            <div class="repo-badges"><span class="badge badge-fe">Frontend</span><span class="badge badge-b2c">B2C</span></div>
+                                        </div>
+                                        <div class="code-wrap">
+                                            <button class="copy-btn" onclick="copyCode('cu-fe-b2c', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            <pre><code id="cu-fe-b2c">cd cursor/fe-b2c
+npm install
+npm run dev</code></pre>
+                                        </div>
+                                    </div>
+                                    <div class="repo-card">
+                                        <div class="repo-card-header">
+                                            <span class="repo-card-name">fe-marketing</span>
+                                            <div class="repo-badges"><span class="badge badge-fe">Frontend</span><span class="badge badge-mkt">Marketing</span></div>
+                                        </div>
+                                        <div class="code-wrap">
+                                            <button class="copy-btn" onclick="copyCode('cu-fe-mkt', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            <pre><code id="cu-fe-mkt">cd cursor/fe-marketing
+npm install
+npm run dev</code></pre>
+                                        </div>
+                                    </div>
+                                    <div class="repo-card">
+                                        <div class="repo-card-header">
+                                            <span class="repo-card-name">be-b2b</span>
+                                            <div class="repo-badges"><span class="badge badge-be">Backend</span><span class="badge badge-b2b">B2B</span></div>
+                                        </div>
+                                        <div class="code-wrap">
+                                            <button class="copy-btn" onclick="copyCode('cu-be-b2b', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            <pre><code id="cu-be-b2b">cd cursor/be-b2b
+npm install --prefix api
+npm start</code></pre>
+                                        </div>
+                                    </div>
+                                    <div class="repo-card">
+                                        <div class="repo-card-header">
+                                            <span class="repo-card-name">be-b2c</span>
+                                            <div class="repo-badges"><span class="badge badge-be">Backend</span><span class="badge badge-b2c">B2C</span></div>
+                                        </div>
+                                        <div class="code-wrap">
+                                            <button class="copy-btn" onclick="copyCode('cu-be-b2c', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+                                            <pre><code id="cu-be-b2c">cd cursor/be-b2c
+npm install --prefix api
+npm start</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- /step-card -->
+                    </div><!-- /step-body -->
+                </div><!-- /step-row -->
+            </div><!-- /steps -->
+
         </section>
 
     </div>
