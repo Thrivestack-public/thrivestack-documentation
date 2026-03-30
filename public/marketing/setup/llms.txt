@@ -69,7 +69,7 @@ Never add it inside an individual page component or template. Never add it multi
             <Script
               src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
               strategy="afterInteractive"
-              data-api-key={process.env.NEXT_PUBLIC_THRIVESTACK_MARKETING_API_KEY}
+              api-key={process.env.NEXT_PUBLIC_THRIVESTACK_MARKETING_API_KEY}
               data-source="marketing"
             />
           </head>

@@ -86,7 +86,7 @@ export default function RootLayout({ children }) {
         <Script
           src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
           strategy="afterInteractive"
-          data-api-key={process.env.NEXT_PUBLIC_THRIVESTACK_API_KEY}
+          api-key={process.env.NEXT_PUBLIC_THRIVESTACK_API_KEY}
           data-source="product"
         />
       </head>
