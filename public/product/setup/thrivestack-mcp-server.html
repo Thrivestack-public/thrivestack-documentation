@@ -266,7 +266,9 @@
               <li>
                 Configure ThriveStack MCP server URL:
                 <code>https://api.app.thrivestack.ai/mcp</code>.
-                Authenticate with <code>x-api-key</code> for any MCP client.
+                Authenticate with <code>x-api-key</code> for any MCP client
+                (sample demo x-api-key:
+                <code>d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g=</code>).
                 OAuth-style authorization is available for
                 <strong>Claude</strong> and <strong>Claude Desktop</strong>
                 only.
@@ -439,13 +441,14 @@
 
             <blockquote class="note-callout">
               <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i>
-              <strong>Note:</strong> Get your ThriveStack API key from
+              <strong>Note:</strong> Get an API key from
               <a
                 href="https://app.thrivestack.ai/analyze/settings/api-keys"
                 target="_blank"
                 rel="noopener noreferrer"
                 >Settings &rarr; API Keys</a
-              >.
+              >. The x-api-key shown in examples on this page is a sample x-api-key for
+              demos.
             </blockquote>
 
             <details class="tools-dropdown">
@@ -498,7 +501,7 @@
                 <p style="margin: 12px 0 10px; color: var(--text-secondary); font-size: 0.95rem;">
                   <strong>Alternatively</strong>: add this to
                   <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>
-                  (replace <code>YOUR_API_KEY</code>):
+                  using this <strong>demo x-api-key</strong>:
                 </p>
                 <div class="code-block-wrapper">
                   <button
@@ -518,7 +521,7 @@
         "mcp-remote",
         "https://api.app.thrivestack.ai/mcp",
         "--header",
-        "x-api-key: YOUR_API_KEY"
+        "x-api-key: d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g="
       ]
     }
   }
@@ -558,7 +561,7 @@
                       <pre><code>claude mcp add -t http -s user Thrivestack "https://api.app.thrivestack.ai/mcp"</code></pre>
                     </div>
                     <p style="margin: 12px 0 6px; color: var(--text-secondary); font-size: 0.95rem;">
-                      <strong>OR</strong>: use <code>x-api-key</code> authentication (works with any MCP client):
+                      <strong>OR</strong>: use <code>x-api-key</code> authentication (demo x-api-key shown, works with any MCP client):
                     </p>
                     <div class="code-block-wrapper">
                       <button
@@ -569,7 +572,7 @@
                         <i class="fa-regular fa-copy"></i> Copy
                       </button>
                       <div class="code-block-label">Shell</div>
-                      <pre><code>claude mcp add -t http -s user Thrivestack "https://api.app.thrivestack.ai/mcp" --header "x-api-key: YOUR_API_KEY"</code></pre>
+                      <pre><code>claude mcp add -t http -s user Thrivestack "https://api.app.thrivestack.ai/mcp" --header "x-api-key: d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g="</code></pre>
                     </div>
                   </li>
                   <li>
@@ -614,8 +617,10 @@
               </summary>
               <div class="tools-dropdown__content">
                 <p class="mt-4">
-                  Use your ThriveStack API key via the <code>x-api-key</code>
-                  header. For general MCP setup, refer to
+                  Use this sample demo x-api-key via the <code>x-api-key</code>
+                  header:
+                  <code>d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g=</code>.
+                  For general MCP setup, refer to
                   <a
                     href="https://www.cursor.com/docs/context/mcp"
                     target="_blank"
@@ -631,8 +636,8 @@
                     <strong>New MCP Server</strong>.
                   </li>
                   <li>
-                    Add the ThriveStack MCP configuration (replace
-                    <code>YOUR_API_KEY</code>):
+                    Add the ThriveStack MCP configuration using this
+                    <strong>demo x-api-key</strong>:
                     <div class="code-block-wrapper">
                       <button
                         class="copy-btn"
@@ -647,7 +652,7 @@
     "thrivestack": {
       "url": "https://api.app.thrivestack.ai/mcp",
       "headers": {
-        "x-api-key": "YOUR_API_KEY"
+        "x-api-key": "d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g="
       }
     }
   }
@@ -655,8 +660,9 @@
                     </div>
                   </li>
                   <li>
-                    Complete the ThriveStack authentication flow (x-api-key)
-                    when prompted.
+                    Complete the ThriveStack authentication flow
+                    (<code>x-api-key</code>, sample demo x-api-key shown above) when
+                    prompted.
                   </li>
                 </ol>
               </div>
@@ -682,7 +688,7 @@
                   <li>Ensure you&apos;re authenticated with Gemini.</li>
                   <li>
                     Add this to your <code>~/.gemini/settings.json</code>
-                    (replace <code>YOUR_API_KEY</code>):
+                    using this <strong>demo x-api-key</strong>:
                     <div class="code-block-wrapper">
                       <button
                         class="copy-btn"
@@ -697,7 +703,7 @@
     "thrivestack": {
       "httpUrl": "https://api.app.thrivestack.ai/mcp",
       "headers": {
-        "x-api-key": "YOUR_API_KEY"
+        "x-api-key": "d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g="
       }
     }
   }
@@ -726,7 +732,9 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     >Lovable&apos;s MCP servers documentation</a
-                  >. ThriveStack supports <code>x-api-key</code>.
+                  >. ThriveStack supports <code>x-api-key</code> (use sample
+                  demo x-api-key:
+                  <code>d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g=</code>).
                 </p>
 
                 <ol>
@@ -748,7 +756,9 @@
                       </li>
                       <li>
                         Auth header:
-                        <code>x-api-key</code> = your ThriveStack API key
+                        <code>x-api-key</code> =
+                        <code>d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g=</code>
+                        (sample demo x-api-key)
                       </li>
                     </ul>
                   </li>
@@ -769,7 +779,8 @@
                   For MCP-compatible clients not listed above, configure the
                   client to connect to
                   <code>https://api.app.thrivestack.ai/mcp</code> and provide
-                  your ThriveStack API key as an <code>x-api-key</code> header.
+                  this sample demo x-api-key as an <code>x-api-key</code> header:
+                  <code>d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g=</code>.
                 </p>
 
                 <ol>
@@ -779,7 +790,9 @@
                   </li>
                   <li>
                     Ensure your client supports custom HTTP headers and set
-                    <code>x-api-key</code> to your ThriveStack API key.
+                    <code>x-api-key</code> to
+                    <code>d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g=</code>
+                    (sample demo key).
                   </li>
                   <li>
                     Authenticate/connect when prompted (if your client asks
@@ -863,15 +876,19 @@
             <h4 style="margin-top: 12px">Start ThriveStack Telemetry Setup</h4>
             <blockquote class="query-examples__prompt">
               &ldquo;Help me set up ThriveStack for marketing telemetry.
-              Here&rsquo;s my API key: &lt;key&gt;.&rdquo;
+              Here&rsquo;s my x-api-key:
+              d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g= (sample demo
+              x-api-key).&rdquo;
             </blockquote>
             <blockquote class="query-examples__prompt">
               &ldquo;I need product instrumentation; use this ThriveStack API
-              key: &lt;key&gt;.&rdquo;
+              x-api-key: d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g= (sample demo
+              key).&rdquo;
             </blockquote>
             <blockquote class="query-examples__prompt">
               &ldquo;Set up both marketing + product telemetry. API key:
-              &lt;key&gt;.&rdquo;
+              d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g= (sample demo
+              key).&rdquo;
             </blockquote>
 
             <h4 style="margin-top: 18px">Get Setup Status</h4>
@@ -925,7 +942,8 @@
               <li><strong>Transport Type:</strong> Streaming HTTP (Remote)</li>
               <li>
                 <strong>Authentication:</strong> <code>x-api-key</code> header
-                (API key) and OAuth 2.1 (Claude and Claude Desktop)
+                (sample/demo x-api-key format shown on this page) and OAuth 2.1
+                (Claude and Claude Desktop)
               </li>
             </ul>
           </section>
