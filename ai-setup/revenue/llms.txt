@@ -24,9 +24,117 @@ the next step until the current step is confirmed complete.
 
 ---
 
+## Step 0 — Detect the Billing Provider
+
+Before doing anything else, search the codebase to identify which
+billing provider is in use.
+
+### Search for Stripe:
+Look for any of:
+- `require('stripe')` / `import Stripe` / `from 'stripe'`
+- `stripe.customers` / `stripe.subscriptions` / `stripe.invoices`
+- `Stripe::` (Ruby) / `stripe.Customer` (Python)
+- Any HTTP call to `https://api.stripe.com`
+- Environment variables named `STRIPE_SECRET_KEY`, `STRIPE_API_KEY`
+
+### Search for Chargebee:
+Look for any of:
+- `require('chargebee')` / `import chargebee` / `from 'chargebee'`
+- `chargebee.subscription` / `chargebee.invoice` / `chargebee.customer`
+- `ChargeBee::` (Ruby) / `chargebee.Subscription` (Python)
+- Any HTTP call to `https://*.chargebee.com/api`
+- Environment variables named `CHARGEBEE_API_KEY`, `CHARGEBEE_SITE`
+
+### Search for general billing signals (if neither above found):
+Look for any code related to:
+- Subscriptions: `createSubscription` `subscription_id` `plan_id`
+- Invoices: `createInvoice` `invoice_id` `issue_date`
+- Transactions / payments: `createTransaction` `payment_intent`
+- Tables or models named `subscriptions`, `invoices`, `transactions`
+
+---
+
+### Decision tree after searching:
+
+#### If Stripe IS found:
+Tell the user:
+  "I found Stripe in your codebase. I'll set up ThriveStack Revenue
+  Intelligence using the Stripe connection flow."
+
+Proceed to **Approach A — Stripe**.
+
+---
+
+#### If Chargebee IS found:
+Tell the user:
+  "I found Chargebee in your codebase. I'll set up ThriveStack Revenue
+  Intelligence using the Chargebee integration flow."
+
+Proceed to **Approach C — Chargebee**.
+
+---
+
+#### If NEITHER Stripe NOR Chargebee is found:
+
+Tell the user:
+  "I could not detect a billing provider in this codebase.
+
+  Which billing system do you use?
+  **(a) Stripe**
+  **(b) Chargebee**
+  **(c) Other / custom billing**
+
+  Reply with a, b, or c."
+
+- **(a) Stripe** → confirm the user has Stripe set up in a different
+  repo or service, then proceed to **Approach A — Stripe**.
+
+- **(b) Chargebee** → confirm the user has Chargebee set up in a
+  different repo or service, then proceed to **Approach C — Chargebee**.
+
+- **(c) Other / custom billing** → tell the user:
+
+    "Got it. Let me check if there is existing subscription, invoice,
+    or transaction code I can instrument."
+
+  Search for general billing signals as listed above.
+
+  - If billing code IS found in the repo →
+
+      "I found billing-related code in the following locations:
+      [list file paths and line numbers]
+
+      Would you like to proceed with the ThriveStack Revenue
+      Intelligence API integration? I can instrument these call
+      sites to push data to ThriveStack automatically.
+
+      Reply **yes** to proceed or **no** to stop."
+
+    If yes → proceed to **Approach B — Direct API**.
+
+  - If NO billing code is found →
+
+      "I could not find any subscription, invoice, or transaction
+      code in this repository.
+
+      Your billing logic may live in a separate service or repo.
+      Could you either:
+      1. Point me to the file, folder, or service where
+         subscriptions and invoices are created
+         (e.g. `services/billing.js`, a microservice name), or
+      2. Let me know if you want to proceed with a manual
+         API integration guide instead.
+
+      Reply with the file path or service name, or type
+      **api** to see the direct API integration guide."
+
+    Wait for the user's response before proceeding.
+
+---
+
 ## Approach A — Stripe Connection (recommended for Stripe users)
 
-Use this approach if the user already uses Stripe for billing.
+Use this approach if Stripe is detected or confirmed by the user.
 
 ---
 
@@ -233,7 +341,11 @@ curl https://api.stripe.com/v1/customers/<CUSTOMER_ID> \
 
 ### Rules for code changes:
 - Only add `metadata[group_id]` — do not change anything else
-- The value must be the exact identifier confirmed in Step 3
+- The value passed as `metadata[group_id]` must be the **exact same
+  value** already passed as `group_id` in ThriveStack product telemetry
+  (e.g. `thrivestack.group([{ "group_id": ... }])`). Format, casing,
+  and type must match exactly — a mismatch silently breaks revenue
+  attribution.
 - If `group_id` is not available in scope at the call site, add
   a TODO comment and flag it to the user — do not pass null
 - Do not use a user ID, email, or any field other than the
@@ -449,6 +561,293 @@ POST https://azure.dev.app.thrivestack.ai/revenue/transactions
 ```
 
 Full field reference: https://docs.thrivestack.ai/public/api/transactions.html
+
+---
+
+## Approach C — Chargebee Connection
+
+Use this approach if Chargebee is detected or confirmed by the user.
+
+---
+
+## Step C1 — Create the Chargebee Connection in ThriveStack
+
+Before any code changes are made, the Chargebee account must be connected
+to ThriveStack. This is done by a founder, RevOps, or anyone with
+access to the Chargebee account — it does not require code.
+
+Tell the user:
+
+  "To get started, connect your Chargebee account to ThriveStack by
+  opening the link below. This only takes a few clicks and does not
+  require any code changes.
+
+  → https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
+
+  Once the connection is active, type **continue** and we will
+  instrument your codebase to complete the setup."
+
+Wait for the user to type "continue" before proceeding to Step C2.
+Do not proceed until they do.
+
+---
+
+## Step C2 — Find Chargebee Customer Create and Update Calls
+
+Once the Chargebee connection is confirmed, search the codebase for
+Chargebee customer creation and update calls.
+
+Look for patterns like:
+- `chargebee.Customer.create`
+- `chargebee.customer.create`
+- `ChargeBee::Customer.create`
+- `chargebee.Customer.update`
+- `chargebee.customer.update`
+- `ChargeBee::Customer.update`
+- Any HTTP call to `https://*.chargebee.com/api/v2/customers`
+
+### If Chargebee customer create or update calls ARE found:
+
+Do not make any code changes automatically.
+
+Tell the user:
+
+  "I found Chargebee customer calls in the following locations:
+  [list the file paths and line numbers]
+
+  Before I make changes, I want to confirm the right approach.
+  You have two options:
+
+  Option A — I can make the changes directly.
+  Please confirm these are the right files and I will update them.
+
+  Option B — You prefer to make the changes yourself.
+  I will give you the exact code snippet to add.
+
+  Which would you prefer?"
+
+If the user chooses Option A — confirm the file paths explicitly
+before making any changes, then proceed to Step C3.
+
+If the user chooses Option B — provide the code snippet from
+Step C3 and ask them to apply it and confirm when done.
+
+### If Chargebee customer create or update calls are NOT found:
+
+Tell the user:
+
+  "I could not find Chargebee customer create or update calls in the
+  codebase. This could mean:
+
+  - The Chargebee integration is in a different service or repository
+  - It uses a wrapper or abstraction around the Chargebee SDK
+  - The integration has not been built yet
+
+  Could you point me to where your Chargebee billing code lives?
+  For example:
+  - A file path or folder (e.g. `services/billing.js`)
+  - A service name (e.g. 'our billing microservice is separate')
+  - Or let me know if you'd like a code snippet to implement it
+    from scratch"
+
+Wait for the user to provide the location or context before
+proceeding.
+
+---
+
+## Step C3 — Find the Correct group_id Value
+
+Before writing any code, identify the correct value to pass as
+`group_id`. This is the most critical step — `group_id` must be
+the exact same identifier already passed as `group_id` in
+ThriveStack product telemetry.
+
+Search the codebase for existing ThriveStack product tracking calls:
+- `thrivestack.group(`
+- `thrivestack.identify(`
+- `thrivestack.track(`
+- `thrivestack.page(`
+
+Look at what value is being passed as `group_id`, `groupId`, or
+the first argument to `thrivestack.group()`. That exact variable
+or field is what must be used as `group_id` in the Chargebee
+metadata.
+
+### If ThriveStack telemetry calls ARE found:
+
+Identify the variable or field used as the account identifier.
+Show the user what you found:
+
+  "I found ThriveStack telemetry calls using [field/variable name]
+  as the account identifier. For example:
+
+  [show the relevant line from their code]
+
+  I will use this same value as `group_id` in the Chargebee metadata
+  to ensure product usage and revenue data are correctly joined.
+
+  Does this look right?"
+
+Wait for confirmation before proceeding to Step C4.
+
+### If ThriveStack telemetry calls are NOT found, or the account
+identifier is unclear:
+
+Do not guess. Ask the user:
+
+  "I could not find existing ThriveStack product telemetry calls
+  to reference the account identifier.
+
+  To complete the Chargebee instrumentation correctly, I need to know
+  what value represents an account or organization in your system.
+
+  A few questions:
+  1. Does your product have an organization, account, workspace,
+     or tenant concept? (e.g. a table or model named Organization,
+     Account, Workspace, Tenant, Company, or Team)
+  2. What field is used as its unique identifier?
+     (e.g. org.id, account.uuid, workspace.slug)
+  3. Is this identifier available at the point in your code where
+     Chargebee customers are created or updated?
+
+  This identifier must match what is passed as `group_id` in
+  your ThriveStack product telemetry. If you are unsure, check
+  with whoever set up the product analytics integration."
+
+Wait for the user to provide this context before proceeding.
+
+### If no account/organization entity exists in the codebase:
+
+Tell the user:
+
+  "It looks like your product may not have an organization or
+  account-level entity yet — Chargebee customers appear to map
+  directly to individual users.
+
+  ThriveStack Revenue Intelligence requires a group identifier
+  to join revenue data with product usage at the account level.
+  Without this, MRR and ARR cannot be attributed to accounts.
+
+  Before we proceed, you will need to define what a 'group'
+  means in your product. This is a product and data modeling
+  decision — please align with your product or engineering lead
+  on what entity should represent a paying account.
+
+  Once that is defined, come back and we can complete the
+  instrumentation."
+
+Do not proceed further until this is resolved.
+
+---
+
+## Step C4 — Update Chargebee Customer Create and Update Calls
+
+Once the correct `group_id` value is confirmed, update the Chargebee
+calls to include it in the customer metadata.
+
+### For customer creation:
+
+Add `meta_data[group_id]` using the identifier confirmed in Step C3.
+Do not change any other fields or business logic.
+
+Reference pattern:
+```
+curl https://{site}.chargebee.com/api/v2/customers \
+  -u {api_key}: \
+  -d email="customer@example.com" \
+  -d meta_data="{\"group_id\":\"<same_group_id_used_in_product_telemetry>\"}"
+```
+
+### For customer update:
+
+Add `meta_data[group_id]` without removing or overwriting any
+existing metadata fields.
+
+Reference pattern:
+```
+curl https://{site}.chargebee.com/api/v2/customers/{customer_id} \
+  -u {api_key}: \
+  -d meta_data="{\"group_id\":\"<same_group_id_used_in_product_telemetry>\"}"
+```
+
+### Rules for code changes:
+- Only add `meta_data[group_id]` — do not change anything else
+- The value passed as `meta_data[group_id]` must be the **exact same
+  value** already passed as `group_id` in ThriveStack product telemetry
+  (e.g. `thrivestack.group([{ "group_id": ... }])`). Format, casing,
+  and type must match exactly — a mismatch silently breaks revenue
+  attribution.
+- If `group_id` is not available in scope at the call site, add
+  a TODO comment and flag it to the user — do not pass null
+- Do not use a user ID, email, or any field other than the
+  confirmed account/org identifier
+
+---
+
+## Step C5 — Backfill Existing Chargebee Customers
+
+After the code changes are in place, existing Chargebee customers
+who were created before this instrumentation also need to be
+updated. This is a one-time backfill.
+
+### Before writing the backfill, validate the join path:
+
+Find how existing Chargebee customers can be linked to an account
+in the database. The most common paths are:
+
+Path A — Direct:
+```
+Chargebee Customer → your DB customers/subscriptions table
+  → has organization_id / account_id column directly
+```
+
+Path B — Through user:
+```
+Chargebee Customer.email → Users table
+  → Users.organization_id / account_id
+  → Organization.id = group_id
+```
+
+Path C — Through subscription:
+```
+Chargebee Subscription metadata or your subscriptions table
+  → organization_id
+```
+
+### If a valid join path is found:
+
+Write a one-time idempotent backfill script that:
+1. Fetches all Chargebee customers (paginate through all pages)
+2. For each customer:
+   - If `meta_data.group_id` already set → skip
+   - If join path resolves to a valid account ID → update
+     Chargebee customer with `meta_data[group_id]`
+   - If join path fails → log to
+     `thrivestack_backfill_unresolved.log` with customer ID,
+     email, and reason — do not update
+3. Prints a summary at the end:
+   - Total customers processed
+   - Successfully updated
+   - Already had group_id — skipped
+   - Unresolved — needs manual review
+
+### If no valid join path is found:
+
+Do not write the backfill script. Ask the user:
+
+  "I could not find a reliable way to link existing Chargebee
+  customers to accounts in your database automatically.
+
+  To complete the backfill, I need to understand:
+  1. How does your system know which Chargebee customer belongs
+     to which account or organization?
+  2. Is there a table or field that stores this relationship?
+  3. Or is the mapping maintained outside the codebase
+     (e.g. in a spreadsheet or external CRM)?
+
+  Without this, some existing customers may not have
+  `group_id` set, which means their historical revenue will
+  not appear in ThriveStack until it is resolved."
 
 ---
 
