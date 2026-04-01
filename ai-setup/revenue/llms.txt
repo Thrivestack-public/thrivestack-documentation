@@ -44,11 +44,11 @@ Tell the user:
 
   → https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
 
-  Once the connection is active, come back here and we will instrument
-  your codebase to complete the setup."
+  Once the connection is active, type **continue** and we will
+  instrument your codebase to complete the setup."
 
-Wait for the user to confirm the connection is active before
-proceeding to Step 2.
+Wait for the user to type "continue" before proceeding to Step 2.
+Do not proceed until they do.
 
 ---
 
