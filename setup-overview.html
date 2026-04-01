@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Vibe Analytics (AI) - ThriveStack Documentation">
+    <meta name="description" content="Setup Growth Intelligence - ThriveStack Documentation">
     <!-- Theme bootstrapping: pick saved theme before paint -->
     <script>
         (function () {
@@ -31,7 +31,8 @@
 <body>
     <nav class="top-nav">
         <div class="nav-left">
-            <button id="desktop-sidebar-toggle" class="icon-btn" aria-label="Toggle Sidebar" title="Toggle Sidebar" style="margin-right: 0.5rem;">
+            <button id="desktop-sidebar-toggle" class="icon-btn" aria-label="Toggle Sidebar" title="Toggle Sidebar"
+                style="margin-right: 0.5rem;">
                 <i class="fa-solid fa-bars-staggered" style="font-size: 1.1rem;"></i>
             </button>
             <a href="index.html" class="logo">
@@ -135,7 +136,7 @@
                         <div class="breadcrumbs">
                             <a href="index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
                             <a href="setup-overview.html">Setup (Unify)</a> <i class="fa-solid fa-chevron-right"></i>
-                            <span>Vibe Analytics (AI)</span>
+                            <span>Setup Growth Intelligence</span>
                         </div>
                         <header class="doc-page-header">
                             <span class="doc-page-header-eyebrow">Setup (Unify)</span>
@@ -242,7 +243,7 @@
                                     border: 1px solid var(--border-color);
                                     border-radius: 12px;
                                     overflow: hidden;
-                                    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+                                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
                                 }
 
                                 .setup-table {
@@ -252,13 +253,17 @@
 
                                 .setup-table th,
                                 .setup-table td {
-                                    vertical-align: middle;
+                                    vertical-align: top;
                                     padding: 1.1rem 1.25rem;
                                     border-bottom: 1px solid var(--border-color) !important;
                                 }
 
+                                .setup-table td:last-child {
+                                    vertical-align: middle;
+                                }
+
                                 .setup-table th {
-                                    background: rgba(0,0,0,0.02);
+                                    background: rgba(0, 0, 0, 0.02);
                                     font-weight: 600;
                                     text-transform: uppercase;
                                     font-size: 0.75rem;
@@ -267,7 +272,7 @@
                                 }
 
                                 [data-theme="dark"] .setup-table th {
-                                    background: rgba(255,255,255,0.02);
+                                    background: rgba(255, 255, 255, 0.02);
                                 }
 
                                 .setup-table tr:last-child td {
@@ -337,9 +342,11 @@
                                 }
 
                                 .stepper-item[open] .stepper-header {
-                                    background: rgba(59, 130, 246, 0.05); /* Pale light blue header */
+                                    background: rgba(59, 130, 246, 0.05);
+                                    /* Pale light blue header */
                                     border-bottom: 1px solid var(--border-color);
                                 }
+
                                 [data-theme="dark"] .stepper-item[open] .stepper-header {
                                     background: rgba(96, 165, 250, 0.08);
                                 }
@@ -398,11 +405,21 @@
                                 .stepper-content {
                                     padding: 1.5rem;
                                     padding-top: 1rem;
-                                    background: var(--bg-main); /* Match container style cleanly */
+                                    background: var(--bg-main);
+                                    /* Match container style cleanly */
                                 }
                             </style>
 
-                            <h2 id="setup-guide">Setup Unified Growth Intelligence</h2>
+                            <h1 id="setup-guide">Setup Unified Growth Intelligence</h1>
+
+                            <p style="font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--text-muted, #888);">This
+                                includes <code style="font-weight: bold; color: var(--text-primary, #fff);">WHO</code>
+                                is needed,
+                                <code style="font-weight: bold; color: var(--text-primary, #fff);">WHAT</code> will they
+                                do, and how to
+                                <code style="font-weight: bold; color: var(--text-primary, #fff);">VERIFY</code>
+                                everything works.
+                            </p>
 
                             <div class="stepper-accordion">
                                 <!-- Step 1 -->
@@ -479,7 +496,8 @@
                                                                     style="margin-right: 6px;"></i> Revenue</strong>
                                                         </td>
                                                         <td>RevOps / Sales Admin</td>
-                                                        <td>Configure Revenue Intelligence tools</td>
+                                                        <td>Sync Revenue Signals (Stripe, Chargebee etc) to ThriveStack
+                                                        </td>
                                                         <td>
                                                             <span class="time-pill">&lt;4 mins</span> <br>
                                                             <small class="text-muted-sm">(depending on the complexity of
@@ -494,7 +512,7 @@
                                                                     style="margin-right: 6px;"></i> CRM Sync</strong>
                                                         </td>
                                                         <td>CRM Admin</td>
-                                                        <td>Authenticate and connect your CRM</td>
+                                                        <td>Authenticate and Sync Signals to your CRM</td>
                                                         <td><span class="time-pill">&lt;2 mins</span></td>
                                                         <td><a href="public/marketing/CRM/setup-with-ai.html"
                                                                 class="btn-primary btn-sm">See documentation</a></td>
@@ -504,9 +522,8 @@
                                                                     style="margin-right: 6px;"></i> Customer
                                                                 Success</strong></td>
                                                         <td>CS Ops / CS Leader</td>
-                                                        <td>Out of the box: you'll will get Customer Health, Churn
-                                                            Prediction,
-                                                            Expansion Signals, Billing issues</td>
+                                                        <td>Review At-Risk Accounts, Churn Prediction, Expansion
+                                                            Signals, Billing issues</td>
                                                         <td>
                                                             <span class="time-pill">&lt;4 mins</span> <br>
                                                             <small class="text-muted-sm">with other tools 2-4 weeks

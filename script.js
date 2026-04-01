@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Ensure scroll to top on page load unless navigating to a specific hash
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    if (!window.location.hash) {
+        window.scrollTo(0, 0);
+    }
+
     // Theme Toggle Logic
     const themeToggleBtn = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
