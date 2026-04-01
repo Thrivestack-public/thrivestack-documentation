@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Transactions API - ThriveStack Revenue Intelligence">
+    <meta name="description" content="Subscription Items API - ThriveStack Revenue Intelligence">
     <script>
         (function() {
             try {
@@ -14,7 +14,7 @@
             }
         })();
     </script>
-    <title>Transactions - ThriveStack API Reference</title>
+    <title>Subscription Items - ThriveStack API Reference</title>
     <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,9 +73,9 @@
                 <h3>Revenue Intelligence</h3>
                 <ul>
                     <li><a href="../../public/api/subscriptions.html" class="nav-item"><span>Subscriptions</span></a></li>
-                    <li><a href="../../public/api/subscription-items.html" class="nav-item"><span>Subscription Items</span></a></li>
+                    <li><a href="../../public/api/subscription-items.html" class="nav-item active"><span>Subscription Items</span></a></li>
                     <li><a href="../../public/api/invoices.html" class="nav-item"><span>Invoices</span></a></li>
-                    <li><a href="../../public/api/transactions.html" class="nav-item"><span>Transactions</span></a></li>    
+                    <li><a href="../../public/api/transactions.html" class="nav-item"><span>Transactions</span></a></li>
                 </ul>
             </div>
             <div class="sidebar-section">
@@ -93,26 +93,26 @@
         <main class="main-content">
             <div class="content-wrapper">
 
-                <section id="transactions" class="content-section">
+                <section id="subscription-items" class="content-section">
                     <div class="breadcrumbs">
                         <a href="../../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
                         <a href="../../api-reference.html">API Reference</a> <i class="fa-solid fa-chevron-right"></i>
-                        <span>Transactions</span>
+                        <span>Subscription Items</span>
                     </div>
                     <header class="doc-page-header">
                         <span class="doc-page-header-eyebrow">Revenue Intelligence</span>
-                        <h1 class="doc-page-title">Transactions</h1>
+                        <h1 class="doc-page-title">Subscription Items</h1>
                         <p class="doc-page-description">
-                            The Transactions API lets you create, update, and delete payment transaction records in ThriveStack. Transactions represent individual payment events — charges or refunds — tied to customers and invoices.
+                            The Subscription Items API lets you create, update, and delete individual line items within a subscription in ThriveStack. Subscription items represent the specific plans and prices attached to a subscription, enabling granular MRR tracking across products, tiers, and billing intervals.
                         </p>
                     </header>
 
                     <article class="doc-page-body">
 
                         <!-- ─── CREATE ─────────────────────────────────────── -->
-                        <section id="create-transaction" class="content-section">
-                            <h2>Create a transaction</h2>
-                            <pre><code>POST https://api.app.thrivestack.ai/revenue/transactions</code></pre>
+                        <section id="create-subscription-item" class="content-section">
+                            <h2>Create a subscription item</h2>
+                            <pre><code>POST https://azure.dev.app.thrivestack.ai/revenue/subscription-items</code></pre>
 
                             <h3>Authentication</h3>
                             <p>Pass your API key in the <code>x-api-key</code> header. Your key must have the <strong>Revenue APIs</strong> scope enabled.</p>
@@ -124,25 +124,24 @@
                                     <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td><code>transaction_id</code></td><td>string</td><td>Yes</td><td>Your unique identifier for this transaction.</td></tr>
-                                    <tr><td><code>customer_id</code></td><td>string</td><td>Yes</td><td>Customer ID in your billing system. Can be the same as <code>group_id</code>.</td></tr>
-                                    <tr><td><code>group_id</code></td><td>string</td><td>Yes</td><td>Group ID from product telemetry (links billing to product events).</td></tr>
-                                    <tr><td><code>customer_name</code></td><td>string</td><td>No</td><td>Display name of the customer.</td></tr>
-                                    <tr><td><code>invoice_id</code></td><td>string</td><td>No</td><td>ID of the associated invoice.</td></tr>
-                                    <tr><td><code>type</code></td><td>string</td><td>Yes</td><td><code>"payment"</code> or <code>"refund"</code>.</td></tr>
-                                    <tr><td><code>status</code></td><td>string</td><td>Yes</td><td><code>"paid"</code>, <code>"cancelled"</code>, <code>"failed"</code>, <code>"refund"</code>, or <code>"charged_back"</code>.</td></tr>
-                                    <tr><td><code>transaction_date</code></td><td>string</td><td>Yes</td><td>ISO 8601 timestamp when the transaction occurred.</td></tr>
-                                    <tr><td><code>amount</code></td><td>number</td><td>Yes</td><td>Transaction amount (e.g., <code>99.99</code>).</td></tr>
-                                    <tr><td><code>currency</code></td><td>string</td><td>No</td><td>ISO 4217 currency code: <code>"USD"</code>, <code>"EUR"</code>, <code>"GBP"</code>. Default: <code>"USD"</code>.</td></tr>
-                                    <tr><td><code>payment_method</code></td><td>string</td><td>No</td><td><code>"credit_card"</code>, <code>"paypal"</code>, or <code>"stripe"</code>.</td></tr>
-                                    <tr><td><code>transaction_fee</code></td><td>number</td><td>No</td><td>Processing fee charged by the payment gateway.</td></tr>
-                                    <tr><td><code>tax_amount</code></td><td>number</td><td>No</td><td>Tax applied to this transaction.</td></tr>
-                                    <tr><td><code>discount_amount</code></td><td>number</td><td>No</td><td>Discount applied before billing.</td></tr>
-                                    <tr><td><code>term_frequency</code></td><td>integer</td><td>No</td><td>Number of <code>term_unit</code> intervals in the billing period. Default: <code>1</code>.</td></tr>
-                                    <tr><td><code>term_unit</code></td><td>string</td><td>No</td><td><code>"day"</code>, <code>"week"</code>, <code>"month"</code>, or <code>"year"</code>. Default: <code>"month"</code>.</td></tr>
-                                    <tr><td><code>period_start_date</code></td><td>string</td><td>No</td><td>ISO 8601 start of the billing period.</td></tr>
-                                    <tr><td><code>period_end_date</code></td><td>string</td><td>No</td><td>ISO 8601 end of the billing period.</td></tr>
-                                    <tr><td><code>line_item_type</code></td><td>string</td><td>Yes</td><td><code>"subscription"</code> for recurring revenue, or <code>"one_time"</code> for setup or professional charges.</td></tr>
+                                    <tr><td><code>subscription_item_id</code></td><td>string</td><td>Yes</td><td>Your unique identifier for this subscription item.</td></tr>
+                                    <tr><td><code>subscription_id</code></td><td>string</td><td>Yes</td><td>ID of the parent subscription this item belongs to.</td></tr>
+                                    <tr><td><code>customer_id</code></td><td>string</td><td>Yes</td><td>Customer ID in your billing system.</td></tr>
+                                    <tr><td><code>plan_id</code></td><td>string</td><td>Yes</td><td>Identifier for the plan associated with this item (e.g. <code>"plan_pro_monthly"</code>).</td></tr>
+                                    <tr><td><code>price_id</code></td><td>string</td><td>Yes</td><td>Identifier for the specific price variant of the plan.</td></tr>
+                                    <tr><td><code>term_unit</code></td><td>string</td><td>Yes</td><td>Billing interval unit: <code>"day"</code>, <code>"week"</code>, <code>"month"</code>, or <code>"year"</code>.</td></tr>
+                                    <tr><td><code>term_frequency</code></td><td>string</td><td>Yes</td><td>Number of <code>term_unit</code> intervals per billing cycle (e.g. <code>"1"</code> for monthly).</td></tr>
+                                    <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>ISO 8601 timestamp when the subscription item started.</td></tr>
+                                    <tr><td><code>status</code></td><td>string</td><td>Yes</td><td>Item status: <code>"active"</code>, <code>"cancelled"</code>, or <code>"expired"</code>.</td></tr>
+                                    <tr><td><code>quantity</code></td><td>integer</td><td>Yes</td><td>Number of units for this line item.</td></tr>
+                                    <tr><td><code>created_date</code></td><td>string</td><td>No</td><td>ISO 8601 timestamp when the record was created.</td></tr>
+                                    <tr><td><code>ended_at</code></td><td>string</td><td>No</td><td>ISO 8601 timestamp when the item ended or is scheduled to end.</td></tr>
+                                    <tr><td><code>trial_start_date</code></td><td>string</td><td>No</td><td>ISO 8601 start of the trial period for this item.</td></tr>
+                                    <tr><td><code>trial_end_date</code></td><td>string</td><td>No</td><td>ISO 8601 end of the trial period for this item.</td></tr>
+                                    <tr><td><code>cancelled_at</code></td><td>string|null</td><td>No</td><td>ISO 8601 timestamp when the item was cancelled, or <code>null</code>.</td></tr>
+                                    <tr><td><code>current_period_start</code></td><td>string</td><td>No</td><td>ISO 8601 start of the current billing period.</td></tr>
+                                    <tr><td><code>current_period_end</code></td><td>string</td><td>No</td><td>ISO 8601 end of the current billing period.</td></tr>
+                                    <tr><td><code>updated_date</code></td><td>string</td><td>No</td><td>ISO 8601 timestamp when the record was last updated.</td></tr>
                                 </tbody>
                             </table>
 
@@ -154,34 +153,33 @@
                                     <button class="tab-btn" data-tab="go">Go</button>
                                 </div>
                                 <div class="tab-pane active" data-tab="curl">
-<pre><code>curl -X POST https://api.app.thrivestack.ai/revenue/transactions \
+<pre><code>curl -X POST https://azure.dev.app.thrivestack.ai/revenue/subscription-items \
   -H "x-api-key: &lt;Your API Key with Revenue APIs Scope&gt;" \
   -H "Content-Type: application/json" \
   -d '{
-    "transaction_id": "txn_123",
+    "subscription_item_id": "si_123",
+    "subscription_id": "sub_123",
     "customer_id": "cust_123",
-    "group_id": "group_456",
-    "customer_name": "John Doe",
-    "invoice_id": "inv_123",
-    "type": "payment",
-    "status": "paid",
-    "transaction_date": "2024-01-15T14:30:00Z",
-    "amount": 99.99,
-    "currency": "USD",
-    "payment_method": "credit_card",
-    "transaction_fee": 2.99,
-    "tax_amount": 5.00,
-    "discount_amount": 10.00,
-    "term_frequency": 1,
+    "plan_id": "plan_pro_monthly",
+    "price_id": "price_123",
     "term_unit": "month",
-    "period_start_date": "2024-01-01T00:00:00Z",
-    "period_end_date": "2024-01-31T23:59:59Z",
-    "line_item_type": "subscription"
+    "term_frequency": "1",
+    "start_date": "2024-01-15T00:00:00Z",
+    "status": "active",
+    "quantity": 1,
+    "created_date": "2024-01-15T00:00:00Z",
+    "ended_at": "2025-01-15T00:00:00Z",
+    "trial_start_date": "2024-01-01T00:00:00Z",
+    "trial_end_date": "2024-01-14T23:59:59Z",
+    "cancelled_at": null,
+    "current_period_start": "2024-01-15T00:00:00Z",
+    "current_period_end": "2024-02-14T23:59:59Z",
+    "updated_date": "2024-01-15T00:00:00Z"
   }'</code></pre>
                                 </div>
                                 <div class="tab-pane" data-tab="js">
 <pre><code>const response = await fetch(
-  'https://api.app.thrivestack.ai/revenue/transactions',
+  'https://azure.dev.app.thrivestack.ai/revenue/subscription-items',
   {
     method: 'POST',
     headers: {
@@ -189,25 +187,24 @@
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      transaction_id: 'txn_123',
+      subscription_item_id: 'si_123',
+      subscription_id: 'sub_123',
       customer_id: 'cust_123',
-      group_id: 'group_456',
-      customer_name: 'John Doe',
-      invoice_id: 'inv_123',
-      type: 'payment',
-      status: 'paid',
-      transaction_date: '2024-01-15T14:30:00Z',
-      amount: 99.99,
-      currency: 'USD',
-      payment_method: 'credit_card',
-      transaction_fee: 2.99,
-      tax_amount: 5.00,
-      discount_amount: 10.00,
-      term_frequency: 1,
+      plan_id: 'plan_pro_monthly',
+      price_id: 'price_123',
       term_unit: 'month',
-      period_start_date: '2024-01-01T00:00:00Z',
-      period_end_date: '2024-01-31T23:59:59Z',
-      line_item_type: 'subscription'
+      term_frequency: '1',
+      start_date: '2024-01-15T00:00:00Z',
+      status: 'active',
+      quantity: 1,
+      created_date: '2024-01-15T00:00:00Z',
+      ended_at: '2025-01-15T00:00:00Z',
+      trial_start_date: '2024-01-01T00:00:00Z',
+      trial_end_date: '2024-01-14T23:59:59Z',
+      cancelled_at: null,
+      current_period_start: '2024-01-15T00:00:00Z',
+      current_period_end: '2024-02-14T23:59:59Z',
+      updated_date: '2024-01-15T00:00:00Z'
     })
   }
 );
@@ -227,30 +224,29 @@ import (
 
 func main() {
   payload := map[string]interface{}{
-    "transaction_id":   "txn_123",
-    "customer_id":      "cust_123",
-    "group_id":         "group_456",
-    "customer_name":    "John Doe",
-    "invoice_id":       "inv_123",
-    "type":             "payment",
-    "status":           "paid",
-    "transaction_date": "2024-01-15T14:30:00Z",
-    "amount":           99.99,
-    "currency":         "USD",
-    "payment_method":   "credit_card",
-    "transaction_fee":  2.99,
-    "tax_amount":       5.00,
-    "discount_amount":  10.00,
-    "term_frequency":   1,
-    "term_unit":        "month",
-    "period_start_date": "2024-01-01T00:00:00Z",
-    "period_end_date":   "2024-01-31T23:59:59Z",
-    "line_item_type":   "subscription",
+    "subscription_item_id": "si_123",
+    "subscription_id":      "sub_123",
+    "customer_id":          "cust_123",
+    "plan_id":              "plan_pro_monthly",
+    "price_id":             "price_123",
+    "term_unit":            "month",
+    "term_frequency":       "1",
+    "start_date":           "2024-01-15T00:00:00Z",
+    "status":               "active",
+    "quantity":             1,
+    "created_date":         "2024-01-15T00:00:00Z",
+    "ended_at":             "2025-01-15T00:00:00Z",
+    "trial_start_date":     "2024-01-01T00:00:00Z",
+    "trial_end_date":       "2024-01-14T23:59:59Z",
+    "cancelled_at":         nil,
+    "current_period_start": "2024-01-15T00:00:00Z",
+    "current_period_end":   "2024-02-14T23:59:59Z",
+    "updated_date":         "2024-01-15T00:00:00Z",
   }
   body, _ := json.Marshal(payload)
 
   req, _ := http.NewRequest("POST",
-    "https://api.app.thrivestack.ai/revenue/transactions",
+    "https://azure.dev.app.thrivestack.ai/revenue/subscription-items",
     bytes.NewBuffer(body))
   req.Header.Set("x-api-key", "&lt;Your API Key with Revenue APIs Scope&gt;")
   req.Header.Set("Content-Type", "application/json")
@@ -270,14 +266,14 @@ func main() {
                             <h3>Response</h3>
                             <pre><code>{
   "success": true,
-  "transaction_id": "txn_123"
+  "subscription_item_id": "si_123"
 }</code></pre>
                         </section>
 
                         <!-- ─── UPDATE ─────────────────────────────────────── -->
-                        <section id="update-transaction" class="content-section">
-                            <h2>Update a transaction</h2>
-                            <pre><code>PUT https://api.app.thrivestack.ai/revenue/transactions</code></pre>
+                        <section id="update-subscription-item" class="content-section">
+                            <h2>Update a subscription item</h2>
+                            <pre><code>PUT https://azure.dev.app.thrivestack.ai/revenue/subscription-items</code></pre>
 
                             <h3>Request body</h3>
                             <table class="params-table">
@@ -285,21 +281,18 @@ func main() {
                                     <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td><code>transaction_id</code></td><td>string</td><td>Yes</td><td>ID of the transaction to update.</td></tr>
-                                    <tr><td><code>status</code></td><td>string</td><td>No</td><td><code>"paid"</code>, <code>"cancelled"</code>, <code>"failed"</code>, <code>"refund"</code>, or <code>"charged_back"</code>.</td></tr>
-                                    <tr><td><code>type</code></td><td>string</td><td>No</td><td><code>"payment"</code> or <code>"refund"</code>.</td></tr>
-                                    <tr><td><code>date</code></td><td>string</td><td>No</td><td>ISO 8601 updated transaction date.</td></tr>
-                                    <tr><td><code>amount</code></td><td>number</td><td>No</td><td>Updated transaction amount.</td></tr>
-                                    <tr><td><code>currency</code></td><td>string</td><td>No</td><td>ISO 4217 currency code. Default: <code>"USD"</code>.</td></tr>
-                                    <tr><td><code>payment_method</code></td><td>string</td><td>No</td><td><code>"credit_card"</code>, <code>"paypal"</code>, or <code>"stripe"</code>.</td></tr>
-                                    <tr><td><code>transaction_fee</code></td><td>number</td><td>No</td><td>Updated processing fee.</td></tr>
-                                    <tr><td><code>tax_amount</code></td><td>number</td><td>No</td><td>Updated tax amount.</td></tr>
-                                    <tr><td><code>discount_amount</code></td><td>number</td><td>No</td><td>Updated discount amount.</td></tr>
-                                    <tr><td><code>term_frequency</code></td><td>integer</td><td>No</td><td>Billing period frequency. Default: <code>1</code>.</td></tr>
-                                    <tr><td><code>term_unit</code></td><td>string</td><td>No</td><td><code>"day"</code>, <code>"week"</code>, <code>"month"</code>, or <code>"year"</code>. Default: <code>"month"</code>.</td></tr>
-                                    <tr><td><code>period_start_date</code></td><td>string</td><td>No</td><td>ISO 8601 start of the billing period.</td></tr>
-                                    <tr><td><code>period_end_date</code></td><td>string</td><td>No</td><td>ISO 8601 end of the billing period.</td></tr>
-                                    <tr><td><code>line_item_type</code></td><td>string</td><td>No</td><td><code>"subscription"</code> or <code>"one_time"</code>.</td></tr>
+                                    <tr><td><code>subscription_item_id</code></td><td>string</td><td>Yes</td><td>ID of the subscription item to update.</td></tr>
+                                    <tr><td><code>subscription_id</code></td><td>string</td><td>No</td><td>Updated parent subscription ID.</td></tr>
+                                    <tr><td><code>plan_id</code></td><td>string</td><td>No</td><td>Updated plan identifier.</td></tr>
+                                    <tr><td><code>price_id</code></td><td>string</td><td>No</td><td>Updated price identifier (e.g. when a price change occurs).</td></tr>
+                                    <tr><td><code>term_unit</code></td><td>string</td><td>No</td><td>Updated billing interval unit.</td></tr>
+                                    <tr><td><code>term_frequency</code></td><td>string</td><td>No</td><td>Updated billing interval frequency.</td></tr>
+                                    <tr><td><code>start_date</code></td><td>string</td><td>No</td><td>Updated ISO 8601 start date.</td></tr>
+                                    <tr><td><code>status</code></td><td>string</td><td>No</td><td>Updated status: <code>"active"</code>, <code>"cancelled"</code>, or <code>"expired"</code>.</td></tr>
+                                    <tr><td><code>quantity</code></td><td>integer</td><td>No</td><td>Updated quantity of units.</td></tr>
+                                    <tr><td><code>current_period_start</code></td><td>string</td><td>No</td><td>Updated ISO 8601 start of the current billing period.</td></tr>
+                                    <tr><td><code>current_period_end</code></td><td>string</td><td>No</td><td>Updated ISO 8601 end of the current billing period.</td></tr>
+                                    <tr><td><code>updated_date</code></td><td>string</td><td>No</td><td>ISO 8601 timestamp of this update.</td></tr>
                                 </tbody>
                             </table>
 
@@ -311,30 +304,27 @@ func main() {
                                     <button class="tab-btn" data-tab="go">Go</button>
                                 </div>
                                 <div class="tab-pane active" data-tab="curl">
-<pre><code>curl -X PUT https://api.app.thrivestack.ai/revenue/transactions \
+<pre><code>curl -X PUT https://azure.dev.app.thrivestack.ai/revenue/subscription-items \
   -H "x-api-key: &lt;Your API Key with Revenue APIs Scope&gt;" \
   -H "Content-Type: application/json" \
   -d '{
-    "transaction_id": "txn_123",
-    "status": "paid",
-    "type": "payment",
-    "date": "2024-01-20T10:30:00Z",
-    "amount": 149.99,
-    "currency": "USD",
-    "payment_method": "credit_card",
-    "transaction_fee": 3.50,
-    "tax_amount": 7.50,
-    "discount_amount": 15.00,
-    "term_frequency": 1,
+    "subscription_item_id": "si_123",
+    "subscription_id": "sub_123",
+    "plan_id": "plan_pro_monthly",
+    "price_id": "price_456",
     "term_unit": "month",
-    "period_start_date": "2024-01-01T00:00:00Z",
-    "period_end_date": "2024-01-31T23:59:59Z",
-    "line_item_type": "subscription"
+    "term_frequency": "1",
+    "start_date": "2024-01-15T00:00:00Z",
+    "status": "active",
+    "quantity": 2,
+    "current_period_start": "2024-01-15T00:00:00Z",
+    "current_period_end": "2024-02-14T23:59:59Z",
+    "updated_date": "2024-02-01T00:00:00Z"
   }'</code></pre>
                                 </div>
                                 <div class="tab-pane" data-tab="js">
 <pre><code>const response = await fetch(
-  'https://api.app.thrivestack.ai/revenue/transactions',
+  'https://azure.dev.app.thrivestack.ai/revenue/subscription-items',
   {
     method: 'PUT',
     headers: {
@@ -342,21 +332,18 @@ func main() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      transaction_id: 'txn_123',
-      status: 'paid',
-      type: 'payment',
-      date: '2024-01-20T10:30:00Z',
-      amount: 149.99,
-      currency: 'USD',
-      payment_method: 'credit_card',
-      transaction_fee: 3.50,
-      tax_amount: 7.50,
-      discount_amount: 15.00,
-      term_frequency: 1,
+      subscription_item_id: 'si_123',
+      subscription_id: 'sub_123',
+      plan_id: 'plan_pro_monthly',
+      price_id: 'price_456',
       term_unit: 'month',
-      period_start_date: '2024-01-01T00:00:00Z',
-      period_end_date: '2024-01-31T23:59:59Z',
-      line_item_type: 'subscription'
+      term_frequency: '1',
+      start_date: '2024-01-15T00:00:00Z',
+      status: 'active',
+      quantity: 2,
+      current_period_start: '2024-01-15T00:00:00Z',
+      current_period_end: '2024-02-14T23:59:59Z',
+      updated_date: '2024-02-01T00:00:00Z'
     })
   }
 );
@@ -376,26 +363,23 @@ import (
 
 func main() {
   payload := map[string]interface{}{
-    "transaction_id":   "txn_123",
-    "status":           "paid",
-    "type":             "payment",
-    "date":             "2024-01-20T10:30:00Z",
-    "amount":           149.99,
-    "currency":         "USD",
-    "payment_method":   "credit_card",
-    "transaction_fee":  3.50,
-    "tax_amount":       7.50,
-    "discount_amount":  15.00,
-    "term_frequency":   1,
-    "term_unit":        "month",
-    "period_start_date": "2024-01-01T00:00:00Z",
-    "period_end_date":   "2024-01-31T23:59:59Z",
-    "line_item_type":   "subscription",
+    "subscription_item_id": "si_123",
+    "subscription_id":      "sub_123",
+    "plan_id":              "plan_pro_monthly",
+    "price_id":             "price_456",
+    "term_unit":            "month",
+    "term_frequency":       "1",
+    "start_date":           "2024-01-15T00:00:00Z",
+    "status":               "active",
+    "quantity":             2,
+    "current_period_start": "2024-01-15T00:00:00Z",
+    "current_period_end":   "2024-02-14T23:59:59Z",
+    "updated_date":         "2024-02-01T00:00:00Z",
   }
   body, _ := json.Marshal(payload)
 
   req, _ := http.NewRequest("PUT",
-    "https://api.app.thrivestack.ai/revenue/transactions",
+    "https://azure.dev.app.thrivestack.ai/revenue/subscription-items",
     bytes.NewBuffer(body))
   req.Header.Set("x-api-key", "&lt;Your API Key with Revenue APIs Scope&gt;")
   req.Header.Set("Content-Type", "application/json")
@@ -415,14 +399,14 @@ func main() {
                             <h3>Response</h3>
                             <pre><code>{
   "success": true,
-  "transaction_id": "txn_123"
+  "subscription_item_id": "si_123"
 }</code></pre>
                         </section>
 
                         <!-- ─── DELETE ─────────────────────────────────────── -->
-                        <section id="delete-transaction" class="content-section">
-                            <h2>Delete a transaction</h2>
-                            <pre><code>DELETE https://api.app.thrivestack.ai/revenue/transactions</code></pre>
+                        <section id="delete-subscription-item" class="content-section">
+                            <h2>Delete a subscription item</h2>
+                            <pre><code>DELETE https://azure.dev.app.thrivestack.ai/revenue/subscription-items</code></pre>
 
                             <h3>Request body</h3>
                             <table class="params-table">
@@ -430,7 +414,7 @@ func main() {
                                     <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td><code>transaction_id</code></td><td>string</td><td>Yes</td><td>ID of the transaction to delete.</td></tr>
+                                    <tr><td><code>subscription_item_id</code></td><td>string</td><td>Yes</td><td>ID of the subscription item to delete.</td></tr>
                                 </tbody>
                             </table>
 
@@ -442,16 +426,16 @@ func main() {
                                     <button class="tab-btn" data-tab="go">Go</button>
                                 </div>
                                 <div class="tab-pane active" data-tab="curl">
-<pre><code>curl -X DELETE https://api.app.thrivestack.ai/revenue/transactions \
+<pre><code>curl -X DELETE https://azure.dev.app.thrivestack.ai/revenue/subscription-items \
   -H "x-api-key: &lt;Your API Key with Revenue APIs Scope&gt;" \
   -H "Content-Type: application/json" \
   -d '{
-    "transaction_id": "txn_123"
+    "subscription_item_id": "si_123"
   }'</code></pre>
                                 </div>
                                 <div class="tab-pane" data-tab="js">
 <pre><code>const response = await fetch(
-  'https://api.app.thrivestack.ai/revenue/transactions',
+  'https://azure.dev.app.thrivestack.ai/revenue/subscription-items',
   {
     method: 'DELETE',
     headers: {
@@ -459,7 +443,7 @@ func main() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      transaction_id: 'txn_123'
+      subscription_item_id: 'si_123'
     })
   }
 );
@@ -479,12 +463,12 @@ import (
 
 func main() {
   payload := map[string]string{
-    "transaction_id": "txn_123",
+    "subscription_item_id": "si_123",
   }
   body, _ := json.Marshal(payload)
 
   req, _ := http.NewRequest("DELETE",
-    "https://api.app.thrivestack.ai/revenue/transactions",
+    "https://azure.dev.app.thrivestack.ai/revenue/subscription-items",
     bytes.NewBuffer(body))
   req.Header.Set("x-api-key", "&lt;Your API Key with Revenue APIs Scope&gt;")
   req.Header.Set("Content-Type", "application/json")
@@ -504,7 +488,7 @@ func main() {
                             <h3>Response</h3>
                             <pre><code>{
   "success": true,
-  "transaction_id": "txn_123"
+  "subscription_item_id": "si_123"
 }</code></pre>
                         </section>
 
@@ -516,7 +500,7 @@ func main() {
                                 <tbody>
                                     <tr><td><code>400</code></td><td>Bad Request — invalid JSON or missing required fields</td></tr>
                                     <tr><td><code>401</code></td><td>Unauthorized — invalid or missing API key, or key lacks Revenue APIs scope</td></tr>
-                                    <tr><td><code>404</code></td><td>Not Found — transaction ID does not exist</td></tr>
+                                    <tr><td><code>404</code></td><td>Not Found — subscription item ID does not exist</td></tr>
                                     <tr><td><code>429</code></td><td>Rate Limit Exceeded</td></tr>
                                     <tr><td><code>500</code></td><td>Server Error — try again later</td></tr>
                                 </tbody>
@@ -527,10 +511,15 @@ func main() {
                 </section>
 
                 <div class="page-nav">
-                    <a href="../../public/api/Invoices.html" class="nav-card prev-card">
-                        <span class="nav-label">Previous</span>
-                        <span class="nav-title">Invoices</span>
+                    <a href="../../public/api/subscriptions.html" class="nav-card prev-card">
                         <i class="fa-solid fa-arrow-left"></i>
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">Subscriptions</span>
+                    </a>
+                    <a href="../../public/api/invoices.html" class="nav-card next-card">
+                        <span class="nav-label">Next</span>
+                        <span class="nav-title">Invoices</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
 
@@ -542,7 +531,7 @@ func main() {
                     </div>
                     <div class="footer-links">
                         <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
-                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="transactions.html">Last updated: March 25, 2026</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="subscription-items.html">Last updated: March 31, 2026</a>
                     </div>
                 </footer>
             </div>
@@ -552,9 +541,9 @@ func main() {
             <div class="toc-container sticky-top">
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
-                    <a href="#create-transaction" class="toc-link active">Create a transaction</a>
-                    <a href="#update-transaction" class="toc-link">Update a transaction</a>
-                    <a href="#delete-transaction" class="toc-link">Delete a transaction</a>
+                    <a href="#create-subscription-item" class="toc-link active">Create a subscription item</a>
+                    <a href="#update-subscription-item" class="toc-link">Update a subscription item</a>
+                    <a href="#delete-subscription-item" class="toc-link">Delete a subscription item</a>
                     <a href="#error-codes" class="toc-link">Error codes</a>
                 </nav>
                 <ready-to-scale-promo></ready-to-scale-promo>

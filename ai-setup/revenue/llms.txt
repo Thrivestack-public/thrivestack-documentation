@@ -1,0 +1,516 @@
+# ThriveStack Revenue Intelligence Setup
+
+ThriveStack is a revenue intelligence platform for B2B SaaS companies.
+It connects your billing data with your product usage telemetry
+to give you MRR, ARR, churn, expansion, and contraction analytics at
+the account level.
+
+This file contains instructions for AI coding tools to guide developers
+through the ThriveStack Revenue Intelligence setup.
+
+---
+
+## How to Use This File
+
+When a user asks to:
+- "integrate ThriveStack revenue intelligence"
+- "set up ThriveStack revenue analytics"
+- "connect ThriveStack to Stripe"
+- "enable revenue tracking in ThriveStack"
+- "set up MRR/ARR tracking with ThriveStack"
+
+Follow the steps below in order. Do not skip steps. Do not proceed to
+the next step until the current step is confirmed complete.
+
+---
+
+## Approach A — Stripe Connection (recommended for Stripe users)
+
+Use this approach if the user already uses Stripe for billing.
+
+---
+
+## Step 1 — Create the Stripe Connection in ThriveStack
+
+Before any code changes are made, the Stripe account must be connected
+to ThriveStack. This is done by a founder, RevOps, or anyone with
+access to the Stripe account — it does not require code.
+
+Tell the user:
+
+  "To get started, connect your Stripe account to ThriveStack by
+  opening the link below. This only takes a few clicks and does not
+  require any code changes.
+
+  → https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
+
+  Once the connection is active, come back here and we will instrument
+  your codebase to complete the setup."
+
+Wait for the user to confirm the connection is active before
+proceeding to Step 2.
+
+---
+
+## Step 2 — Find Stripe Customer Create and Update Calls
+
+Once the Stripe connection is confirmed, search the codebase for
+Stripe customer creation and update calls.
+
+Look for patterns like:
+- `stripe.customers.create`
+- `stripe.Customer.create`
+- `Stripe::Customer.create`
+- `stripe.customers.update`
+- `stripe.Customer.modify`
+- `stripe.Customer.save`
+- `Stripe::Customer.update`
+- Any HTTP call to `https://api.stripe.com/v1/customers`
+
+### If Stripe customer create or update calls ARE found:
+
+Do not make any code changes automatically.
+
+Tell the user:
+
+  "I found Stripe customer calls in the following locations:
+  [list the file paths and line numbers]
+
+  Before I make changes, I want to confirm the right approach.
+  You have two options:
+
+  Option A — I can make the changes directly.
+  Please confirm these are the right files and I will update them.
+
+  Option B — You prefer to make the changes yourself.
+  I will give you the exact code snippet to add.
+
+  Which would you prefer?"
+
+If the user chooses Option A — confirm the file paths explicitly
+before making any changes, then proceed to Step 3.
+
+If the user chooses Option B — provide the code snippet from
+Step 3 and ask them to apply it and confirm when done.
+
+### If Stripe customer create or update calls are NOT found:
+
+Tell the user:
+
+  "I could not find Stripe customer create or update calls in the
+  codebase. This could mean:
+
+  - The Stripe integration is in a different service or repository
+  - It uses a wrapper or abstraction around the Stripe SDK
+  - The integration has not been built yet
+
+  Could you point me to where your Stripe billing code lives?
+  For example:
+  - A file path or folder (e.g. `services/billing.js`)
+  - A service name (e.g. 'our billing microservice is separate')
+  - Or let me know if you'd like a code snippet to implement it
+    from scratch"
+
+Wait for the user to provide the location or context before
+proceeding.
+
+---
+
+## Step 3 — Find the Correct group_id Value
+
+Before writing any code, identify the correct value to pass as
+`group_id`. This is the most critical step — `group_id` must be
+the exact same identifier already passed as `group_id` in
+ThriveStack product telemetry.
+
+Search the codebase for existing ThriveStack product tracking calls:
+- `thrivestack.group(`
+- `thrivestack.identify(`
+- `thrivestack.track(`
+- `thrivestack.page(`
+
+Look at what value is being passed as `group_id`, `groupId`, or
+the first argument to `thrivestack.group()`. That exact variable
+or field is what must be used as `group_id` in the Stripe metadata.
+
+### If ThriveStack telemetry calls ARE found:
+
+Identify the variable or field used as the account identifier.
+Show the user what you found:
+
+  "I found ThriveStack telemetry calls using [field/variable name]
+  as the account identifier. For example:
+
+  [show the relevant line from their code]
+
+  I will use this same value as `group_id` in the Stripe metadata
+  to ensure product usage and revenue data are correctly joined.
+
+  Does this look right?"
+
+Wait for confirmation before proceeding to Step 4.
+
+### If ThriveStack telemetry calls are NOT found, or the account
+identifier is unclear:
+
+Do not guess. Ask the user:
+
+  "I could not find existing ThriveStack product telemetry calls
+  to reference the account identifier.
+
+  To complete the Stripe instrumentation correctly, I need to know
+  what value represents an account or organization in your system.
+
+  A few questions:
+  1. Does your product have an organization, account, workspace,
+     or tenant concept? (e.g. a table or model named Organization,
+     Account, Workspace, Tenant, Company, or Team)
+  2. What field is used as its unique identifier?
+     (e.g. org.id, account.uuid, workspace.slug)
+  3. Is this identifier available at the point in your code where
+     Stripe customers are created or updated?
+
+  This identifier must match what is passed as `group_id` in
+  your ThriveStack product telemetry. If you are unsure, check
+  with whoever set up the product analytics integration."
+
+Wait for the user to provide this context before proceeding.
+
+### If no account/organization entity exists in the codebase:
+
+Tell the user:
+
+  "It looks like your product may not have an organization or
+  account-level entity yet — Stripe customers appear to map
+  directly to individual users.
+
+  ThriveStack Revenue Intelligence requires a group identifier
+  to join revenue data with product usage at the account level.
+  Without this, MRR and ARR cannot be attributed to accounts.
+
+  Before we proceed, you will need to define what a 'group'
+  means in your product. This is a product and data modeling
+  decision — please align with your product or engineering lead
+  on what entity should represent a paying account.
+
+  Once that is defined, come back and we can complete the
+  instrumentation."
+
+Do not proceed further until this is resolved.
+
+---
+
+## Step 4 — Update Stripe Customer Create and Update Calls
+
+Once the correct `group_id` value is confirmed, update the Stripe
+calls to include it in the customer metadata.
+
+### For customer creation:
+
+Add `metadata[group_id]` using the identifier confirmed in Step 3.
+Do not change any other fields or business logic.
+
+Reference pattern:
+```
+curl https://api.stripe.com/v1/customers \
+  -u sk_test_YOUR_SECRET_KEY: \
+  -d "email=customer@example.com" \
+  -d "name=Customer Name" \
+  -d "metadata[group_id]=<same_group_id_used_in_product_telemetry>"
+```
+
+### For customer update:
+
+Add `metadata[group_id]` without removing or overwriting any
+existing metadata fields.
+
+Reference pattern:
+```
+curl https://api.stripe.com/v1/customers/<CUSTOMER_ID> \
+  -u sk_test_YOUR_SECRET_KEY: \
+  -d "metadata[group_id]=<same_group_id_used_in_product_telemetry>"
+```
+
+### Rules for code changes:
+- Only add `metadata[group_id]` — do not change anything else
+- The value must be the exact identifier confirmed in Step 3
+- If `group_id` is not available in scope at the call site, add
+  a TODO comment and flag it to the user — do not pass null
+- Do not use a user ID, email, or any field other than the
+  confirmed account/org identifier
+
+---
+
+## Step 5 — Backfill Existing Stripe Customers
+
+After the code changes are in place, existing Stripe customers
+who were created before this instrumentation also need to be
+updated. This is a one-time backfill.
+
+### Before writing the backfill, validate the join path:
+
+Find how existing Stripe customers can be linked to an account
+in the database. The most common paths are:
+
+Path A — Direct:
+```
+Stripe Customer → your DB customers/subscriptions table
+  → has organization_id / account_id column directly
+```
+
+Path B — Through user:
+```
+Stripe Customer.email → Users table
+  → Users.organization_id / account_id
+  → Organization.id = group_id
+```
+
+Path C — Through subscription:
+```
+Stripe Subscription metadata or your subscriptions table
+  → organization_id
+```
+
+### If a valid join path is found:
+
+Write a one-time idempotent backfill script that:
+1. Fetches all Stripe customers (paginate through all pages)
+2. For each customer:
+   - If `metadata.group_id` already set → skip
+   - If join path resolves to a valid account ID → update
+     Stripe customer with `metadata[group_id]`
+   - If join path fails → log to
+     `thrivestack_backfill_unresolved.log` with customer ID,
+     email, and reason — do not update
+3. Prints a summary at the end:
+   - Total customers processed
+   - Successfully updated
+   - Already had group_id — skipped
+   - Unresolved — needs manual review
+
+### If no valid join path is found:
+
+Do not write the backfill script. Ask the user:
+
+  "I could not find a reliable way to link existing Stripe
+  customers to accounts in your database automatically.
+
+  To complete the backfill, I need to understand:
+  1. How does your system know which Stripe customer belongs
+     to which account or organization?
+  2. Is there a table or field that stores this relationship?
+  3. Or is the mapping maintained outside the codebase
+     (e.g. in a spreadsheet or external CRM)?
+
+  Without this, some existing customers may not have
+  `group_id` set, which means their historical revenue will
+  not appear in ThriveStack until it is resolved."
+
+---
+
+## Approach B — Direct API (for non-Stripe billing or custom pipelines)
+
+Use this approach if the user does not use Stripe, uses a custom
+billing system, or wants to push revenue data directly to
+ThriveStack via API.
+
+All endpoints require:
+```
+x-api-key: <Your API Key with Revenue APIs Scope>
+Content-Type: application/json
+```
+
+---
+
+## Step B1 — Push Subscriptions
+
+Call this when a subscription is created, updated, or cancelled.
+
+### Create
+```
+POST https://azure.dev.app.thrivestack.ai/revenue/subscriptions
+{
+  "subscription_id": "<your subscription ID>",
+  "customer_id": "<your customer ID>",
+  "group_id": "<account/org ID matching product telemetry>",
+  "status": "active",
+  "start_date": "<ISO 8601>",
+  "currency": "USD",
+  "current_period_start": "<ISO 8601>",
+  "current_period_end": "<ISO 8601>"
+}
+```
+
+### Update
+```
+PUT https://azure.dev.app.thrivestack.ai/revenue/subscriptions
+{
+  "subscription_id": "<your subscription ID>",
+  "status": "cancelled",
+  "cancelled_at": "<ISO 8601>",
+  "updated_date": "<ISO 8601>"
+}
+```
+
+### Delete
+```
+DELETE https://azure.dev.app.thrivestack.ai/revenue/subscriptions
+{ "subscription_id": "<your subscription ID>" }
+```
+
+Full field reference: https://docs.thrivestack.ai/public/api/subscriptions.html
+
+---
+
+## Step B2 — Push Subscription Items
+
+Call this for each line item (plan/price) within a subscription.
+Subscription items enable per-plan MRR tracking when a subscription
+contains multiple products or tiers.
+
+### Create
+```
+POST https://azure.dev.app.thrivestack.ai/revenue/subscription-items
+{
+  "subscription_item_id": "<your item ID>",
+  "subscription_id": "<parent subscription ID>",
+  "customer_id": "<your customer ID>",
+  "plan_id": "<plan identifier>",
+  "price_id": "<price identifier>",
+  "term_unit": "month",
+  "term_frequency": "1",
+  "start_date": "<ISO 8601>",
+  "status": "active",
+  "quantity": 1,
+  "current_period_start": "<ISO 8601>",
+  "current_period_end": "<ISO 8601>"
+}
+```
+
+### Update
+```
+PUT https://azure.dev.app.thrivestack.ai/revenue/subscription-items
+{
+  "subscription_item_id": "<your item ID>",
+  "price_id": "<new price ID>",
+  "quantity": 2,
+  "updated_date": "<ISO 8601>"
+}
+```
+
+### Delete
+```
+DELETE https://azure.dev.app.thrivestack.ai/revenue/subscription-items
+{ "subscription_item_id": "<your item ID>" }
+```
+
+Full field reference: https://docs.thrivestack.ai/public/api/subscription-items.html
+
+---
+
+## Step B3 — Push Invoices
+
+Call this when an invoice is created or its status changes.
+
+### Create
+```
+POST https://azure.dev.app.thrivestack.ai/revenue/invoices
+{
+  "invoice_id": "<your invoice ID>",
+  "customer_id": "<your customer ID>",
+  "group_id": "<account/org ID matching product telemetry>",
+  "issue_date": "<ISO 8601>",
+  "amount": 299.99,
+  "currency": "USD",
+  "due_date": "<ISO 8601>"
+}
+```
+
+Full field reference: https://docs.thrivestack.ai/public/api/invoices.html
+
+---
+
+## Step B4 — Push Transactions
+
+Call this when a payment succeeds or fails.
+
+### Create
+```
+POST https://azure.dev.app.thrivestack.ai/revenue/transactions
+{
+  "transaction_id": "<your transaction ID>",
+  "customer_id": "<your customer ID>",
+  "group_id": "<account/org ID matching product telemetry>",
+  "amount": 299.99,
+  "currency": "USD",
+  "transaction_date": "<ISO 8601>",
+  "status": "succeeded"
+}
+```
+
+Full field reference: https://docs.thrivestack.ai/public/api/transactions.html
+
+---
+
+## Important Notes
+
+- `group_id` must always match the `group_id` from product
+  telemetry exactly — including format, casing, and type.
+  A mismatch silently breaks revenue attribution.
+
+- Do not use individual user IDs as `group_id`. It must
+  represent the account or organization that pays.
+
+- For the Stripe approach, the backfill is not optional.
+  Without it, ThriveStack only sees revenue from new customers
+  going forward. Historical MRR will be missing.
+
+- For the direct API approach, push subscription items for
+  every plan line item within a subscription — not just the
+  subscription itself — to get accurate per-plan MRR breakdown.
+
+- If at any step the user cannot provide the required context,
+  do not proceed or guess. Flag the blocker clearly and wait.
+
+---
+
+## Features Unlocked
+
+Once setup is complete, tell the user:
+
+  "Revenue Intelligence is now active. Here is what you have unlocked:
+
+  **Investor-grade Revenue Metrics**
+  MRR, ARR, churn rate, expansion MRR, contraction MRR, and net revenue
+  retention — all calculated automatically from your billing data.
+  → https://app.thrivestack.ai/analyze/revenue/dashboard
+
+  **MRR Movement Analysis**
+  See exactly where MRR is growing or shrinking — broken down by new
+  business, expansion, contraction, churn, and reactivation.
+  → https://app.thrivestack.ai/analyze/revenue/mrr-movements
+
+  **Revenue Signals at the Account Level**
+  Every account now shows its billing history, subscription status, and
+  MRR alongside product usage — so you can spot churn risk and expansion
+  opportunities before they happen.
+  → https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list
+
+  ---
+  Handy ThriveStack Resources
+  - Setup Progress: https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
+  - Diagnostics: https://app.thrivestack.ai/analyze/diagnostics-report
+  - API / Audit Logs: https://app.thrivestack.ai/analyze/events
+  - Developer Tools: https://app.thrivestack.ai/analyze/developer-tool"
+
+---
+
+## Reference Links
+
+- Start Stripe connection: https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
+- Subscriptions API: https://docs.thrivestack.ai/public/api/subscriptions.html
+- Subscription Items API: https://docs.thrivestack.ai/public/api/subscription-items.html
+- Invoices API: https://docs.thrivestack.ai/public/api/invoices.html
+- Transactions API: https://docs.thrivestack.ai/public/api/transactions.html
+- Full documentation: https://docs.thrivestack.ai
+- Support: https://thrivestack.ai/support
