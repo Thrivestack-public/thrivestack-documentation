@@ -354,6 +354,16 @@ a:hover { color: var(--brand-primary-hover); }
     position: sticky;
     top: 64px;
     overflow-y: auto;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    overflow-x: hidden;
+}
+
+.left-sidebar.collapsed {
+    width: 0 !important;
+    padding-left: 0;
+    padding-right: 0;
+    border-right-width: 0;
+    opacity: 0;
 }
 .sidebar-section { margin-bottom: 1.25rem; }
 .sidebar-section h3 {
@@ -416,10 +426,13 @@ a:hover { color: var(--brand-primary-hover); }
     border-right: 1px solid var(--border-color); /* Matches the sidebar separator initially */
     margin-left: -2px;
     z-index: 10;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, display 0.3s;
 }
 .resizer:hover, .resizer.dragging {
     background-color: var(--brand-primary);
+}
+.resizer.collapsed {
+    display: none;
 }
 
 
@@ -431,7 +444,7 @@ a:hover { color: var(--brand-primary-hover); }
     background: var(--bg-main);
 }
 .content-wrapper {
-    max-width: 800px;
+    max-width: 1080px;
     margin: 0 auto;
 }
 

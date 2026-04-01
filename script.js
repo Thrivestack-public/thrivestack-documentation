@@ -333,6 +333,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.getElementById('sidebar');
     const resizer = document.getElementById('sidebar-resizer');
     
+    // Desktop Sidebar Toggle
+    const desktopSidebarToggle = document.getElementById('desktop-sidebar-toggle');
+    if (desktopSidebarToggle && sidebar) {
+        desktopSidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            if (resizer) {
+                resizer.classList.toggle('collapsed');
+            }
+        });
+    }
+
     if (sidebar && resizer) {
         let isResizing = false;
 
