@@ -342,13 +342,13 @@
                                 }
 
                                 .stepper-item[open] .stepper-header {
-                                    background: rgba(59, 130, 246, 0.05);
-                                    /* Pale light blue header */
+                                    background: rgba(59, 130, 246, 0.1);
+                                    /* Light blue header */
                                     border-bottom: 1px solid var(--border-color);
                                 }
 
                                 [data-theme="dark"] .stepper-item[open] .stepper-header {
-                                    background: rgba(96, 165, 250, 0.08);
+                                    background: rgba(96, 165, 250, 0.15);
                                 }
 
                                 .stepper-header {
@@ -356,9 +356,13 @@
                                     align-items: center;
                                     padding: 1rem 1.25rem;
                                     cursor: pointer;
-                                    background: transparent;
+                                    background: rgba(0, 0, 0, 0.03); /* Light grey when collapsed */
                                     user-select: none;
                                     list-style: none;
+                                }
+
+                                [data-theme="dark"] .stepper-header {
+                                    background: rgba(255, 255, 255, 0.03);
                                 }
 
                                 .stepper-header::-webkit-details-marker {
@@ -372,8 +376,8 @@
                                     width: 28px;
                                     height: 28px;
                                     border-radius: 50%;
-                                    background: rgba(59, 130, 246, 0.15);
-                                    color: var(--brand-primary);
+                                    background: #e2e8f0;
+                                    color: #475569;
                                     font-weight: 700;
                                     font-size: 0.9rem;
                                     margin-right: 1rem;
@@ -381,8 +385,18 @@
                                 }
 
                                 [data-theme="dark"] .step-num {
+                                    background: #334155;
+                                    color: #94a3b8;
+                                }
+
+                                .stepper-item[open] .step-num {
+                                    background: rgba(59, 130, 246, 0.15);
+                                    color: #000000;
+                                }
+
+                                [data-theme="dark"] .stepper-item[open] .step-num {
                                     background: rgba(96, 165, 250, 0.2);
-                                    color: #93c5fd;
+                                    color: #ffffff;
                                 }
 
                                 .step-title {
