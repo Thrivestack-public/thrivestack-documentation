@@ -226,3 +226,4 @@ Handy ThriveStack Resources
    (prefix with NEXT_PUBLIC_, PUBLIC_, REACT_APP_, etc. as required by the framework)
 6. Script src must be exactly `https://ts-script.app.thrivestack.ai/latest/thrivestack.js` — never alter the URL. Known wrong substitutions to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
 7. Stop after the summary is output — do not fix bugs, refactor code, clean up existing logic, or make any other changes outside of ThriveStack instrumentation. Your only permitted modification is the script tag added in this guide.
+8. Never remove the ThriveStack script tag — once added, it must remain in the central layout file permanently. Any subsequent edit (OG meta tags, favicon, title, publishing steps, or any other change) must preserve it. After every edit, verify the script tag is still present; if it was removed, restore it immediately before continuing.
