@@ -683,6 +683,7 @@ Instrumentation complete. Test your app as a real user — events will start flo
 18. `user_added_to_account` does not exist — use `account_added_user`
 19. Additional properties beyond documented ones are always permitted
 20. Stop after the summary is output — do not fix bugs, refactor code, clean up existing logic, or make any other changes outside of ThriveStack instrumentation. Your only permitted modifications are the ThriveStack calls added in this guide.
+21. Never remove the ThriveStack script tag — once added, it must remain in `<head>` permanently. Any subsequent edit (OG meta tags, favicon, title, publishing steps, or any other change) must preserve it. After every edit, verify the script tag is still present; if it was removed, restore it immediately before continuing.
 
 ---
 
