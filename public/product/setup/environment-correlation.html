@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Environment Setup for Correlation - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Environment Setup for Correlation - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../../index.html" class="logo">
+                <img src="../../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../../index.html">Get Started</a>
+                <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="../../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../../take-action.html">Take Action</a>
+                <a href="../../../api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item active"><span>Environment Setup for Correlation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../../public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item active"><span>Environment Setup for Correlation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="environment-correlation" class="content-section">
+                    <div class="breadcrumbs">
+                        <a href="../../../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                        <a href="../../../setup-overview.html">Setup (Unify)</a> <i class="fa-solid fa-chevron-right"></i>
+                        <span>Environment Setup for Correlation</span>
+                    </div>
+
+                    <header class="doc-page-header">
+                        <span class="doc-page-header-eyebrow">Setup (Unify)</span>
+                        <h1 class="doc-page-title">Environment Setup for Correlation</h1>
+                        <p class="doc-page-description">
+                            ThriveStack correlates marketing and product signals using a shared API key environment.
+                            Using the wrong environment on your live site will silently break attribution — marketing
+                            visits and product events will not be joined. This page explains the correct setup for
+                            each intelligence type.
+                        </p>
+                    </header>
+
+                    <article class="doc-page-body">
+
+                        <blockquote>
+                            <i class="fa-solid fa-triangle-exclamation" style="margin-right: 4px;"></i>
+                            <strong>Important:</strong> Correlation between Marketing Intelligence and Product
+                            Intelligence only works when both use an API key from the <strong>same environment</strong>.
+                            A development key on one side and a production key on the other will break attribution.
+                        </blockquote>
+
+                        <!-- ─── MARKETING INTELLIGENCE ──────────────────────── -->
+                        <div id="marketing-environment">
+                            <h2>Marketing Intelligence</h2>
+                            <p>
+                                ThriveStack's Marketing Intelligence script captures visitor attribution data — UTM
+                                parameters, referrer, landing pages — and links them to signed-up users and accounts.
+                                For this correlation to work end-to-end, the API key used on your marketing site must
+                                match the environment used in your product.
+                            </p>
+
+                            <h3>Rule</h3>
+                            <div style="overflow-x: auto; margin-bottom: 24px; border-radius: 8px; border: 1px solid var(--table-row-border, #333);">
+                                <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                                    <thead style="background: rgba(255,255,255,0.02);">
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                            <th style="padding: 14px 16px; font-weight: 600;">Where</th>
+                                            <th style="padding: 14px 16px; font-weight: 600;">API Key to use</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                            <td style="padding: 14px 16px;">Local / staging / testing</td>
+                                            <td style="padding: 14px 16px;"><code>Development</code> environment API key</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 14px 16px;">Live production site</td>
+                                            <td style="padding: 14px 16px; color: #22c55e;"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i><code>Production</code> environment API key — required for correlation</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3>What to do</h3>
+                            <ol>
+                                <li>
+                                    <strong>Testing locally?</strong> Use your <code>Development</code> environment API
+                                    key. This keeps test traffic isolated from real data.
+                                </li>
+                                <li>
+                                    <strong>Pushing to your live marketing site?</strong> Switch to your
+                                    <code>Production</code> environment API key before deploying. This is required for
+                                    ThriveStack to join marketing visits with product sign-ups and usage.
+                                </li>
+                                <li>
+                                    <strong>No Production environment yet?</strong> Click the environment dropdown in
+                                    the top-left of the ThriveStack setup page and select <strong>New environment</strong>
+                                    to create one and get its API key.
+                                </li>
+                            </ol>
+
+                            <blockquote>
+                                <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i>
+                                <strong>Note:</strong> Your marketing site and product app must both use API keys from
+                                the same environment for correlation to work. If your product runs on
+                                <code>Production</code>, your marketing site must also use a <code>Production</code>
+                                key.
+                            </blockquote>
+                        </div>
+
+                        <!-- ─── PRODUCT INTELLIGENCE ────────────────────────── -->
+                        <div id="product-environment">
+                            <h2>Product Intelligence</h2>
+                            <p>
+                                ThriveStack's Product Intelligence script tracks user and account activity inside your
+                                app — sign-ups, feature usage, activation milestones. For marketing attribution to flow
+                                through to product events, your app must use an API key from the same environment as
+                                your marketing site.
+                            </p>
+
+                            <h3>Rule</h3>
+                            <div style="overflow-x: auto; margin-bottom: 24px; border-radius: 8px; border: 1px solid var(--table-row-border, #333);">
+                                <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                                    <thead style="background: rgba(255,255,255,0.02);">
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                            <th style="padding: 14px 16px; font-weight: 600;">Where</th>
+                                            <th style="padding: 14px 16px; font-weight: 600;">API Key to use</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                            <td style="padding: 14px 16px;">Local / staging / testing</td>
+                                            <td style="padding: 14px 16px;"><code>Development</code> environment API key</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 14px 16px;">Live production app</td>
+                                            <td style="padding: 14px 16px; color: #22c55e;"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i><code>Production</code> environment API key — required for correlation</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3>What to do</h3>
+                            <ol>
+                                <li>
+                                    <strong>Testing locally?</strong> Use your <code>Development</code> environment API
+                                    key. This keeps test events isolated from real production data.
+                                </li>
+                                <li>
+                                    <strong>Pushing to your live product app?</strong> Switch to your
+                                    <code>Production</code> environment API key before deploying. This is required for
+                                    ThriveStack to correlate marketing attribution with product sign-ups and feature
+                                    usage.
+                                </li>
+                                <li>
+                                    <strong>No Production environment yet?</strong> Click the environment dropdown in
+                                    the top-left of the ThriveStack setup page and select <strong>New environment</strong>
+                                    to create one and get its API key.
+                                </li>
+                            </ol>
+
+                            <blockquote>
+                                <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i>
+                                <strong>Note:</strong> Your product app and marketing site must both use API keys from
+                                the same environment for correlation to work. If your marketing site runs on
+                                <code>Production</code>, your product app must also use a <code>Production</code> key.
+                            </blockquote>
+                        </div>
+
+                    </article>
+                </section>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="environment-correlation.html">Last updated: April 2, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#marketing-environment" class="toc-link active">Marketing Intelligence</a>
+                    <a href="#product-environment" class="toc-link">Product Intelligence</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../../../script.js"></script>
+</body>
+
+</html>
