@@ -53,26 +53,10 @@ One `feature_used` event per confirmed feature action. `feature_name` in `[noun]
 
 ### Phase 4 — Verify then summarise
 Run through the VERIFICATION CHECKLIST. Fix anything missing. Then output the summary.
-After the summary is printed, do not make any further code edits. Proceed to Phase 5.
+After the summary is printed, proceed to Phase 5. Do not make any further code edits.
 
-### Phase 5 — Revenue Intelligence
-After outputting the summary, ask the user exactly this — no other phrasing:
-
-  "Product analytics is now instrumented.
-
-  Would you also like to set up **Revenue Intelligence** to track MRR, ARR,
-  churn, and expansion revenue at the account level?
-
-  Type **yes** to continue or **no** to finish."
-
-- If the user types **yes** (or any affirmative):
-  Adopt the revenue intelligence wizard role.
-  Read https://raw.githubusercontent.com/Thrivestack-public/thrivestack-documentation/revenue-analytics-prompts/ai-setup/revenue/llms.txt
-  and follow every rule in that document exactly. The API key is the same {{THRIVESTACK_API_KEY}}.
-
-- If the user types **no** (or any negative):
-  Say: "Setup complete. You can always add Revenue Intelligence later."
-  Stop. Do not proceed further.
+### Phase 5 — Live verification
+Prompt the developer to verify events are flowing. See PHASE 5 section for the exact prompt and paths.
 
 **REQUIRED OUTPUT FORMAT — strictly follow this, no exceptions.**
 Do NOT write a narrative summary. Do NOT output a "Summary of Changes" section. Do NOT describe what you did in prose.
@@ -639,7 +623,7 @@ Before delivering the summary, verify all 12 points. Fix anything missing first.
 
 ### Summary format
 
-Output this summary directly in the chat as your final message. Do not create any files for this summary. Do not write it to markdown. Print it inline.
+Output this summary directly in the chat. Do not create any files for this summary. Do not write it to markdown. Print it inline. Then proceed to Phase 5.
 
 **ThriveStack Instrumentation Summary**
 X/12 implemented
@@ -679,6 +663,35 @@ Instrumentation complete. Test your app as a real user — events will start flo
 
 ---
 
+## PHASE 5 — VERIFY EVENTS ARE FLOWING
+
+**STOP** and ask the developer, exactly:
+> "Instrumentation is complete. Would you like to verify that events are reaching ThriveStack?
+> - **(a) Manual** — Run your app, open the browser Network tab, filter for `thrivestack`, and look for POST requests to `api.app.thrivestack.ai` — you should see `identify`, `group`, and `track` calls with your user data
+> - **(b) AI-assisted** — Open your app and I will validate the events are firing for you
+> - **(c) Skip** — I'll verify it later"
+>
+> Only include option **(b)** if you have the capability to open a browser and inspect network requests. If you cannot, present only **(a)** and **(c)**.
+
+**If (a) — Manual:**
+Walk the developer through step by step:
+1. Start the app and open it in a browser
+2. Open DevTools → Network tab → filter by `thrivestack`
+3. Perform a signup, then a login
+4. Confirm POST requests appear for `identify` and `track` at `api.app.thrivestack.ai/api/`
+5. Click each request and verify the payload contains `event_name`, `user_id`, and `context.group_id`
+
+**If (b) — AI-assisted:**
+1. Ask for the local dev URL (e.g. `http://localhost:3000`)
+2. Open the app using your browser capability
+3. Walk through the signup and login flows
+4. Confirm network requests to `api.app.thrivestack.ai/api/identify` and `api.app.thrivestack.ai/api/track` fire with correct payloads
+5. Report which events fired and which did not — then your task is complete
+
+**If (c) — Skip:** your task is complete.
+
+---
+
 ## HARD RULES
 
 1. Script src must be exactly `https://ts-script.app.thrivestack.ai/latest/thrivestack.js` — never alter the URL. Known wrong substitutions to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
@@ -701,7 +714,7 @@ Instrumentation complete. Test your app as a real user — events will start flo
 17. Do not fire `account_added_user` if user is already a member
 18. `user_added_to_account` does not exist — use `account_added_user`
 19. Additional properties beyond documented ones are always permitted
-20. After the summary is output, do not fix bugs, refactor code, clean up existing logic, or make any other changes outside of ThriveStack instrumentation. Your only permitted modifications are the ThriveStack calls added in this guide. Then proceed to Phase 5.
+20. After the summary is output, do not fix bugs, refactor code, clean up existing logic, or make any other changes outside of ThriveStack instrumentation. Your only permitted modifications are the ThriveStack calls added in this guide.
 21. Never remove the ThriveStack script tag — once added, it must remain in `<head>` permanently. Any subsequent edit (OG meta tags, favicon, title, publishing steps, or any other change) must preserve it. After every edit, verify the script tag is still present; if it was removed, restore it immediately before continuing.
 
 ---

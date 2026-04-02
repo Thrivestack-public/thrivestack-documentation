@@ -48,26 +48,10 @@ One `feature_used` event per confirmed feature action. `feature_name` in `[noun]
 
 ### Phase 4 — Verify then summarise
 Run through the VERIFICATION CHECKLIST. Fix anything missing. Then output the summary.
-After the summary is printed, do not make any further code edits. Proceed to Phase 5.
+After the summary is printed, proceed to Phase 5. Do not make any further code edits.
 
-### Phase 5 — Revenue Intelligence
-After outputting the summary, ask the user exactly this — no other phrasing:
-
-  "Product analytics is now instrumented.
-
-  Would you also like to set up **Revenue Intelligence** to track MRR, ARR,
-  churn, and expansion revenue at the account level?
-
-  Type **yes** to continue or **no** to finish."
-
-- If the user types **yes** (or any affirmative):
-  Adopt the revenue intelligence wizard role.
-  Read https://raw.githubusercontent.com/Thrivestack-public/thrivestack-documentation/revenue-analytics-prompts/ai-setup/revenue/llms.txt
-  and follow every rule in that document exactly. The API key is the same {{THRIVESTACK_API_KEY}}.
-
-- If the user types **no** (or any negative):
-  Say: "Setup complete. You can always add Revenue Intelligence later."
-  Stop. Do not proceed further.
+### Phase 5 — Live verification
+Prompt the developer to verify events are flowing. See PHASE 5 section for the exact prompt and paths.
 
 **REQUIRED OUTPUT FORMAT — strictly follow this, no exceptions.**
 Do NOT write a narrative summary. Do NOT output a "Summary of Changes" section. Do NOT describe what you did in prose.
@@ -592,7 +576,7 @@ Before delivering the summary, verify all 11 points. Fix anything missing first.
 
 ### Summary format
 
-Output this summary directly in the chat as your final message. Do not create any files. Print it inline.
+Output this summary directly in the chat. Do not create any files. Print it inline. Then proceed to Phase 5.
 
 **ThriveStack Instrumentation Summary (Backend)**
 X/11 implemented
@@ -631,6 +615,31 @@ Instrumentation complete. Test your app as a real user — events will start flo
 
 ---
 
+## PHASE 5 — VERIFY EVENTS ARE FLOWING
+
+**STOP** and ask the developer, exactly:
+> "Instrumentation is complete. Would you like to verify that events are reaching ThriveStack?
+> - **(a) Manual** — Trigger a signup or login, then check your server logs for HTTP calls to `api.app.thrivestack.ai`, or visit the ThriveStack diagnostics dashboard at https://app.thrivestack.ai/analyze/diagnostics-report
+> - **(b) AI-assisted** — I will invoke the relevant handler and verify the events are firing for you
+> - **(c) Skip** — I'll verify it later"
+>
+> Only include option **(b)** if you have the capability to invoke server-side code or inspect outbound HTTP calls. If you cannot, present only **(a)** and **(c)**.
+
+**If (a) — Manual:**
+1. Trigger a signup or login flow in the app
+2. Check server logs for POST calls to `https://api.app.thrivestack.ai/api/`
+3. Or visit https://app.thrivestack.ai/analyze/diagnostics-report to confirm events have arrived
+4. Verify `identify`, `group`, and `track` payloads contain `event_name`, `user_id`, `context.group_id`, and `source: "product"`
+
+**If (b) — AI-assisted:**
+1. Use your available capabilities to invoke or inspect the relevant handler
+2. Confirm HTTP calls to `https://api.app.thrivestack.ai/api/identify` and `https://api.app.thrivestack.ai/api/track` are made with correct payloads
+3. Report which events fired and which did not — then your task is complete
+
+**If (c) — Skip:** your task is complete.
+
+---
+
 ## HARD RULES
 
 1. API key from environment variable only — never in source code
@@ -651,5 +660,5 @@ Instrumentation complete. Test your app as a real user — events will start flo
 16. Do not fire `account_added_user` if user is already a member
 17. `user_added_to_account` does not exist — use `account_added_user`
 18. Additional properties beyond documented ones are always permitted
-19. After the summary is output, do not fix bugs, refactor code, clean up existing logic, or make any other changes outside of ThriveStack instrumentation. Your only permitted modifications are the ThriveStack calls added in this guide. Then proceed to Phase 5.
+19. After the summary is output, do not fix bugs, refactor code, clean up existing logic, or make any other changes outside of ThriveStack instrumentation. Your only permitted modifications are the ThriveStack calls added in this guide.
 20. Never remove the ThriveStack script tag — once added, it must remain in the central layout file permanently. Any subsequent edit (OG meta tags, favicon, title, publishing steps, or any other change) must preserve it. After every edit, verify the script tag is still present; if it was removed, restore it immediately before continuing.
