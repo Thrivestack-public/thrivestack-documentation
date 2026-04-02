@@ -617,13 +617,14 @@ Instrumentation complete. Test your app as a real user — events will start flo
 
 ## PHASE 5 — VERIFY EVENTS ARE FLOWING
 
-**STOP** and ask the developer, exactly:
+Determine whether you have the capability to invoke server-side code or inspect outbound HTTP calls. Then **STOP** and ask the developer, exactly:
 > "Instrumentation is complete. Would you like to verify that events are reaching ThriveStack?
 > - **(a) Manual** — Trigger a signup or login, then check your server logs for HTTP calls to `api.app.thrivestack.ai`, or visit the ThriveStack diagnostics dashboard at https://app.thrivestack.ai/analyze/diagnostics-report
 > - **(b) AI-assisted** — I will invoke the relevant handler and verify the events are firing for you
 > - **(c) Skip** — I'll verify it later"
->
-> Only include option **(b)** if you have the capability to invoke server-side code or inspect outbound HTTP calls. If you cannot, present only **(a)** and **(c)**.
+
+Only include option **(b)** in the prompt if you have the capability to invoke server-side code or inspect outbound HTTP calls. If you cannot, present only **(a)** and **(c)**.
+Do not proceed until the developer has answered.
 
 **If (a) — Manual:**
 1. Trigger a signup or login flow in the app

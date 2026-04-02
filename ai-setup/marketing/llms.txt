@@ -221,13 +221,14 @@ Handy ThriveStack Resources
 
 ## PHASE 3 — VERIFY TRACKING IS ACTIVE
 
-**STOP** and ask the developer, exactly:
+Determine whether you have the capability to open a browser and inspect network requests. Then **STOP** and ask the developer, exactly:
 > "The script tag is installed. Would you like to verify it is loading correctly and visitors are being tracked?
 > - **(a) Manual** — Open your site, open the browser Network tab, filter for `thrivestack`, and confirm the script loads and page visits appear
 > - **(b) AI-assisted** — Give me your site URL and I will verify the script is loading for you
 > - **(c) Skip** — I'll verify it later"
->
-> Only include option **(b)** if you have the capability to open a browser and inspect network requests. If you cannot, present only **(a)** and **(c)**.
+
+Only include option **(b)** in the prompt if you have the capability to open a browser and inspect network requests. If you cannot, present only **(a)** and **(c)**.
+Do not proceed until the developer has answered.
 
 **If (a) — Manual:**
 1. Open the site in a browser
