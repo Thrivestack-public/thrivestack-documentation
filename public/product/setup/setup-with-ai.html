@@ -195,6 +195,17 @@
 
 
                             <h2>Step 2: Copy the Prompt</h2>
+                            <p style="margin-bottom: 12px; color: var(--text-secondary, #cbd5e1); font-size: 14px;">Select your app type — the prompt is tailored so the AI knows exactly what to implement without asking you mid-run.</p>
+                            <div class="b2x-tab-bar">
+                                <button class="b2x-tab active" data-tab="b2b" onclick="switchPromptTab('b2b', this)">
+                                    <span class="b2x-tab-label">B2B</span>
+                                    <span class="b2x-tab-sub">Users belong to accounts / orgs</span>
+                                </button>
+                                <button class="b2x-tab" data-tab="b2c" onclick="switchPromptTab('b2c', this)">
+                                    <span class="b2x-tab-label">B2C</span>
+                                    <span class="b2x-tab-sub">Each user is their own account</span>
+                                </button>
+                            </div>
                             <div class="code-block-wrapper">
                                 <button class="copy-btn" onclick="copyPrompt('prompt-product', this)"><i
                                         class="fa-regular fa-copy"></i> Copy</button>
@@ -329,14 +340,61 @@
                         </article>
 
                         <style>
+                            .b2x-tab-bar {
+                                display: flex;
+                                gap: 8px;
+                                margin-bottom: 0;
+                            }
+
+                            .b2x-tab {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: flex-start;
+                                gap: 2px;
+                                padding: 10px 18px;
+                                cursor: pointer;
+                                border-radius: 6px 6px 0 0;
+                                border: 1px solid var(--border-color, #333);
+                                border-bottom: none;
+                                background: var(--bg-secondary, #1a1a1a);
+                                color: var(--text-muted, #888);
+                                font-family: inherit;
+                                transition: color 0.15s, background 0.15s, border-color 0.15s;
+                                position: relative;
+                                bottom: -1px;
+                            }
+
+                            .b2x-tab.active {
+                                background: var(--code-bg, #1e1e1e);
+                                color: var(--text-primary, #fff);
+                                border-color: var(--border-color, #444);
+                                border-bottom-color: var(--code-bg, #1e1e1e);
+                            }
+
+                            .b2x-tab:hover:not(.active) {
+                                color: var(--text-secondary, #ccc);
+                                border-color: var(--border-color, #444);
+                            }
+
+                            .b2x-tab-label {
+                                font-size: 13px;
+                                font-weight: 600;
+                            }
+
+                            .b2x-tab-sub {
+                                font-size: 11px;
+                                opacity: 0.7;
+                            }
+
                             .code-block-wrapper {
                                 position: relative;
-                                margin: 12px 0 24px;
+                                margin: 0 0 24px;
                             }
 
                             .code-block-wrapper pre {
                                 margin: 0;
                                 padding-top: 40px;
+                                border-radius: 0 6px 6px 6px;
                             }
 
                             .copy-btn {
@@ -370,12 +428,32 @@
                         </style>
 
                         <script>
-                            fetch('/ai-setup/product/prompt.txt')
-                                .then(function (r) { return r.text(); })
-                                .then(function (t) {
-                                    document.getElementById('prompt-product').textContent =
-                                        t.replace('{{THRIVESTACK_API_KEY}}', 'YOUR_API_KEY_HERE').trim();
+                            var _promptCache = {};
+
+                            function loadProductPrompt(type) {
+                                var el = document.getElementById('prompt-product');
+                                if (_promptCache[type]) {
+                                    el.textContent = _promptCache[type];
+                                    return;
+                                }
+                                el.textContent = 'Loading...';
+                                fetch('/ai-setup/product/' + type + '/prompt.txt')
+                                    .then(function (r) { return r.text(); })
+                                    .then(function (t) {
+                                        _promptCache[type] = t.replace('{{THRIVESTACK_API_KEY}}', 'YOUR_API_KEY_HERE').trim();
+                                        el.textContent = _promptCache[type];
+                                    });
+                            }
+
+                            function switchPromptTab(type, btn) {
+                                document.querySelectorAll('.b2x-tab').forEach(function (b) {
+                                    b.classList.remove('active');
                                 });
+                                btn.classList.add('active');
+                                loadProductPrompt(type);
+                            }
+
+                            loadProductPrompt('b2b');
 
                             function copyPrompt(id, btn) {
                                 var text = document.getElementById(id).innerText;

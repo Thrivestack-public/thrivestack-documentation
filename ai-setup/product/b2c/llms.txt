@@ -1,0 +1,601 @@
+# ThriveStack Product Telemetry — AI Instrumentation Guide (B2C)
+# Version: 3.2
+# Hosted at: https://docs.thrivestack.ai/ai-setup/product/b2c/llms.txt
+
+---
+
+## PURPOSE
+
+This file gives AI coding assistants complete, executable instructions for instrumenting
+any existing B2C web app with ThriveStack product telemetry.
+Every rule, schema, and example here is authoritative — follow exactly, do not deviate.
+
+This guide is for **B2C applications** — each user is their own independent account with no org or workspace entity.
+
+All event schemas are non-exhaustive. Additional properties beyond those listed are always allowed.
+
+---
+
+## HOW TO USE THIS GUIDE
+
+Work through these phases in order. Do not write any code until Phase 0 is complete.
+
+### Phase 0 — Understand the codebase first
+0. Determine if the codebase is **frontend/full-stack** or **backend-only**:
+   - If it runs in a browser or has a frontend entry point (Next.js, React, Vue, Nuxt, Angular, Svelte, plain HTML), continue with this guide.
+   - If it is a **backend/server-side application with no browser context** (Node.js API server, Express, Fastify, Python/Django/FastAPI/Flask, Go service, Ruby on Rails API, etc.), **stop here** and use the backend guide instead:
+     → https://docs.thrivestack.ai/ai-setup/product/backend/llms.txt
+1. This is a **B2C** app — each user is their own independent account. Do NOT search for org/workspace/account entities. Use the B2C pattern for `group()` (STEP 4).
+2. Identify the tech stack, auth library, and state management
+3. Find `userId` — see STEP 2 for search patterns and rules
+4. Find all instrumentable feature actions. Then **STOP** and ask the developer, exactly:
+   > "I found these features: [list each one]. For each, which type applies?
+   > - **core** — primary value driver, reason users signed up (e.g. Report builder, Pipeline view)
+   > - **sticky** — habit-forming, pulls users back daily/weekly (e.g. Notifications, Workflow automation)
+   > - **support** — switching cost builder, embeds product in operations (e.g. SSO, Billing, Audit logs)"
+   Do not write any `feature_used` calls until the developer has answered for every feature.
+5. **STOP** and ask the developer:
+   > "Do you want to check for abusive or disposable email addresses during signup?
+   > - **(a) Block** — prevent the signup and show an error message
+   > - **(b) Flag** — allow signup but mark the user for manual review
+   > - **(c) Skip** — do not implement abuse checking"
+   Do not write any `checkAbuseEmail` call until the developer has answered. If they choose (c), omit the abuse check entirely and mark row 11 as N/A in the summary.
+
+### Phase 1 — Install the script tag
+Add once to the root layout. Follow STEP 1 exactly for the detected framework.
+
+### Phase 2 — Instrument lifecycle events
+Follow the FIRING ORDER section exactly for each flow found: signup, login.
+
+### Phase 3 — Instrument feature events
+One `feature_used` event per confirmed feature action. `feature_name` in `[noun]_[verb]` snake_case.
+
+### Phase 4 — Verify then summarise
+Run through the VERIFICATION CHECKLIST. Fix anything missing. Then output the summary.
+After the summary is printed, your task is complete. Do not continue. Do not fix unrelated issues, refactor surrounding code, or make any further edits.
+
+**REQUIRED OUTPUT FORMAT — strictly follow this, no exceptions.**
+Do NOT write a narrative summary. Do NOT output a "Summary of Changes" section. Do NOT describe what you did in prose.
+Your only output after instrumentation is complete is the table below, printed inline in the chat. No files. No markdown files. No prose before or after it.
+
+```
+ThriveStack Instrumentation Summary
+X/12 implemented
+
+| # | Event | Status | Notes |
+|---|-------|--------|-------|
+| 0 | script tag URL | ✅/⚠️/❌ | Exact src used |
+| 1 | identify | ✅/⚠️/❌ | Field used, file |
+| 2 | group | ✅/⚠️/❌ | B2C fallback — group_id = user.id |
+| 3 | signed_up | ✅/⚠️/❌ | Handler, file |
+| 4 | signed_in | ✅/⚠️/❌ | Handler, file |
+| 5 | account_created | N/A | B2C — no org account created |
+| 6 | account_added_user | ✅/⚠️/❌ | Entry points covered |
+| 7 | feature_used | ✅/⚠️/❌ | Features and their feature_type |
+| 8 | invite_sent | ✅/⚠️/❌ | Handler, file or N/A |
+| 9 | onboarding_step_completed | ✅/⚠️/❌ | Steps found or N/A |
+| 10 | signed_out | ✅/⚠️/❌ | Handler, file |
+| 11 | abuse_check | ✅/⚠️/❌ | Signup file, block / flag / N/A |
+
+User ID: [field] in [file]
+Group hierarchy: B2C fallback — group_id = user.id
+Unresolved: [anything skipped and why, or "None"]
+
+Instrumentation complete. Test your app as a real user — events will start flowing into ThriveStack.
+
+Enabled Features:
+- Departmental Analytics — X reports unlocked — insights across acquisition, activation, retention, and more.
+  https://app.thrivestack.ai/analyze/home
+
+---
+Handy ThriveStack Resources
+- Setup Progress: https://app.thrivestack.ai/analyze/onboarding/product-analytics/telemetry
+- Diagnostics: https://app.thrivestack.ai/analyze/diagnostics-report
+- API / Audit Logs: https://app.thrivestack.ai/analyze/events
+- Developer Tools: https://app.thrivestack.ai/analyze/developer-tool
+```
+
+---
+
+## STEP 1 — INSTALL THE SCRIPT TAG
+
+This is the ONLY initialization method. There is no npm package. There is no init() call.
+
+Add once to the root layout file. Never inside a component or page.
+
+### Next.js App Router (app/layout.tsx)
+```tsx
+import Script from 'next/script'
+export default function RootLayout({ children }) {
+  return (
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;Script
+          src="https://cdn.app.thrivestack.ai/latest/script.js"
+          strategy="afterInteractive"
+          api-key={process.env.NEXT_PUBLIC_THRIVESTACK_API_KEY}
+          data-source="product"
+        /&gt;
+      &lt;/head&gt;
+      &lt;body&gt;{children}&lt;/body&gt;
+    &lt;/html&gt;
+  )
+}
+```
+
+### React (public/index.html)
+```html
+&lt;script
+  src="https://cdn.app.thrivestack.ai/latest/script.js"
+  api-key="%REACT_APP_THRIVESTACK_API_KEY%"
+  source="product"&gt;
+&lt;/script&gt;
+```
+
+### Vue / Nuxt / Plain HTML
+```html
+&lt;script
+  src="https://cdn.app.thrivestack.ai/latest/script.js"
+  api-key="YOUR_ENV_VAR_HERE"
+  source="product"&gt;
+&lt;/script&gt;
+```
+
+Rules:
+- Write the API key to the environment variable file appropriate for this stack (.env, .env.local, application.yml, etc.) — never in source code
+- `api-key` must reference that environment variable — never hardcoded
+- `source="product"` — always this exact string, never change it
+- Global object after load: `thriveStack` — camelCase, lowercase 's'
+- Place in root layout ONCE only
+
+---
+
+## STEP 2 — FIND userId
+
+Must be a stable unique identifier that does not change across sessions.
+May be a UUID, integer, or any format the auth provider uses.
+Prefer a stable unique ID over email. Email is acceptable as `user_id` if it is the only stable identifier available — use it without blocking.
+
+Search patterns:
+```javascript
+const { user } = useAuth()               → user.id
+const session = useSession()             → session.user.id
+useContext(AuthContext)                  → context.user.id
+const { userId } = auth()               → userId  (Clerk)
+store.auth.user.id                       → (Redux/Zustand)
+claims.sub, claims.user_id              → (JWT)
+```
+
+If no stable identifier found — stop and ask:
+"What field uniquely identifies a user in your database — their ID, not their email?"
+
+**Do NOT search for org, account, workspace, or tenant IDs.** This is a B2C app — the user IS their own group. See STEP 4 for how group() is called.
+
+---
+
+## STEP 3 — identify()
+
+Call on signup, login, and whenever new/updated user info is gathered.
+`user_id` is always mandatory. Send whatever is known at the time.
+
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.identify([{
+  "user_id": userId,
+  "traits": {
+    "user_email": user.email,
+    "user_name": user.name
+  },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+## STEP 4 — group() — B2C Pattern
+
+In B2C, the user is their own account. Fire `group()` ONCE — only on first registration, never again.
+
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.group([{
+  "user_id": userId,
+  "group_id": user.id,              // same as userId
+  "traits": {
+    "group_type": "Account",
+    "account_name": user.name,      // user's full name
+    "account_domain": user.email    // full email address — not just domain
+    // omit plan_id and plan_name entirely
+  },
+  "context": {
+    "group_id": user.id,            // must match group_id exactly
+    "group_type": "Account"
+  },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+Rules:
+- Fire ONCE on first registration only — never on login, never on subsequent visits
+- `group_id` = `user.id` (the same value as userId)
+- `account_domain` = full email address (e.g. `"alice@gmail.com"`) — not just the domain
+- Do NOT include `plan_id` or `plan_name`
+- Do NOT make additional group() calls for other entity levels — there are none in B2C
+
+---
+
+## STEP 5 — TRACK EVENTS
+
+### Base signature
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.track([{
+  "event_name": "event_name_here",
+  "user_id": userId,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name
+  },
+  "context": { "group_id": user.id },   // always user.id in B2C
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+## EVENT SCHEMAS
+
+### signed_up
+When: New user registration completes.
+
+```javascript
+thriveStack.track([{
+  "event_name": "signed_up",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "utm_source": getUTMParam('utm_source'),
+    "utm_medium": getUTMParam('utm_medium'),
+    "utm_campaign": getUTMParam('utm_campaign'),
+    "utm_term": getUTMParam('utm_term')
+  },
+  "context": { "group_id": user.id },
+  "timestamp": new Date().toISOString()
+}])
+
+function getUTMParam(param) {
+  return new URLSearchParams(window.location.search).get(param)
+    || sessionStorage.getItem(param)
+    || null
+}
+```
+
+---
+
+### signed_in
+When: Existing user logs in successfully.
+No UTM params. `context` is mandatory.
+
+```javascript
+thriveStack.track([{
+  "event_name": "signed_in",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name
+  },
+  "context": { "group_id": user.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### signed_out
+When: Existing user logs out.
+
+```javascript
+thriveStack.track([{
+  "event_name": "signed_out",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name
+  },
+  "context": { "group_id": user.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### account_created
+**N/A for B2C.** Do not implement this event. There is no org/account created in a B2C flow.
+
+---
+
+### account_added_user
+When: User completes registration (they are added to their own "account").
+Fire once on signup only.
+
+```javascript
+thriveStack.track([{
+  "event_name": "account_added_user",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "account_id": user.id,
+    "account_name": user.name,
+    "account_domain": user.email,
+    "join_method": "signup",
+    "is_first_user": true
+  },
+  "context": { "group_id": user.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### onboarding_step_completed
+When: User completes a discrete setup step.
+Search for: `<Stepper>` `onStepComplete` `handleNext` `setCurrentStep` `markStepComplete`
+
+```javascript
+thriveStack.track([{
+  "event_name": "onboarding_step_completed",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "step_name": stepName,      // snake_case: "connected_data_source"
+    "step_index": stepIndex,    // 0-based integer
+    "total_steps": totalSteps
+  },
+  "context": { "group_id": user.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### invite_sent
+When: User sends an invitation (referral, share, team invite if any).
+All properties beyond `user_email` and `invitee_email` are send-if-available.
+
+```javascript
+thriveStack.track([{
+  "event_name": "invite_sent",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "invitee_email": invitee.email,
+    "source_url": window.location.href
+  },
+  "context": { "group_id": user.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### feature_used
+When: User performs any core product action.
+
+- `event_name` is ALWAYS the literal string `"feature_used"` — never a custom verb
+- `feature_name` is always `[noun]_[verb]` snake_case
+- `feature_type` must be confirmed with developer before instrumenting — never assume
+
+Ask the developer which applies:
+- `"core"` — primary value driver, reason users signed up (e.g. Report builder, Pipeline view)
+- `"sticky"` — habit-forming, pulls users back daily/weekly (e.g. Notifications, Workflow automation)
+- `"support"` — switching cost builder, embeds product in operations (e.g. SSO, Billing, Audit logs)
+
+```javascript
+thriveStack.track([{
+  "event_name": "feature_used",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "feature_name": "export_report",
+    "feature_type": "core"
+  },
+  "context": { "group_id": user.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### checkAbuseEmail — Abuse Prevention
+When: Before signup form submission completes.
+Prerequisites: ThriveStack SDK script tag installed (STEP 1).
+
+Use the answer from Phase 0 step 5 (block / flag / skip). If skip was chosen, omit this section entirely.
+
+```javascript
+if (typeof thriveStack === 'undefined') return
+const checkAbuse = await thriveStack.checkAbuseEmail(userEmail)
+if (checkAbuse.success && checkAbuse.data.isAbuse === 1) {
+  // BLOCK path — prevent form submission and show error
+  showError(checkAbuse.message)
+
+  // FLAG path — allow signup but mark for review (use instead of block above)
+  // flagUserForReview(userEmail, checkAbuse.data.reasonForAbuse)
+}
+```
+
+Note: `await` is intentional here — this is a data check that gates the flow, not a fire-and-forget event.
+
+`reasonForAbuse` fields: `isDisposable` (throwaway email provider), `domainExists` (false = domain not found), `isDuplicate` (email already seen in system).
+
+---
+
+## FIRING ORDER
+
+### Signup (new user)
+```
+identify → group(user.id) → signed_up → account_added_user
+```
+
+### Login
+```
+identify → signed_in
+```
+
+### Logout
+```
+signed_out
+```
+
+---
+
+## VERIFICATION CHECKLIST
+
+Before delivering the summary, verify all 12 points. Fix anything missing first.
+
+- [ ] 0. script tag — src is exactly `https://cdn.app.thrivestack.ai/latest/script.js` — no variation, no substitution. Known wrong URLs to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
+- [ ] 1. identify — fires on signup, login, profile/info updates
+- [ ] 2. group — fires ONCE on first registration only, using B2C pattern (group_id = user.id)
+- [ ] 3. signed_up — correct flow, UTM captured
+- [ ] 4. signed_in — fires on every login, context block present
+- [ ] 5. account_created — mark N/A (B2C — no org account)
+- [ ] 6. account_added_user — fires on signup
+- [ ] 7. feature_used — at least one, feature_type confirmed with developer
+- [ ] 8. invite_sent — all invite handlers found, or N/A if no invite flow exists
+- [ ] 9. onboarding_step_completed — all stepper/wizard flows found, or N/A
+- [ ] 10. signed_out — fires on logout, context block present
+- [ ] 11. abuse_check — if chosen in Phase 0: checkAbuseEmail called before signup submission, block or flag implemented; if skipped: mark N/A
+
+### Summary format
+
+Output this summary directly in the chat as your final message. Do not create any files for this summary. Do not write it to markdown. Print it inline.
+
+**ThriveStack Instrumentation Summary**
+X/12 implemented
+
+| # | Event | Status | Notes |
+|---|-------|--------|-------|
+| 0 | script tag URL | ✅/⚠️/❌ | Exact src used |
+| 1 | identify | ✅/⚠️/❌ | Field used, file |
+| 2 | group | ✅/⚠️/❌ | B2C fallback — group_id = user.id |
+| 3 | signed_up | ✅/⚠️/❌ | Handler, file |
+| 4 | signed_in | ✅/⚠️/❌ | Handler, file |
+| 5 | account_created | N/A | B2C — no org account created |
+| 6 | account_added_user | ✅/⚠️/❌ | Entry points covered |
+| 7 | feature_used | ✅/⚠️/❌ | Features and their feature_type |
+| 8 | invite_sent | ✅/⚠️/❌ | Handler, file or N/A |
+| 9 | onboarding_step_completed | ✅/⚠️/❌ | Steps found or N/A |
+| 10 | signed_out | ✅/⚠️/❌ | Handler, file |
+| 11 | abuse_check | ✅/⚠️/❌ | Signup file, block / flag / N/A |
+
+**User ID:** [field] in [file]
+**Group hierarchy:** B2C fallback — group_id = user.id
+**Unresolved:** [anything skipped and why, or "None"]
+
+Instrumentation complete. Test your app as a real user — events will start flowing into ThriveStack.
+
+**Enabled Features:**
+- Departmental Analytics — X reports unlocked — insights across acquisition, activation, retention, and more.
+  https://app.thrivestack.ai/analyze/home
+
+---
+
+**Handy ThriveStack Resources**
+- Setup Progress: https://app.thrivestack.ai/analyze/onboarding/product-analytics/telemetry
+- Diagnostics: https://app.thrivestack.ai/analyze/diagnostics-report
+- API / Audit Logs: https://app.thrivestack.ai/analyze/events
+- Developer Tools: https://app.thrivestack.ai/analyze/developer-tool
+
+---
+
+## HARD RULES
+
+1. Script src must be exactly `https://cdn.app.thrivestack.ai/latest/script.js` — never alter the URL. Known wrong substitutions to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
+2. Global object: `thriveStack` — never `ThriveStack` or `thrivestack`
+3. Every method takes an array: `identify([{...}])` `group([{...}])` `track([{...}])`
+4. Guard every call: `if (typeof thriveStack === 'undefined') return`
+5. timestamp: `new Date().toISOString()` on every call — when multiple events fire in the same handler, use `const now = Date.now()` once and offset each by 1ms: `new Date(now).toISOString()`, `new Date(now + 1).toISOString()`, etc.
+6. `group_type: "Account"` — used in B2C with user.id as group_id
+7. `context.group_id` must equal `group_id` on group() — always `user.id` in B2C
+8. `context` required on every `track()` call — use `user.id` as `group_id`
+9. userId from auth context only — never hardcode, never generate
+10. `api-key` from environment variable only — never in source code
+11. Fire-and-forget — never `await` thriveStack calls
+12. Fire after action succeeds — inside `.then()` or after `await`
+13. `group()` fires ONCE on first registration only — never on login or any subsequent visit
+14. `feature_used` is always the literal event_name — never a custom verb
+15. `feature_type` confirmed with developer — never assumed. Never write a `feature_used` call without an explicit answer from the developer for that feature's type. Skipping this question is not allowed.
+15a. Abuse check question is mandatory — never skip it. Never implement `checkAbuseEmail` without first asking the developer whether they want block, flag, or to skip entirely. Never assume any option.
+16. `account_added_user` fires on signup — the user is added to their own "account"
+17. Do NOT implement `account_created` — it is N/A for B2C
+18. Additional properties beyond documented ones are always permitted
+19. Stop after the summary is output — do not fix bugs, refactor code, clean up existing logic, or make any other changes outside of ThriveStack instrumentation. Your only permitted modifications are the ThriveStack calls added in this guide.
+20. Never remove the ThriveStack script tag — once added, it must remain in `<head>` permanently. Any subsequent edit (OG meta tags, favicon, title, publishing steps, or any other change) must preserve it. After every edit, verify the script tag is still present; if it was removed, restore it immediately before continuing.
+
+---
+
+## CRITICAL MISTAKES
+
+WRONG — searching for org/account IDs:
+```javascript
+// Do NOT do this in B2C
+const groupId = user.orgId || user.accountId
+```
+RIGHT — use user.id directly:
+```javascript
+const groupId = user.id
+```
+
+WRONG — firing group() on login:
+```javascript
+async function handleLogin() {
+  thriveStack.group([{ "group_id": user.id }])
+}
+```
+RIGHT — group() only on first registration:
+```javascript
+async function handleSignup() {
+  thriveStack.group([{ "group_id": user.id, ... }])
+}
+```
+
+WRONG — implementing account_created:
+```javascript
+thriveStack.track([{ "event_name": "account_created" }])
+```
+RIGHT — this event is N/A for B2C, do not implement it.
+
+WRONG — missing array:
+```javascript
+thriveStack.track({ "event_name": "signed_up" })
+```
+RIGHT:
+```javascript
+thriveStack.track([{ "event_name": "signed_up" }])
+```
+
+WRONG — no guard:
+```javascript
+thriveStack.identify([{ "user_id": user.id }])
+```
+RIGHT:
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.identify([{ "user_id": user.id }])
+```
+
+WRONG — custom event_name for feature:
+```javascript
+thriveStack.track([{ "event_name": "report_exported" }])
+```
+RIGHT:
+```javascript
+thriveStack.track([{
+  "event_name": "feature_used",
+  "properties": { "feature_name": "report_exported", "feature_type": "core" }
+}])
+```
