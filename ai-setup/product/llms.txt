@@ -112,7 +112,7 @@ export default function RootLayout({ children }) {
     &lt;html&gt;
       &lt;head&gt;
         &lt;Script
-          src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+          src="https://cdn.app.thrivestack.ai/latest/script.js"
           strategy="afterInteractive"
           api-key={process.env.NEXT_PUBLIC_THRIVESTACK_API_KEY}
           data-source="product"
@@ -127,7 +127,7 @@ export default function RootLayout({ children }) {
 ### React (public/index.html)
 ```html
 &lt;script
-  src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+  src="https://cdn.app.thrivestack.ai/latest/script.js"
   api-key="%REACT_APP_THRIVESTACK_API_KEY%"
   source="product"&gt;
 &lt;/script&gt;
@@ -136,7 +136,7 @@ export default function RootLayout({ children }) {
 ### Vue / Nuxt / Plain HTML
 ```html
 &lt;script
-  src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+  src="https://cdn.app.thrivestack.ai/latest/script.js"
   api-key="YOUR_ENV_VAR_HERE"
   source="product"&gt;
 &lt;/script&gt;
@@ -605,7 +605,7 @@ identify → account_added_user
 
 Before delivering the summary, verify all 12 points. Fix anything missing first.
 
-- [ ] 0. script tag — src is exactly `https://ts-script.app.thrivestack.ai/latest/thrivestack.js` — no variation, no substitution. Known wrong URLs to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
+- [ ] 0. script tag — src is exactly `https://cdn.app.thrivestack.ai/latest/script.js` — no variation, no substitution. Known wrong URLs to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
 - [ ] 1. identify — fires on signup, login, profile/info updates
 - [ ] 2. group — fires on entity creation only, correct group_type per level
 - [ ] 3. signed_up — correct flow, UTM captured
@@ -662,7 +662,7 @@ Instrumentation complete. Test your app as a real user — events will start flo
 
 ## HARD RULES
 
-1. Script src must be exactly `https://ts-script.app.thrivestack.ai/latest/thrivestack.js` — never alter the URL. Known wrong substitutions to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
+1. Script src must be exactly `https://cdn.app.thrivestack.ai/latest/script.js` — never alter the URL. Known wrong substitutions to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
 2. Global object: `thriveStack` — never `ThriveStack` or `thrivestack`
 3. Every method takes an array: `identify([{...}])` `group([{...}])` `track([{...}])`
 4. Guard every call: `if (typeof thriveStack === 'undefined') return`

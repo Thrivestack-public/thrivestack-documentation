@@ -84,7 +84,7 @@ export default function RootLayout({ children }) {
     <html>
       <head>
         <Script
-          src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+          src="https://cdn.app.thrivestack.ai/latest/script.js"
           strategy="afterInteractive"
           api-key={process.env.NEXT_PUBLIC_THRIVESTACK_API_KEY}
           data-source="product"
@@ -99,7 +99,7 @@ export default function RootLayout({ children }) {
 ### React (public/index.html)
 ```html
 <script
-  src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+  src="https://cdn.app.thrivestack.ai/latest/script.js"
   api-key="%REACT_APP_THRIVESTACK_API_KEY%"
   source="product">
 </script>
@@ -108,7 +108,7 @@ export default function RootLayout({ children }) {
 ### Vue / Nuxt / Plain HTML
 ```html
 <script
-  src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+  src="https://cdn.app.thrivestack.ai/latest/script.js"
   api-key="YOUR_ENV_VAR_HERE"
   source="product">
 </script>

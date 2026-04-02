@@ -71,7 +71,7 @@ Never add it inside an individual page component or template. Never add it multi
         &lt;html&gt;
           &lt;head&gt;
             &lt;Script
-              src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+              src="https://cdn.app.thrivestack.ai/latest/script.js"
               strategy="afterInteractive"
               api-key={process.env.NEXT_PUBLIC_THRIVESTACK_MARKETING_API_KEY}
               data-source="marketing"
@@ -90,7 +90,7 @@ Never add it inside an individual page component or template. Never add it multi
         &lt;Html&gt;
           &lt;Head&gt;
             &lt;script
-              src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+              src="https://cdn.app.thrivestack.ai/latest/script.js"
               api-key={process.env.NEXT_PUBLIC_THRIVESTACK_MARKETING_API_KEY}
               source="marketing"
             /&gt;
@@ -106,7 +106,7 @@ Never add it inside an individual page component or template. Never add it multi
 ### React (public/index.html)
 
     &lt;script
-      src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+      src="https://cdn.app.thrivestack.ai/latest/script.js"
       api-key="%REACT_APP_THRIVESTACK_MARKETING_API_KEY%"
       source="marketing"&gt;
     &lt;/script&gt;
@@ -119,7 +119,7 @@ Never add it inside an individual page component or template. Never add it multi
         head: {
           script: [
             {
-              src: 'https://ts-script.app.thrivestack.ai/latest/thrivestack.js',
+              src: 'https://cdn.app.thrivestack.ai/latest/script.js',
               'api-key': process.env.THRIVESTACK_MARKETING_API_KEY,
               source: 'marketing'
             }
@@ -132,7 +132,7 @@ Never add it inside an individual page component or template. Never add it multi
 
     &lt;head&gt;
       &lt;script
-        src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
         api-key={import.meta.env.PUBLIC_THRIVESTACK_MARKETING_API_KEY}
         source="marketing"
         is:inline&gt;
@@ -143,7 +143,7 @@ Never add it inside an individual page component or template. Never add it multi
 
     &lt;head&gt;
       &lt;script
-        src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
         api-key="%PUBLIC_THRIVESTACK_MARKETING_API_KEY%"
         source="marketing"&gt;
       &lt;/script&gt;
@@ -154,7 +154,7 @@ Add to the &lt;head&gt; of the shared base template or every public HTML page:
 
     &lt;head&gt;
       &lt;script
-        src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
         api-key="YOUR_ENV_VAR_SUBSTITUTION_HERE"
         source="marketing"&gt;
       &lt;/script&gt;
@@ -165,7 +165,7 @@ Add via the theme's functions.php, a header injection plugin, or the theme's hea
 
     // functions.php
     function thrivestack_marketing_script() {
-      echo '&lt;script src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js" api-key="' . esc_attr( getenv('THRIVESTACK_MARKETING_API_KEY') ) . '" source="marketing"&gt;&lt;/script&gt;';
+      echo '&lt;script src="https://cdn.app.thrivestack.ai/latest/script.js" api-key="' . esc_attr( getenv('THRIVESTACK_MARKETING_API_KEY') ) . '" source="marketing"&gt;&lt;/script&gt;';
     }
     add_action( 'wp_head', 'thrivestack_marketing_script' );
 
@@ -183,7 +183,7 @@ Rules:
 
 Before delivering the summary, verify both points. Fix anything missing first.
 
-- [ ] 0. script tag — src is exactly `https://ts-script.app.thrivestack.ai/latest/thrivestack.js` — no variation, no substitution. Known wrong URLs to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
+- [ ] 0. script tag — src is exactly `https://cdn.app.thrivestack.ai/latest/script.js` — no variation, no substitution. Known wrong URLs to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
 - [ ] 1. Script tag present in <head> on all public pages via a single central file
 
 ### Summary format
@@ -224,6 +224,6 @@ Handy ThriveStack Resources
 4. Never hardcode the API key anywhere in source code
 5. The env var name is recommended as THRIVESTACK_MARKETING_API_KEY
    (prefix with NEXT_PUBLIC_, PUBLIC_, REACT_APP_, etc. as required by the framework)
-6. Script src must be exactly `https://ts-script.app.thrivestack.ai/latest/thrivestack.js` — never alter the URL. Known wrong substitutions to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
+6. Script src must be exactly `https://cdn.app.thrivestack.ai/latest/script.js` — never alter the URL. Known wrong substitutions to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
 7. Stop after the summary is output — do not fix bugs, refactor code, clean up existing logic, or make any other changes outside of ThriveStack instrumentation. Your only permitted modification is the script tag added in this guide.
 8. Never remove the ThriveStack script tag — once added, it must remain in the central layout file permanently. Any subsequent edit (OG meta tags, favicon, title, publishing steps, or any other change) must preserve it. After every edit, verify the script tag is still present; if it was removed, restore it immediately before continuing.

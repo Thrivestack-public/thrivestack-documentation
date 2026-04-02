@@ -67,7 +67,7 @@ Never add it inside an individual page component or template. Never add it multi
         <html>
           <head>
             <Script
-              src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+              src="https://cdn.app.thrivestack.ai/latest/script.js"
               strategy="afterInteractive"
               api-key={process.env.NEXT_PUBLIC_THRIVESTACK_MARKETING_API_KEY}
               data-source="marketing"
@@ -86,7 +86,7 @@ Never add it inside an individual page component or template. Never add it multi
         <Html>
           <Head>
             <script
-              src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+              src="https://cdn.app.thrivestack.ai/latest/script.js"
               api-key={process.env.NEXT_PUBLIC_THRIVESTACK_MARKETING_API_KEY}
               source="marketing"
             />
@@ -102,7 +102,7 @@ Never add it inside an individual page component or template. Never add it multi
 ### React (public/index.html)
 
     <script
-      src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+      src="https://cdn.app.thrivestack.ai/latest/script.js"
       api-key="%REACT_APP_THRIVESTACK_MARKETING_API_KEY%"
       source="marketing">
     </script>
@@ -115,7 +115,7 @@ Never add it inside an individual page component or template. Never add it multi
         head: {
           script: [
             {
-              src: 'https://ts-script.app.thrivestack.ai/latest/thrivestack.js',
+              src: 'https://cdn.app.thrivestack.ai/latest/script.js',
               'api-key': process.env.THRIVESTACK_MARKETING_API_KEY,
               source: 'marketing'
             }
@@ -128,7 +128,7 @@ Never add it inside an individual page component or template. Never add it multi
 
     <head>
       <script
-        src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
         api-key={import.meta.env.PUBLIC_THRIVESTACK_MARKETING_API_KEY}
         source="marketing"
         is:inline>
@@ -139,7 +139,7 @@ Never add it inside an individual page component or template. Never add it multi
 
     <head>
       <script
-        src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
         api-key="%PUBLIC_THRIVESTACK_MARKETING_API_KEY%"
         source="marketing">
       </script>
@@ -150,7 +150,7 @@ Add to the <head> of the shared base template or every public HTML page:
 
     <head>
       <script
-        src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
         api-key="YOUR_ENV_VAR_SUBSTITUTION_HERE"
         source="marketing">
       </script>
@@ -161,7 +161,7 @@ Add via the theme's functions.php, a header injection plugin, or the theme's hea
 
     // functions.php
     function thrivestack_marketing_script() {
-      echo '<script src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js" api-key="' . esc_attr( getenv('THRIVESTACK_MARKETING_API_KEY') ) . '" source="marketing"></script>';
+      echo '<script src="https://cdn.app.thrivestack.ai/latest/script.js" api-key="' . esc_attr( getenv('THRIVESTACK_MARKETING_API_KEY') ) . '" source="marketing"></script>';
     }
     add_action( 'wp_head', 'thrivestack_marketing_script' );
 
