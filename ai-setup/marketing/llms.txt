@@ -236,12 +236,15 @@ Do not proceed until the developer has answered.
 3. Confirm `thrivestack.js` loads from `https://ts-script.app.thrivestack.ai/latest/thrivestack.js`
 4. Navigate to a second page and confirm subsequent page view requests appear
 
+If the script fails to load or requests are missing: ask the developer to share the failing request's URL, status code, and the script tag as it appears in the page source. Cross-reference against the HARD RULES in this guide, identify the issue, fix the instrumentation, and ask the developer to verify again.
+
 **If (b) — AI-assisted:**
 1. Ask for the site URL
 2. Open it using your browser capability
 3. Confirm `thrivestack.js` loads and `window.thriveStack` is defined
 4. Navigate to a second page and verify continued tracking
-5. Report what was found — then your task is complete
+5. If the script fails to load or requests are missing, inspect the page source and network response, cross-reference against the HARD RULES in this guide, fix the instrumentation, and re-verify
+6. Report what was found — then your task is complete
 
 **If (c) — Skip:** your task is complete.
 

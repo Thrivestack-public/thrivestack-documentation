@@ -632,10 +632,13 @@ Do not proceed until the developer has answered.
 3. Or visit https://app.thrivestack.ai/analyze/diagnostics-report to confirm events have arrived
 4. Verify `identify`, `group`, and `track` payloads contain `event_name`, `user_id`, `context.group_id`, and `source: "product"`
 
+If any calls are missing or the developer reports errors: ask them to share the failing request's URL, status code, and payload. Cross-reference the payload against the event schemas and HARD RULES in this guide, identify the issue, fix the instrumentation, and ask the developer to verify again.
+
 **If (b) — AI-assisted:**
 1. Use your available capabilities to invoke or inspect the relevant handler
 2. Confirm HTTP calls to `https://api.app.thrivestack.ai/api/identify` and `https://api.app.thrivestack.ai/api/track` are made with correct payloads
-3. Report which events fired and which did not — then your task is complete
+3. If any calls are missing or returning errors, inspect the payload, cross-reference against the event schemas and HARD RULES in this guide, fix the instrumentation, and re-verify
+4. Report which events fired and which did not — then your task is complete
 
 **If (c) — Skip:** your task is complete.
 
