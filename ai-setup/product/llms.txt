@@ -53,7 +53,10 @@ One `feature_used` event per confirmed feature action. `feature_name` in `[noun]
 
 ### Phase 4 — Verify then summarise
 Run through the VERIFICATION CHECKLIST. Fix anything missing. Then output the summary.
-After the summary is printed, your task is complete. Do not continue. Do not fix unrelated issues, refactor surrounding code, or make any further edits.
+After the summary is printed, proceed to Phase 5. Do not make any further code edits.
+
+### Phase 5 — Live verification
+Prompt the developer to verify events are flowing. See PHASE 5 section for the exact prompt and paths.
 
 **REQUIRED OUTPUT FORMAT — strictly follow this, no exceptions.**
 Do NOT write a narrative summary. Do NOT output a "Summary of Changes" section. Do NOT describe what you did in prose.
@@ -620,7 +623,7 @@ Before delivering the summary, verify all 12 points. Fix anything missing first.
 
 ### Summary format
 
-Output this summary directly in the chat as your final message. Do not create any files for this summary. Do not write it to markdown. Print it inline.
+Output this summary directly in the chat. Do not create any files for this summary. Do not write it to markdown. Print it inline. Then proceed to Phase 5.
 
 **ThriveStack Instrumentation Summary**
 X/12 implemented
@@ -657,6 +660,36 @@ Instrumentation complete. Test your app as a real user — events will start flo
 - Diagnostics: https://app.thrivestack.ai/analyze/diagnostics-report
 - API / Audit Logs: https://app.thrivestack.ai/analyze/events
 - Developer Tools: https://app.thrivestack.ai/analyze/developer-tool
+
+---
+
+## PHASE 5 — VERIFY EVENTS ARE FLOWING
+
+Determine whether you have the capability to open a browser and inspect network requests. Then **STOP** and ask the developer, exactly:
+> "Instrumentation is complete. How would you like to verify that events are reaching ThriveStack?
+> - **(a) Manual Testing** — Run your app, open the browser Network tab, filter for `thrivestack`, and look for POST requests to `api.app.thrivestack.ai` — you should see `identify`, `group`, and `track` calls with your user data
+> - **(b) AI Enabled Testing** — Open your app and I will validate the events are firing for you"
+
+Only include option **(b)** in the prompt if you have the capability to open a browser and inspect network requests. If you cannot, present only **(a)**.
+Do not proceed until the developer has answered.
+
+**If (a) — Manual Testing:**
+Walk the developer through step by step:
+1. Start the app and open it in a browser
+2. Open DevTools → Network tab → filter by `thrivestack`
+3. Perform a signup, then a login
+4. Confirm POST requests appear for `identify` and `track` at `api.app.thrivestack.ai/api/`
+5. Click each request and verify the payload contains `event_name`, `user_id`, and `context.group_id`
+
+If any requests are missing or the developer reports errors: ask them to share the failing request's URL, status code, and payload. Cross-reference against this entire guide — event schemas, firing order, hard rules, and verification checklist, identify the issue, fix the instrumentation, and ask the developer to verify again.
+
+**If (b) — AI Enabled Testing:**
+1. Ask for the local dev URL (e.g. `http://localhost:3000`)
+2. Open the app using your browser capability
+3. Walk through the signup and login flows
+4. Confirm network requests to `api.app.thrivestack.ai/api/identify` and `api.app.thrivestack.ai/api/track` fire with correct payloads
+5. If any requests are missing or returning errors, inspect the payload, cross-reference against this entire guide — event schemas, firing order, hard rules, and verification checklist, fix the instrumentation, and re-verify
+6. Report which events fired and which did not — then your task is complete
 
 ---
 
