@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Setup Across Multiple Places - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Setup Across Multiple Places - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../styles.css">
+
+    <style>
+        /* ── Master illustration ── */
+        .codebase-illustration {
+            border: 1px solid var(--border-color, #2a2a2a);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 28px 0 40px;
+            background: var(--code-bg, #111);
+        }
+
+        .codebase-titlebar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color, #2a2a2a);
+            background: rgba(255,255,255,0.025);
+        }
+
+        .codebase-titlebar-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .codebase-titlebar-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .codebase-titlebar-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted, #666);
+            font-family: 'Courier New', monospace;
+        }
+
+        .codebase-body {
+            padding: 20px 24px;
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        /* ── File tree ── */
+        .file-tree {
+            flex: 0 0 auto;
+            min-width: 220px;
+        }
+
+        .tree-node {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tree-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 0;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+            color: var(--text-secondary, #94a3b8);
+            cursor: default;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .tree-row i {
+            font-size: 11px;
+            width: 14px;
+            text-align: center;
+        }
+
+        .tree-row.folder {
+            color: var(--text-muted, #666);
+            font-weight: 500;
+        }
+
+        .tree-row.folder i { color: #fbbf24; }
+
+        .tree-row.file { padding-left: 20px; }
+        .tree-row.file i { color: #60a5fa; }
+
+        .tree-row.file.highlighted {
+            color: var(--text-primary, #f1f5f9);
+        }
+
+        .tree-indent { padding-left: 20px; }
+
+        /* ── Event annotations ── */
+        .annotations {
+            flex: 1;
+            min-width: 260px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-top: 4px;
+        }
+
+        .annotation-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .annotation-file {
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            color: var(--text-muted, #777);
+            min-width: 160px;
+            padding-top: 3px;
+            white-space: nowrap;
+        }
+
+        .annotation-events {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .etag {
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            padding: 2px 7px;
+            border-radius: 4px;
+            border: 1px solid;
+            white-space: nowrap;
+        }
+
+        .etag-blue {
+            background: rgba(59, 130, 246, 0.1);
+            color: #93c5fd;
+            border-color: rgba(59, 130, 246, 0.25);
+        }
+
+        .etag-green {
+            background: rgba(34, 197, 94, 0.08);
+            color: #86efac;
+            border-color: rgba(34, 197, 94, 0.2);
+        }
+
+        .etag-amber {
+            background: rgba(245, 158, 11, 0.08);
+            color: #fcd34d;
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .etag-purple {
+            background: rgba(168, 85, 247, 0.08);
+            color: #c4b5fd;
+            border-color: rgba(168, 85, 247, 0.2);
+        }
+
+        .annotation-connector {
+            width: 1px;
+            background: rgba(255,255,255,0.07);
+            margin: 0 4px;
+            align-self: stretch;
+            min-height: 28px;
+        }
+
+        /* ── Key rule banner ── */
+        .rule-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px 18px;
+            border-radius: 8px;
+            background: rgba(59, 130, 246, 0.07);
+            border: 1px solid rgba(59, 130, 246, 0.18);
+            margin: 0 0 36px;
+        }
+
+        .rule-banner i {
+            font-size: 16px;
+            color: #93c5fd;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        .rule-banner p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-secondary, #cbd5e1);
+            line-height: 1.6;
+        }
+
+        .rule-banner strong {
+            color: var(--text-primary, #f1f5f9);
+        }
+
+        /* ── Case sections ── */
+        .case-section {
+            margin-bottom: 40px;
+        }
+
+        .case-section h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary, #f1f5f9);
+            margin: 0 0 4px;
+        }
+
+        .case-section .case-desc {
+            font-size: 13px;
+            color: var(--text-muted, #777);
+            margin: 0 0 14px;
+        }
+
+        /* ── Mini diagram ── */
+        .mini-diagram {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .mini-box {
+            border: 1px solid var(--border-color, #2a2a2a);
+            border-radius: 8px;
+            background: var(--code-bg, #111);
+            overflow: hidden;
+            min-width: 160px;
+            flex: 0 0 auto;
+        }
+
+        .mini-box-header {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border-color, #2a2a2a);
+            background: rgba(255,255,255,0.02);
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: var(--text-primary, #f1f5f9);
+        }
+
+        .mini-box-header i {
+            font-size: 11px;
+            color: var(--text-muted, #666);
+        }
+
+        .mini-box-header .mini-repo-label {
+            font-size: 10px;
+            font-weight: 500;
+            padding: 1px 6px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.06);
+            color: var(--text-muted, #777);
+            margin-left: auto;
+            font-family: inherit;
+        }
+
+        .mini-box-body {
+            padding: 10px 12px;
+        }
+
+        .mini-box-events {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .mini-box-footer {
+            font-size: 11px;
+            padding: 6px 8px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mini-box-footer.product {
+            background: rgba(59,130,246,0.08);
+            color: #93c5fd;
+            border: 1px solid rgba(59,130,246,0.2);
+        }
+
+        .mini-box-footer.backend {
+            background: rgba(34,197,94,0.07);
+            color: #86efac;
+            border: 1px solid rgba(34,197,94,0.18);
+        }
+
+        .mini-box-footer.no-access {
+            background: rgba(255,255,255,0.04);
+            color: var(--text-muted, #666);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .mini-box.dimmed {
+            opacity: 0.45;
+        }
+
+        .mini-arrow {
+            font-size: 16px;
+            color: var(--text-muted, #444);
+            flex-shrink: 0;
+            padding: 0 2px;
+        }
+
+        .case-action {
+            font-size: 13px;
+            color: var(--text-secondary, #94a3b8);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../../index.html" class="logo">
+                <img src="../../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../../index.html">Get Started</a>
+                <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="#">Analyze Signals</a>
+                <a href="#">Take Action</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/multi-repo-setup.html" class="nav-item active"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../../public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="multi-repo-setup" class="content-section">
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Product Intelligence</span>
+                            <h1 class="doc-page-title">Setup Across Multiple Places</h1>
+                            <p class="doc-page-description">
+                                User journeys span more than one file. Signup, invite, login, and feature usage each live in a different part of your codebase — here's how the prompt covers all of them.
+                            </p>
+                        </header>
+
+                        <hr />
+
+                        <article class="doc-page-body">
+
+                            <div class="rule-banner">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <p>
+                                    <strong>The prompt runs once per codebase.</strong> It reads your entire repo and instruments every place where a user action happens — signup, login, invite, feature use. But your signup might be in a different file than your login, your invite flow might be in a separate service, or your backend might handle registration while your frontend handles the rest. This page shows what that looks like and how to handle each case.
+                                </p>
+                            </div>
+
+                            <!-- ── Master illustration ── -->
+                            <h2 id="illustration" style="margin-bottom: 6px;">Where events live in your codebase</h2>
+                            <p style="font-size: 14px; color: var(--text-muted, #777); margin-bottom: 4px;">Each user flow maps to a specific file or handler. The prompt finds and instruments all of them.</p>
+
+                            <div class="codebase-illustration">
+                                <div class="codebase-titlebar">
+                                    <div class="codebase-titlebar-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <span class="codebase-titlebar-name">your-app/</span>
+                                </div>
+                                <div class="codebase-body">
+
+                                    <!-- File tree -->
+                                    <div class="file-tree">
+                                        <div class="tree-node">
+                                            <div class="tree-row folder"><i class="fa-solid fa-folder"></i> app/</div>
+                                            <div class="tree-indent">
+                                                <div class="tree-row folder"><i class="fa-solid fa-folder-open"></i> auth/</div>
+                                                <div class="tree-indent">
+                                                    <div class="tree-row file highlighted"><i class="fa-regular fa-file-code"></i> signup.tsx</div>
+                                                    <div class="tree-row file highlighted"><i class="fa-regular fa-file-code"></i> login.tsx</div>
+                                                    <div class="tree-row file highlighted"><i class="fa-regular fa-file-code"></i> logout.tsx</div>
+                                                    <div class="tree-row file highlighted"><i class="fa-regular fa-file-code"></i> invite.tsx</div>
+                                                </div>
+                                                <div class="tree-row folder"><i class="fa-solid fa-folder-open"></i> features/</div>
+                                                <div class="tree-indent">
+                                                    <div class="tree-row file highlighted"><i class="fa-regular fa-file-code"></i> dashboard.tsx</div>
+                                                    <div class="tree-row file highlighted"><i class="fa-regular fa-file-code"></i> reports.tsx</div>
+                                                    <div class="tree-row file"><i class="fa-regular fa-file-code"></i> settings.tsx</div>
+                                                </div>
+                                                <div class="tree-row folder"><i class="fa-solid fa-folder"></i> api/</div>
+                                                <div class="tree-indent">
+                                                    <div class="tree-row file highlighted"><i class="fa-regular fa-file-code"></i> auth.ts</div>
+                                                    <div class="tree-row file"><i class="fa-regular fa-file-code"></i> users.ts</div>
+                                                </div>
+                                            </div>
+                                            <div class="tree-row folder"><i class="fa-solid fa-folder"></i> layout.tsx</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Connectors + annotations -->
+                                    <div class="annotations">
+                                        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted, #555); margin-bottom: 6px;">Events that fire here</div>
+
+                                        <div class="annotation-row">
+                                            <span class="annotation-file">auth/signup.tsx</span>
+                                            <div class="annotation-events">
+                                                <span class="etag etag-green">signed_up</span>
+                                                <span class="etag etag-green">account_created</span>
+                                                <span class="etag etag-green">account_added_user</span>
+                                                <span class="etag etag-blue">identify</span>
+                                                <span class="etag etag-blue">group</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="annotation-row">
+                                            <span class="annotation-file">auth/login.tsx</span>
+                                            <div class="annotation-events">
+                                                <span class="etag etag-blue">identify</span>
+                                                <span class="etag etag-blue">signed_in</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="annotation-row">
+                                            <span class="annotation-file">auth/logout.tsx</span>
+                                            <div class="annotation-events">
+                                                <span class="etag etag-blue">signed_out</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="annotation-row">
+                                            <span class="annotation-file">auth/invite.tsx</span>
+                                            <div class="annotation-events">
+                                                <span class="etag etag-amber">invite_sent</span>
+                                                <span class="etag etag-amber">account_added_user</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="annotation-row">
+                                            <span class="annotation-file">features/dashboard.tsx</span>
+                                            <div class="annotation-events">
+                                                <span class="etag etag-purple">feature_used</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="annotation-row">
+                                            <span class="annotation-file">features/reports.tsx</span>
+                                            <div class="annotation-events">
+                                                <span class="etag etag-purple">feature_used</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="annotation-row">
+                                            <span class="annotation-file">api/auth.ts</span>
+                                            <div class="annotation-events">
+                                                <span class="etag etag-green">signed_up</span>
+                                                <span class="etag etag-blue">identify</span>
+                                                <span style="font-size: 11px; color: var(--text-muted, #666); padding-top: 3px; font-style: italic;">if backend handles auth</span>
+                                            </div>
+                                        </div>
+
+                                        <div style="margin-top: 10px; padding: 10px 12px; border-radius: 6px; background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.15); font-size: 12px; color: #86efac; display: flex; align-items: center; gap: 8px;">
+                                            <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 11px;"></i>
+                                            The prompt finds all of these automatically — run it once on this repo.
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- ── What if... ── -->
+                            <h2 id="separate-service" style="margin-top: 40px; margin-bottom: 6px;">What if a flow lives in a completely separate service?</h2>
+                            <p style="font-size: 14px; color: var(--text-muted, #777); margin-bottom: 32px;">
+                                Run the prompt once per codebase that owns events. Use the same API key in all of them.
+                            </p>
+
+                            <!-- Case 1: Same repo -->
+                            <div class="case-section">
+                                <h3>Same repo — different file or folder</h3>
+                                <p class="case-desc">Signup in <code>auth/signup.tsx</code>, invite in <code>settings/team.tsx</code>, features scattered across components — all in one repo.</p>
+                                <div class="mini-diagram">
+                                    <div class="mini-box">
+                                        <div class="mini-box-header">
+                                            <i class="fa-solid fa-layer-group"></i>
+                                            your-app/
+                                        </div>
+                                        <div class="mini-box-body">
+                                            <div class="mini-box-events">
+                                                <span class="etag etag-green">signed_up</span>
+                                                <span class="etag etag-green">account_created</span>
+                                                <span class="etag etag-blue">signed_in</span>
+                                                <span class="etag etag-amber">invite_sent</span>
+                                                <span class="etag etag-purple">feature_used</span>
+                                                <span class="etag etag-blue">signed_out</span>
+                                            </div>
+                                            <div class="mini-box-footer product"><i class="fa-solid fa-wand-magic-sparkles"></i> Run product prompt — once</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="case-action">Run the prompt once. It searches the whole repo and instruments every handler it finds.</p>
+                            </div>
+
+                            <!-- Case 2: Separate frontend repo -->
+                            <div class="case-section">
+                                <h3>Separate frontend repos — e.g. main app + admin portal</h3>
+                                <p class="case-desc">Your customer-facing app and your internal admin tool live in different codebases.</p>
+                                <div class="mini-diagram">
+                                    <div class="mini-box">
+                                        <div class="mini-box-header">
+                                            <i class="fa-solid fa-display"></i>
+                                            main-app/
+                                            <span class="mini-repo-label">Repo 1</span>
+                                        </div>
+                                        <div class="mini-box-body">
+                                            <div class="mini-box-events">
+                                                <span class="etag etag-blue">identify</span>
+                                                <span class="etag etag-blue">signed_in</span>
+                                                <span class="etag etag-purple">feature_used</span>
+                                                <span class="etag etag-blue">signed_out</span>
+                                            </div>
+                                            <div class="mini-box-footer product"><i class="fa-solid fa-wand-magic-sparkles"></i> Run product prompt</div>
+                                        </div>
+                                    </div>
+                                    <div class="mini-arrow">+</div>
+                                    <div class="mini-box">
+                                        <div class="mini-box-header">
+                                            <i class="fa-solid fa-user-gear"></i>
+                                            admin-app/
+                                            <span class="mini-repo-label">Repo 2</span>
+                                        </div>
+                                        <div class="mini-box-body">
+                                            <div class="mini-box-events">
+                                                <span class="etag etag-green">account_created</span>
+                                                <span class="etag etag-amber">invite_sent</span>
+                                                <span class="etag etag-green">account_added_user</span>
+                                            </div>
+                                            <div class="mini-box-footer product"><i class="fa-solid fa-wand-magic-sparkles"></i> Run product prompt</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="case-action">Open each repo separately in your AI assistant and run the product prompt in each one. Use the same API key in both.</p>
+                            </div>
+
+                            <!-- Case 3: Separate backend service -->
+                            <div class="case-section">
+                                <h3>Separate backend service — Node, Python, Go, Ruby…</h3>
+                                <p class="case-desc">Signup and account creation happen server-side in a dedicated API. The frontend only handles what users do after they're logged in.</p>
+                                <div class="mini-diagram">
+                                    <div class="mini-box">
+                                        <div class="mini-box-header">
+                                            <i class="fa-solid fa-server"></i>
+                                            backend-api/
+                                            <span class="mini-repo-label">Repo 1</span>
+                                        </div>
+                                        <div class="mini-box-body">
+                                            <div class="mini-box-events">
+                                                <span class="etag etag-green">signed_up</span>
+                                                <span class="etag etag-green">account_created</span>
+                                                <span class="etag etag-green">account_added_user</span>
+                                                <span class="etag etag-blue">group</span>
+                                            </div>
+                                            <div class="mini-box-footer backend"><i class="fa-solid fa-terminal"></i> Run <a href="../../../public/product/setup/setup-with-ai-backend.html" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">backend prompt</a></div>
+                                        </div>
+                                    </div>
+                                    <div class="mini-arrow">→</div>
+                                    <div class="mini-box">
+                                        <div class="mini-box-header">
+                                            <i class="fa-solid fa-display"></i>
+                                            frontend-app/
+                                            <span class="mini-repo-label">Repo 2</span>
+                                        </div>
+                                        <div class="mini-box-body">
+                                            <div class="mini-box-events">
+                                                <span class="etag etag-blue">identify</span>
+                                                <span class="etag etag-blue">signed_in</span>
+                                                <span class="etag etag-purple">feature_used</span>
+                                                <span class="etag etag-blue">signed_out</span>
+                                            </div>
+                                            <div class="mini-box-footer product"><i class="fa-solid fa-wand-magic-sparkles"></i> Run product prompt</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="case-action">Open the backend repo and run the <a href="../../../public/product/setup/setup-with-ai-backend.html" style="color: #93c5fd;">backend prompt</a>. Then open the frontend repo and run the product prompt. The product prompt will detect if a codebase has no browser context and tell you to use the backend prompt instead.</p>
+                            </div>
+
+                            <!-- Case 4: Third-party identity provider -->
+                            <div class="case-section">
+                                <h3>Third-party identity provider — Okta, Auth0, SAML…</h3>
+                                <p class="case-desc">Auth is handled entirely by an external provider. Your app receives a session after the provider completes authentication.</p>
+                                <div class="mini-diagram">
+                                    <div class="mini-box mini-box dimmed">
+                                        <div class="mini-box-header">
+                                            <i class="fa-solid fa-shield-halved"></i>
+                                            Okta / Auth0
+                                            <span class="mini-repo-label">External</span>
+                                        </div>
+                                        <div class="mini-box-body">
+                                            <div class="mini-box-events">
+                                                <span style="font-size: 11px; color: var(--text-muted, #555); font-style: italic;">handles auth internally</span>
+                                            </div>
+                                            <div class="mini-box-footer no-access"><i class="fa-solid fa-ban"></i> Can't instrument</div>
+                                        </div>
+                                    </div>
+                                    <div class="mini-arrow">→</div>
+                                    <div class="mini-box">
+                                        <div class="mini-box-header">
+                                            <i class="fa-solid fa-display"></i>
+                                            your-app/
+                                            <span class="mini-repo-label">Repo 1</span>
+                                        </div>
+                                        <div class="mini-box-body">
+                                            <div class="mini-box-events">
+                                                <span class="etag etag-blue">identify</span>
+                                                <span class="etag etag-blue">signed_in</span>
+                                                <span class="etag etag-green">signed_up</span>
+                                                <span style="font-size: 11px; color: var(--text-muted, #666); font-style: italic; padding-top: 2px;">first login only</span>
+                                            </div>
+                                            <div class="mini-box-footer product"><i class="fa-solid fa-wand-magic-sparkles"></i> Run product prompt</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="case-action">You can't instrument the provider's code. Run the product prompt on your own app — the AI will find the OAuth callback handler (the point where your app gets the session) and instrument it there.</p>
+                            </div>
+
+                            <blockquote>
+                                <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i>
+                                <strong>Same API key across all services.</strong> Use the same environment's API key everywhere so ThriveStack can join events from different services to the same user and account. See <a href="../../../public/product/setup/environment-correlation.html" style="color: var(--brand-primary);">Environment Co-relation</a>.
+                            </blockquote>
+
+                        </article>
+                    </section>
+                </section>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="multi-repo-setup.html">Last updated: April 7, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#illustration" class="toc-link active">Where events live</a>
+                    <a href="#separate-service" class="toc-link">Separate services</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../../../script.js"></script>
+</body>
+
+</html>

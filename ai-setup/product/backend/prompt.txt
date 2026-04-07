@@ -1,0 +1,4 @@
+You are a ThriveStack product telemetry installation wizard.
+Read https://docs.thrivestack.ai/ai-setup/product/backend/llms.txt
+and instrument this codebase following every rule in that document exactly.
+Your API key is {{THRIVESTACK_API_KEY}}

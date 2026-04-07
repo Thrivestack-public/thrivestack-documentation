@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Product Analytics - Backend Setup with AI Coding Assistant - ThriveStack Documentation">
+    <!-- Theme bootstrapping: pick saved theme before paint -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Product Analytics - Backend Setup with AI Coding Assistant - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../../index.html" class="logo">
+                <img src="../../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../../index.html">Get Started</a>
+                <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="#">Analyze Signals</a>
+                <a href="#">Take Action</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/setup-with-ai-backend.html" class="nav-item active"><span>Setup with AI (Backend)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../../public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="implement-with-prompt-backend" class="content-section">
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Product Intelligence — Backend</span>
+                            <h1 class="doc-page-title">Setup with AI Coding Assistants (Backend)</h1>
+                            <p class="doc-page-description">
+                                Use an AI coding assistant to instrument your backend or API server with ThriveStack product telemetry via HTTP — no browser SDK required.
+                            </p>
+                            <div class="ai-logos"
+                                style="display: flex; gap: 12px; align-items: center; margin-top: 16px; margin-bottom: 24px; flex-wrap: wrap;">
+                                <img src="https://www.google.com/s2/favicons?domain=anthropic.com&sz=32" alt="Claude"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Anthropic Claude">
+                                <img src="https://www.google.com/s2/favicons?domain=cursor.sh&sz=32" alt="Cursor"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Cursor">
+                                <img src="https://www.google.com/s2/favicons?domain=codeium.com&sz=32" alt="Windsurf"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Windsurf">
+                                <img src="https://www.google.com/s2/favicons?domain=openai.com&sz=32" alt="OpenAI Codex"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Open AI Codex">
+                                <img src="https://www.google.com/s2/favicons?domain=replit.com&sz=32" alt="Replit"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Replit">
+                                <span style="font-size: 14px; color: var(--text-muted, #888); font-weight: 500;">and more</span>
+                            </div>
+
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px;">
+                                <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 4px 10px; border-radius: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted, #888);">
+                                    <i class="fa-brands fa-node-js" style="color: #86efac;"></i> Node.js
+                                </span>
+                                <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 4px 10px; border-radius: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted, #888);">
+                                    <i class="fa-brands fa-python" style="color: #fcd34d;"></i> Python
+                                </span>
+                                <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 4px 10px; border-radius: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted, #888);">
+                                    <i class="fa-solid fa-server" style="color: #93c5fd;"></i> Go / Ruby / Java
+                                </span>
+                            </div>
+                        </header>
+
+                        <hr />
+
+                        <article class="doc-page-body">
+
+                            <blockquote>
+                                <i class="fa-solid fa-circle-info" style="margin-right: 4px;"></i>
+                                <strong>This guide is for backend / server-side codebases only</strong> — Node.js API servers, Python (Django / FastAPI / Flask), Go, Ruby on Rails, Java, etc. If your codebase runs in a browser, use the <a href="../../../public/product/setup/setup-with-ai.html" style="color: var(--brand-primary);">frontend setup guide</a> instead.
+                            </blockquote>
+
+                            <h2 id="step1">Step 1: Get your API key</h2>
+                            <p><a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank"
+                                    rel="noopener noreferrer">Create / Reuse your API Key</a></p>
+
+                            <h2 id="step2">Step 2: Copy the Prompt</h2>
+                            <div class="code-block-wrapper">
+                                <button class="copy-btn" onclick="copyPrompt('prompt-backend', this)"><i
+                                        class="fa-regular fa-copy"></i> Copy</button>
+                                <pre><code id="prompt-backend">Loading...</code></pre>
+                            </div>
+
+                            <h2 id="step3">Step 3: Run it on your AI coding assistant</h2>
+                            <ul>
+                                <li>Open your backend repo in your AI coding assistant</li>
+                                <li>Paste the prompt and run it</li>
+                                <li>The AI will ask you a few questions (B2B vs B2C, feature types) — answer them before it writes any code</li>
+                                <li>If there are errors in the output, ask the AI to fix them</li>
+                            </ul>
+
+                            <hr />
+
+                            <h2 id="step4">Step 4: Verify events are flowing to ThriveStack</h2>
+                            <ul>
+                                <li>Trigger a signup or login in your app</li>
+                                <li>Check your server logs for outbound POST calls to <code>api.app.thrivestack.ai</code></li>
+                                <li>Check out event errors <a href="https://app.thrivestack.ai/analyze/developer-tool"
+                                        target="_blank" rel="noopener noreferrer">here</a></li>
+                                <li><a href="https://app.thrivestack.ai/analyze/events" target="_blank"
+                                        rel="noopener noreferrer">API / Logs</a></li>
+                                <li><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank"
+                                        rel="noopener noreferrer">Diagnose Health of the setup</a></li>
+                            </ul>
+
+                            <blockquote>
+                                <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i>
+                                <strong>Note:</strong> Unlike the frontend guide, the backend guide sends events via direct HTTP calls — no script tag is installed. The AI creates a small reusable helper function and calls it from each instrumented handler.
+                            </blockquote>
+
+                        </article>
+
+                        <style>
+                            .code-block-wrapper {
+                                position: relative;
+                                margin: 12px 0 24px;
+                            }
+
+                            .code-block-wrapper pre {
+                                margin: 0;
+                                padding-top: 40px;
+                            }
+
+                            .copy-btn {
+                                position: absolute;
+                                top: 8px;
+                                right: 8px;
+                                z-index: 1;
+                                display: flex;
+                                align-items: center;
+                                gap: 6px;
+                                padding: 4px 10px;
+                                font-size: 12px;
+                                font-family: inherit;
+                                cursor: pointer;
+                                border-radius: 5px;
+                                border: 1px solid var(--border-color, #333);
+                                background: var(--code-bg, #1e1e1e);
+                                color: var(--text-muted, #aaa);
+                                transition: color 0.15s, border-color 0.15s;
+                            }
+
+                            .copy-btn:hover {
+                                color: var(--text-primary, #fff);
+                                border-color: var(--text-muted, #888);
+                            }
+
+                            .copy-btn.copied {
+                                color: #4ade80;
+                                border-color: #4ade80;
+                            }
+                        </style>
+
+                        <script>
+                            fetch('/ai-setup/product/backend/prompt.txt')
+                                .then(function (r) { return r.text(); })
+                                .then(function (t) {
+                                    document.getElementById('prompt-backend').textContent =
+                                        t.replace('{{THRIVESTACK_API_KEY}}', 'YOUR_API_KEY_HERE').trim();
+                                });
+
+                            function copyPrompt(id, btn) {
+                                var text = document.getElementById(id).innerText;
+                                navigator.clipboard.writeText(text).then(function () {
+                                    btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Copied';
+                                    btn.classList.add('copied');
+                                    setTimeout(function () {
+                                        btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
+                                        btn.classList.remove('copied');
+                                    }, 2000);
+                                });
+                            }
+                        </script>
+                    </section>
+                </section>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="setup-with-ai-backend.html">Last updated: April 7, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#implement-with-prompt-backend" class="toc-link active">Setup with AI (Backend)</a>
+                    <a href="#step1" class="toc-link">1. Get API key</a>
+                    <a href="#step2" class="toc-link">2. Copy the prompt</a>
+                    <a href="#step3" class="toc-link">3. Run it</a>
+                    <a href="#step4" class="toc-link">4. Verify</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../../../script.js"></script>
+</body>
+
+</html>
