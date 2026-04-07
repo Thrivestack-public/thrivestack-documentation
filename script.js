@@ -119,8 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 title: 'Configure ThriveStack MCP Server',
-                url: 'public/product/setup/thrivestack-mcp-server.html#remote-server',
-                terms: 'thrivestack mcp setup model context protocol remote server tools capabilities implementation instructions'
+                url: 'public/product/setup/thrivestack-mcp-server.html#capabilities',
+                terms: 'thrivestack mcp setup model context protocol remote server tools capabilities example prompts marketing product revenue tool oriented reference correlated metrics get_mau_mtu_count get_event_count list_accounts get_plg_leads get_setup_status getVisitor getPageViews getSignup acquisition conversion mrr stickiness dau wau mau activation churn expansion implementation'
             },
             {
                 title: 'API Reference',

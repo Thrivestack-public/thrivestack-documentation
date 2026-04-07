@@ -334,105 +334,474 @@
             </table>
           </section>
 
-          <section id="capabilities" class="content-section">
+          <section id="capabilities" class="content-section query-examples">
             <h2>Available tools and capabilities</h2>
-            <p>
-              The ThriveStack MCP provides comprehensive access to your
-              analytics through these tools:
+            <p class="mt-4" style="color: var(--text-secondary); font-size: 0.95rem;">
+              This section shows what the ThriveStack MCP can do through <strong>example prompts</strong>&mdash;correlated journeys (Marketing / Product / Revenue) and <strong>tool-oriented</strong> examples (grouped reference prompts)&mdash;not a raw tool catalog. Expand each accordion to reuse these patterns in your AI client after the server is connected.
             </p>
 
-            <details class="tools-dropdown">
+            <details class="tools-dropdown" id="capabilities-marketing">
               <summary class="tools-dropdown__summary">
-                <span>Available tools</span>
-                <i
-                  class="fa-solid fa-chevron-down tools-dropdown__chevron"
-                ></i>
+                <span>Marketing</span>
+                <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
               </summary>
               <div class="tools-dropdown__content">
-                <table
-                  style="width: 100%; border-collapse: collapse; margin-top: 0"
-                >
-              <thead>
-                <tr>
-                  <th
-                    style="
-                      text-align: left;
-                      padding: 0.5rem 0.6rem;
-                      border-bottom: 1px solid var(--table-row-border);
-                    "
-                  >
-                    Tool Name
-                  </th>
-                  <th
-                    style="
-                      text-align: left;
-                      padding: 0.5rem 0.6rem;
-                      border-bottom: 1px solid var(--table-row-border);
-                    "
-                  >
-                    Description
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    <code>Company Name from Contacts</code>
-                  </td>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    Resolve a company name from your contacts information.
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    <code>Event Count</code>
-                  </td>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    Get event totals to summarize usage activity.
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    <code>MAU &amp; MTU Count</code>
-                  </td>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    Return Monthly Active Users (MAU) and Monthly Tracked Users (MTU).
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    <code>PLG-Qualified Leads</code>
-                  </td>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    List PLG-qualified leads that are ready for sales follow-up.
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    <code>Get Setup Status</code>
-                  </td>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    Check whether ThriveStack telemetry setup is complete and connected.
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    <code>List Accounts</code>
-                  </td>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    List accounts with the metrics needed for PLG analytics.
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    <code>Start ThriveStack Telemetry Setup</code>
-                  </td>
-                  <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">
-                    Start the telemetry setup workflow so your instance can generate data.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                <div class="query-examples__other-group">
+                  <h4>Signup &amp; journey drill-downs</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Recent signup days &amp; paths</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;Show me which days people signed up recently, then let me pick a day and see who those users are, then let me pick someone and walk through their path before they signed up.&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Busy day &rarr; users &rarr; pre-signup path</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;For our last busy signup day, list the users who came in that day and let me drill into one person&rsquo;s pre-signup visits and campaigns.&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+                <div class="query-examples__other-group">
+                  <h4>Conversion &amp; touchpoints</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Time &amp; touchpoints to signup</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;Summarize how long it usually takes people to sign up and how many touchpoints they have before converting.&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Conversion reporting window</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;Pull up our conversion analytics for the current reporting window and highlight anything that looks off.&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details class="tools-dropdown" id="capabilities-product">
+              <summary class="tools-dropdown__summary">
+                <span>Product</span>
+                <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+              </summary>
+              <div class="tools-dropdown__content">
+                <div class="query-examples__other-group">
+                  <h4>Activation &amp; portfolio risk</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Activation milestones</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;List our activation modules and milestones, then let me pick a milestone and show which accounts made it through versus which dropped off.&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Stickiness &amp; churn portfolio</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;Give me a portfolio view of churn and expansion risk: stickiness buckets and how inactive accounts have trended.&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+                <div class="query-examples__other-group">
+                  <h4>Account engagement &amp; journeys</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Full account engagement profile</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;For this account, show me a full engagement profile&mdash;health, subscription, acquisition, and users&mdash;and flag if we should intervene.&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>User journey (sessions &amp; pages)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;After you show that account profile, if there&rsquo;s a main user to follow, show their pre-signup journey with sessions and pages in order.&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details class="tools-dropdown" id="capabilities-revenue">
+              <summary class="tools-dropdown__summary">
+                <span>Revenue</span>
+                <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+              </summary>
+              <div class="tools-dropdown__content">
+                <div class="query-examples__other-group">
+                  <h4>Campaigns &amp; revenue drill-downs</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Campaign revenue ranking</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;Rank campaigns by revenue, show totals, then let me pick one campaign and list the customers and how much each paid.&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Revenue by source (channel)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;Show revenue by source within each channel, ranked, then let me pick one row and break out the customers behind it.&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+                <div class="query-examples__other-group">
+                  <h4>Channels &amp; paying customers</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Channel share &amp; LTV view</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;Show channel-level revenue, share, and a simple LTV-style view, then let me pick a channel and split out top campaigns, sources, and customers.&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Top channel &amp; campaign customers</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;Which channel and campaign drove the most revenue this period? Then show me the paying customers for that campaign.&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details class="tools-dropdown" id="capabilities-other">
+              <summary class="tools-dropdown__summary">
+                <span>Other MCP tools reference prompts</span>
+                <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+              </summary>
+              <div class="tools-dropdown__content">
+                <p class="mt-4" style="color: var(--text-secondary); font-size: 0.95rem;">
+                  Example questions for each tool name, unlike the correlated sections above, these do not require a multi-step drill-down.
+                </p>
+
+                <div class="query-examples__other-group">
+                  <h4>Core analytics</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>MAU &amp; MTU Count</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What were our MAU and MTU for March 2026?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Event Count</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many events did we record in the last 30 days?&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="query-examples__other-group">
+                  <h4>Accounts</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>List Accounts</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;List our first 20 accounts sorted by last active time, newest first.&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="query-examples__other-group">
+                  <h4>GTM</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>PLG-Qualified Leads</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;Show PLG-qualified leads for identify leads, page 1, 50 per page.&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="query-examples__other-group">
+                  <h4>Setup</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Get Setup Status</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;Is our ThriveStack setup finished, and what&rsquo;s still pending?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Start ThriveStack Telemetry Setup</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;I want product telemetry only&mdash;here&rsquo;s my API key: &lt;paste key&gt;.&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="query-examples__other-group">
+                  <h4>Traffic &amp; marketing surface</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Visitors (monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many visitors did we get this month (monthly view)?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Page Views (monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s our page view count for the monthly template?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Unique Visitors (monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many unique visitors this month?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Signups (monthly/value/delta)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many signups did we get&mdash;show value, delta, and monthly breakdown.&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="query-examples__other-group">
+                  <h4>Acquisition quality</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Abuse Detection (monthly/value/delta)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many abuse cases were flagged&mdash;monthly and delta if you have it.&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Acquisition Accounts (monthly/value/delta)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many acquisition accounts are we seeing?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Total Acquisition Accounts (monthly/value/delta)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s our total acquisition accounts metric across value, delta, daily, and monthly?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Touchpoints to Acquisition (monthly/value/delta)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s the touchpoints-to-acquisition number?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Time to Acquisition (monthly/value/delta)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s our time-to-acquisition metric?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Acq Conversion (monthly/value/delta)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s our acquisition conversion rate?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Avg Time to First Value (monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s the average time to first value?&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="query-examples__other-group">
+                  <h4>Activation &amp; accounts</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Users Activated This Month (monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many users activated this month?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Activation Rate (monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s our activation rate?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Total Accounts Activated (monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many accounts are activated (monthly view)?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Total Accounts (monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many total accounts do we have&mdash;value and monthly?&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="query-examples__other-group">
+                  <h4>Revenue &amp; monetization (module metrics)</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>New Payers (monthly/value/delta)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many new payers did we add?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Net New MRR (monthly/value/delta)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s net new MRR?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Gross MRR Added (monthly/value/delta)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How much gross MRR did we add?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Total Company MRR (monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s total company MRR&mdash;value and monthly trend?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Avg Time from Acq to Conv (monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s the average time from acquisition to conversion?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Avg Time from Act to Conv (monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s the average time from activation to conversion?&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="query-examples__other-group">
+                  <h4>Usage &amp; engagement</h4>
+                  <div class="query-examples__tool-grid">
+                    <div class="query-examples__tool-grid-header">
+                      <span>Tool name</span>
+                      <span>Example prompt</span>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Daily Active Users (monthly/value)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What are daily active users?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Weekly Active Users (value/delta/monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What are weekly active users&mdash;value, delta, and monthly?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Monthly Active Users (monthly/value)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What are monthly active users?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Monthly Active Accounts (value/delta/monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many monthly active accounts?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Low Stickiness (value/delta/monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many low-stickiness accounts?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Medium Stickiness (value/delta/monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many medium-stickiness accounts?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>High Stickiness (value/delta/monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;How many high-stickiness accounts?&rdquo;
+                      </blockquote>
+                    </div>
+                    <div class="query-examples__tool-pair">
+                      <div class="query-examples__tool-name"><code>Adoption Rate (value/delta/monthly)</code></div>
+                      <blockquote class="query-examples__prompt">
+                        &ldquo;What&rsquo;s our adoption rate?&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
               </div>
             </details>
           </section>
@@ -816,102 +1185,6 @@
             </details>
           </section>
 
-          <section id="query-examples" class="content-section query-examples">
-            <h2>Query examples</h2>
-            <h3>Accounts</h3>
-            <h4 style="margin-top: 12px">List Accounts</h4>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Who are my top 10 accounts by engagement this month?&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;List accounts that have been active in the last 30 days,
-              sorted by last active time.&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Show me the first 20 accounts, sorted by health score
-              descending.&rdquo;
-            </blockquote>
-
-            <h4 style="margin-top: 18px">Company Name from Contacts</h4>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Given contacts with domain = thrivestack.ai, what company
-              name do you infer?&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Find the company name for contacts where email eq
-              engineerpersona@thrivestack.ai.&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Derive company name from contacts in country eq United
-              States and industry eq SaaS.&rdquo;
-            </blockquote>
-
-            <h3 style="margin-top: 22px">Analytics</h3>
-            <h4 style="margin-top: 12px">MAU &amp; MTU Count</h4>
-            <blockquote class="query-examples__prompt">
-              &ldquo;What are my MAU and MTU for 2026-03?&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Give me MAU vs MTU for 2026-01.&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;For last month (2026-02), what were MAU and MTU?&rdquo;
-            </blockquote>
-
-            <h4 style="margin-top: 18px">Event Count</h4>
-            <blockquote class="query-examples__prompt">
-              &ldquo;How many events did we track in 2026-03?&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;What&rsquo;s the total event count for last_30_days?&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Show event volume for last_7_days.&rdquo;
-            </blockquote>
-
-            <h3 style="margin-top: 22px">GTM</h3>
-            <h4 style="margin-top: 12px">PLG-Qualified Leads</h4>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Show me PLG leads ready for sales outreach (type identify),
-              first page.&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Get PLG leads of type group, page 2, 25 per page.&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Pull the newest 50 PLG-qualified leads (type identify).&rdquo;
-            </blockquote>
-
-            <h3 style="margin-top: 22px">Setup</h3>
-            <h4 style="margin-top: 12px">Start ThriveStack Telemetry Setup</h4>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Help me set up ThriveStack for marketing telemetry.
-              Here&rsquo;s my x-api-key:
-              d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g= (sample demo
-              x-api-key).&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;I need product instrumentation; use this ThriveStack API
-              x-api-key: d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g= (sample demo
-              key).&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Set up both marketing + product telemetry. API key:
-              d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g= (sample demo
-              key).&rdquo;
-            </blockquote>
-
-            <h4 style="margin-top: 18px">Get Setup Status</h4>
-            <blockquote class="query-examples__prompt">
-              &ldquo;What&rsquo;s my setup completion status right now?&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Which setup steps are still pending for my environment?&rdquo;
-            </blockquote>
-            <blockquote class="query-examples__prompt">
-              &ldquo;Show warnings/blockers in my onboarding/setup progress.&rdquo;
-            </blockquote>
-          </section>
 
           <section id="plugins" class="content-section">
             <h2>Plugins (coming soon)</h2>
@@ -1012,9 +1285,12 @@
           <nav id="toc" class="toc-nav">
             <a href="#overview" class="toc-link active">Overview</a>
             <a href="#remote-server" class="toc-link">Remote server</a>
-            <a href="#capabilities" class="toc-link">Tools & capabilities</a>
+            <a href="#capabilities" class="toc-link">Capabilities</a>
+            <a href="#capabilities-marketing" class="toc-link">Marketing</a>
+            <a href="#capabilities-product" class="toc-link">Product</a>
+            <a href="#capabilities-revenue" class="toc-link">Revenue</a>
+            <a href="#capabilities-other" class="toc-link">Other MCP tools reference prompts</a>
             <a href="#implementation" class="toc-link">Implementation</a>
-            <a href="#query-examples" class="toc-link">Query examples</a>
             <a href="#plugins" class="toc-link">Plugins</a>
             <a href="#troubleshooting" class="toc-link">Troubleshooting</a>
             <a href="#send-feedback" class="toc-link">Send feedback</a>

@@ -2093,3 +2093,126 @@ blockquote.note-callout i {
 #implementation .tools-dropdown__content {
     padding: 0.7rem 1.15rem 1.1rem;
 }
+
+/* Capabilities (example prompts) accordions: space between collapsibles */
+#capabilities .tools-dropdown + .tools-dropdown {
+    margin-top: 1rem;
+}
+
+/* Restore Amplitude-style quote lines inside capabilities dropdowns (overrides generic .tools-dropdown__content blockquote callout) */
+.query-examples .tools-dropdown__content blockquote.query-examples__prompt {
+    margin: 0.75rem 0;
+    padding: 0 0 0 1.05rem;
+    border: none !important;
+    border-left: 4px solid rgba(148, 163, 184, 0.45) !important;
+    background: transparent !important;
+    border-radius: 0;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 1.03rem;
+    box-shadow: none;
+}
+
+.query-examples .tools-dropdown__content blockquote.query-examples__prompt:first-child {
+    margin-top: 0;
+}
+
+[data-theme="dark"] .query-examples .tools-dropdown__content blockquote.query-examples__prompt {
+    border-left-color: rgba(148, 163, 184, 0.35) !important;
+    background: transparent !important;
+}
+
+/* Subgroup labels inside capabilities dropdowns (match h4 hierarchy on page) */
+#capabilities .tools-dropdown__content h4 {
+    font-size: 0.86rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.085em;
+    color: var(--text-muted);
+    margin-top: 0;
+    margin-bottom: 0.4rem;
+}
+
+/* First subgroup title after intro copy (Other tool reference prompts) */
+#capabilities .tools-dropdown__content > p:first-child + h4 {
+    margin-top: 0.35rem;
+}
+
+/* Other Query examples: two-column tool name + prompt (no tables) */
+.query-examples__other-group {
+    margin-top: 1.35rem;
+}
+
+.query-examples__other-group:first-child {
+    margin-top: 0.35rem;
+}
+
+#capabilities .query-examples__other-group h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.query-examples__tool-grid {
+    margin-top: 0.45rem;
+}
+
+.query-examples__tool-grid-header {
+    display: grid;
+    grid-template-columns: minmax(10rem, 30%) 1fr;
+    gap: 0.75rem 1rem;
+    padding: 0.4rem 0 0.55rem;
+    border-bottom: 1px solid var(--table-row-border);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.query-examples__tool-pair {
+    display: grid;
+    grid-template-columns: minmax(10rem, 30%) 1fr;
+    gap: 0.75rem 1rem;
+    align-items: start;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--table-row-border);
+}
+
+.query-examples__tool-pair:last-child {
+    border-bottom: none;
+}
+
+.query-examples__tool-name {
+    min-width: 0;
+}
+
+.query-examples__tool-name code {
+    display: inline-block;
+    max-width: 100%;
+    font-family: SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    padding: 0.2rem 0.45rem;
+    border-radius: 0.3rem;
+    background: rgba(15, 23, 42, 0.045);
+    color: var(--brand-primary);
+    font-weight: 500;
+    white-space: normal;
+    word-break: break-word;
+}
+
+[data-theme="dark"] .query-examples__tool-name code {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.query-examples__tool-pair .query-examples__prompt {
+    margin: 0 !important;
+}
+
+@media (max-width: 640px) {
+    .query-examples__tool-grid-header,
+    .query-examples__tool-pair {
+        grid-template-columns: 1fr;
+    }
+}
