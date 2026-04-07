@@ -220,21 +220,50 @@
         }
 
         /* ── Case sections ── */
+        .cases-list {
+            counter-reset: case-counter;
+        }
+
         .case-section {
-            margin-bottom: 40px;
+            margin-bottom: 0;
+            padding: 32px 0;
+            border-top: 1px solid var(--border-color, #222);
+            counter-increment: case-counter;
         }
 
         .case-section h3 {
-            font-size: 15px;
-            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 17px;
+            font-weight: 700;
             color: var(--text-primary, #f1f5f9);
-            margin: 0 0 4px;
+            margin: 0 0 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .case-section h3::before {
+            content: counter(case-counter);
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            font-size: 11px;
+            font-weight: 700;
+            color: #93c5fd;
+            letter-spacing: 0;
         }
 
         .case-section .case-desc {
             font-size: 13px;
             color: var(--text-muted, #777);
-            margin: 0 0 14px;
+            margin: 0 0 20px;
+            padding-left: 36px;
         }
 
         /* ── Mini diagram ── */
@@ -337,6 +366,7 @@
             font-size: 13px;
             color: var(--text-secondary, #94a3b8);
             line-height: 1.6;
+            padding-left: 36px;
         }
     </style>
 </head>
@@ -567,10 +597,11 @@
 
                             <!-- ── What if... ── -->
                             <h2 id="separate-service" style="margin-top: 40px; margin-bottom: 6px;">What if a flow lives in a completely separate service?</h2>
-                            <p style="font-size: 14px; color: var(--text-muted, #777); margin-bottom: 32px;">
+                            <p style="font-size: 14px; color: var(--text-muted, #777); margin-bottom: 0;">
                                 Run the prompt once per codebase that owns events. Use the same API key in all of them.
                             </p>
 
+                            <div class="cases-list">
                             <!-- Case 1: Same repo -->
                             <div class="case-section">
                                 <h3>Same repo — different file or folder</h3>
@@ -656,7 +687,7 @@
                                                 <span class="etag etag-green">account_added_user</span>
                                                 <span class="etag etag-blue">group</span>
                                             </div>
-                                            <div class="mini-box-footer backend"><i class="fa-solid fa-terminal"></i> Run <a href="../../../public/product/setup/setup-with-ai-backend.html" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">backend prompt</a></div>
+                                            <div class="mini-box-footer product"><i class="fa-solid fa-wand-magic-sparkles"></i> Run product prompt</div>
                                         </div>
                                     </div>
                                     <div class="mini-arrow">→</div>
@@ -677,7 +708,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p class="case-action">Open the backend repo and run the <a href="../../../public/product/setup/setup-with-ai-backend.html" style="color: #93c5fd;">backend prompt</a>. Then open the frontend repo and run the product prompt. The product prompt will detect if a codebase has no browser context and tell you to use the backend prompt instead.</p>
+                                <p class="case-action">Run the same product prompt on each repo separately. On the backend repo, the AI will detect there's no browser context and automatically instrument via HTTP calls instead of a script tag. Use the same API key in both.</p>
                             </div>
 
                             <!-- Case 4: Third-party identity provider -->
@@ -718,6 +749,9 @@
                                 </div>
                                 <p class="case-action">You can't instrument the provider's code. Run the product prompt on your own app — the AI will find the OAuth callback handler (the point where your app gets the session) and instrument it there.</p>
                             </div>
+
+                            </div><!-- /.cases-list -->
+                            <div style="border-top: 1px solid var(--border-color, #222); margin-bottom: 32px;"></div>
 
                             <blockquote>
                                 <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i>
