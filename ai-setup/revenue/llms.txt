@@ -286,71 +286,108 @@ proceeding.
 ## Step 3 — Find the Correct group_id Value
 
 This step has two parts:
-1. Identify what value is used as `group_id` in ThriveStack product telemetry
+1. Identify what value should be used as `group_id`
 2. Determine whether that value is accessible at the Stripe billing call site
 
-These two locations are often in completely different files or services.
-Search them independently.
+### Part A — Identify the group_id value
 
-### Part A — Search the entire codebase for ThriveStack telemetry calls:
-- `thrivestack.group(`
-- `thrivestack.identify(`
-- `thrivestack.track(`
-- `thrivestack.page(`
+First, determine whether this is a frontend/full-stack repo or a
+backend-only repo:
 
-Look at what value is being passed as `group_id`, `groupId`, or
-the first argument to `thrivestack.group()`. That entity — its name,
-type, and field — is what must be used as `group_id` in the Stripe
-metadata.
+**Backend-only repo** (no browser context — Node.js API, Express,
+Django, FastAPI, Flask, Go, Rails API, etc.):
 
-#### If ThriveStack telemetry calls ARE found:
+  ThriveStack telemetry calls won't exist here — they live in the
+  frontend. Instead, use what was already found in Step 0: the
+  account/organization entity identified in the B2B detection.
 
-Identify the variable or field used as the account identifier.
-Show the user what you found:
+  Look at how the Stripe customer create/update call is invoked:
+  - Is an `organization_id`, `account_id`, `tenant_id`, or similar
+    field passed in or available in the request context?
+  - Is there a User model with an `organization_id` / `account_id`
+    foreign key available at this point?
+  - Is there a session, JWT claim, or auth context that contains
+    the org/account identifier?
 
-  "I found ThriveStack telemetry calls using [field/variable name]
-  as the account identifier. For example:
+  If found, show the user:
 
-  [show the relevant line from their code]
+    "This is a backend service. I found that [entity.field] is
+    available at the Stripe customer call site and matches the
+    account identifier from your data model.
 
-  I'll use this same value as `group_id` in the Stripe metadata
-  to ensure product usage and revenue data are correctly joined.
+    I'll use this as `group_id`. Does this look right?"
 
-  Does this look right?"
+  Wait for confirmation, then proceed to Part B.
 
-Wait for confirmation, then proceed to Part B.
+  If NOT found in the backend context, tell the user:
 
-#### If ThriveStack telemetry calls are NOT found anywhere in the codebase:
+    "I can see your [entity name] model but cannot find its ID
+    at the Stripe customer call site in [file path].
 
-Do not implement anything. Tell the user:
+    Please tell me: what identifier is available at this point
+    that I can use to look up or derive the account/org ID?
+    For example: a user ID, customer email, or request parameter."
 
-  "I searched the entire codebase but could not find any ThriveStack
-  product telemetry calls (thrivestack.group, thrivestack.track, etc.)
-  to determine what value is used as `group_id`.
+  Wait for the user's input before proceeding. Do not implement
+  anything.
 
-  Please tell me the variable or field that represents your account
-  or organization identifier — the same one passed to ThriveStack
-  product analytics.
+---
 
-  For example:
-  - `org.id`
-  - `account.uuid`
-  - `workspace.slug`
-  - `currentOrganization.id`
+**Frontend / full-stack repo** (has browser context):
 
-  Once you confirm this, I will use it as `group_id` in the Stripe
-  customer metadata."
+  Search the entire codebase for ThriveStack product telemetry calls:
+  - `thrivestack.group(`
+  - `thrivestack.identify(`
+  - `thrivestack.track(`
+  - `thrivestack.page(`
 
-Wait for the user to confirm the value before proceeding.
-Do not guess, do not proceed, do not implement any code.
+  Look at what value is being passed as `group_id`, `groupId`, or
+  the first argument to `thrivestack.group()`. That entity — its
+  name, type, and field — is what must be used as `group_id` in
+  the Stripe metadata.
+
+  #### If ThriveStack telemetry calls ARE found:
+
+  Show the user what you found:
+
+    "I found ThriveStack telemetry calls using [field/variable name]
+    as the account identifier. For example:
+
+    [show the relevant line from their code]
+
+    I'll use this same value as `group_id` in the Stripe metadata
+    to ensure product usage and revenue data are correctly joined.
+
+    Does this look right?"
+
+  Wait for confirmation, then proceed to Part B.
+
+  #### If ThriveStack telemetry calls are NOT found:
+
+  Do not implement anything. Tell the user:
+
+    "I could not find any ThriveStack product telemetry calls in
+    this codebase to determine the `group_id` value.
+
+    Please tell me the variable or field that represents your
+    account or organization identifier — the same one passed to
+    ThriveStack product analytics.
+
+    For example: `org.id`, `account.uuid`, `workspace.slug`
+
+    Once you confirm this, I will use it as `group_id` in the
+    Stripe customer metadata."
+
+  Wait for the user to confirm. Do not guess, do not proceed,
+  do not implement any code.
 
 ---
 
 ### Part B — Check if group_id is accessible at the Stripe call site
 
-Now look at the Stripe customer create/update call sites found in
-Step 2. Check whether the confirmed group_id entity (e.g. `org.id`)
-is available in scope at those locations.
+Look at the Stripe customer create/update call sites found in Step 2.
+Check whether the confirmed group_id entity is available in scope
+at those locations.
 
 #### If group_id IS accessible at the call site:
 Proceed to Step 4.
@@ -368,7 +405,7 @@ Do not implement anything. Tell the user:
      customer email)?
   2. Should it be passed as a parameter to this function from
      wherever it is called?
-  3. Is there a request context, session, or auth token available
+  3. Is there a request context, session, or JWT claim available
      here that contains the org/account ID?
 
   Please let me know which approach fits your codebase and I will
@@ -728,71 +765,108 @@ proceeding.
 ## Step C3 — Find the Correct group_id Value
 
 This step has two parts:
-1. Identify what value is used as `group_id` in ThriveStack product telemetry
+1. Identify what value should be used as `group_id`
 2. Determine whether that value is accessible at the Chargebee billing call site
 
-These two locations are often in completely different files or services.
-Search them independently.
+### Part A — Identify the group_id value
 
-### Part A — Search the entire codebase for ThriveStack telemetry calls:
-- `thrivestack.group(`
-- `thrivestack.identify(`
-- `thrivestack.track(`
-- `thrivestack.page(`
+First, determine whether this is a frontend/full-stack repo or a
+backend-only repo:
 
-Look at what value is being passed as `group_id`, `groupId`, or
-the first argument to `thrivestack.group()`. That entity — its name,
-type, and field — is what must be used as `group_id` in the Chargebee
-metadata.
+**Backend-only repo** (no browser context — Node.js API, Express,
+Django, FastAPI, Flask, Go, Rails API, etc.):
 
-#### If ThriveStack telemetry calls ARE found:
+  ThriveStack telemetry calls won't exist here — they live in the
+  frontend. Instead, use what was already found in Step 0: the
+  account/organization entity identified in the B2B detection.
 
-Identify the variable or field used as the account identifier.
-Show the user what you found:
+  Look at how the Chargebee customer create/update call is invoked:
+  - Is an `organization_id`, `account_id`, `tenant_id`, or similar
+    field passed in or available in the request context?
+  - Is there a User model with an `organization_id` / `account_id`
+    foreign key available at this point?
+  - Is there a session, JWT claim, or auth context that contains
+    the org/account identifier?
 
-  "I found ThriveStack telemetry calls using [field/variable name]
-  as the account identifier. For example:
+  If found, show the user:
 
-  [show the relevant line from their code]
+    "This is a backend service. I found that [entity.field] is
+    available at the Chargebee customer call site and matches the
+    account identifier from your data model.
 
-  I'll use this same value as `group_id` in the Chargebee metadata
-  to ensure product usage and revenue data are correctly joined.
+    I'll use this as `group_id`. Does this look right?"
 
-  Does this look right?"
+  Wait for confirmation, then proceed to Part B.
 
-Wait for confirmation, then proceed to Part B.
+  If NOT found in the backend context, tell the user:
 
-#### If ThriveStack telemetry calls are NOT found anywhere in the codebase:
+    "I can see your [entity name] model but cannot find its ID
+    at the Chargebee customer call site in [file path].
 
-Do not implement anything. Tell the user:
+    Please tell me: what identifier is available at this point
+    that I can use to look up or derive the account/org ID?
+    For example: a user ID, customer email, or request parameter."
 
-  "I searched the entire codebase but could not find any ThriveStack
-  product telemetry calls (thrivestack.group, thrivestack.track, etc.)
-  to determine what value is used as `group_id`.
+  Wait for the user's input before proceeding. Do not implement
+  anything.
 
-  Please tell me the variable or field that represents your account
-  or organization identifier — the same one passed to ThriveStack
-  product analytics.
+---
 
-  For example:
-  - `org.id`
-  - `account.uuid`
-  - `workspace.slug`
-  - `currentOrganization.id`
+**Frontend / full-stack repo** (has browser context):
 
-  Once you confirm this, I will use it as `group_id` in the Chargebee
-  customer metadata."
+  Search the entire codebase for ThriveStack product telemetry calls:
+  - `thrivestack.group(`
+  - `thrivestack.identify(`
+  - `thrivestack.track(`
+  - `thrivestack.page(`
 
-Wait for the user to confirm the value before proceeding.
-Do not guess, do not proceed, do not implement any code.
+  Look at what value is being passed as `group_id`, `groupId`, or
+  the first argument to `thrivestack.group()`. That entity — its
+  name, type, and field — is what must be used as `group_id` in
+  the Chargebee metadata.
+
+  #### If ThriveStack telemetry calls ARE found:
+
+  Show the user what you found:
+
+    "I found ThriveStack telemetry calls using [field/variable name]
+    as the account identifier. For example:
+
+    [show the relevant line from their code]
+
+    I'll use this same value as `group_id` in the Chargebee metadata
+    to ensure product usage and revenue data are correctly joined.
+
+    Does this look right?"
+
+  Wait for confirmation, then proceed to Part B.
+
+  #### If ThriveStack telemetry calls are NOT found:
+
+  Do not implement anything. Tell the user:
+
+    "I could not find any ThriveStack product telemetry calls in
+    this codebase to determine the `group_id` value.
+
+    Please tell me the variable or field that represents your
+    account or organization identifier — the same one passed to
+    ThriveStack product analytics.
+
+    For example: `org.id`, `account.uuid`, `workspace.slug`
+
+    Once you confirm this, I will use it as `group_id` in the
+    Chargebee customer metadata."
+
+  Wait for the user to confirm. Do not guess, do not proceed,
+  do not implement any code.
 
 ---
 
 ### Part B — Check if group_id is accessible at the Chargebee call site
 
-Now look at the Chargebee customer create/update call sites found in
-Step C2. Check whether the confirmed group_id entity (e.g. `org.id`)
-is available in scope at those locations.
+Look at the Chargebee customer create/update call sites found in
+Step C2. Check whether the confirmed group_id entity is available
+in scope at those locations.
 
 #### If group_id IS accessible at the call site:
 Proceed to Step C4.
@@ -810,7 +884,7 @@ Do not implement anything. Tell the user:
      customer email)?
   2. Should it be passed as a parameter to this function from
      wherever it is called?
-  3. Is there a request context, session, or auth token available
+  3. Is there a request context, session, or JWT claim available
      here that contains the org/account ID?
 
   Please let me know which approach fits your codebase and I will
