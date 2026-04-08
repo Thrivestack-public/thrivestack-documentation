@@ -364,22 +364,41 @@ Django, FastAPI, Flask, Go, Rails API, etc.):
 
   #### If ThriveStack telemetry calls are NOT found:
 
-  Do not implement anything. Tell the user:
+  Do not stop. Instead, search the codebase directly for the
+  account/org identifier using these patterns:
+  - Fields or variables named `group_id`, `groupId`
+  - Fields or variables named `account_id`, `accountId`
+  - Fields or variables named `org_id`, `orgId`, `organizationId`
+  - Fields or variables named `tenant_id`, `tenantId`
+  - Models or tables named `Organization`, `Account`, `Workspace`, `Tenant`
 
-    "I could not find any ThriveStack product telemetry calls in
-    this codebase to determine the `group_id` value.
+  If a match is found, show the user:
 
-    Please tell me the variable or field that represents your
-    account or organization identifier — the same one passed to
-    ThriveStack product analytics.
+    "I could not find ThriveStack product telemetry in this codebase,
+    but I found [field/variable name] which appears to be the account
+    identifier.
 
-    For example: `org.id`, `account.uuid`, `workspace.slug`
+    I'll use this as `group_id` in the Stripe customer metadata.
+    Does this look right?"
 
-    Once you confirm this, I will use it as `group_id` in the
-    Stripe customer metadata."
+  Wait for confirmation, then proceed to Part B.
 
-  Wait for the user to confirm. Do not guess, do not proceed,
-  do not implement any code.
+  If no identifier is found at all, tell the user:
+
+    "I could not find ThriveStack product telemetry or a clear account/org
+    identifier in this codebase.
+
+    To proceed, I need one of the following:
+    - What account or organization ID do you pass to ThriveStack product
+      telemetry (e.g. `thrivestack.group(...)`)? Which field or variable
+      is it?
+    - Or, in general: what do you use as the account identifier when
+      tracking revenue? For example: `org.id`, `account.uuid`,
+      `workspace.slug`, `tenant_id`
+
+    Please share the field name and I will use it as `group_id`."
+
+  Wait for the user to confirm. Do not proceed without it.
 
 ---
 
@@ -524,6 +543,33 @@ Do not write the update script. Ask the user:
   Without this, some existing customers may not have
   `group_id` set, which means their historical revenue will
   not appear in ThriveStack until it is resolved."
+
+---
+
+## Step 6 — Check for Product Telemetry (Stripe path)
+
+After the Stripe instrumentation is complete (Steps 1–5 done), check
+whether ThriveStack product telemetry was found earlier in Step 3.
+
+If ThriveStack product telemetry calls (`thrivestack.group`,
+`thrivestack.identify`, `thrivestack.track`, `thrivestack.page`)
+were **NOT found** in the codebase during Step 3, tell the user:
+
+  "Your revenue intelligence setup is now complete.
+
+  I noticed that ThriveStack product telemetry is not yet set up in
+  this codebase. Without it, revenue metrics (MRR, churn, expansion)
+  cannot be correlated with product usage at the account level — you
+  would only see billing data without the full picture.
+
+  Would you like me to set up product telemetry as well?
+  → https://docs.thrivestack.ai/public/product/setup/setup-with-ai.html
+
+  Reply **yes** to continue with product telemetry setup, or **no**
+  to finish here."
+
+If ThriveStack product telemetry was already found in Step 3,
+skip this step and proceed directly to Features Unlocked.
 
 ---
 
@@ -843,19 +889,39 @@ Django, FastAPI, Flask, Go, Rails API, etc.):
 
   #### If ThriveStack telemetry calls are NOT found:
 
-  Do not implement anything. Tell the user:
+  Do not stop. Instead, search the codebase directly for the
+  account/org identifier using these patterns:
+  - Fields or variables named `group_id`, `groupId`
+  - Fields or variables named `account_id`, `accountId`
+  - Fields or variables named `org_id`, `orgId`, `organizationId`
+  - Fields or variables named `tenant_id`, `tenantId`
+  - Models or tables named `Organization`, `Account`, `Workspace`, `Tenant`
 
-    "I could not find any ThriveStack product telemetry calls in
-    this codebase to determine the `group_id` value.
+  If a match is found, show the user:
 
-    Please tell me the variable or field that represents your
-    account or organization identifier — the same one passed to
-    ThriveStack product analytics.
+    "I could not find ThriveStack product telemetry in this codebase,
+    but I found [field/variable name] which appears to be the account
+    identifier.
 
-    For example: `org.id`, `account.uuid`, `workspace.slug`
+    I'll use this as `group_id` in the Chargebee customer metadata.
+    Does this look right?"
 
-    Once you confirm this, I will use it as `group_id` in the
-    Chargebee customer metadata."
+  Wait for confirmation, then proceed to Part B.
+
+  If no identifier is found at all, tell the user:
+
+    "I could not find ThriveStack product telemetry or a clear account/org
+    identifier in this codebase.
+
+    To proceed, I need one of the following:
+    - What account or organization ID do you pass to ThriveStack product
+      telemetry (e.g. `thrivestack.group(...)`)? Which field or variable
+      is it?
+    - Or, in general: what do you use as the account identifier when
+      tracking revenue? For example: `org.id`, `account.uuid`,
+      `workspace.slug`, `tenant_id`
+
+    Please share the field name and I will use it as `group_id`."
 
   Wait for the user to confirm. Do not guess, do not proceed,
   do not implement any code.
@@ -1005,6 +1071,33 @@ Do not write the update script. Ask the user:
 
 ---
 
+## Step C6 — Check for Product Telemetry (Chargebee path)
+
+After the Chargebee instrumentation is complete (Steps C1–C5 done), check
+whether ThriveStack product telemetry was found earlier in Step C3.
+
+If ThriveStack product telemetry calls (`thrivestack.group`,
+`thrivestack.identify`, `thrivestack.track`, `thrivestack.page`)
+were **NOT found** in the codebase during Step C3, tell the user:
+
+  "Your revenue intelligence setup is now complete.
+
+  I noticed that ThriveStack product telemetry is not yet set up in
+  this codebase. Without it, revenue metrics (MRR, churn, expansion)
+  cannot be correlated with product usage at the account level — you
+  would only see billing data without the full picture.
+
+  Would you like me to set up product telemetry as well?
+  → https://docs.thrivestack.ai/public/product/setup/setup-with-ai.html
+
+  Reply **yes** to continue with product telemetry setup, or **no**
+  to finish here."
+
+If ThriveStack product telemetry was already found in Step C3,
+skip this step and proceed directly to Features Unlocked.
+
+---
+
 ## Important Notes
 
 - `group_id` must always match the `group_id` from product
@@ -1048,6 +1141,12 @@ Once setup is complete, tell the user:
   MRR alongside product usage — so you can spot churn risk and expansion
   opportunities before they happen.
   → https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list
+
+  ---
+  **First sync timing**
+  The first data sync typically takes **10 minutes to 2 hours** depending
+  on the size of your billing history. ThriveStack will notify you once
+  the sync is complete and your dashboards are ready.
 
   ---
   Handy ThriveStack Resources
