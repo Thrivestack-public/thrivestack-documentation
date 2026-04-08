@@ -581,9 +581,22 @@ Use this approach if the user does not use Stripe, uses a custom
 billing system, or wants to push revenue data directly to
 ThriveStack via API.
 
+Before writing any code, ask the user for their ThriveStack API key:
+
+  "For the direct API integration, I need your ThriveStack API key
+  with the **Revenue APIs** scope enabled.
+
+  You can create or find it here:
+  → https://app.thrivestack.ai/analyze/settings/api-keys
+
+  Once you have it, share the key and I'll use it in all the
+  API calls below."
+
+Wait for the user to provide the key before proceeding.
+
 All endpoints require:
 ```
-x-api-key: <Your API Key with Revenue APIs Scope>
+x-api-key: <Your ThriveStack API Key with Revenue APIs Scope>
 Content-Type: application/json
 ```
 

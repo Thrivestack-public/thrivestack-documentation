@@ -170,133 +170,155 @@
 
                         <article class="doc-page-body">
 
-                            <h1>How does it work?</h1>
-                            <p
-                                style="margin-bottom: 24px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
-                                Getting accurate MRR, ARR, and churn metrics traditionally requires wiring together your
-                                billing system, a data warehouse, and a BI tool — weeks of engineering work. ThriveStack
-                                Revenue Intelligence changes that: paste one prompt into your AI coding assistant and it
-                                instruments your billing integration in minutes, joining revenue data with product usage
-                                at the account level automatically.
+                            <!-- ── PATH SELECTOR ─────────────────────────────── -->
+                            <p style="margin-bottom: 20px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
+                                Choose your billing setup below — the steps differ slightly depending on whether you use Stripe, Chargebee, or an in-house billing system.
                             </p>
 
-                            <h2>Step 1: Get your API key</h2>
-                            <p><a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank"
-                                    rel="noopener noreferrer">Create / Reuse your API Key</a> — make sure it has the <strong>Revenue APIs</strong> scope enabled.</p>
-
-                            <h2>Step 2: Copy the Prompt</h2>
-                            <div class="code-block-wrapper">
-                                <button class="copy-btn" onclick="copyPrompt('prompt-revenue', this)"><i
-                                        class="fa-regular fa-copy"></i> Copy</button>
-                                <pre><code id="prompt-revenue">Loading...</code></pre>
+                            <div class="path-selector" style="display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap;">
+                                <button class="path-btn path-btn-active" onclick="selectPath('stripe-chargebee', this)" style="display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 8px; border: 2px solid var(--color-blue, #3b82f6); background: rgba(59,130,246,0.08); color: var(--text-primary, #fff); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+                                    <i class="fa-solid fa-plug" style="color: #3b82f6;"></i> Stripe / Chargebee
+                                </button>
+                                <button class="path-btn" onclick="selectPath('inhouse', this)" style="display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 8px; border: 2px solid var(--border-color, #333); background: transparent; color: var(--text-secondary, #cbd5e1); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+                                    <i class="fa-solid fa-code"></i> In-house Billing System
+                                </button>
                             </div>
 
-                            <h2>Step 3: Run it on your AI coding assistant</h2>
-                            <ul>
-                                <li>Paste the prompt into your AI coding assistant (Claude, Cursor, Windsurf, Copilot, etc.)</li>
-                                <li>The AI will walk you through connecting Stripe or instrumenting your billing API calls</li>
-                                <li>Read the output — if there are any errors, prompt to fix them</li>
-                            </ul>
+                            <!-- ── PATH A: STRIPE / CHARGEBEE ─────────────────── -->
+                            <div id="path-stripe-chargebee">
 
-                            <hr />
+                                <h2>Step 1: Connect your billing provider to ThriveStack</h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 12px;">
+                                    Open the ThriveStack Revenue setup page and connect your Stripe or Chargebee account. This is a no-code step — it only takes a few clicks and does not require any code changes.
+                                </p>
+                                <a href="https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; padding: 10px 18px; border-radius: 8px; border: 1px solid #3b82f6; background: rgba(59,130,246,0.12); color: #60a5fa; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.15s;">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Connect Billing Provider
+                                </a>
+                                <blockquote>
+                                    <i class="fa-solid fa-circle-info" style="margin-right: 4px;"></i>
+                                    <strong>Note:</strong> Come back to this page once the connection is active — the next step is to instrument your billing code.
+                                </blockquote>
 
-                            <h2>Step 4: Verify revenue data is flowing to ThriveStack</h2>
-                            <ul>
-                                <li>Create or update a test subscription or customer in your billing system</li>
-                                <li>Check that the event appears in ThriveStack</li>
-                                <li>Check out event errors <a href="https://app.thrivestack.ai/analyze/developer-tool"
-                                        target="_blank" rel="noopener noreferrer">here</a></li>
-                                <li><a href="https://app.thrivestack.ai/analyze/events" target="_blank"
-                                        rel="noopener noreferrer">API / Logs</a></li>
-                                <li><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank"
-                                        rel="noopener noreferrer">Diagnose Health of the setup</a></li>
-                            </ul>
+                                <h2>Step 2: Copy the Prompt</h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 12px;">
+                                    Copy the prompt below and paste it into your AI coding assistant (Claude, Cursor, Windsurf, Copilot, etc.).
+                                </p>
+                                <div class="code-block-wrapper">
+                                    <button class="copy-btn" onclick="copyPrompt('prompt-revenue', this)"><i
+                                            class="fa-regular fa-copy"></i> Copy</button>
+                                    <pre><code id="prompt-revenue">Loading...</code></pre>
+                                </div>
 
+                                <h2>Step 3: Run it in your billing repo</h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 12px;">
+                                    Open your AI coding assistant in the repository where your Stripe or Chargebee billing code lives — this is usually a backend service or API server, not the frontend.
+                                </p>
+                                <ul>
+                                    <li>Paste the prompt and run it</li>
+                                    <li>The AI will locate your customer create/update calls and add the <code>group_id</code> metadata needed for revenue attribution</li>
+                                    <li>It will also generate a one-time script to update existing customers</li>
+                                    <li>Read the output carefully — if there are errors, prompt the AI to fix them</li>
+                                </ul>
+
+                                <hr />
+
+                                <h2>Step 4: Verify revenue data is flowing</h2>
+                                <ul>
+                                    <li>Create or update a test customer or subscription in your billing system</li>
+                                    <li>Check that the event appears in ThriveStack</li>
+                                    <li>Check event errors in the <a href="https://app.thrivestack.ai/analyze/developer-tool" target="_blank" rel="noopener noreferrer">Developer Tool</a></li>
+                                    <li>View <a href="https://app.thrivestack.ai/analyze/events" target="_blank" rel="noopener noreferrer">API / Audit Logs</a></li>
+                                    <li><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank" rel="noopener noreferrer">Diagnose setup health</a></li>
+                                </ul>
+
+                            </div>
+
+                            <!-- ── PATH B: IN-HOUSE BILLING ───────────────────── -->
+                            <div id="path-inhouse" style="display: none;">
+
+                                <h2>Step 1: Copy the Prompt</h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 12px;">
+                                    Copy the prompt below. You'll paste it directly into the repository where your invoicing and transaction code lives.
+                                </p>
+                                <div class="code-block-wrapper">
+                                    <button class="copy-btn" onclick="copyPrompt('prompt-revenue-inhouse', this)"><i
+                                            class="fa-regular fa-copy"></i> Copy</button>
+                                    <pre><code id="prompt-revenue-inhouse">Loading...</code></pre>
+                                </div>
+
+                                <h2>Step 2: Run it in your billing repo</h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 12px;">
+                                    Open your AI coding assistant in the repository (or service) where your invoices, subscriptions, and transactions are created and managed.
+                                </p>
+                                <ul>
+                                    <li>Paste the prompt and run it</li>
+                                    <li>The AI will detect your in-house billing code and instrument it to push data to ThriveStack via the Revenue API</li>
+                                    <li>It will ask for your <a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank" rel="noopener noreferrer">ThriveStack API key</a> with the <strong>Revenue APIs</strong> scope — have it ready</li>
+                                    <li>Read the output carefully — if there are errors, prompt the AI to fix them</li>
+                                </ul>
+                                <blockquote>
+                                    <i class="fa-solid fa-circle-info" style="margin-right: 4px;"></i>
+                                    <strong>Tip:</strong> If your billing logic is spread across multiple services, run the prompt in each repo separately.
+                                </blockquote>
+
+                                <hr />
+
+                                <h2>Step 3: Verify revenue data is flowing</h2>
+                                <ul>
+                                    <li>Trigger a test invoice or transaction in your billing system</li>
+                                    <li>Check that the event appears in ThriveStack</li>
+                                    <li>Check event errors in the <a href="https://app.thrivestack.ai/analyze/developer-tool" target="_blank" rel="noopener noreferrer">Developer Tool</a></li>
+                                    <li>View <a href="https://app.thrivestack.ai/analyze/events" target="_blank" rel="noopener noreferrer">API / Audit Logs</a></li>
+                                    <li><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank" rel="noopener noreferrer">Diagnose setup health</a></li>
+                                </ul>
+
+                            </div>
+
+                            <!-- ── WHAT DID YOU ACHIEVE ───────────────────────── -->
                             <h2>What did you just achieve?</h2>
-                            <p
-                                style="margin-bottom: 24px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
-                                Traditional revenue analytics tools require manual integration, a data warehouse, and a
-                                BI layer before you can see a single MRR chart. ThriveStack connects your billing and
-                                product data automatically.
+                            <p style="margin-bottom: 24px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
+                                Traditional revenue analytics tools require manual integration, a data warehouse, and a BI layer before you can see a single MRR chart. ThriveStack connects your billing and product data automatically.
                             </p>
 
-                            <div
-                                style="overflow-x: auto; margin-bottom: 32px; border-radius: 8px; border: 1px solid var(--table-row-border, #333);">
+                            <div style="overflow-x: auto; margin-bottom: 32px; border-radius: 8px; border: 1px solid var(--table-row-border, #333);">
                                 <table style="width: 100%; text-align: left; border-collapse: collapse;">
                                     <thead style="background: rgba(255,255,255,0.02);">
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <th style="padding: 14px 16px; font-weight: 600;">Feature</th>
-                                            <th style="padding: 14px 16px; font-weight: 600; text-align: center;">
-                                                Traditional Revenue Analytics</th>
-                                            <th
-                                                style="padding: 14px 16px; font-weight: 600; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                ThriveStack Revenue Intelligence</th>
+                                            <th style="padding: 14px 16px; font-weight: 600; text-align: center;">Traditional Revenue Analytics</th>
+                                            <th style="padding: 14px 16px; font-weight: 600; text-align: center; background-color: rgba(59, 130, 246, 0.1);">ThriveStack Revenue Intelligence</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">MRR / ARR tracking</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark" style="margin-right: 6px;"></i> Manual + data warehouse
-                                            </td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i>
-                                                Automatic
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark" style="margin-right: 6px;"></i> Manual + data warehouse</td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Automatic</td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Churn &amp; expansion signals</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark" style="margin-right: 6px;"></i> Manual
-                                            </td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i>
-                                                Automatic
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark" style="margin-right: 6px;"></i> Manual</td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Automatic</td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Revenue by account</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark" style="margin-right: 6px;"></i> Requires BI tool
-                                            </td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i>
-                                                Included
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark" style="margin-right: 6px;"></i> Requires BI tool</td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Included</td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Revenue + product usage joined</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;">Buy
-                                                multiple tools</td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i>
-                                                Included
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;">Buy multiple tools</td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Included</td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <td style="padding: 14px 16px;">Historical backfill</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark" style="margin-right: 6px;"></i> Manual migration
-                                            </td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i>
-                                                AI-generated backfill script
-                                            </td>
+                                            <td style="padding: 14px 16px;">Update existing customers</td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark" style="margin-right: 6px;"></i> Manual migration</td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> AI-generated update script</td>
                                         </tr>
                                         <tr>
                                             <td style="padding: 14px 16px;">Full Bow-tie Journey</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;">Buy
-                                                multiple analytics tools</td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i>
-                                                Included
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;">Buy multiple analytics tools</td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Included</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -305,15 +327,12 @@
                             <ul>
                                 <li>MRR, ARR, churn, expansion, and contraction reports are now available.</li>
                                 <li>Out-of-box revenue reports are set up. Share them with your Finance, Sales, and RevOps teams.</li>
-                                <li>Revenue is joined with product usage at the account level — see which features drive retention and expansion in the <a
-                                        href="https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list"
-                                        target="_blank" rel="noopener noreferrer">Full Journey CRM</a></li>
+                                <li>Revenue is joined with product usage at the account level — see which features drive retention and expansion in the <a href="https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list" target="_blank" rel="noopener noreferrer">Full Journey CRM</a></li>
                             </ul>
 
                             <blockquote>
                                 <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i> <strong>Note:</strong>
-                                As a bonus, you'll also receive an email notification summarising all revenue events
-                                logged and any issues to fix.
+                                As a bonus, you'll also receive an email notification summarising all revenue events logged and any issues to fix.
                             </blockquote>
 
                         </article>
@@ -363,8 +382,9 @@
                             fetch('/ai-setup/revenue/prompt.txt')
                                 .then(function (r) { return r.text(); })
                                 .then(function (t) {
-                                    document.getElementById('prompt-revenue').textContent =
-                                        t.replace('{{THRIVESTACK_API_KEY}}', 'YOUR_API_KEY_HERE').trim();
+                                    var text = t.trim();
+                                    document.getElementById('prompt-revenue').textContent = text;
+                                    document.getElementById('prompt-revenue-inhouse').textContent = text;
                                 });
 
                             function copyPrompt(id, btn) {
@@ -377,6 +397,21 @@
                                         btn.classList.remove('copied');
                                     }, 2000);
                                 });
+                            }
+
+                            function selectPath(path, btn) {
+                                // toggle section visibility
+                                document.getElementById('path-stripe-chargebee').style.display = path === 'stripe-chargebee' ? '' : 'none';
+                                document.getElementById('path-inhouse').style.display = path === 'inhouse' ? '' : 'none';
+                                // toggle button styles
+                                document.querySelectorAll('.path-btn').forEach(function (b) {
+                                    b.style.border = '2px solid var(--border-color, #333)';
+                                    b.style.background = 'transparent';
+                                    b.style.color = 'var(--text-secondary, #cbd5e1)';
+                                });
+                                btn.style.border = '2px solid var(--color-blue, #3b82f6)';
+                                btn.style.background = 'rgba(59,130,246,0.08)';
+                                btn.style.color = 'var(--text-primary, #fff)';
                             }
                         </script>
                     </section>
@@ -400,11 +435,10 @@
             <div class="toc-container sticky-top">
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
-                    <a href="#implement-with-prompt-revenue" class="toc-link active">Implement with Prompt</a>
-                    <a href="#step1" class="toc-link">1. Get API key</a>
-                    <a href="#step2" class="toc-link">2. Copy the prompt</a>
-                    <a href="#step3" class="toc-link">3. Run it</a>
-                    <a href="#step4" class="toc-link">4. Verify</a>
+                    <a href="#implement-with-prompt-revenue" class="toc-link active">Setup with AI</a>
+                    <a href="#implement-with-prompt-revenue" class="toc-link">Stripe / Chargebee</a>
+                    <a href="#implement-with-prompt-revenue" class="toc-link">In-house Billing</a>
+                    <a href="#implement-with-prompt-revenue" class="toc-link">What you achieved</a>
                 </nav>
                 <ready-to-scale-promo></ready-to-scale-promo>
             </div>
