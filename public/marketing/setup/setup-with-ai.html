@@ -26,9 +26,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../../styles.css">
-    <script src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js" api-key="{{THRIVESTACK_API_KEY}}"
-        source="product">
-        </script>
+    <script src="https://cdn.app.thrivestack.ai/latest/script.js" api-key="{{THRIVESTACK_API_KEY}}"
+        source="product"></script>
 </head>
 
 <body>
@@ -131,8 +130,7 @@
                             <span class="doc-page-header-eyebrow">Marketing Intelligence</span>
                             <h1 class="doc-page-title">Setup with AI Coding Assistants</h1>
                             <p class="doc-page-description">
-                                Use an AI coding assistant to instrument your app with ThriveStack product telemetry in
-                                minutes.
+                                Use an AI coding assistant to instrument your marketing site with ThriveStack in minutes — one script tag, and your site auto-tracks all visitors, page views, and UTM campaigns.
                             </p>
                             <div class="ai-logos"
                                 style="display: flex; gap: 12px; align-items: center; margin-top: 16px; margin-bottom: 24px; flex-wrap: wrap;">
@@ -165,20 +163,9 @@
 
                         <article class="doc-page-body">
 
-
-                            <h1>How does it work?</h1>
-                            <p
-                                style="margin-bottom: 24px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
-                                Traditional Marketing Analytics tools typically just show you vanity metrics like
-                                Traffic, Page Visits, and Visitor Trends — and most of those are free with tools like
-                                Google Analytics.
-                                ThriveStack goes far beyond that. It gives you holistic Customer journey, ROI on
-                                Marketing Spend, stitching together Marketing touchpoints, Product usage, Account
-                                behavior, and revenue from Customers.<br />
-                                <strong>Vibe instrumentaion</strong> and <strong>AI-enabled correlation</strong> makes
-                                this possible at a very low cost:
-                                instrumentation automatically updates alongside your code via AI assistants, cutting
-                                initial setup to 2 minutes and eliminating ongoing maintenance.
+                            <h2 id="how-it-works">How does it work?</h2>
+                            <p style="margin-bottom: 24px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
+                                Paste a single prompt into your AI coding assistant. The AI finds the right central layout file, adds one script tag with <code>source="marketing"</code>, and your site immediately starts tracking all visitors, page views, and UTM campaigns — automatically, with no further instrumentation needed.
                             </p>
                             <div>
                                 <script async src="https://js.storylane.io/js/v2/storylane.js"></script>
@@ -190,41 +177,138 @@
                                         style="position:absolute;top:0;left:0;width:100%!important;height:100%!important;border:1px solid rgba(63,95,172,0.35);box-shadow: 0px 0px 18px rgba(26, 19, 72, 0.15);border-radius:10px;box-sizing:border-box;"></iframe>
                                 </div>
                             </div>
-                            <h2>Step 1: Get your API key</h2>
+
+                            <h2 id="step1">Step 1: Get your API key</h2>
                             <p><a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank"
                                     rel="noopener noreferrer">Create / Reuse your API Key</a></p>
 
-
-
-                            <h2>Step 2: Copy the Prompt</h2>
+                            <h2 id="step2">Step 2: Copy the Prompt</h2>
                             <div class="code-block-wrapper">
                                 <button class="copy-btn" onclick="copyPrompt('prompt-marketing', this)"><i
                                         class="fa-regular fa-copy"></i> Copy</button>
                                 <pre><code id="prompt-marketing">Loading...</code></pre>
                             </div>
 
+                            <h2 id="step3">Step 3: Run it — what to expect</h2>
+                            <p style="margin-bottom: 16px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
+                                Open your marketing site repo in your AI coding assistant, paste the prompt, and run it. The AI follows a short 3-phase process — no questions, no event classification, just the script tag:
+                            </p>
 
-                            <h2>Step 3: Run it on your AI coding assistant</h2>
-                            <ul>
-                                <li>Run it</li>
-                                <li>Read the output, if there are any errors, prompt to fix it</li>
-                            </ul>
+                            <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px;">
+                                <div style="display: flex; gap: 14px;">
+                                    <div style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #93c5fd; margin-top: 1px;">0</div>
+                                    <div>
+                                        <strong style="font-size: 14px;">Phase 0 — Codebase scan</strong>
+                                        <p style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">The AI identifies your framework (Next.js, React, Vue, Nuxt, Astro, SvelteKit, plain HTML, WordPress, etc.) and locates the single central file that injects into the <code>&lt;head&gt;</code> of all public pages.</p>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 14px;">
+                                    <div style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #93c5fd; margin-top: 1px;">1</div>
+                                    <div>
+                                        <strong style="font-size: 14px;">Phase 1 — Script tag</strong>
+                                        <p style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">Adds the ThriveStack SDK once to that central file with <code>source="marketing"</code> and your API key in the appropriate <code>.env</code> file. Never added per individual page.</p>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 14px;">
+                                    <div style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #93c5fd; margin-top: 1px;">2</div>
+                                    <div>
+                                        <strong style="font-size: 14px;">Phase 2 — 2-point verification summary</strong>
+                                        <p style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">The AI verifies the script URL is exactly correct and the tag is present on all public pages via the central file — then outputs a summary in the chat.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--text-secondary, #cbd5e1);">The output you'll receive</h3>
+                            <div style="overflow-x: auto; margin-bottom: 28px; border-radius: 8px; border: 1px solid var(--border-color, #333);">
+                                <table style="width: 100%; text-align: left; border-collapse: collapse; font-size: 13px;">
+                                    <thead style="background: rgba(255,255,255,0.03);">
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                            <th style="padding: 10px 14px; font-weight: 600; color: var(--text-muted, #888);">#</th>
+                                            <th style="padding: 10px 14px; font-weight: 600; color: var(--text-muted, #888);">Check</th>
+                                            <th style="padding: 10px 14px; font-weight: 600; color: var(--text-muted, #888);">Status</th>
+                                            <th style="padding: 10px 14px; font-weight: 600; color: var(--text-muted, #888);">Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);"><td style="padding: 9px 14px; color: var(--text-muted, #888);">0</td><td style="padding: 9px 14px;"><code>script tag URL</code></td><td style="padding: 9px 14px; color: #22c55e;">✅/⚠️/❌</td><td style="padding: 9px 14px; color: var(--text-muted, #888);">Exact src used</td></tr>
+                                        <tr><td style="padding: 9px 14px; color: var(--text-muted, #888);">1</td><td style="padding: 9px 14px;"><code>script tag in &lt;head&gt; via central file</code></td><td style="padding: 9px 14px; color: #22c55e;">✅/⚠️/❌</td><td style="padding: 9px 14px; color: var(--text-muted, #888);">File used</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <hr />
 
-                            <h2>Step 4: Run your application to verify all events are flowing to ThriveStack</h2>
-                            <ul>
-                                <li>Try to signup, Login, navigate various pages, just as your end-user would ...</li>
-                                <li>Verify the setup</li>
-                                <li>Check out event errors <a href="https://app.thrivestack.ai/analyze/developer-tool"
-                                        target="_blank" rel="noopener noreferrer">here</a></li>
-                                <li><a href="https://app.thrivestack.ai/analyze/events" target="_blank"
-                                        rel="noopener noreferrer">API / Logs</a></li>
-                                <li><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank"
-                                        rel="noopener noreferrer">Diagnose Health of the setup</a></li>
-                            </ul>
+                            <h2 id="step4">Step 4: Confirm the script is loading</h2>
+                            <p style="margin-bottom: 20px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
+                                This confirms the script tag is actually served by your site and page view tracking is firing. At the end of Phase 3, the AI will ask which option you prefer:
+                            </p>
 
-                            <h2>What did you just achieve? 🎆</h2>
+                            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px;">
+                                <div style="padding: 18px 20px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); font-size: 11px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">A</span>
+                                        <strong style="font-size: 14px;">Manual testing — DevTools Network tab</strong>
+                                    </div>
+                                    <ol style="margin: 0 0 0 16px; padding: 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.9;">
+                                        <li>Open your site in a browser</li>
+                                        <li>Open DevTools → <strong style="color: var(--text-secondary, #cbd5e1);">Network</strong> tab → filter by <code>thrivestack</code></li>
+                                        <li>Confirm the script loads from <code>cdn.app.thrivestack.ai</code></li>
+                                        <li>Navigate to a second page — confirm a new page view request appears</li>
+                                    </ol>
+                                </div>
+                                <div style="padding: 18px 20px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); font-size: 11px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">B</span>
+                                        <strong style="font-size: 14px;">AI-assisted testing — let the AI verify for you</strong>
+                                    </div>
+                                    <p style="margin: 0 0 8px; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">Tell the AI your site URL. It will open it, confirm <code>window.thriveStack</code> is defined, navigate to a second page, and verify continued page view tracking — fixing any issues automatically.</p>
+                                    <p style="margin: 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;"><em>Only available in AI coding assistants with browser capability (e.g. Cursor, Windsurf, Claude).</em></p>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <h2 id="step5">Step 5: Verify your setup in ThriveStack</h2>
+                            <p style="margin-bottom: 20px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
+                                Once the script is confirmed loading, check that visitors are arriving in ThriveStack.
+                            </p>
+
+                            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                                <a href="https://app.thrivestack.ai/analyze/onboarding/marketing-analytics" target="_blank" rel="noopener noreferrer"
+                                    style="display: block; padding: 18px 20px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02); text-decoration: none; transition: border-color 0.15s, background 0.15s;"
+                                    onmouseover="this.style.borderColor='rgba(59,130,246,0.4)';this.style.background='rgba(59,130,246,0.04)'"
+                                    onmouseout="this.style.borderColor='var(--border-color,#333)';this.style.background='rgba(255,255,255,0.02)'">
+                                    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+                                        <div>
+                                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                                <i class="fa-solid fa-circle-check" style="color: #22c55e; font-size: 14px;"></i>
+                                                <strong style="font-size: 14px; color: var(--text-primary, #fff);">Setup Progress</strong>
+                                            </div>
+                                            <p style="margin: 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">See whether ThriveStack is receiving visitors and page views from your marketing site. This is your ground truth — not just whether the tag was added, but whether data is actually arriving.</p>
+                                        </div>
+                                        <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--text-muted, #888); font-size: 12px; flex-shrink: 0; margin-top: 2px;"></i>
+                                    </div>
+                                </a>
+                                <a href="https://app.thrivestack.ai/analyze/events?eventsTab=liveEvents&devTab=Overview" target="_blank" rel="noopener noreferrer"
+                                    style="display: block; padding: 18px 20px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02); text-decoration: none; transition: border-color 0.15s, background 0.15s;"
+                                    onmouseover="this.style.borderColor='rgba(59,130,246,0.4)';this.style.background='rgba(59,130,246,0.04)'"
+                                    onmouseout="this.style.borderColor='var(--border-color,#333)';this.style.background='rgba(255,255,255,0.02)'">
+                                    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+                                        <div>
+                                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                                <i class="fa-solid fa-bolt" style="color: #fbbf24; font-size: 14px;"></i>
+                                                <strong style="font-size: 14px; color: var(--text-primary, #fff);">Live Events</strong>
+                                            </div>
+                                            <p style="margin: 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">Real-time stream of page view and visitor events arriving in ThriveStack. Useful during local development and after deployment to confirm the tag is working across all pages.</p>
+                                        </div>
+                                        <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--text-muted, #888); font-size: 12px; flex-shrink: 0; margin-top: 2px;"></i>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <hr />
+
+                            <h2 id="achieve">What did you just achieve? 🎆</h2>
                             <p
                                 style="margin-bottom: 24px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
                                 Traditional Marketing Analytics tools typically just show you vanity metrics like
@@ -250,161 +334,92 @@
                                     <tbody>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Track pages</td>
-                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i
-                                                    class="fa-solid fa-circle-check"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i>
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Track New Visitors</td>
-                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i
-                                                    class="fa-solid fa-circle-check"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i>
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Traffic by UTM</td>
-                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i
-                                                    class="fa-solid fa-circle-check"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i>
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i></td>
                                         </tr>
-
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <td style="padding: 14px 16px;">Content Performace</td>
-                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i
-                                                    class="fa-solid fa-circle-check"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i>
-                                            </td>
+                                            <td style="padding: 14px 16px;">Content Performance</td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Track Returning Visitors</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i>
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Goal Conversions</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i>
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i></td>
                                         </tr>
-                                        <tr>
+                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Lead Quality</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i>
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Multi-Touch Attribution</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i><span
-                                                    style="font-size: 13px; font-weight: 600; margin-left: 6px;">[P]
-                                                    [R]</span>
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i><span style="font-size: 13px; font-weight: 600; margin-left: 6px;">[P] [R]</span></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <td style="padding: 14px 16px;">Channel Performance (correlated with Product
-                                                and Revenue)</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i> <span
-                                                    style="font-size: 13px; font-weight: 600; margin-left: 6px;">[P]
-                                                    [R]</span>
-                                            </td>
+                                            <td style="padding: 14px 16px;">Channel Performance (correlated with Product and Revenue)</td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 13px; font-weight: 600; margin-left: 6px;">[P] [R]</span></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Time to Acquisition</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i> <span
-                                                    style="font-size: 13px; font-weight: 600; margin-left: 6px;">[P]
-                                                </span>
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 13px; font-weight: 600; margin-left: 6px;">[P]</span></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
                                             <td style="padding: 14px 16px;">Touchpoints to Acquisition</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i> <span
-                                                    style="font-size: 13px; font-weight: 600; margin-left: 6px;">[P]
-                                                </span>
-                                            </td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 13px; font-weight: 600; margin-left: 6px;">[P]</span></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <td style="padding: 14px 16px;">New Signups (correlation with Product )</td>
-                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i
-                                                    class="fa-solid fa-xmark"></i></td>
-                                            <td
-                                                style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);">
-                                                <i class="fa-solid fa-circle-check"></i> <span
-                                                    style="font-size: 13px; font-weight: 600; margin-left: 6px;">[P]
-                                                </span>
-                                            </td>
+                                            <td style="padding: 14px 16px;">New Signups (correlation with Product)</td>
+                                            <td style="padding: 14px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 14px 16px; color: #22c55e; text-align: center; background-color: rgba(59, 130, 246, 0.1);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 13px; font-weight: 600; margin-left: 6px;">[P]</span></td>
                                         </tr>
-
                                     </tbody>
                                 </table>
                             </div>
 
-                            <p
-                                style="font-size: 14px; color: var(--text-muted, #888); margin-top: -24px; margin-bottom: 32px; padding-left: 8px;">
-                                * <span style="font-weight: 600; color: var(--text-primary, #fff);">[P]</span> and <span
-                                    style="font-weight: 600; color: var(--text-primary, #fff);">[R]</span> mean Product
-                                and Revenue co-relation.
+                            <p style="font-size: 14px; color: var(--text-muted, #888); margin-top: -24px; margin-bottom: 32px; padding-left: 8px;">
+                                * <span style="font-weight: 600; color: var(--text-primary, #fff);">[P]</span> and <span style="font-weight: 600; color: var(--text-primary, #fff);">[R]</span> mean Product and Revenue co-relation.
                             </p>
 
                             <ul>
                                 <li>Various Marketing Intelligence reports are now available.</li>
-                                <li>Out of box reports are setup. Share it with your Marketing, Product, and Sales
-                                    teams.</li>
-                                <li>Account level Analytics, including 40+ metrics across Activation, Feature Usage, API
-                                    Usage, are available in the in-built <a
-                                        href="https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list"
-                                        target="_blank" rel="noopener noreferrer">Full Journey CRM</a></li>
+                                <li>Out of box reports are setup. Share it with your Marketing, Product, and Sales teams.</li>
+                                <li>Account level Analytics, including 40+ metrics across Activation, Feature Usage, API Usage, are available in the in-built <a href="https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list" target="_blank" rel="noopener noreferrer">Full Journey CRM</a></li>
                             </ul>
 
-                            <blockquote>
-                                <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i> <strong>Note:</strong>
-                                As a bonus, you'll also receive an email notification of all the
-                                events logged and issues to be fixed
-                            </blockquote>
+                            <hr />
 
-                            <div
-                                style="margin-top: 32px; padding: 24px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 8px; text-align: center;">
-                                <p style="margin-bottom: 16px; font-size: 16px; color: var(--text-primary, #fff);">
-                                    To now go ahead and setup Product Intelligence.
-                                </p>
-                                <a href="../../../public/product/setup/setup-with-ai.html" class="btn-primary"
-                                    style="display: inline-block; color: #ffffff;">Product Intelligence: Setup with
-                                    AI</a>
-                            </div>
+                            <h2 id="next-steps">What's next?</h2>
+                            <p style="margin-bottom: 16px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
+                                Marketing Intelligence is one half of the picture. Set up Product Intelligence to start correlating marketing touchpoints with product usage, account behaviour, and revenue.
+                            </p>
+                            <a href="../../../public/product/setup/setup-with-ai.html"
+                                style="display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px; border: 1px solid rgba(59,130,246,0.35); background: rgba(59,130,246,0.08); text-decoration: none; font-size: 14px; font-weight: 600; color: #93c5fd; transition: border-color 0.15s, background 0.15s;"
+                                onmouseover="this.style.borderColor='rgba(59,130,246,0.6)';this.style.background='rgba(59,130,246,0.14)'"
+                                onmouseout="this.style.borderColor='rgba(59,130,246,0.35)';this.style.background='rgba(59,130,246,0.08)'">
+                                <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 12px;"></i>
+                                Set up Product Intelligence
+                                <i class="fa-solid fa-arrow-right" style="font-size: 11px;"></i>
+                            </a>
 
                         </article>
 
@@ -490,11 +505,15 @@
             <div class="toc-container sticky-top">
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
-                    <a href="#implement-with-prompt-marketing" class="toc-link active">Implement with Prompt</a>
+                    <a href="#implement-with-prompt-marketing" class="toc-link active">Setup with AI</a>
+                    <a href="#how-it-works" class="toc-link">How it works</a>
                     <a href="#step1" class="toc-link">1. Get API key</a>
                     <a href="#step2" class="toc-link">2. Copy the prompt</a>
                     <a href="#step3" class="toc-link">3. Run it</a>
-                    <a href="#step4" class="toc-link">4. Verify</a>
+                    <a href="#step4" class="toc-link">4. Confirm script loads</a>
+                    <a href="#step5" class="toc-link">5. Verify your setup</a>
+                    <a href="#achieve" class="toc-link">What did you achieve?</a>
+                    <a href="#next-steps" class="toc-link">What's next?</a>
                 </nav>
                 <ready-to-scale-promo></ready-to-scale-promo>
             </div>
