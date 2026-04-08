@@ -511,7 +511,9 @@ Stripe Subscription metadata or your subscriptions table
 
 ### If a valid join path is found:
 
-Write a one-time idempotent update script that:
+Write a one-time idempotent update script named
+`update-existing-customers-stripe` (use the appropriate file extension
+for the codebase language, e.g. `.js`, `.py`, `.rb`, `.go`) that:
 1. Fetches all Stripe customers (paginate through all pages)
 2. For each customer:
    - If `metadata.group_id` already set → skip
@@ -1036,7 +1038,9 @@ Chargebee Subscription metadata or your subscriptions table
 
 ### If a valid join path is found:
 
-Write a one-time idempotent update script that:
+Write a one-time idempotent update script named
+`update-existing-customers-chargebee` (use the appropriate file extension
+for the codebase language, e.g. `.js`, `.py`, `.rb`, `.go`) that:
 1. Fetches all Chargebee customers (paginate through all pages)
 2. For each customer:
    - If `meta_data.group_id` already set → skip
