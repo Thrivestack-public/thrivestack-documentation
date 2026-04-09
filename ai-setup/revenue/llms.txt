@@ -62,12 +62,10 @@ Tell the user:
   Can you confirm: does your product have accounts, organizations,
   workspaces, or teams that multiple users belong to?
 
-  **(a) Yes** — it does, but the code may call it something different.
+  **(a) Yes** — it does but the code may call it something different.
   Tell me the entity name and I'll look again.
 
-  **(b) No** — each user is their own account (B2C).
-
-  **(c) Other** — describe your account model and I'll adapt."
+  **(b) No** — each user is their own account (B2C)."
 
 - **(a)** → User provides entity name. Search for it, then proceed to
   **Step 0B — Detect the Billing Provider**.
@@ -166,13 +164,12 @@ Tell the user:
       [list file paths and line numbers]
 
       Would you like to proceed with the ThriveStack Revenue
-      Intelligence API integration?
+      Intelligence API integration? I can instrument these call
+      sites to push data to ThriveStack automatically.
 
-      **(a) Yes** — instrument these call sites automatically.
-      **(b) No** — stop here.
-      **(c) Other** — describe what you'd like to do instead."
+      Reply **yes** to proceed or **no** to stop."
 
-    If (a) → proceed to **Approach B — Direct API**.
+    If yes → proceed to **Approach B — Direct API**.
 
   - If NO billing code is found →
 
@@ -180,18 +177,15 @@ Tell the user:
       code in this repository.
 
       Your billing logic may live in a separate service or repo.
-      What would you like to do?
+      Could you either:
+      1. Point me to the file, folder, or service where
+         subscriptions and invoices are created
+         (e.g. `services/billing.js`, a microservice name), or
+      2. Let me know if you want to proceed with a manual
+         API integration guide instead.
 
-      **(a)** Point me to the file or folder where billing code lives
-      (e.g. `services/billing.js`).
-
-      **(b)** Tell me the microservice or repo name — I'll give you
-      instructions to run there instead.
-
-      **(c)** Show me the direct API integration guide so I can
-      implement it from scratch.
-
-      **(d) Other** — describe your situation."
+      Reply with the file path or service name, or type
+      **api** to see the direct API integration guide."
 
     Wait for the user's response before proceeding.
 
@@ -250,40 +244,42 @@ Tell the user:
   [list the file paths and line numbers]
 
   Before I make changes, I want to confirm the right approach.
+  You have two options:
 
-  **(a)** Make the changes directly — confirm these are the right
-  files and I will update them.
+  Option A — I can make the changes directly.
+  Please confirm these are the right files and I will update them.
 
-  **(b)** I prefer to make the changes myself — give me the exact
-  code snippet to add.
+  Option B — You prefer to make the changes yourself.
+  I will give you the exact code snippet to add.
 
-  **(c) Other** — describe your preferred approach."
+  Which would you prefer?"
 
-If the user chooses (a) — confirm the file paths explicitly
+If the user chooses Option A — confirm the file paths explicitly
 before making any changes, then proceed to Step 3.
 
-If the user chooses (b) — provide the code snippet from
+If the user chooses Option B — provide the code snippet from
 Step 3 and ask them to apply it and confirm when done.
 
 ### If Stripe customer create or update calls are NOT found:
 
 Tell the user:
 
-  "I could not find Stripe customer create or update calls in this
-  codebase. Where does your Stripe billing code live?
+  "I could not find Stripe customer create or update calls in the
+  codebase. This could mean:
 
-  **(a)** Give me a file path or folder
-  (e.g. `services/billing.js`, `src/payments/`).
+  - The Stripe integration is in a different service or repository
+  - It uses a wrapper or abstraction around the Stripe SDK
+  - The integration has not been built yet
 
-  **(b)** It's in a separate service or repo — tell me the name
-  and I'll give you instructions to run there instead.
+  Could you point me to where your Stripe billing code lives?
+  For example:
+  - A file path or folder (e.g. `services/billing.js`)
+  - A service name (e.g. 'our billing microservice is separate')
+  - Or let me know if you'd like a code snippet to implement it
+    from scratch"
 
-  **(c)** The integration hasn't been built yet — generate a
-  code snippet to implement it from scratch.
-
-  **(d) Other** — describe your situation."
-
-Wait for the user to respond before proceeding.
+Wait for the user to provide the location or context before
+proceeding.
 
 ---
 
@@ -328,19 +324,9 @@ Django, FastAPI, Flask, Go, Rails API, etc.):
     "I can see your [entity name] model but cannot find its ID
     at the Stripe customer call site in [file path].
 
-    What identifier is available at this call site that I can use
-    to look up or derive the account/org ID?
-
-    **(a)** A user ID is available — look up the org via
-    `Users.organization_id` or similar FK.
-
-    **(b)** The customer email is available — use it to look up
-    the account in your DB.
-
-    **(c)** There's a request context / session / JWT — tell me
-    the claim name and I'll extract it from there.
-
-    **(d) Other** — describe what's available and I'll figure it out."
+    Please tell me: what identifier is available at this point
+    that I can use to look up or derive the account/org ID?
+    For example: a user ID, customer email, or request parameter."
 
   Wait for the user's input before proceeding. Do not implement
   anything.
@@ -402,19 +388,15 @@ Django, FastAPI, Flask, Go, Rails API, etc.):
     "I could not find ThriveStack product telemetry or a clear account/org
     identifier in this codebase.
 
-    Which of the following best describes your situation?
+    To proceed, I need one of the following:
+    - What account or organization ID do you pass to ThriveStack product
+      telemetry (e.g. `thrivestack.group(...)`)? Which field or variable
+      is it?
+    - Or, in general: what do you use as the account identifier when
+      tracking revenue? For example: `org.id`, `account.uuid`,
+      `workspace.slug`, `tenant_id`
 
-    **(a)** I pass an org/account ID to ThriveStack product telemetry
-    — tell me the field name (e.g. `org.id`, `account.uuid`) and I'll
-    use it as `group_id`.
-
-    **(b)** I don't use ThriveStack product telemetry yet, but my
-    account identifier is [field name] — tell me and I'll use that.
-
-    **(c)** I track revenue per user, not per account (B2C) — use
-    `user.id` as `group_id`.
-
-    **(d) Other** — describe your account model."
+    Please share the field name and I will use it as `group_id`."
 
   Wait for the user to confirm. Do not proceed without it.
 
@@ -436,19 +418,17 @@ Do not implement anything. Tell the user:
   "I found that `group_id` ([entity name]) is not directly available
   at the Stripe customer call site in [file path].
 
-  How should I get it there?
+  To pass it correctly, I need your help. A few options:
+  1. Can the account/org ID be looked up from the database at this
+     point using an existing ID that is available (e.g. user ID,
+     customer email)?
+  2. Should it be passed as a parameter to this function from
+     wherever it is called?
+  3. Is there a request context, session, or JWT claim available
+     here that contains the org/account ID?
 
-  **(a)** Look it up from the DB — an existing ID (e.g. user ID or
-  customer email) is available at this call site that I can use to
-  query the account/org.
-
-  **(b)** Pass it as a parameter — refactor the function signature
-  so the caller provides the `group_id`.
-
-  **(c)** Extract from request context / session / JWT — tell me
-  the claim or header name.
-
-  **(d) Other** — describe your architecture and I'll figure it out."
+  Please let me know which approach fits your codebase and I will
+  implement it."
 
 Wait for the user's guidance before writing any code.
 
@@ -552,79 +532,19 @@ for the codebase language, e.g. `.js`, `.py`, `.rb`, `.go`) that:
 
 Do not write the update script. Ask the user:
 
-  "I could not find a reliable way to link existing Stripe customers
-  to accounts in your database automatically.
+  "I could not find a reliable way to link existing Stripe
+  customers to accounts in your database automatically.
 
-  How does your system associate a Stripe customer with an account
-  or organization?
+  To complete the update, I need to understand:
+  1. How does your system know which Stripe customer belongs
+     to which account or organization?
+  2. Is there a table or field that stores this relationship?
+  3. Or is the mapping maintained outside the codebase
+     (e.g. in a spreadsheet or external CRM)?
 
-  **(a)** There's a `customer_id` or `stripe_customer_id` column in
-  my accounts/organizations table — use that to join.
-
-  **(b)** The link goes through the Users table — Stripe customer
-  email → User → organization_id.
-
-  **(c)** The mapping is stored outside the codebase (spreadsheet,
-  CRM, etc.) — I'll need to handle this manually.
-
-  **(d) Other** — describe the relationship and I'll implement the
-  join logic.
-
-  Without resolving this, existing customers will not have `group_id`
-  set and their historical revenue will not appear in ThriveStack."
-
----
-
-## Step 5B — Review and Validate (Stripe path)
-
-Once Step 5 is complete, summarise everything done and guide the user
-through validation before proceeding.
-
-Tell the user:
-
-  "Here is a summary of the changes made:
-
-  **Code changes (new Stripe customers going forward):**
-  [List each file modified and what was changed — e.g.
-   `services/billing.js` line 42: added `metadata[group_id]` to
-   `stripe.customers.create(...)` call]
-
-  **Script for existing Stripe customers:**
-  `update-existing-customers-stripe.[ext]` — a one-time script that
-  sets `metadata[group_id]` on all existing Stripe customers who were
-  created before this instrumentation.
-
-  ---
-
-  **Please review these changes before running anything.**
-
-  To test and validate:
-
-  **1. Validation for new customers**
-  Run an end-to-end flow that creates or updates a Stripe customer
-  (e.g. a sign-up or upgrade in your app). Then open the Stripe
-  dashboard and confirm:
-  - The customer has `metadata.group_id` set
-  - The value matches the `group_id` you pass to ThriveStack product
-    telemetry (e.g. via `thrivestack.group(...)`) — format, casing,
-    and type must be identical. A mismatch silently breaks revenue
-    attribution.
-
-  **2. Validation for existing customers**
-  Before running the update script:
-  - Open `update-existing-customers-stripe.[ext]` and review the
-    logic that fetches the `group_id` for each customer
-  - Confirm the join path is correct (the right table/column is
-    being used to look up the account/org ID)
-  - Run the script on a single customer first to verify the output
-    looks correct, then run it for all customers
-  - Check `thrivestack_update_unresolved.log` after the run for any
-    customers that could not be resolved
-
-  Once both validations pass, reply **done** and I will continue."
-
-Wait for the user to confirm validation is complete before proceeding
-to Step 6.
+  Without this, some existing customers may not have
+  `group_id` set, which means their historical revenue will
+  not appear in ThriveStack until it is resolved."
 
 ---
 
@@ -647,8 +567,8 @@ were **NOT found** in the codebase during Step 3, tell the user:
   Would you like me to set up product telemetry as well?
   → https://docs.thrivestack.ai/public/product/setup/setup-with-ai.html
 
-  **(a) Yes** — set up product telemetry now.
-  **(b) No** — finish here, I'll do it later."
+  Reply **yes** to continue with product telemetry setup, or **no**
+  to finish here."
 
 If ThriveStack product telemetry was already found in Step 3,
 skip this step and proceed directly to Features Unlocked.
@@ -864,40 +784,42 @@ Tell the user:
   [list the file paths and line numbers]
 
   Before I make changes, I want to confirm the right approach.
+  You have two options:
 
-  **(a)** Make the changes directly — confirm these are the right
-  files and I will update them.
+  Option A — I can make the changes directly.
+  Please confirm these are the right files and I will update them.
 
-  **(b)** I prefer to make the changes myself — give me the exact
-  code snippet to add.
+  Option B — You prefer to make the changes yourself.
+  I will give you the exact code snippet to add.
 
-  **(c) Other** — describe your preferred approach."
+  Which would you prefer?"
 
-If the user chooses (a) — confirm the file paths explicitly
+If the user chooses Option A — confirm the file paths explicitly
 before making any changes, then proceed to Step C3.
 
-If the user chooses (b) — provide the code snippet from
+If the user chooses Option B — provide the code snippet from
 Step C3 and ask them to apply it and confirm when done.
 
 ### If Chargebee customer create or update calls are NOT found:
 
 Tell the user:
 
-  "I could not find Chargebee customer create or update calls in this
-  codebase. Where does your Chargebee billing code live?
+  "I could not find Chargebee customer create or update calls in the
+  codebase. This could mean:
 
-  **(a)** Give me a file path or folder
-  (e.g. `services/billing.js`, `src/payments/`).
+  - The Chargebee integration is in a different service or repository
+  - It uses a wrapper or abstraction around the Chargebee SDK
+  - The integration has not been built yet
 
-  **(b)** It's in a separate service or repo — tell me the name
-  and I'll give you instructions to run there instead.
+  Could you point me to where your Chargebee billing code lives?
+  For example:
+  - A file path or folder (e.g. `services/billing.js`)
+  - A service name (e.g. 'our billing microservice is separate')
+  - Or let me know if you'd like a code snippet to implement it
+    from scratch"
 
-  **(c)** The integration hasn't been built yet — generate a
-  code snippet to implement it from scratch.
-
-  **(d) Other** — describe your situation."
-
-Wait for the user to respond before proceeding.
+Wait for the user to provide the location or context before
+proceeding.
 
 ---
 
@@ -942,19 +864,9 @@ Django, FastAPI, Flask, Go, Rails API, etc.):
     "I can see your [entity name] model but cannot find its ID
     at the Chargebee customer call site in [file path].
 
-    What identifier is available at this call site that I can use
-    to look up or derive the account/org ID?
-
-    **(a)** A user ID is available — look up the org via
-    `Users.organization_id` or similar FK.
-
-    **(b)** The customer email is available — use it to look up
-    the account in your DB.
-
-    **(c)** There's a request context / session / JWT — tell me
-    the claim name and I'll extract it from there.
-
-    **(d) Other** — describe what's available and I'll figure it out."
+    Please tell me: what identifier is available at this point
+    that I can use to look up or derive the account/org ID?
+    For example: a user ID, customer email, or request parameter."
 
   Wait for the user's input before proceeding. Do not implement
   anything.
@@ -1016,19 +928,15 @@ Django, FastAPI, Flask, Go, Rails API, etc.):
     "I could not find ThriveStack product telemetry or a clear account/org
     identifier in this codebase.
 
-    Which of the following best describes your situation?
+    To proceed, I need one of the following:
+    - What account or organization ID do you pass to ThriveStack product
+      telemetry (e.g. `thrivestack.group(...)`)? Which field or variable
+      is it?
+    - Or, in general: what do you use as the account identifier when
+      tracking revenue? For example: `org.id`, `account.uuid`,
+      `workspace.slug`, `tenant_id`
 
-    **(a)** I pass an org/account ID to ThriveStack product telemetry
-    — tell me the field name (e.g. `org.id`, `account.uuid`) and I'll
-    use it as `group_id`.
-
-    **(b)** I don't use ThriveStack product telemetry yet, but my
-    account identifier is [field name] — tell me and I'll use that.
-
-    **(c)** I track revenue per user, not per account (B2C) — use
-    `user.id` as `group_id`.
-
-    **(d) Other** — describe your account model."
+    Please share the field name and I will use it as `group_id`."
 
   Wait for the user to confirm. Do not guess, do not proceed,
   do not implement any code.
@@ -1051,19 +959,17 @@ Do not implement anything. Tell the user:
   "I found that `group_id` ([entity name]) is not directly available
   at the Chargebee customer call site in [file path].
 
-  How should I get it there?
+  To pass it correctly, I need your help. A few options:
+  1. Can the account/org ID be looked up from the database at this
+     point using an existing ID that is available (e.g. user ID,
+     customer email)?
+  2. Should it be passed as a parameter to this function from
+     wherever it is called?
+  3. Is there a request context, session, or JWT claim available
+     here that contains the org/account ID?
 
-  **(a)** Look it up from the DB — an existing ID (e.g. user ID or
-  customer email) is available at this call site that I can use to
-  query the account/org.
-
-  **(b)** Pass it as a parameter — refactor the function signature
-  so the caller provides the `group_id`.
-
-  **(c)** Extract from request context / session / JWT — tell me
-  the claim or header name.
-
-  **(d) Other** — describe your architecture and I'll figure it out."
+  Please let me know which approach fits your codebase and I will
+  implement it."
 
 Wait for the user's guidance before writing any code.
 
@@ -1166,79 +1072,19 @@ for the codebase language, e.g. `.js`, `.py`, `.rb`, `.go`) that:
 
 Do not write the update script. Ask the user:
 
-  "I could not find a reliable way to link existing Chargebee customers
-  to accounts in your database automatically.
+  "I could not find a reliable way to link existing Chargebee
+  customers to accounts in your database automatically.
 
-  How does your system associate a Chargebee customer with an account
-  or organization?
+  To complete the update, I need to understand:
+  1. How does your system know which Chargebee customer belongs
+     to which account or organization?
+  2. Is there a table or field that stores this relationship?
+  3. Or is the mapping maintained outside the codebase
+     (e.g. in a spreadsheet or external CRM)?
 
-  **(a)** There's a `customer_id` or `chargebee_customer_id` column in
-  my accounts/organizations table — use that to join.
-
-  **(b)** The link goes through the Users table — Chargebee customer
-  email → User → organization_id.
-
-  **(c)** The mapping is stored outside the codebase (spreadsheet,
-  CRM, etc.) — I'll need to handle this manually.
-
-  **(d) Other** — describe the relationship and I'll implement the
-  join logic.
-
-  Without resolving this, existing customers will not have `group_id`
-  set and their historical revenue will not appear in ThriveStack."
-
----
-
-## Step C5B — Review and Validate (Chargebee path)
-
-Once Step C5 is complete, summarise everything done and guide the user
-through validation before proceeding.
-
-Tell the user:
-
-  "Here is a summary of the changes made:
-
-  **Code changes (new Chargebee customers going forward):**
-  [List each file modified and what was changed — e.g.
-   `services/billing.js` line 38: added `meta_data[group_id]` to
-   `chargebee.Customer.create(...)` call]
-
-  **Script for existing Chargebee customers:**
-  `update-existing-customers-chargebee.[ext]` — a one-time script that
-  sets `meta_data[group_id]` on all existing Chargebee customers who
-  were created before this instrumentation.
-
-  ---
-
-  **Please review these changes before running anything.**
-
-  To test and validate:
-
-  **1. Validation for new customers**
-  Run an end-to-end flow that creates or updates a Chargebee customer
-  (e.g. a sign-up or upgrade in your app). Then open the Chargebee
-  dashboard and confirm:
-  - The customer has `meta_data.group_id` set
-  - The value matches the `group_id` you pass to ThriveStack product
-    telemetry (e.g. via `thrivestack.group(...)`) — format, casing,
-    and type must be identical. A mismatch silently breaks revenue
-    attribution.
-
-  **2. Validation for existing customers**
-  Before running the update script:
-  - Open `update-existing-customers-chargebee.[ext]` and review the
-    logic that fetches the `group_id` for each customer
-  - Confirm the join path is correct (the right table/column is
-    being used to look up the account/org ID)
-  - Run the script on a single customer first to verify the output
-    looks correct, then run it for all customers
-  - Check `thrivestack_update_unresolved.log` after the run for any
-    customers that could not be resolved
-
-  Once both validations pass, reply **done** and I will continue."
-
-Wait for the user to confirm validation is complete before proceeding
-to Step C6.
+  Without this, some existing customers may not have
+  `group_id` set, which means their historical revenue will
+  not appear in ThriveStack until it is resolved."
 
 ---
 
@@ -1261,8 +1107,8 @@ were **NOT found** in the codebase during Step C3, tell the user:
   Would you like me to set up product telemetry as well?
   → https://docs.thrivestack.ai/public/product/setup/setup-with-ai.html
 
-  **(a) Yes** — set up product telemetry now.
-  **(b) No** — finish here, I'll do it later."
+  Reply **yes** to continue with product telemetry setup, or **no**
+  to finish here."
 
 If ThriveStack product telemetry was already found in Step C3,
 skip this step and proceed directly to Features Unlocked.
@@ -1322,37 +1168,15 @@ Once setup is complete, tell the user:
   ---
   Handy ThriveStack Resources
   - Setup Progress: https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
-  - Connection status & integration issues: https://app.thrivestack.ai/analyze/diagnostics-report
-  - Check data flowing into ThriveStack: https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue"
-
----
-
-## IMPORTANT — Before You Go to Production
-
-**When you promote this integration to Production:**
-
-- **Stripe or Chargebee users:** You must create a new connection in
-  ThriveStack using your **live** Stripe / Chargebee environment.
-  The connection you set up during this instrumentation was for your
-  test/staging environment. Go to:
-  → https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
-  and connect your live account before going live.
-
-- **Direct API users:** Make sure you use the ThriveStack API key
-  for the **Production environment** — not the test/development key
-  used during this setup. Generate a production API key with the
-  Revenue APIs scope at:
-  → https://app.thrivestack.ai/analyze/settings/api-keys
-
-**Using a test key or test connection in Production will result in
-revenue data being dropped or attributed incorrectly.**
+  - Diagnostics: https://app.thrivestack.ai/analyze/diagnostics-report
+  - API / Audit Logs: https://app.thrivestack.ai/analyze/events
+  - Developer Tools: https://app.thrivestack.ai/analyze/developer-tool"
 
 ---
 
 ## Reference Links
 
-- Start Stripe / Chargebee connection: https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
-- API Keys (Revenue APIs scope): https://app.thrivestack.ai/analyze/settings/api-keys
+- Start Stripe connection: https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
 - Subscriptions API: https://docs.thrivestack.ai/public/api/subscriptions.html
 - Subscription Items API: https://docs.thrivestack.ai/public/api/subscription-items.html
 - Invoices API: https://docs.thrivestack.ai/public/api/invoices.html
