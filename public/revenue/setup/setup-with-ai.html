@@ -209,7 +209,7 @@
                                     <pre><code id="prompt-revenue">Loading...</code></pre>
                                 </div>
 
-                                <h2>Step 3: Run it in your billing repo</h2>
+                                <h2>Step 3: Paste this prompt in the repo where your billing code lives</h2>
                                 <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 12px;">
                                     Open your AI coding assistant in the repository where your Stripe or Chargebee billing code lives — this is usually a backend service or API server, not the frontend.
                                 </p>
@@ -222,13 +222,48 @@
 
                                 <hr />
 
-                                <h2>Step 4: Verify revenue data is flowing</h2>
-                                <ul>
-                                    <li>Create or update a test customer or subscription in your billing system</li>
-                                    <li>Check that the event appears in ThriveStack</li>
-                                    <li><a href="https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue" target="_blank" rel="noopener noreferrer">Check data flowing into ThriveStack</a></li>
-                                    <li><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank" rel="noopener noreferrer">See connection status &amp; integration issues</a></li>
-                                </ul>
+                                <h2>Step 4: Verify</h2>
+                                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                                    <div style="padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
+                                        <p style="font-weight: 600; margin: 0 0 6px;">New customers</p>
+                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Run a sign-up flow → open Stripe / Chargebee → confirm the new customer has <code>group_id</code> in metadata and the value matches your product telemetry exactly.</p>
+                                    </div>
+                                    <div style="padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
+                                        <p style="font-weight: 600; margin: 0 0 6px;">Existing customers</p>
+                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Open the generated <code>update-existing-customers-stripe</code> script → verify the <code>group_id</code> fetch logic is correct → run it on one customer first → then run for all.</p>
+                                    </div>
+                                </div>
+
+                                <h2>Step 5: Confirm data is flowing to ThriveStack</h2>
+                                <div style="overflow-x: auto; border-radius: 8px; border: 1px solid var(--table-row-border, #333); margin-bottom: 24px;">
+                                    <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                                        <thead style="background: rgba(255,255,255,0.02);">
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <th style="padding: 12px 16px; font-weight: 600;">What to check</th>
+                                                <th style="padding: 12px 16px; font-weight: 600;">Link</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1); font-size: 14px;">Check revenue events and data flowing into ThriveStack</td>
+                                                <td style="padding: 12px 16px; font-size: 14px;"><a href="https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue" target="_blank" rel="noopener noreferrer">Developer Tool → Revenue</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1); font-size: 14px;">See connection status and integration issues</td>
+                                                <td style="padding: 12px 16px; font-size: 14px;"><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank" rel="noopener noreferrer">Diagnostics Report</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <h2>Step 6: Go to Production</h2>
+                                <blockquote>
+                                    <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>
+                                    <strong>To enable Revenue Intelligence for your production environment, create a new connection in ThriveStack with your live Stripe / Chargebee site.</strong>
+                                    The connection set up during this instrumentation points to your test environment and will not capture live revenue data.
+                                    <br><br>
+                                    <a href="https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1" target="_blank" rel="noopener noreferrer">Create production connection →</a>
+                                </blockquote>
 
                             </div>
 
@@ -245,7 +280,7 @@
                                     <pre><code id="prompt-revenue-inhouse">Loading...</code></pre>
                                 </div>
 
-                                <h2>Step 2: Run it in your billing repo</h2>
+                                <h2>Step 2: Paste this prompt in the repo where your billing code lives</h2>
                                 <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 12px;">
                                     Open your AI coding assistant in the repository (or service) where your own invoices, subscriptions, and transactions are created and managed.
                                 </p>
@@ -262,13 +297,32 @@
 
                                 <hr />
 
-                                <h2>Step 3: Verify revenue data is flowing</h2>
+                                <h2>Step 3: Verify</h2>
+                                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                                    <div style="padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
+                                        <p style="font-weight: 600; margin: 0 0 6px;">New customers</p>
+                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Trigger a test invoice or transaction → confirm the ThriveStack API call includes <code>group_id</code> set to the correct account/org identifier — same format, casing, and type as product telemetry.</p>
+                                    </div>
+                                    <div style="padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
+                                        <p style="font-weight: 600; margin: 0 0 6px;">Existing customers</p>
+                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Open the generated update script → verify the <code>group_id</code> fetch logic is correct → run it on one customer first → then run for all.</p>
+                                    </div>
+                                </div>
+
+                                <h2>Step 4: Confirm data is flowing to ThriveStack</h2>
                                 <ul>
-                                    <li>Trigger a test invoice or transaction in your billing system</li>
-                                    <li>Check that the event appears in ThriveStack</li>
                                     <li><a href="https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue" target="_blank" rel="noopener noreferrer">Check data flowing into ThriveStack</a></li>
                                     <li><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank" rel="noopener noreferrer">See connection status &amp; integration issues</a></li>
                                 </ul>
+
+                                <h2>Step 5: Go to Production</h2>
+                                <blockquote>
+                                    <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>
+                                    <strong>To enable Revenue Intelligence for your production environment, use your ThriveStack Production API key with the Revenue APIs scope.</strong>
+                                    The API key used during this setup is for your test/development environment and will not capture live revenue data.
+                                    <br><br>
+                                    <a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank" rel="noopener noreferrer">Get production API key →</a>
+                                </blockquote>
 
                             </div>
 
