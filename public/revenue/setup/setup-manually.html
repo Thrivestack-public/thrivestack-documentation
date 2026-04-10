@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Revenue Intelligence - Setup Manually - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Revenue Intelligence - Setup Manually - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../../index.html" class="logo">
+                <img src="../../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../../index.html">Get Started</a>
+                <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="../../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../../take-action.html">Take Action</a>
+                <a href="../../../api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../../public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../../public/revenue/setup/setup-manually.html" class="nav-item active"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="setup-revenue-manually" class="content-section">
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Revenue Intelligence</span>
+                            <h1 class="doc-page-title">Setup Manually</h1>
+                            <p class="doc-page-description">
+                                Connect your billing data to ThriveStack Revenue Intelligence without an AI assistant —
+                                by adding a <code>group_id</code> to your billing provider or calling the ThriveStack Revenue APIs directly.
+                            </p>
+                        </header>
+
+                        <hr />
+
+                        <article class="doc-page-body">
+
+                            <!-- ── PATH SELECTOR ─────────────────────────────── -->
+                            <h2 id="choose-billing-setup">Choose your billing setup</h2>
+                            <p style="margin-bottom: 20px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
+                                The steps differ depending on whether you use Stripe, Chargebee, or your own invoicing system.
+                            </p>
+
+                            <div class="path-selector" style="display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap;">
+                                <button class="path-btn path-btn-active" onclick="selectPath('stripe-chargebee', this)" style="display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 8px; border: 2px solid var(--color-blue, #3b82f6); background: rgba(59,130,246,0.08); color: var(--text-primary, #fff); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+                                    <i class="fa-solid fa-plug" style="color: #3b82f6;"></i> Stripe / Chargebee
+                                </button>
+                                <button class="path-btn" onclick="selectPath('inhouse', this)" style="display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 8px; border: 2px solid var(--border-color, #333); background: transparent; color: var(--text-secondary, #cbd5e1); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+                                    <i class="fa-solid fa-file-invoice"></i> Own Invoicing System
+                                </button>
+                            </div>
+
+                            <!-- ── PATH A: STRIPE / CHARGEBEE ─────────────────── -->
+                            <div id="path-stripe-chargebee">
+
+                                <h2>Step 1: Connect your billing provider to ThriveStack</h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 12px;">
+                                    Open the ThriveStack Revenue setup page and connect your Stripe or Chargebee account. This is a no-code step — it only takes a few clicks.
+                                </p>
+                                <a href="https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; padding: 10px 18px; border-radius: 8px; border: 1px solid #3b82f6; background: rgba(59,130,246,0.12); color: #60a5fa; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.15s;">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Connect Billing Provider
+                                </a>
+
+                                <h2>Step 2: Create new customers with <code>group_id</code></h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 16px;">
+                                    Wherever your code creates a Stripe / Chargebee customer, add <code>group_id</code> to the metadata. This is the same account or organisation identifier you use in ThriveStack product telemetry — format, casing, and type must match exactly.
+                                </p>
+
+                                <div class="code-tabs" id="tabs-create">
+                                    <div class="code-tab-bar">
+                                        <button class="code-tab-btn active" onclick="switchTab('tabs-create', 'stripe', this)">Stripe</button>
+                                        <button class="code-tab-btn" onclick="switchTab('tabs-create', 'chargebee', this)">Chargebee</button>
+                                    </div>
+                                    <div class="code-tab-panel" data-tab="stripe">
+                                        <pre><code>curl https://api.stripe.com/v1/customers \
+  -u sk_test_YOUR_SECRET_KEY: \
+  -d "email=customer@example.com" \
+  -d "metadata[group_id]=&lt;your_org_or_account_id&gt;"</code></pre>
+                                    </div>
+                                    <div class="code-tab-panel" data-tab="chargebee" style="display:none;">
+                                        <pre><code>curl https://{site}.chargebee.com/api/v2/customers \
+  -u {api_key}: \
+  -d email="customer@example.com" \
+  -d meta_data="{\"group_id\":\"&lt;your_org_or_account_id&gt;\"}"</code></pre>
+                                    </div>
+                                </div>
+
+                                <blockquote>
+                                    <i class="fa-solid fa-triangle-exclamation" style="margin-right: 4px;"></i>
+                                    <strong>Important:</strong> <code>group_id</code> must be the exact same value passed to <code>thrivestack.group()</code> in product telemetry. A mismatch silently breaks revenue attribution.
+                                </blockquote>
+
+                                <h2>Step 3: Update existing customers with <code>group_id</code></h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 16px;">
+                                    Customers created before this change also need <code>group_id</code> set — otherwise ThriveStack only sees revenue from new customers going forward and historical MRR will be missing.
+                                </p>
+
+                                <div class="code-tabs" id="tabs-update">
+                                    <div class="code-tab-bar">
+                                        <button class="code-tab-btn active" onclick="switchTab('tabs-update', 'stripe', this)">Stripe</button>
+                                        <button class="code-tab-btn" onclick="switchTab('tabs-update', 'chargebee', this)">Chargebee</button>
+                                    </div>
+                                    <div class="code-tab-panel" data-tab="stripe">
+                                        <pre><code>curl https://api.stripe.com/v1/customers/&lt;CUSTOMER_ID&gt; \
+  -u sk_test_YOUR_SECRET_KEY: \
+  -d "metadata[group_id]=&lt;your_org_or_account_id&gt;"</code></pre>
+                                    </div>
+                                    <div class="code-tab-panel" data-tab="chargebee" style="display:none;">
+                                        <pre><code>curl https://{site}.chargebee.com/api/v2/customers/{customer_id} \
+  -u {api_key}: \
+  -d meta_data="{\"group_id\":\"&lt;your_org_or_account_id&gt;\"}"</code></pre>
+                                    </div>
+                                </div>
+
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin: 16px 0;">
+                                    For bulk update, write a one-time script that:
+                                </p>
+                                <ol>
+                                    <li>Fetches all existing customers from Stripe / Chargebee (paginate through all pages)</li>
+                                    <li>For each customer — look up the matching account/org ID from your database</li>
+                                    <li>If already set → skip. If resolved → update with <code>metadata[group_id]</code>. If not found → log and skip.</li>
+                                </ol>
+
+                                <h2>Step 4: Verify</h2>
+                                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                                    <div style="padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
+                                        <p style="font-weight: 600; margin: 0 0 6px;">New customers</p>
+                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Create a test customer → confirm <code>metadata[group_id]</code> is set correctly in Stripe / Chargebee → check the <a href="https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue" target="_blank" rel="noopener noreferrer">Developer Tool</a> to confirm data has reached ThriveStack.</p>
+                                    </div>
+                                    <div style="padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
+                                        <p style="font-weight: 600; margin: 0 0 6px;">Existing customers</p>
+                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Run your update script on one customer first → confirm the <code>group_id</code> is set correctly → run for all → verify in the <a href="https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue" target="_blank" rel="noopener noreferrer">Developer Tool</a>.</p>
+                                    </div>
+                                </div>
+
+                                <h2>Step 5: Confirm data is flowing to ThriveStack</h2>
+                                <div style="overflow-x: auto; margin-bottom: 24px; border-radius: 8px; border: 1px solid var(--table-row-border, #333);">
+                                    <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                                        <thead style="background: rgba(255,255,255,0.02);">
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <th style="padding: 12px 16px; font-weight: 600;">What to check</th>
+                                                <th style="padding: 12px 16px; font-weight: 600;">Link</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1);">Check revenue events and data flowing into ThriveStack</td>
+                                                <td style="padding: 12px 16px;"><a href="https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue" target="_blank" rel="noopener noreferrer">Developer Tool →</a></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1);">See connection status and integration issues</td>
+                                                <td style="padding: 12px 16px;"><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank" rel="noopener noreferrer">Diagnostics Report →</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1);">Setup progress and onboarding status</td>
+                                                <td style="padding: 12px 16px;"><a href="https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1" target="_blank" rel="noopener noreferrer">Onboarding →</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <h2>Step 6: Go to Production</h2>
+                                <blockquote>
+                                    <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>
+                                    <strong>To enable Revenue Intelligence for your production environment, create a new connection in ThriveStack using your live Stripe / Chargebee account.</strong>
+                                    The connection set up here is for your test/staging environment and will not capture live revenue data.
+                                    <br><br>
+                                    <a href="https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1" target="_blank" rel="noopener noreferrer">Connect live account →</a>
+                                </blockquote>
+
+                            </div>
+
+                            <!-- ── PATH B: OWN INVOICING ───────────────────────── -->
+                            <div id="path-inhouse" style="display: none;">
+
+                                <h2>Step 1: Get your ThriveStack API key</h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 12px;">
+                                    Create an API key with the <strong>Revenue APIs</strong> scope enabled.
+                                </p>
+                                <a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; padding: 10px 18px; border-radius: 8px; border: 1px solid #3b82f6; background: rgba(59,130,246,0.12); color: #60a5fa; font-size: 14px; font-weight: 600; text-decoration: none;">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Get API Key
+                                </a>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin-bottom: 24px;">All endpoints require these headers:</p>
+                                <pre><code>x-api-key: &lt;Your ThriveStack API Key with Revenue APIs Scope&gt;
+Content-Type: application/json</code></pre>
+
+                                <h2>Step 2: Integrate with the Revenue APIs</h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
+                                    At each point in your billing code where a billing entity is created or updated, call the corresponding ThriveStack Revenue API. Always include <code>group_id</code> — the same account/org identifier used in ThriveStack product telemetry.
+                                </p>
+
+                                <div style="overflow-x: auto; margin-bottom: 32px; border-radius: 8px; border: 1px solid var(--table-row-border, #333);">
+                                    <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                                        <thead style="background: rgba(255,255,255,0.02);">
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <th style="padding: 12px 16px; font-weight: 600;">Billing entity</th>
+                                                <th style="padding: 12px 16px; font-weight: 600;">When to call</th>
+                                                <th style="padding: 12px 16px; font-weight: 600;">API Reference</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <td style="padding: 12px 16px; font-weight: 600;">Subscriptions</td>
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1);">On create, update, or cancel</td>
+                                                <td style="padding: 12px 16px;"><a href="../../../public/api/subscriptions.html" target="_blank" rel="noopener noreferrer">Subscriptions API →</a></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <td style="padding: 12px 16px; font-weight: 600;">Subscription Items</td>
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1);">On create, update, or delete of each plan line item</td>
+                                                <td style="padding: 12px 16px;"><a href="../../../public/api/subscription-items.html" target="_blank" rel="noopener noreferrer">Subscription Items API →</a></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <td style="padding: 12px 16px; font-weight: 600;">Invoices</td>
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1);">On create or status change</td>
+                                                <td style="padding: 12px 16px;"><a href="../../../public/api/invoices.html" target="_blank" rel="noopener noreferrer">Invoices API →</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 12px 16px; font-weight: 600;">Transactions</td>
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1);">On payment success or failure</td>
+                                                <td style="padding: 12px 16px;"><a href="../../../public/api/transactions.html" target="_blank" rel="noopener noreferrer">Transactions API →</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <h2>Step 3: Verify</h2>
+                                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                                    <div style="padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
+                                        <p style="font-weight: 600; margin: 0 0 6px;">New billing entities</p>
+                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Create a test subscription, subscription item, invoice, or transaction through your system → then check the <a href="https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue" target="_blank" rel="noopener noreferrer">Developer Tool</a> to confirm the data has reached ThriveStack.</p>
+                                    </div>
+                                    <div style="padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
+                                        <p style="font-weight: 600; margin: 0 0 6px;">Existing data</p>
+                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Trigger your existing data sync code → then verify in the <a href="https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue" target="_blank" rel="noopener noreferrer">Developer Tool</a> that the records have arrived in ThriveStack.</p>
+                                    </div>
+                                </div>
+
+                                <h2>Step 4: Confirm data is flowing to ThriveStack</h2>
+                                <div style="overflow-x: auto; margin-bottom: 24px; border-radius: 8px; border: 1px solid var(--table-row-border, #333);">
+                                    <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                                        <thead style="background: rgba(255,255,255,0.02);">
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <th style="padding: 12px 16px; font-weight: 600;">What to check</th>
+                                                <th style="padding: 12px 16px; font-weight: 600;">Link</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1);">Check revenue events and data flowing into ThriveStack</td>
+                                                <td style="padding: 12px 16px;"><a href="https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue" target="_blank" rel="noopener noreferrer">Developer Tool →</a></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1);">See connection status and integration issues</td>
+                                                <td style="padding: 12px 16px;"><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank" rel="noopener noreferrer">Diagnostics Report →</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 12px 16px; color: var(--text-secondary, #cbd5e1);">API Keys (Revenue APIs scope)</td>
+                                                <td style="padding: 12px 16px;"><a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank" rel="noopener noreferrer">API Keys →</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <h2>Step 5: Go to Production</h2>
+                                <blockquote>
+                                    <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>
+                                    <strong>To enable Revenue Intelligence for your production environment, use your ThriveStack Production API key with the Revenue APIs scope.</strong>
+                                    The API key used during this setup is for your test/development environment and will not capture live revenue data.
+                                    <br><br>
+                                    <a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank" rel="noopener noreferrer">Get production API key →</a>
+                                </blockquote>
+
+                            </div>
+
+                        </article>
+
+                        <style>
+                            .code-tabs {
+                                margin-bottom: 24px;
+                                border-radius: 8px;
+                                border: 1px solid var(--border-color, #333);
+                                overflow: hidden;
+                            }
+                            .code-tab-bar {
+                                display: flex;
+                                border-bottom: 1px solid var(--border-color, #333);
+                                background: rgba(255,255,255,0.02);
+                            }
+                            .code-tab-btn {
+                                padding: 8px 20px;
+                                font-size: 13px;
+                                font-weight: 600;
+                                background: transparent;
+                                border: none;
+                                border-bottom: 2px solid transparent;
+                                color: var(--text-secondary, #cbd5e1);
+                                cursor: pointer;
+                                transition: all 0.15s;
+                                margin-bottom: -1px;
+                            }
+                            .code-tab-btn.active {
+                                color: var(--text-primary, #fff);
+                                border-bottom-color: #3b82f6;
+                            }
+                            .code-tab-panel pre {
+                                margin: 0;
+                                border-radius: 0;
+                                border: none;
+                            }
+                            .path-btn-active {
+                                border-color: var(--color-blue, #3b82f6) !important;
+                                background: rgba(59,130,246,0.12) !important;
+                                color: var(--text-primary, #fff) !important;
+                            }
+                        </style>
+
+                        <script>
+                            function switchTab(containerId, tab, btn) {
+                                var container = document.getElementById(containerId);
+                                container.querySelectorAll('.code-tab-panel').forEach(function(p) {
+                                    p.style.display = p.dataset.tab === tab ? 'block' : 'none';
+                                });
+                                container.querySelectorAll('.code-tab-btn').forEach(function(b) {
+                                    b.classList.remove('active');
+                                });
+                                btn.classList.add('active');
+                            }
+
+                            function selectPath(path, btn) {
+                                document.getElementById('path-stripe-chargebee').style.display = 'none';
+                                document.getElementById('path-inhouse').style.display = 'none';
+                                document.getElementById('path-' + path).style.display = 'block';
+                                document.querySelectorAll('.path-btn').forEach(function(b) {
+                                    b.classList.remove('path-btn-active');
+                                    b.style.borderColor = 'var(--border-color, #333)';
+                                    b.style.background = 'transparent';
+                                    b.style.color = 'var(--text-secondary, #cbd5e1)';
+                                });
+                                btn.classList.add('path-btn-active');
+                                btn.style.borderColor = '#3b82f6';
+                                btn.style.background = 'rgba(59,130,246,0.08)';
+                                btn.style.color = 'var(--text-primary, #fff)';
+                            }
+                        </script>
+
+                        <div class="content-footer">
+                            <p>Was this page helpful?</p>
+                            <div class="feedback-buttons">
+                                <button class="feedback-btn" onclick="sendFeedback('yes', this)">
+                                    <i class="fa-regular fa-thumbs-up"></i> Yes
+                                </button>
+                                <button class="feedback-btn" onclick="sendFeedback('no', this)">
+                                    <i class="fa-regular fa-thumbs-down"></i> No
+                                </button>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../../script.js"></script>
+</body>
+
+</html>

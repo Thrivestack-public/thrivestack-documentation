@@ -137,9 +137,9 @@
                             <h3>Example</h3>
                             <div class="code-tabs">
                                 <div class="tab-bar">
-                                    <button class="tab-btn active" data-tab="curl">cURL</button>
-                                    <button class="tab-btn" data-tab="js">JavaScript</button>
-                                    <button class="tab-btn" data-tab="go">Go</button>
+                                    <button class="tab-btn active" data-tab="curl" onclick="switchCodeTab(this)">cURL</button>
+                                    <button class="tab-btn" data-tab="js" onclick="switchCodeTab(this)">JavaScript</button>
+                                    <button class="tab-btn" data-tab="go" onclick="switchCodeTab(this)">Go</button>
                                 </div>
                                 <div class="tab-pane active" data-tab="curl">
 <pre><code>curl -X POST https://api.app.thrivestack.ai/revenue/invoices \
@@ -248,9 +248,9 @@ func main() {
                             <h3>Example</h3>
                             <div class="code-tabs">
                                 <div class="tab-bar">
-                                    <button class="tab-btn active" data-tab="curl">cURL</button>
-                                    <button class="tab-btn" data-tab="js">JavaScript</button>
-                                    <button class="tab-btn" data-tab="go">Go</button>
+                                    <button class="tab-btn active" data-tab="curl" onclick="switchCodeTab(this)">cURL</button>
+                                    <button class="tab-btn" data-tab="js" onclick="switchCodeTab(this)">JavaScript</button>
+                                    <button class="tab-btn" data-tab="go" onclick="switchCodeTab(this)">Go</button>
                                 </div>
                                 <div class="tab-pane active" data-tab="curl">
 <pre><code>curl -X PUT https://api.app.thrivestack.ai/revenue/invoices \
@@ -349,9 +349,9 @@ func main() {
                             <h3>Example</h3>
                             <div class="code-tabs">
                                 <div class="tab-bar">
-                                    <button class="tab-btn active" data-tab="curl">cURL</button>
-                                    <button class="tab-btn" data-tab="js">JavaScript</button>
-                                    <button class="tab-btn" data-tab="go">Go</button>
+                                    <button class="tab-btn active" data-tab="curl" onclick="switchCodeTab(this)">cURL</button>
+                                    <button class="tab-btn" data-tab="js" onclick="switchCodeTab(this)">JavaScript</button>
+                                    <button class="tab-btn" data-tab="go" onclick="switchCodeTab(this)">Go</button>
                                 </div>
                                 <div class="tab-pane active" data-tab="curl">
 <pre><code>curl -X DELETE https://api.app.thrivestack.ai/revenue/invoices \
@@ -479,6 +479,15 @@ func main() {
         </aside>
     </div>
 
-    <script src="../../script.js"></script>
+    <script>
+function switchCodeTab(btn) {
+  var group = btn.closest(".code-tabs");
+  group.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
+  group.querySelectorAll(".tab-pane").forEach(function(p) { p.classList.remove("active"); });
+  btn.classList.add("active");
+  group.querySelector(".tab-pane[data-tab="" + btn.dataset.tab + ""]").classList.add("active");
+}
+</script>
+<script src="../../script.js"></script>
 </body>
 </html>
