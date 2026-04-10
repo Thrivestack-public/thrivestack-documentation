@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Code tab switching (.tab-btn / .tab-pane pattern used in API reference pages)
+    document.querySelectorAll('.code-tabs').forEach(function(tabGroup) {
+        tabGroup.querySelectorAll('.tab-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var tab = btn.getAttribute('data-tab');
+                tabGroup.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+                tabGroup.querySelectorAll('.tab-pane').forEach(function(p) { p.classList.remove('active'); });
+                btn.classList.add('active');
+                tabGroup.querySelector('.tab-pane[data-tab="' + tab + '"]').classList.add('active');
+            });
+        });
+    });
+
     // Ensure scroll to top on page load unless navigating to a specific hash
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
