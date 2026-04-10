@@ -256,8 +256,9 @@ Go, Rails API, etc.):
   - `thrivestack.track(`
   - `thrivestack.page(`
 
-  Look at what value is passed as `group_id` or `groupId` or the first
-  argument to `thrivestack.group()`. That is what must be used as
+  Do NOT fetch any documentation to understand these calls.
+  Just read the code — look at what value is passed as `group_id` or
+  `groupId` in `thrivestack.group()`. That is what must be used as
   `group_id` in the Stripe metadata.
 
   **If telemetry calls ARE found:**
@@ -275,12 +276,11 @@ Go, Rails API, etc.):
 
   If nothing found → ask the user using your native interactive question format:
 
-    "I could not find ThriveStack product telemetry or a clear account/org
-    identifier in this codebase. Which applies to you?"
+    "I could not find a clear account/org identifier in this codebase.
+    What identifier represents the paying account or organisation?"
 
     Options:
-    - I pass an org/account ID to ThriveStack product telemetry — I'll tell you the field name
-    - I don't use product telemetry yet — my account identifier is [field name]
+    - My account identifier is [field name] — I'll tell you
     - Revenue is tracked per user, not per account (B2C) — use user.id
     - Other — describe your account model
 
@@ -394,7 +394,12 @@ question format:
 
 ## Step 6 — Complete
 
-Note internally whether ThriveStack product telemetry was found during Step 3.
+Check whether ThriveStack product telemetry calls exist in the codebase
+by searching for `thrivestack.group(`, `thrivestack.identify(`,
+`thrivestack.track(`, `thrivestack.page(`.
+
+Do NOT fetch any documentation to understand these calls.
+Simply note internally: **found** or **not found**.
 
 **You MUST now output the `# Features Unlocked` section below in full.
 Do not stop. Do not summarize. Do not end the session.
@@ -513,8 +518,9 @@ Go, Rails API, etc.):
   - `thrivestack.track(`
   - `thrivestack.page(`
 
-  Look at what value is passed as `group_id` or `groupId` or the first
-  argument to `thrivestack.group()`. That is what must be used as
+  Do NOT fetch any documentation to understand these calls.
+  Just read the code — look at what value is passed as `group_id` or
+  `groupId` in `thrivestack.group()`. That is what must be used as
   `group_id` in the Chargebee metadata.
 
   **If telemetry calls ARE found:**
@@ -532,12 +538,11 @@ Go, Rails API, etc.):
 
   If nothing found → ask the user using your native interactive question format:
 
-    "I could not find ThriveStack product telemetry or a clear account/org
-    identifier in this codebase. Which applies to you?"
+    "I could not find a clear account/org identifier in this codebase.
+    What identifier represents the paying account or organisation?"
 
     Options:
-    - I pass an org/account ID to ThriveStack product telemetry — I'll tell you the field name
-    - I don't use product telemetry yet — my account identifier is [field name]
+    - My account identifier is [field name] — I'll tell you
     - Revenue is tracked per user, not per account (B2C) — use user.id
     - Other — describe your account model
 
@@ -650,7 +655,12 @@ question format:
 
 ## Step 6 — Complete
 
-Note internally whether ThriveStack product telemetry was found during Step 3.
+Check whether ThriveStack product telemetry calls exist in the codebase
+by searching for `thrivestack.group(`, `thrivestack.identify(`,
+`thrivestack.track(`, `thrivestack.page(`.
+
+Do NOT fetch any documentation to understand these calls.
+Simply note internally: **found** or **not found**.
 
 **You MUST now output the `# Features Unlocked` section below in full.
 Do not stop. Do not summarize. Do not end the session.
@@ -834,7 +844,12 @@ Full field reference: https://docs.thrivestack.ai/public/api/transactions.html
 
 ## Step 4 — Complete
 
-Note internally whether ThriveStack product telemetry was found during Step 2.
+Check whether ThriveStack product telemetry calls exist in the codebase
+by searching for `thrivestack.group(`, `thrivestack.identify(`,
+`thrivestack.track(`, `thrivestack.page(`.
+
+Do NOT fetch any documentation to understand these calls.
+Simply note internally: **found** or **not found**.
 
 **You MUST now output the `# Features Unlocked` section below in full.
 Do not stop. Do not summarize. Do not end the session.
@@ -893,8 +908,8 @@ If product telemetry was already found, you are done. The setup is complete.
 
 # Important Notes
 
-- `group_id` must always match the `group_id` from product
-  telemetry exactly — including format, casing, and type.
+- `group_id` must be the account/org identifier confirmed in Step 3 —
+  format, casing, and type must be consistent across all billing calls.
   A mismatch silently breaks revenue attribution.
 
 - Do not use individual user IDs as `group_id`. It must
