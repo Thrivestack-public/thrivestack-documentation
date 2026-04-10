@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guided Onboarding - ThriveStack Documentation">
+    <!-- Theme bootstrapping: pick saved theme before paint -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Guided Onboarding - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <button id="desktop-sidebar-toggle" class="icon-btn" aria-label="Toggle Sidebar" title="Toggle Sidebar"
+                style="margin-right: 0.5rem;">
+                <i class="fa-solid fa-bars-staggered" style="font-size: 1.1rem;"></i>
+            </button>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="index.html">Get Started</a>
+                <a href="setup-overview.html">Setup (Unify)</a>
+                <a href="analyze-signals.html">Analyze Signals</a>
+                <a href="take-action.html">Take Action</a>
+                <a href="api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="public/product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="public/product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="public/product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Guided Onboarding</h3>
+                <ul>
+                    <li><a href="guided-onboarding.html" class="nav-item active"><span>Setup with ThriveStack Team</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="guided-onboarding" class="content-section">
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Guided Onboarding</span>
+                            <h1 class="doc-page-title">Setup with ThriveStack Team</h1>
+                            <p class="doc-page-description">
+                                Our team sets up ThriveStack with you — live, in your codebase. Below is a guide on who to bring to each session so we can get you fully instrumented without back-and-forth.
+                            </p>
+                        </header>
+
+                        <article class="doc-page-body">
+
+                            <!-- TRACK: Marketing Analytics -->
+                            <div class="onboarding-track" id="track-marketing">
+                                <div class="track-header">
+                                    <span class="track-icon"><i class="fa-solid fa-bullhorn"></i></span>
+                                    <div>
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                                            <h2 class="track-title" style="margin: 0;">Marketing Analytics</h2>
+                                            <span class="time-badge">~30 min</span>
+                                        </div>
+                                        <p class="track-outcome">Visitor identification, UTM attribution, and source tracking across your marketing site.</p>
+                                    </div>
+                                </div>
+                                <div class="track-body">
+                                    <div class="who-to-bring">
+                                        <p class="who-label">Who to bring</p>
+                                        <div class="attendee-list">
+                                            <div class="attendee-row">
+                                                <span class="attendee-role"><i class="fa-solid fa-user track-item-icon"></i>Engineer or site owner</span>
+                                                <span class="attendee-access">Can deploy changes to the marketing website</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bring-list">
+                                        <p class="bring-label">What to have ready</p>
+                                        <div class="bring-items">
+                                            <div class="bring-item"><i class="fa-solid fa-code track-item-icon"></i>Marketing website codebase</div>
+                                            <div class="bring-item"><i class="fa-solid fa-globe track-item-icon"></i>Or CMS access (Webflow, WordPress, etc.)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="track-setup-links">
+                                    <a href="public/marketing/setup/setup-with-ai.html" class="track-setup-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Setup with AI</a>
+                                    <span class="track-setup-sep">·</span>
+                                    <a href="#" class="track-setup-link"><i class="fa-solid fa-book-open"></i> Setup Manually</a>
+                                </div>
+                            </div>
+
+                            <hr class="track-divider" />
+
+                            <!-- TRACK: Product Analytics -->
+                            <div class="onboarding-track" id="track-product">
+                                <div class="track-header">
+                                    <span class="track-icon"><i class="fa-solid fa-code"></i></span>
+                                    <div>
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                                            <h2 class="track-title" style="margin: 0;">Product Analytics</h2>
+                                            <span class="time-badge">~60 min</span>
+                                        </div>
+                                        <p class="track-outcome">Full product telemetry — signups, logins, feature usage, and the complete customer journey.</p>
+                                    </div>
+                                </div>
+                                <div class="track-body">
+                                    <div class="who-to-bring">
+                                        <p class="who-label">Who to bring</p>
+                                        <div class="attendee-list">
+                                            <div class="attendee-row">
+                                                <span class="attendee-role"><i class="fa-solid fa-user track-item-icon"></i>Engineer(s)</span>
+                                                <span class="attendee-access">Access to all product codebases</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bring-list">
+                                        <p class="bring-label">What to have ready</p>
+                                        <div class="bring-items">
+                                            <div class="bring-item"><i class="fa-solid fa-code track-item-icon"></i>One or more repos covering your user lifecycle and product features</div>
+                                            <div class="bring-item"><i class="fa-solid fa-upload track-item-icon"></i>Ability to commit and push changes during the session</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="track-setup-links">
+                                    <a href="public/product/setup/setup-with-ai.html" class="track-setup-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Setup with AI</a>
+                                    <span class="track-setup-sep">·</span>
+                                    <a href="#" class="track-setup-link"><i class="fa-solid fa-book-open"></i> Setup Manually</a>
+                                </div>
+                            </div>
+
+                            <hr class="track-divider" />
+
+                            <!-- TRACK: Revenue Analytics -->
+                            <div class="onboarding-track" id="track-revenue">
+                                <div class="track-header">
+                                    <span class="track-icon"><i class="fa-solid fa-chart-line"></i></span>
+                                    <div>
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                                            <h2 class="track-title" style="margin: 0;">Revenue Analytics</h2>
+                                            <span class="time-badge">~60 min</span>
+                                        </div>
+                                        <p class="track-outcome">MRR, ARR, churn, expansion, and contraction — at the account level, joined with product usage.</p>
+                                    </div>
+                                </div>
+                                <div class="track-body">
+                                    <div class="who-to-bring">
+                                        <p class="who-label">Who to bring</p>
+                                        <div class="attendee-list">
+                                            <div class="attendee-row">
+                                                <span class="attendee-role"><i class="fa-solid fa-user track-item-icon"></i>Engineer</span>
+                                                <span class="attendee-access">Access to the backend billing codebase</span>
+                                            </div>
+                                            <div class="attendee-row">
+                                                <span class="attendee-role"><i class="fa-solid fa-user track-item-icon"></i>Revenue / Billing admin</span>
+                                                <span class="attendee-access">Admin access to Stripe or Chargebee</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bring-list">
+                                        <p class="bring-label">What to have ready</p>
+                                        <div class="bring-items">
+                                            <div class="bring-item"><i class="fa-solid fa-code track-item-icon"></i>Repo where your billing and subscription logic lives</div>
+                                            <div class="bring-item"><i class="fa-solid fa-credit-card track-item-icon"></i>Stripe or Chargebee account access (test + production)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="track-setup-links">
+                                    <a href="public/revenue/setup/setup-with-ai.html" class="track-setup-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Setup with AI</a>
+                                    <span class="track-setup-sep">·</span>
+                                    <a href="#" class="track-setup-link"><i class="fa-solid fa-book-open"></i> Setup Manually</a>
+                                </div>
+                            </div>
+
+                            <hr class="track-divider" />
+
+                            <!-- TRACK: CRM Sync -->
+                            <div class="onboarding-track" id="track-crm">
+                                <div class="track-header">
+                                    <span class="track-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
+                                    <div>
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                                            <h2 class="track-title" style="margin: 0;">CRM Sync</h2>
+                                            <span class="time-badge">~45 min</span>
+                                        </div>
+                                        <p class="track-outcome">Product and revenue data synced into your HubSpot accounts and contacts — no manual exports.</p>
+                                    </div>
+                                </div>
+                                <div class="track-body">
+                                    <div class="who-to-bring">
+                                        <p class="who-label">Who to bring</p>
+                                        <div class="attendee-list">
+                                            <div class="attendee-row">
+                                                <span class="attendee-role"><i class="fa-solid fa-user track-item-icon"></i>HubSpot admin</span>
+                                                <span class="attendee-access">Admin access to the HubSpot account</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bring-list">
+                                        <p class="bring-label">What to have ready</p>
+                                        <div class="bring-items">
+                                            <div class="bring-item"><i class="fa-brands fa-hubspot track-item-icon"></i>HubSpot admin credentials</div>
+                                            <div class="bring-item"><i class="fa-solid fa-list track-item-icon"></i>Properties you want synced (optional but helpful)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="track-setup-links">
+                                    <a href="#" class="track-setup-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Setup with AI</a>
+                                    <span class="track-setup-sep">·</span>
+                                    <a href="#" class="track-setup-link"><i class="fa-solid fa-book-open"></i> Setup Manually</a>
+                                </div>
+                            </div>
+
+                            <hr class="track-divider" />
+
+                            <!-- BOOKING CTA -->
+                            <div class="booking-cta" id="book-session">
+                                <div class="booking-cta-left">
+                                    <p class="booking-cta-title">Ready to get started?</p>
+                                    <p class="booking-cta-desc">Book a session and our team will set everything up with you.</p>
+                                </div>
+                                <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="booking-cta-btn">
+                                    <i class="fa-solid fa-calendar-check"></i> Book a Session
+                                </a>
+                            </div>
+
+                        </article>
+                    </section>
+                </section>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="guided-onboarding.html">Last updated: April 10, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#track-marketing" class="toc-link">Marketing Analytics</a>
+                    <a href="#track-product" class="toc-link">Product Analytics</a>
+                    <a href="#track-revenue" class="toc-link">Revenue Analytics</a>
+                    <a href="#track-crm" class="toc-link">CRM Sync</a>
+                    <a href="#book-session" class="toc-link">Book a Session</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <style>
+        /* ── Track layout ─────────────────────────────────────── */
+        .onboarding-track {
+            padding: 32px 0;
+        }
+
+        .track-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .track-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary, #cbd5e1);
+            font-size: 15px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .track-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            margin: 0 0 6px;
+        }
+
+        .track-outcome {
+            font-size: 14px;
+            color: var(--text-secondary, #94a3b8);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .track-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            padding-left: 52px;
+        }
+
+        @media (max-width: 768px) {
+            .track-body {
+                grid-template-columns: 1fr;
+                padding-left: 0;
+            }
+        }
+
+        /* ── Who to bring ─────────────────────────────────────── */
+        .who-label,
+        .bring-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--text-muted, #64748b);
+            margin: 0 0 12px;
+        }
+
+        .attendee-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .attendee-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .attendee-role {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary, #fff);
+        }
+
+        .track-item-icon {
+            font-size: 11px;
+            color: var(--text-muted, #64748b);
+            flex-shrink: 0;
+            width: 12px;
+            text-align: center;
+        }
+
+        .attendee-access {
+            font-size: 13px;
+            color: var(--text-secondary, #94a3b8);
+        }
+
+        /* ── What to have ready ───────────────────────────────── */
+        .bring-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .bring-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 14px;
+            color: var(--text-secondary, #94a3b8);
+            line-height: 1.5;
+        }
+
+        /* ── Setup links ──────────────────────────────────────── */
+        .track-setup-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 0 0;
+            margin-top: 20px;
+            border-top: 1px solid var(--border-color, #1e293b);
+        }
+
+        .track-setup-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted, #64748b);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .track-setup-link:hover {
+            color: var(--text-secondary, #94a3b8);
+        }
+
+        .track-setup-sep {
+            color: var(--border-color, #334155);
+            font-size: 13px;
+        }
+
+        /* ── Divider ──────────────────────────────────────────── */
+        .track-divider {
+            margin: 0;
+            border: none;
+            border-top: 1px solid var(--border-color, #1e293b);
+        }
+
+        /* ── Booking CTA ──────────────────────────────────────── */
+        .booking-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 32px 0 8px;
+            border-top: 1px solid var(--border-color, #1e293b);
+            margin-top: 8px;
+        }
+
+        .booking-cta-left {
+            flex: 1;
+        }
+
+        .booking-cta-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary, #fff);
+            margin: 0 0 4px;
+        }
+
+        .booking-cta-desc {
+            font-size: 14px;
+            color: var(--text-secondary, #94a3b8);
+            margin: 0;
+        }
+
+        .booking-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: var(--color-blue, #3b82f6);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: opacity 0.15s;
+        }
+
+        .booking-cta-btn:hover {
+            opacity: 0.88;
+        }
+
+        @media (max-width: 600px) {
+            .booking-cta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
