@@ -67,6 +67,27 @@ optional. Skipping a question and guessing the answer is a violation.**
 
 ---
 
+## Phase 0 — Create ThriveStack Connection (Do This First)
+
+Before scanning any code, the user must create a connection in ThriveStack.
+
+⛔ HARD STOP — Show this message and wait for the user to confirm before doing anything else:
+
+  "Before I start, you need to create a Revenue Intelligence connection
+  in ThriveStack. This connects your billing provider (Stripe, Chargebee,
+  or custom) to ThriveStack — it only takes a few clicks and no code.
+
+  → https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
+
+  Have you created the connection?
+
+  1. Yes — connection is created, let's proceed
+  2. No — I'll do it now (go to the link above, then come back and reply 1)"
+
+Do not proceed to Phase 1 until the user replies with 1.
+
+---
+
 ## Phase 1 — Detect B2B or B2C
 
 Before doing anything else, determine whether this is a B2B or B2C
@@ -162,31 +183,7 @@ Search the codebase to identify which billing provider is in use.
 
 ---
 
-## Step 1 — Connect Stripe to ThriveStack
-
-Before any code changes, the Stripe account must be connected to
-ThriveStack. This does not require code — it takes a few clicks.
-
-Tell the user:
-
-  "To get started, connect your Stripe account to ThriveStack:
-  → https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
-
-  Once the connection is active, reply with one of the options below."
-
-Then ask:
-
-  "Have you connected your Stripe account to ThriveStack?
-
-  1. Yes — connection is active, proceed
-  2. No — I need help with the connection"
-
-**HARD STOP: Do not proceed to Step 2 until the user replies with 1.**
-If they reply with 2, help them troubleshoot the connection first.
-
----
-
-## Step 2 — Find Stripe Customer Create and Update Calls
+## Step 1 — Find Stripe Customer Create and Update Calls
 
 Search the codebase for Stripe customer creation and update calls:
 - `stripe.customers.create`
@@ -227,7 +224,7 @@ Do not proceed until the user replies.
 
 ---
 
-## Step 3 — Find the Correct group_id Value
+## Step 2 — Find the Correct group_id Value
 
 This step has two parts:
 1. Identify what value to use as `group_id`
@@ -329,7 +326,7 @@ Do not write any code until the user replies.
 
 ---
 
-## Step 4 — Add group_id to Stripe Customer Calls
+## Step 3 — Add group_id to Stripe Customer Calls
 
 Add `metadata[group_id]` to Stripe customer create and update calls
 using the identifier confirmed in Step 3.
@@ -363,7 +360,7 @@ Rules:
 
 ---
 
-## Step 5 — Update Existing Stripe Customers
+## Step 4 — Update Existing Stripe Customers
 
 Existing customers created before this instrumentation also need
 `group_id` set. This is a one-time update.
@@ -410,7 +407,7 @@ Do not write any script until the user replies.
 
 ---
 
-## Step 6 — Complete
+## Step 5 — Complete
 
 Check whether ThriveStack product telemetry calls exist in the codebase
 by searching for `thrivestack.group(`, `thrivestack.identify(`,
@@ -429,31 +426,7 @@ Scroll to `# Features Unlocked` and output it word for word.**
 
 ---
 
-## Step 1 — Connect Chargebee to ThriveStack
-
-Before any code changes, the Chargebee account must be connected to
-ThriveStack. This does not require code — it takes a few clicks.
-
-Tell the user:
-
-  "To get started, connect your Chargebee account to ThriveStack:
-  → https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
-
-  Once the connection is active, reply with one of the options below."
-
-Then ask:
-
-  "Have you connected your Chargebee account to ThriveStack?
-
-  1. Yes — connection is active, proceed
-  2. No — I need help with the connection"
-
-**HARD STOP: Do not proceed to Step 2 until the user replies with 1.**
-If they reply with 2, help them troubleshoot the connection first.
-
----
-
-## Step 2 — Find Chargebee Customer Create and Update Calls
+## Step 1 — Find Chargebee Customer Create and Update Calls
 
 Search the codebase for Chargebee customer creation and update calls:
 - `chargebee.Customer.create`
@@ -493,7 +466,7 @@ Do not proceed until the user replies.
 
 ---
 
-## Step 3 — Find the Correct group_id Value
+## Step 2 — Find the Correct group_id Value
 
 This step has two parts:
 1. Identify what value to use as `group_id`
@@ -595,7 +568,7 @@ Do not write any code until the user replies.
 
 ---
 
-## Step 4 — Add group_id to Chargebee Customer Calls
+## Step 3 — Add group_id to Chargebee Customer Calls
 
 Add `meta_data[group_id]` to Chargebee customer create and update calls
 using the identifier confirmed in Step 3.
@@ -628,7 +601,7 @@ Rules:
 
 ---
 
-## Step 5 — Update Existing Chargebee Customers
+## Step 4 — Update Existing Chargebee Customers
 
 Existing customers created before this instrumentation also need
 `group_id` set. This is a one-time update.
@@ -675,7 +648,7 @@ Do not write any script until the user replies.
 
 ---
 
-## Step 6 — Complete
+## Step 5 — Complete
 
 Check whether ThriveStack product telemetry calls exist in the codebase
 by searching for `thrivestack.group(`, `thrivestack.identify(`,
