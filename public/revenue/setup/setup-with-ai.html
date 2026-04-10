@@ -170,9 +170,25 @@
 
                         <article class="doc-page-body">
 
+                            <h2 id="how-it-works">How does it work?</h2>
+                            <p style="margin-bottom: 24px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
+                                Create a connection in ThriveStack, then paste a single prompt into your AI coding assistant. The AI reads your billing codebase, identifies where customers are created, and adds the account identifier needed to connect revenue data with product usage — unlocking MRR, ARR, churn, and expansion analytics.
+                            </p>
+                            <div>
+                                <script async src="https://js.storylane.io/js/v2/storylane.js"></script>
+                                <div class="sl-embed"
+                                    style="position:relative;padding-bottom:calc(52.54% + 25px);width:100%;height:0;transform:scale(1)">
+                                    <iframe loading="lazy" class="sl-demo"
+                                        src="https://thrivestack.storylane.io/demo/hp3lvcimsljg"
+                                        name="sl-embed" allow="fullscreen" allowfullscreen
+                                        style="position:absolute;top:0;left:0;width:100%!important;height:100%!important;border:1px solid rgba(63,95,172,0.35);box-shadow: 0px 0px 18px rgba(26, 19, 72, 0.15);border-radius:10px;box-sizing:border-box;"></iframe>
+                                </div>
+                            </div>
+
                             <!-- ── PATH SELECTOR ─────────────────────────────── -->
+                            <h2 id="choose-billing-setup">Choose your billing setup</h2>
                             <p style="margin-bottom: 20px; color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6;">
-                                Choose your billing setup below — the steps differ slightly depending on whether you use Stripe, Chargebee, or an in-house billing system.
+                                The steps differ slightly depending on whether you use Stripe, Chargebee, or an in-house billing system.
                             </p>
 
                             <div class="path-selector" style="display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap;">
@@ -300,12 +316,12 @@
                                 <h2>Step 3: Verify</h2>
                                 <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
                                     <div style="padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
-                                        <p style="font-weight: 600; margin: 0 0 6px;">New customers</p>
-                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Trigger a test invoice or transaction → confirm the ThriveStack API call includes <code>group_id</code> set to the correct account/org identifier — same format, casing, and type as product telemetry.</p>
+                                        <p style="font-weight: 600; margin: 0 0 6px;">New billing entities</p>
+                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Create a test subscription, subscription item, invoice, or transaction through your system → then check the <a href="https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue" target="_blank" rel="noopener noreferrer">Developer Tool</a> to confirm the data has reached ThriveStack.</p>
                                     </div>
                                     <div style="padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: rgba(255,255,255,0.02);">
-                                        <p style="font-weight: 600; margin: 0 0 6px;">Existing customers</p>
-                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Open the generated update script → verify the <code>group_id</code> fetch logic is correct → run it on one customer first → then run for all.</p>
+                                        <p style="font-weight: 600; margin: 0 0 6px;">Existing data</p>
+                                        <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; margin: 0;">Trigger your existing data sync code → then verify in the <a href="https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue" target="_blank" rel="noopener noreferrer">Developer Tool</a> that the records have arrived in ThriveStack.</p>
                                     </div>
                                 </div>
 
