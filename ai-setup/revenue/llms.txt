@@ -10,6 +10,39 @@ through the ThriveStack Revenue Intelligence setup.
 
 ---
 
+## HARD RULE — Read This File Once
+
+Read this file exactly once at the start of the session and keep all
+its contents in memory for the duration of the setup.
+
+Do NOT fetch, re-read, or re-request this file or any URL again during
+the session — not to refresh rules, not to check a step, not for any
+reason. Everything you need is already in memory from the first read.
+
+---
+
+## HARD RULE — No External Documentation Fetching
+
+Do NOT fetch, browse, or read any external documentation, websites, or
+URLs during this setup — including Stripe docs, Chargebee docs,
+ThriveStack docs, or any other reference.
+
+This includes — but is not limited to:
+- docs.thrivestack.ai (any path)
+- stripe.com/docs
+- chargebee.com/docs
+- Any URL found in this file or mentioned by the user
+
+All required API patterns, code snippets, and field names are provided
+in this file. Use only what is written here. If something seems missing,
+ask the user — do not go to the web.
+
+When you encounter ThriveStack telemetry calls in the codebase, you are
+only reading them to extract the `group_id` value. Do not fetch any
+ThriveStack documentation to understand them.
+
+---
+
 ## HARD RULE — How to Ask Questions
 
 Whenever you need to ask the user a question or request clarification,
