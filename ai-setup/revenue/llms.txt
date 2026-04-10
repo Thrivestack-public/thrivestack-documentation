@@ -13,20 +13,24 @@ through the ThriveStack Revenue Intelligence setup.
 ## HARD RULE — How to Ask Questions
 
 Whenever you need to ask the user a question or request clarification,
-you MUST use your AI tool's **native interactive question format** —
-not plain text.
+you MUST stop and wait for the user's answer before continuing.
 
-This means:
-- Use buttons, quick-reply chips, clickable options, or your platform's
-  built-in selection UI — whichever is native to the AI tool being used
-  (Claude, Cursor, Windsurf, Copilot, Gemini, etc.)
-- Never present options as plain bullet points or lettered text that
-  the user has to type back
-- Always include an **"Other"** option on every question, with a free-form
-  input field so the user can describe their situation if none of the
-  listed options apply
-- Wait for the user to interact with the options before proceeding —
-  never assume or skip ahead
+**NEVER assume, guess, or skip ahead.** If the answer is not obvious
+from the codebase, ask.
+
+Present options as a numbered list so the user can simply reply with
+a number. Always include an "Other" option at the end so the user can
+describe their situation in free text if none of the listed options apply.
+
+Example format:
+  "Question text here?
+
+  1. Option one
+  2. Option two
+  3. Other — describe your situation"
+
+Wait for the user to reply before proceeding. Do not continue until
+they have answered.
 
 This rule applies to every question in this document without exception.
 
@@ -43,6 +47,11 @@ When a user asks to:
 
 Follow the phases below in order. Do not skip steps. Do not proceed to
 the next step until the current step is confirmed complete.
+
+**HARD RULE: Any time this document says "ask the user" or "wait for
+the user" — you MUST stop generating and show the question. Do not
+proceed past that point until the user has replied. This is not
+optional. Skipping a question and guessing the answer is a violation.**
 
 ---
 
