@@ -392,17 +392,13 @@ question format:
 
 ---
 
-## Step 6 — Note Product Telemetry Status
+## Step 6 — Complete
 
-Check whether ThriveStack product telemetry calls (`thrivestack.group`,
-`thrivestack.identify`, `thrivestack.track`, `thrivestack.page`) were
-found during Step 3.
+Note internally whether ThriveStack product telemetry was found during Step 3.
 
-- If **NOT found** — note this internally. You will ask the user about
-  it at the very end, after Features Unlocked has been shown.
-- If **found** — no action needed.
-
-→ Proceed to **Features Unlocked**.
+**You MUST now output the `# Features Unlocked` section below in full.
+Do not stop. Do not summarize. Do not end the session.
+Scroll to `# Features Unlocked` and output it word for word.**
 
 ---
 
@@ -652,17 +648,13 @@ question format:
 
 ---
 
-## Step 6 — Note Product Telemetry Status
+## Step 6 — Complete
 
-Check whether ThriveStack product telemetry calls (`thrivestack.group`,
-`thrivestack.identify`, `thrivestack.track`, `thrivestack.page`) were
-found during Step 3.
+Note internally whether ThriveStack product telemetry was found during Step 3.
 
-- If **NOT found** — note this internally. You will ask the user about
-  it at the very end, after Features Unlocked has been shown.
-- If **found** — no action needed.
-
-→ Proceed to **Features Unlocked**.
+**You MUST now output the `# Features Unlocked` section below in full.
+Do not stop. Do not summarize. Do not end the session.
+Scroll to `# Features Unlocked` and output it word for word.**
 
 ---
 
@@ -840,23 +832,19 @@ Full field reference: https://docs.thrivestack.ai/public/api/transactions.html
 
 ---
 
-## Step 4 — Note Product Telemetry Status
+## Step 4 — Complete
 
-Check whether ThriveStack product telemetry calls (`thrivestack.group`,
-`thrivestack.identify`, `thrivestack.track`, `thrivestack.page`) were
-found during Step 2.
+Note internally whether ThriveStack product telemetry was found during Step 2.
 
-- If **NOT found** — note this internally. You will ask the user about
-  it at the very end, after Features Unlocked has been shown.
-- If **found** — no action needed.
-
-→ Proceed to **Features Unlocked**.
+**You MUST now output the `# Features Unlocked` section below in full.
+Do not stop. Do not summarize. Do not end the session.
+Scroll to `# Features Unlocked` and output it word for word.**
 
 ---
 
 # Features Unlocked
 
-All three paths lead here. Once setup is complete, tell the user:
+Tell the user — output this entire block, do not skip any part:
 
   "Revenue Intelligence is now active. Here is what you have unlocked:
 
@@ -881,13 +869,11 @@ All three paths lead here. Once setup is complete, tell the user:
   | See connection status and integration issues | https://app.thrivestack.ai/analyze/diagnostics-report |
   | Setup progress and onboarding status | https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1 |"
 
----
+After showing all of the above, check your internal note from the final step
+of the path you followed (Step 6 for Stripe/Chargebee, Step 4 for Own Invoicing):
 
-After showing all of the above, check your internal note from Step 6
-(Stripe / Chargebee) or Step 4 (Own Invoicing):
-
-If ThriveStack product telemetry was **NOT found** in the codebase,
-ask the user using your native interactive question format:
+If ThriveStack product telemetry was **NOT found**, ask the user using
+your native interactive question format:
 
   "One last thing — I noticed ThriveStack product telemetry is not yet
   set up in this codebase. Without it, revenue data (MRR, churn,
@@ -901,7 +887,7 @@ ask the user using your native interactive question format:
   - Yes — set up product telemetry now
   - No — I'll do it later
 
-If product telemetry was already found, skip this and finish.
+If product telemetry was already found, you are done. The setup is complete.
 
 ---
 
