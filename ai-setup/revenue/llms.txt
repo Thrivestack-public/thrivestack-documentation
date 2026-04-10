@@ -575,25 +575,15 @@ Do not write the update script. Ask the user:
 After the Stripe instrumentation is complete (Steps 1–5 done), check
 whether ThriveStack product telemetry was found earlier in Step 3.
 
-If ThriveStack product telemetry calls (`thrivestack.group`,
-`thrivestack.identify`, `thrivestack.track`, `thrivestack.page`)
-were **NOT found** in the codebase during Step 3, tell the user:
+Check whether ThriveStack product telemetry calls (`thrivestack.group`,
+`thrivestack.identify`, `thrivestack.track`, `thrivestack.page`) were
+found in the codebase during Step 3.
 
-  "Your revenue intelligence setup is now complete.
+- If **NOT found** — note this internally. You will ask the user about
+  it at the very end, after Features Unlocked has been shown.
+- If **found** — no action needed.
 
-  I noticed that ThriveStack product telemetry is not yet set up in
-  this codebase. Without it, revenue metrics (MRR, churn, expansion)
-  cannot be correlated with product usage at the account level — you
-  would only see billing data without the full picture.
-
-  Would you like me to set up product telemetry as well?
-  → https://docs.thrivestack.ai/public/product/setup/setup-with-ai.html
-
-  Reply **yes** to continue with product telemetry setup, or **no**
-  to finish here."
-
-If ThriveStack product telemetry was already found in Step 3,
-skip this step and proceed directly to Features Unlocked.
+Proceed directly to **Features Unlocked**.
 
 ---
 
@@ -1115,25 +1105,15 @@ Do not write the update script. Ask the user:
 After the Chargebee instrumentation is complete (Steps C1–C5 done), check
 whether ThriveStack product telemetry was found earlier in Step C3.
 
-If ThriveStack product telemetry calls (`thrivestack.group`,
-`thrivestack.identify`, `thrivestack.track`, `thrivestack.page`)
-were **NOT found** in the codebase during Step C3, tell the user:
+Check whether ThriveStack product telemetry calls (`thrivestack.group`,
+`thrivestack.identify`, `thrivestack.track`, `thrivestack.page`) were
+found in the codebase during Step C3.
 
-  "Your revenue intelligence setup is now complete.
+- If **NOT found** — note this internally. You will ask the user about
+  it at the very end, after Features Unlocked has been shown.
+- If **found** — no action needed.
 
-  I noticed that ThriveStack product telemetry is not yet set up in
-  this codebase. Without it, revenue metrics (MRR, churn, expansion)
-  cannot be correlated with product usage at the account level — you
-  would only see billing data without the full picture.
-
-  Would you like me to set up product telemetry as well?
-  → https://docs.thrivestack.ai/public/product/setup/setup-with-ai.html
-
-  Reply **yes** to continue with product telemetry setup, or **no**
-  to finish here."
-
-If ThriveStack product telemetry was already found in Step C3,
-skip this step and proceed directly to Features Unlocked.
+Proceed directly to **Features Unlocked**.
 
 ---
 
@@ -1165,21 +1145,11 @@ Once setup is complete, tell the user:
 
   "Revenue Intelligence is now active. Here is what you have unlocked:
 
-  **Investor-grade Revenue Metrics**
-  MRR, ARR, churn rate, expansion MRR, contraction MRR, and net revenue
-  retention — all calculated automatically from your billing data.
-  → https://app.thrivestack.ai/analyze/revenue/dashboard
-
-  **MRR Movement Analysis**
-  See exactly where MRR is growing or shrinking — broken down by new
-  business, expansion, contraction, churn, and reactivation.
-  → https://app.thrivestack.ai/analyze/revenue/mrr-movements
-
-  **Revenue Signals at the Account Level**
-  Every account now shows its billing history, subscription status, and
-  MRR alongside product usage — so you can spot churn risk and expansion
-  opportunities before they happen.
-  → https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list
+  | What you get | Link |
+  |---|---|
+  | **Investor-grade Revenue Metrics** — MRR, ARR, churn rate, expansion MRR, contraction MRR, and net revenue retention, all calculated automatically | https://app.thrivestack.ai/analyze/revenue/dashboard |
+  | **MRR Movement Analysis** — See where MRR is growing or shrinking, broken down by new business, expansion, contraction, churn, and reactivation | https://app.thrivestack.ai/analyze/revenue/mrr-movements |
+  | **Revenue at the Account Level** — Every account shows billing history, subscription status, and MRR alongside product usage | https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list |
 
   ---
   **First sync timing**
@@ -1188,11 +1158,33 @@ Once setup is complete, tell the user:
   the sync is complete and your dashboards are ready.
 
   ---
-  Handy ThriveStack Resources
-  - Setup Progress: https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
-  - Diagnostics: https://app.thrivestack.ai/analyze/diagnostics-report
-  - API / Audit Logs: https://app.thrivestack.ai/analyze/events
-  - Developer Tools: https://app.thrivestack.ai/analyze/developer-tool"
+  **Verify and monitor your setup:**
+
+  | What to check | Link |
+  |---|---|
+  | Check revenue events and data flowing into ThriveStack | https://app.thrivestack.ai/analyze/developer-tool?devTab=Revenue |
+  | See connection status and integration issues | https://app.thrivestack.ai/analyze/diagnostics-report |
+  | Setup progress and onboarding status | https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1 |"
+
+After showing all of the above, check your internal note from Step 6
+(Stripe) or Step C6 (Chargebee):
+
+If ThriveStack product telemetry was **NOT found** in the codebase,
+ask the user using your native interactive question format:
+
+  "One last thing — I noticed ThriveStack product telemetry is not yet
+  set up in this codebase. Without it, revenue data (MRR, churn,
+  expansion) cannot be correlated with product usage at the account
+  level — you would only see billing data without the full picture.
+
+  Would you like me to set up product telemetry now?
+  → https://docs.thrivestack.ai/public/product/setup/setup-with-ai.html"
+
+  Options:
+  - Yes — set up product telemetry now
+  - No — I'll do it later
+
+If product telemetry was already found, skip this and finish.
 
 ---
 
