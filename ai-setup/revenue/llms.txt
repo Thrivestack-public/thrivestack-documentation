@@ -21,27 +21,6 @@ reason. Everything you need is already in memory from the first read.
 
 ---
 
-## HARD RULE — No External Documentation Fetching
-
-Do NOT fetch, browse, or read any external documentation, websites, or
-URLs during this setup — including Stripe docs, Chargebee docs,
-ThriveStack docs, or any other reference.
-
-This includes — but is not limited to:
-- docs.thrivestack.ai (any path)
-- stripe.com/docs
-- chargebee.com/docs
-- Any URL found in this file or mentioned by the user
-
-All required API patterns, code snippets, and field names are provided
-in this file. Use only what is written here. If something seems missing,
-ask the user — do not go to the web.
-
-When you encounter ThriveStack telemetry calls in the codebase, you are
-only reading them to extract the `group_id` value. Do not fetch any
-ThriveStack documentation to understand them.
-
----
 
 ## HARD RULE — How to Ask Questions
 
@@ -115,18 +94,17 @@ Tell the user:
 → Proceed to **Phase 2**.
 
 **If B2B signals are NOT found:**
-Ask the user using your native interactive question format:
+⛔ HARD STOP — Ask this question now and wait for the user to reply before doing anything else:
 
   "I could not find an organization or account-level entity in this
   codebase. Does your product have accounts, organizations, workspaces,
-  or teams that multiple users belong to?"
+  or teams that multiple users belong to?
 
-  Options:
-  - Yes — it does, but the code may call it something different
-    (ask them to tell you the entity name, search for it, then proceed to Phase 2)
-  - No — each user is their own account (B2C)
-    (use `user.id` as `group_id` throughout, then proceed to Phase 2)
-  - Other — describe your account model
+  1. Yes — it does, but the code may call it something different (tell me the name)
+  2. No — each user is their own account (B2C)
+  3. Other — describe your account model"
+
+Do not proceed until the user replies.
 
 ---
 
@@ -165,24 +143,18 @@ Search the codebase to identify which billing provider is in use.
   Revenue Intelligence using the Chargebee integration flow." →
   go to **Path B — Chargebee**
 
-- **Neither found** → ask the user using your native interactive question
-  format:
+- **Neither found** →
+  ⛔ HARD STOP — Ask this question now and wait for the user to reply:
 
   "I could not detect a billing provider in this codebase.
-  Which billing system do you use?"
+  Which billing system do you use?
 
-  Options:
-  - Stripe (in a different repo or service)
-    → go to **Path A — Stripe**
-  - Chargebee (in a different repo or service)
-    → go to **Path B — Chargebee**
-  - Own invoicing / custom billing
-    → search for general billing signals listed above.
-    If found → go to **Path C — Own Invoicing System**
-    If not found → ask where their billing code lives (file path,
-    service name, or repo), wait for response, then go to
-    **Path C — Own Invoicing System**
-  - Other — describe your billing setup
+  1. Stripe (in a different repo or service)
+  2. Chargebee (in a different repo or service)
+  3. Own invoicing / custom billing
+  4. Other — describe your billing setup"
+
+  Do not proceed until the user replies.
 
 ---
 
@@ -200,11 +172,17 @@ Tell the user:
   "To get started, connect your Stripe account to ThriveStack:
   → https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
 
-  Once the connection is active, click **continue** and I will
-  instrument your codebase to complete the setup."
+  Once the connection is active, reply with one of the options below."
 
-Wait for the user to click/type "continue" before proceeding.
-Do not proceed until they do.
+Then ask:
+
+  "Have you connected your Stripe account to ThriveStack?
+
+  1. Yes — connection is active, proceed
+  2. No — I need help with the connection"
+
+**HARD STOP: Do not proceed to Step 2 until the user replies with 1.**
+If they reply with 2, help them troubleshoot the connection first.
 
 ---
 
@@ -221,32 +199,31 @@ Search the codebase for Stripe customer creation and update calls:
 - Any HTTP call to `https://api.stripe.com/v1/customers`
 
 **If calls ARE found:**
-Do not make changes automatically. Ask the user using your native
-interactive question format:
+⛔ HARD STOP — Do not make changes automatically. Ask this question and wait for the user to reply:
 
   "I found Stripe customer calls in the following locations:
   [list the file paths and line numbers]
 
-  How would you like to proceed?"
+  How would you like to proceed?
 
-  Options:
-  - Make the changes directly — I'll update these files
-  - Give me the code snippet — I'll apply it myself
-  - Other
+  1. Make the changes directly — go ahead and update these files
+  2. Give me the code snippet — I'll apply it myself
+  3. Other"
+
+Do not touch any file until the user replies.
 
 **If calls are NOT found:**
-Ask the user using your native interactive question format:
+⛔ HARD STOP — Ask this question and wait for the user to reply:
 
   "I could not find Stripe customer create or update calls in this
-  codebase. Where does your Stripe billing code live?"
+  codebase. Where does your Stripe billing code live?
 
-  Options:
-  - Give me a file path or folder (e.g. `services/billing.js`)
-  - It's in a separate service or repo — I'll tell you the name
-  - The integration hasn't been built yet — generate code from scratch
-  - Other
+  1. Give me a file path or folder (e.g. services/billing.js)
+  2. It's in a separate service or repo — I'll tell you the name
+  3. The integration hasn't been built yet — generate code from scratch
+  4. Other"
 
-Wait for the user to respond before proceeding.
+Do not proceed until the user replies.
 
 ---
 
@@ -274,19 +251,19 @@ Go, Rails API, etc.):
 
   If found → show the user what you found, confirm it, then go to Part B.
 
-  If NOT found → ask the user using your native interactive question format:
+  If NOT found →
+  ⛔ HARD STOP — Ask this question and wait for the user to reply:
 
     "I can see your [entity name] model but cannot find its ID at the
     Stripe call site in [file path]. What identifier is available here
-    that I can use to look up the account/org ID?"
+    that I can use to look up the account/org ID?
 
-    Options:
-    - A user ID is available — look up org via FK
-    - Customer email is available — look up account in DB
-    - There's a request context / session / JWT — I'll tell you the claim name
-    - Other — describe what's available
+    1. A user ID is available — I'll look up the org via FK
+    2. Customer email is available — I'll look up the account in DB
+    3. There's a request context / session / JWT — I'll tell you the claim name
+    4. Other — describe what's available"
 
-  Wait for user input. Do not implement anything.
+  Do not implement anything until the user replies.
 
 ---
 
@@ -316,17 +293,17 @@ Go, Rails API, etc.):
 
   If found → show the user and confirm it. Then go to Part B.
 
-  If nothing found → ask the user using your native interactive question format:
+  If nothing found →
+  ⛔ HARD STOP — Ask this question and wait for the user to reply:
 
     "I could not find a clear account/org identifier in this codebase.
-    What identifier represents the paying account or organisation?"
+    What identifier represents the paying account or organisation?
 
-    Options:
-    - My account identifier is [field name] — I'll tell you
-    - Revenue is tracked per user, not per account (B2C) — use user.id
-    - Other — describe your account model
+    1. My account identifier is [field name] — I'll tell you
+    2. Revenue is tracked per user, not per account (B2C) — use user.id
+    3. Other — describe your account model"
 
-  Wait for confirmation. Do not proceed without it.
+  Do not proceed until the user replies.
 
 ---
 
@@ -337,19 +314,18 @@ Stripe customer create/update call sites found in Step 2.
 
 **If accessible** → proceed to Step 4.
 
-**If NOT accessible** → ask the user using your native interactive
-question format:
+**If NOT accessible** →
+⛔ HARD STOP — Ask this question and wait for the user to reply before writing any code:
 
   "I found that `group_id` ([entity name]) is not directly available
-  at the Stripe call site in [file path]. How should I get it there?"
+  at the Stripe call site in [file path]. How should I get it there?
 
-  Options:
-  - Look it up from the DB using an existing ID at this call site (e.g. user ID or email)
-  - Pass it as a parameter — refactor the function signature
-  - Extract from request context / session / JWT — I'll tell you the claim name
-  - Other — describe your architecture
+  1. Look it up from the DB using an existing ID at this call site (e.g. user ID or email)
+  2. Pass it as a parameter — refactor the function signature
+  3. Extract from request context / session / JWT — I'll tell you the claim name
+  4. Other — describe your architecture"
 
-Wait for guidance before writing any code.
+Do not write any code until the user replies.
 
 ---
 
@@ -419,18 +395,18 @@ Write a one-time idempotent script named `update-existing-customers-stripe`
 3. Prints a summary: total processed / updated / skipped / unresolved
 
 **If no valid join path is found:**
-Do not write the script. Ask the user using your native interactive
-question format:
+⛔ HARD STOP — Do not write the script. Ask this question and wait for the user to reply:
 
   "I could not find a reliable way to link existing Stripe customers
   to accounts in your database. How does your system associate a
-  Stripe customer with an account/org?"
+  Stripe customer with an account/org?
 
-  Options:
-  - There's a stripe_customer_id column in my accounts/orgs table — use that
-  - The link goes through Users table — email → User → organization_id
-  - The mapping is outside the codebase (spreadsheet, CRM, etc.) — manual
-  - Other — describe the relationship
+  1. There's a stripe_customer_id column in my accounts/orgs table
+  2. The link goes through Users table — email → User → organization_id
+  3. The mapping is outside the codebase (spreadsheet, CRM, etc.) — manual
+  4. Other — describe the relationship"
+
+Do not write any script until the user replies.
 
 ---
 
@@ -463,11 +439,17 @@ Tell the user:
   "To get started, connect your Chargebee account to ThriveStack:
   → https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1
 
-  Once the connection is active, click **continue** and I will
-  instrument your codebase to complete the setup."
+  Once the connection is active, reply with one of the options below."
 
-Wait for the user to click/type "continue" before proceeding.
-Do not proceed until they do.
+Then ask:
+
+  "Have you connected your Chargebee account to ThriveStack?
+
+  1. Yes — connection is active, proceed
+  2. No — I need help with the connection"
+
+**HARD STOP: Do not proceed to Step 2 until the user replies with 1.**
+If they reply with 2, help them troubleshoot the connection first.
 
 ---
 
@@ -483,32 +465,31 @@ Search the codebase for Chargebee customer creation and update calls:
 - Any HTTP call to `https://*.chargebee.com/api/v2/customers`
 
 **If calls ARE found:**
-Do not make changes automatically. Ask the user using your native
-interactive question format:
+⛔ HARD STOP — Do not make changes automatically. Ask this question and wait for the user to reply:
 
   "I found Chargebee customer calls in the following locations:
   [list the file paths and line numbers]
 
-  How would you like to proceed?"
+  How would you like to proceed?
 
-  Options:
-  - Make the changes directly — I'll update these files
-  - Give me the code snippet — I'll apply it myself
-  - Other
+  1. Make the changes directly — go ahead and update these files
+  2. Give me the code snippet — I'll apply it myself
+  3. Other"
+
+Do not touch any file until the user replies.
 
 **If calls are NOT found:**
-Ask the user using your native interactive question format:
+⛔ HARD STOP — Ask this question and wait for the user to reply:
 
   "I could not find Chargebee customer create or update calls in this
-  codebase. Where does your Chargebee billing code live?"
+  codebase. Where does your Chargebee billing code live?
 
-  Options:
-  - Give me a file path or folder (e.g. `services/billing.js`)
-  - It's in a separate service or repo — I'll tell you the name
-  - The integration hasn't been built yet — generate code from scratch
-  - Other
+  1. Give me a file path or folder (e.g. services/billing.js)
+  2. It's in a separate service or repo — I'll tell you the name
+  3. The integration hasn't been built yet — generate code from scratch
+  4. Other"
 
-Wait for the user to respond before proceeding.
+Do not proceed until the user replies.
 
 ---
 
@@ -536,19 +517,19 @@ Go, Rails API, etc.):
 
   If found → show the user what you found, confirm it, then go to Part B.
 
-  If NOT found → ask the user using your native interactive question format:
+  If NOT found →
+  ⛔ HARD STOP — Ask this question and wait for the user to reply:
 
     "I can see your [entity name] model but cannot find its ID at the
     Chargebee call site in [file path]. What identifier is available here
-    that I can use to look up the account/org ID?"
+    that I can use to look up the account/org ID?
 
-    Options:
-    - A user ID is available — look up org via FK
-    - Customer email is available — look up account in DB
-    - There's a request context / session / JWT — I'll tell you the claim name
-    - Other — describe what's available
+    1. A user ID is available — I'll look up the org via FK
+    2. Customer email is available — I'll look up the account in DB
+    3. There's a request context / session / JWT — I'll tell you the claim name
+    4. Other — describe what's available"
 
-  Wait for user input. Do not implement anything.
+  Do not implement anything until the user replies.
 
 ---
 
@@ -578,17 +559,17 @@ Go, Rails API, etc.):
 
   If found → show the user and confirm it. Then go to Part B.
 
-  If nothing found → ask the user using your native interactive question format:
+  If nothing found →
+  ⛔ HARD STOP — Ask this question and wait for the user to reply:
 
     "I could not find a clear account/org identifier in this codebase.
-    What identifier represents the paying account or organisation?"
+    What identifier represents the paying account or organisation?
 
-    Options:
-    - My account identifier is [field name] — I'll tell you
-    - Revenue is tracked per user, not per account (B2C) — use user.id
-    - Other — describe your account model
+    1. My account identifier is [field name] — I'll tell you
+    2. Revenue is tracked per user, not per account (B2C) — use user.id
+    3. Other — describe your account model"
 
-  Wait for confirmation. Do not proceed without it.
+  Do not proceed until the user replies.
 
 ---
 
@@ -599,19 +580,18 @@ Chargebee customer create/update call sites found in Step 2.
 
 **If accessible** → proceed to Step 4.
 
-**If NOT accessible** → ask the user using your native interactive
-question format:
+**If NOT accessible** →
+⛔ HARD STOP — Ask this question and wait for the user to reply before writing any code:
 
   "I found that `group_id` ([entity name]) is not directly available
-  at the Chargebee call site in [file path]. How should I get it there?"
+  at the Chargebee call site in [file path]. How should I get it there?
 
-  Options:
-  - Look it up from the DB using an existing ID at this call site (e.g. user ID or email)
-  - Pass it as a parameter — refactor the function signature
-  - Extract from request context / session / JWT — I'll tell you the claim name
-  - Other — describe your architecture
+  1. Look it up from the DB using an existing ID at this call site (e.g. user ID or email)
+  2. Pass it as a parameter — refactor the function signature
+  3. Extract from request context / session / JWT — I'll tell you the claim name
+  4. Other — describe your architecture"
 
-Wait for guidance before writing any code.
+Do not write any code until the user replies.
 
 ---
 
@@ -680,18 +660,18 @@ Write a one-time idempotent script named `update-existing-customers-chargebee`
 3. Prints a summary: total processed / updated / skipped / unresolved
 
 **If no valid join path is found:**
-Do not write the script. Ask the user using your native interactive
-question format:
+⛔ HARD STOP — Do not write the script. Ask this question and wait for the user to reply:
 
   "I could not find a reliable way to link existing Chargebee customers
   to accounts in your database. How does your system associate a
-  Chargebee customer with an account/org?"
+  Chargebee customer with an account/org?
 
-  Options:
-  - There's a chargebee_customer_id column in my accounts/orgs table — use that
-  - The link goes through Users table — email → User → organization_id
-  - The mapping is outside the codebase (spreadsheet, CRM, etc.) — manual
-  - Other — describe the relationship
+  1. There's a chargebee_customer_id column in my accounts/orgs table
+  2. The link goes through Users table — email → User → organization_id
+  3. The mapping is outside the codebase (spreadsheet, CRM, etc.) — manual
+  4. Other — describe the relationship"
+
+Do not write any script until the user replies.
 
 ---
 
