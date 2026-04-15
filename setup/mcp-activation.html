@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PM Experience — Full Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #0f172a;
+    --muted: #64748b;
+    --line: #e2e8f0;
+    --accent: #2563eb;
+    --accent-soft: #eff6ff;
+    --magic: #7c3aed;
+    --magic-soft: #f5f3ff;
+    --code: #0891b2;
+    --code-soft: #ecfeff;
+    --ts: #ea580c;
+    --ts-soft: #fff7ed;
+    --fast: #059669;
+    --fast-soft: #ecfdf5;
+    --slow: #d97706;
+    --slow-soft: #fffbeb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 24px;
+    margin-bottom: 40px;
+  }
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ts);
+    background: var(--ts-soft);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  h1 { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .sub { font-size: 17px; color: var(--muted); max-width: 800px; }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    font-size: 12px;
+    color: var(--muted);
+    flex-wrap: wrap;
+  }
+  .legend .item { display: flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 12px; height: 12px; border-radius: 3px; border: 2px solid var(--accent); background: white; }
+  .legend .swatch.code { border-color: var(--code); background: var(--code-soft); }
+  .legend .swatch.ts { border-color: var(--ts); background: var(--ts-soft); }
+  .legend .swatch.magic { border-color: var(--magic); background: var(--magic-soft); }
+  .legend .swatch.wait { border-color: var(--ink); background: #cbd5e1; }
+
+  /* Section labels */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 16px;
+  }
+  .section-label .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: white;
+    background: var(--ink);
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.1em;
+  }
+  .section-label .name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .section-label .meta {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Phase block */
+  .phase {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: white;
+    padding: 24px 28px;
+    margin-bottom: 8px;
+  }
+
+  /* Vertical timeline */
+  .vtl {
+    position: relative;
+    padding-left: 28px;
+  }
+  .vtl::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--line);
+  }
+  .vtl-item {
+    position: relative;
+    padding-bottom: 22px;
+  }
+  .vtl-item:last-child { padding-bottom: 0; }
+  .vtl-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--accent);
+    z-index: 1;
+  }
+  .vtl-item.code::before { border-color: var(--code); background: var(--code-soft); }
+  .vtl-item.ts::before { border-color: var(--ts); background: var(--ts-soft); }
+  .vtl-item.magic::before { border-color: var(--magic); background: var(--magic-soft); }
+  .vtl-item.wait::before {
+    background: #cbd5e1;
+    border-color: var(--ink);
+  }
+  .vtl-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .vtl-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .vtl-body {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.55;
+  }
+  .vtl-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: white;
+    border: 1px solid var(--line);
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-top: 6px;
+    margin-right: 4px;
+    color: var(--muted);
+  }
+  .vtl-tag.code { background: var(--code-soft); border-color: #a5f3fc; color: var(--code); }
+  .vtl-tag.ts { background: var(--ts-soft); border-color: #fed7aa; color: var(--ts); }
+  .vtl-tag.magic { background: var(--magic-soft); border-color: #ddd6fe; color: var(--magic); }
+  .vtl-tag.wait { background: #f1f5f9; border-color: #cbd5e1; color: #475569; }
+
+  /* PM-says quote */
+  .pm-says {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .pm-says .role { color: #60a5fa; margin-right: 6px; }
+  .pm-says .hl { color: #fde047; }
+
+  /* Branch block */
+  .branch-intro {
+    background: var(--ink);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    margin: 24px 0 12px;
+    text-align: center;
+  }
+  .branch-intro .q-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 4px;
+  }
+  .branch-intro .q { font-size: 15px; font-weight: 500; }
+
+  .branches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+  .branch {
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    padding: 20px 22px;
+    background: white;
+  }
+  .branch.fast { border-color: #a7f3d0; background: linear-gradient(to bottom, #f0fdf4 0%, white 60px); }
+  .branch.slow { border-color: #fde68a; background: linear-gradient(to bottom, #fefce8 0%, white 60px); }
+
+  .branch-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .branch-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .branch.fast .branch-name { color: var(--fast); }
+  .branch.slow .branch-name { color: var(--slow); }
+  .branch-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .branch.fast .branch-tag { background: var(--fast-soft); color: var(--fast); }
+  .branch.slow .branch-tag { background: var(--slow-soft); color: var(--slow); }
+  .branch h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .branch .branch-lead {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  /* Final compare */
+  .compare-banner {
+    margin: 40px 0 0;
+    background: var(--ink);
+    color: white;
+    padding: 24px 28px;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .compare-banner .col h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 8px;
+  }
+  .compare-banner .col .v {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .compare-banner .col .d { font-size: 13px; color: #cbd5e1; line-height: 1.5; }
+  .compare-banner .col.fast .v { color: #4ade80; }
+  .compare-banner .col.slow .v { color: #fbbf24; }
+
+  @media (max-width: 820px) {
+    .branches, .compare-banner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <span class="tag">Real PM experience · end-to-end timeline</span>
+    <h1>From "never heard of this" to "live activation journey"</h1>
+    <p class="sub">The full timeline a PM walks through — from discovering us, installing the MCP, prompting Claude, and shipping a journey in ThriveStack. The flow branches at one point: do the events already exist, or do we need to instrument first?</p>
+  </header>
+
+  <div class="legend">
+    <div class="item"><span class="swatch"></span> PM action</div>
+    <div class="item"><span class="swatch code"></span> Claude Code (writes to repo)</div>
+    <div class="item"><span class="swatch ts"></span> ThriveStack API call</div>
+    <div class="item"><span class="swatch magic"></span> Background agent</div>
+    <div class="item"><span class="swatch wait"></span> Waiting (eng review, data accumulation)</div>
+  </div>
+
+  <!-- PHASE 1: DISCOVERY & INSTALL -->
+  <div class="section-label">
+    <span class="num">PHASE 01</span>
+    <span class="name">Discovery &amp; install</span>
+    <span class="meta">~3 minutes · one-time setup</span>
+  </div>
+  <div class="phase">
+    <div class="vtl">
+      <div class="vtl-item">
+        <div class="vtl-time">T+0 · Day 0</div>
+        <div class="vtl-title">PM hears about us</div>
+        <div class="vtl-body">From a tweet, a Slack community, ThriveStack's docs page, or a colleague: "you can set up activation journeys by just talking to Claude."</div>
+      </div>
+
+      <div class="vtl-item">
+        <div class="vtl-time">T+30 sec</div>
+        <div class="vtl-title">Visits our docs page</div>
+        <div class="vtl-body">Single page. One config block to copy. No signup, no demo call, no sales rep.</div>
+      </div>
+
+      <div class="vtl-item ts">
+        <div class="vtl-time">T+60 sec</div>
+        <div class="vtl-title">Pastes MCP config into Claude Desktop</div>
+        <div class="vtl-body">Opens Claude Desktop settings → MCP servers → adds <span class="mono">thrivestack-activation</span>. Restarts Claude.</div>
+        <span class="vtl-tag ts">thrivestack-mcp installed</span>
+      </div>
+
+      <div class="vtl-item">
+        <div class="vtl-time">T+2 min</div>
+        <div class="vtl-title">OAuth flow — connects ThriveStack + GitHub</div>
+        <div class="vtl-body">Two browser popups. Approves access to ThriveStack workspace and the relevant GitHub repo. Done.</div>
+      </div>
+
+      <div class="vtl-item magic">
+        <div class="vtl-time">T+3 min</div>
+        <div class="vtl-title">Claude greets the PM</div>
+        <div class="vtl-body">Proactive message: "I'm connected to your ThriveStack workspace and acme/web repo. I can help you set up activation journeys, propose events for new features, and report on what's working. What would you like to do?"</div>
+        <div class="pm-says"><span class="role">Claude:</span> Connected to ThriveStack (workspace: <span class="hl">acme-prod</span>) + GitHub (<span class="hl">acme/web</span>). Ready when you are.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2: FIRST PROMPT -->
+  <div class="section-label">
+    <span class="num">PHASE 02</span>
+    <span class="name">First prompt</span>
+    <span class="meta">~1 minute · routes to a branch</span>
+  </div>
+  <div class="phase">
+    <div class="vtl">
+      <div class="vtl-item">
+        <div class="vtl-time">T+5 min · Day 1</div>
+        <div class="vtl-title">PM types their request</div>
+        <div class="vtl-body">A natural-language ask. PM doesn't need to know whether the events exist or not.</div>
+        <div class="pm-says"><span class="role">PM:</span> Set up activation tracking for our onboarding flow — invited 2+ teammates within 5 days.</div>
+      </div>
+
+      <div class="vtl-item ts">
+        <div class="vtl-time">T+5 min 30 sec</div>
+        <div class="vtl-title">Agent inspects ThriveStack schema</div>
+        <div class="vtl-body">Calls <span class="mono">thrivestack.list_existing_events()</span> + reads codebase to understand the feature. Decides: do we have what we need, or do we need to instrument?</div>
+        <span class="vtl-tag ts">thrivestack.list_existing_events</span>
+        <span class="vtl-tag code">claude_code.scan_repo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BRANCH POINT -->
+  <div class="branch-intro">
+    <div class="q-tag">Routing decision</div>
+    <div class="q">Are the events I need already being tracked?</div>
+  </div>
+
+  <!-- TWO BRANCHES -->
+  <div class="branches">
+
+    <!-- BRANCH A -->
+    <div class="branch fast">
+      <div class="branch-head">
+        <span class="branch-name">Branch A · Fast path</span>
+        <span class="branch-tag">+5 more minutes</span>
+      </div>
+      <h3>Events already exist</h3>
+      <p class="branch-lead">Pure ThriveStack API work. No code changes. Backfilled with historical data.</p>
+
+      <div class="vtl">
+        <div class="vtl-item ts">
+          <div class="vtl-time">T+6 min</div>
+          <div class="vtl-title">Agent drafts journey in chat</div>
+          <div class="vtl-body">Maps existing events to a 5-stage journey. Shows preview with predicted volumes from last 30 days.</div>
+        </div>
+        <div class="vtl-item">
+          <div class="vtl-time">T+8 min</div>
+          <div class="vtl-title">PM approves with one word</div>
+          <div class="vtl-body">"approve" — no PR review, no eng dependency.</div>
+        </div>
+        <div class="vtl-item ts">
+          <div class="vtl-time">T+10 min</div>
+          <div class="vtl-title">Journey live in ThriveStack</div>
+          <div class="vtl-body">Backfilled — funnel populated immediately with 30 days of historical data.</div>
+          <span class="vtl-tag ts">thrivestack.create_activation_journey</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRANCH B -->
+    <div class="branch slow">
+      <div class="branch-head">
+        <span class="branch-name">Branch B · Greenfield</span>
+        <span class="branch-tag">+5 days more</span>
+      </div>
+      <h3>New feature, missing events</h3>
+      <p class="branch-lead">Claude Code instruments the gap. PR ships. Wait for data. Then build journey.</p>
+
+      <div class="vtl">
+        <div class="vtl-item code">
+          <div class="vtl-time">T+10 min</div>
+          <div class="vtl-title">Claude Code drafts instrumentation PR</div>
+          <div class="vtl-body">Adds <span class="mono">track()</span> calls, registers events with ThriveStack, opens GitHub PR.</div>
+          <span class="vtl-tag code">github.open_pr</span>
+          <span class="vtl-tag ts">thrivestack.register_events</span>
+        </div>
+        <div class="vtl-item wait">
+          <div class="vtl-time">T+1 day</div>
+          <div class="vtl-title">Eng reviews + merges + deploys</div>
+          <div class="vtl-body">Standard PR review by an engineer. Depends on team velocity.</div>
+        </div>
+        <div class="vtl-item wait">
+          <div class="vtl-time">T+2 to T+5 days</div>
+          <div class="vtl-title">Wait for data threshold</div>
+          <div class="vtl-body">Need ~200 users hitting the new flow before activation can be measured reliably. Agent watches and pings PM when threshold hit.</div>
+        </div>
+        <div class="vtl-item ts">
+          <div class="vtl-time">T+5 days</div>
+          <div class="vtl-title">Journey created in ThriveStack</div>
+          <div class="vtl-body">Once data flows, agent proactively creates the journey using real behavioral patterns.</div>
+          <span class="vtl-tag ts">thrivestack.create_activation_journey</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PHASE 3: ONGOING -->
+  <div class="section-label">
+    <span class="num">PHASE 03</span>
+    <span class="name">Ongoing — agent works in the background</span>
+    <span class="meta">From Day 20+ · zero PM effort</span>
+  </div>
+  <div class="phase">
+    <div class="vtl">
+      <div class="vtl-item magic">
+        <div class="vtl-time">Day 20+</div>
+        <div class="vtl-title">First Multi-Aha briefing</div>
+        <div class="vtl-body">Agent has enough behavioral data to identify aha moments per segment. Posts findings to Slack DM.</div>
+        <div class="pm-says"><span class="role">Claude:</span> 20 days in. Found 3 distinct aha moments by segment. Solo PMs activate on doc creation, teams activate on invites + templates. Want to refine the journey definition? <span class="hl">[yes]</span> <span class="hl">[show me the data]</span></div>
+      </div>
+
+      <div class="vtl-item magic">
+        <div class="vtl-time">Day 25+</div>
+        <div class="vtl-title">Proposed changes to activation</div>
+        <div class="vtl-body">Agent recommends refining the activation definition based on what actually correlates with D30 retention. PM approves in chat.</div>
+      </div>
+
+      <div class="vtl-item magic">
+        <div class="vtl-time">Day 30+ · ongoing</div>
+        <div class="vtl-title">Predictive AR per workspace</div>
+        <div class="vtl-body">Real-time activation probability scoring for every new signup. Agent flags at-risk cohorts before they churn.</div>
+      </div>
+
+      <div class="vtl-item magic">
+        <div class="vtl-time">Day 30+ · weekly</div>
+        <div class="vtl-title">Weekly briefings + experiment proposals</div>
+        <div class="vtl-body">Every Monday, PM gets a Slack DM: what changed, where the drop-off is, which experiment to ship next. PM approves in chat. Agent ships variant via Claude Code.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARE -->
+  <div class="compare-banner">
+    <div class="col fast">
+      <h4>Branch A · Fast path total</h4>
+      <div class="v">10 minutes</div>
+      <div class="d">Discovery + install (3 min) + prompt + approval + ThriveStack journey live (7 min). Insights from Day 1 via backfill.</div>
+    </div>
+    <div class="col slow">
+      <h4>Branch B · Greenfield total</h4>
+      <div class="v">~5 days</div>
+      <div class="d">Discovery + install (3 min) + prompt (5 min) + PR (10 min) + eng merge (1 day) + data accumulation (3-4 days). Honest about the wait.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
