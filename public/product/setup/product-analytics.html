@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Product Analytics - Guided Setup - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Product Analytics - Guided Setup - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.app.thrivestack.ai/latest/script.js" api-key="{{THRIVESTACK_API_KEY}}"
+        source="product"></script>
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <button id="desktop-sidebar-toggle" class="icon-btn" aria-label="Toggle Sidebar" title="Toggle Sidebar"
+                style="margin-right: 0.5rem;">
+                <i class="fa-solid fa-bars-staggered" style="font-size: 1.1rem;"></i>
+            </button>
+            <a href="../../../index.html" class="logo">
+                <img src="../../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../../index.html">Get Started</a>
+                <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="../../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../../take-action.html">Take Action</a>
+                <a href="../../../api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Guided Setup</h3>
+                <ul>
+                    <li><a href="../../../guided-setup.html" class="nav-item"><span>Overview</span></a></li>
+                    <li><a href="../../marketing/setup/marketing-analytics.html" class="nav-item"><span>Marketing Analytics</span></a></li>
+                    <li><a href="product-analytics.html" class="nav-item active"><span>Product Analytics</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="../../marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="content-section">
+                    <section class="doc-page">
+
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Guided Setup</span>
+                            <h1 class="doc-page-title">Product Analytics</h1>
+                            <p class="doc-page-description">
+                                Product Analytics is set up across four sessions. Each session has a clear owner, a scheduled date, and a defined set of deliverables.
+                            </p>
+                        </header>
+
+                        <article class="doc-page-body">
+
+                            <div style="padding: 4px 0 28px;">
+                                <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 8px;">What you need</p>
+                                <div style="display: flex; flex-direction: column; gap: 6px;">
+                                    <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary);">
+                                        <i class="fa-solid fa-user" style="color: var(--text-muted); font-size: 11px; width: 12px;"></i>
+                                        An engineer with access to all product codebases
+                                    </span>
+                                    <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary);">
+                                        <i class="fa-solid fa-code" style="color: var(--text-muted); font-size: 11px; width: 12px;"></i>
+                                        One or more repos covering your auth flow, user lifecycle, and product features
+                                    </span>
+                                    <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary);">
+                                        <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--text-muted); font-size: 11px; width: 12px;"></i>
+                                        An AI coding assistant (Cursor, Windsurf, GitHub Copilot, or similar) — for the AI-enabled path
+                                    </span>
+                                    <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary);">
+                                        <i class="fa-solid fa-key" style="color: var(--text-muted); font-size: 11px; width: 12px;"></i>
+                                        A ThriveStack account — <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" target="_blank" rel="noopener noreferrer">sign up free</a>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="pi-sessions">
+
+                                <!-- ── Session 1 ───────────────────────────────────── -->
+                                <details class="pi-session" id="session-1" open>
+                                    <summary class="pi-session-summary">
+                                        <div class="pi-session-summary-left">
+                                            <span class="pi-session-num">Session 1</span>
+                                            <div class="pi-session-summary-text">
+                                                <span class="pi-session-title">Understanding Your Setup &amp; User and Group Instrumentation</span>
+                                                <span class="pi-session-meta">
+                                                    <span class="pi-meta-item"><i class="fa-regular fa-clock"></i> ~1–2 hrs</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down pi-session-chevron"></i>
+                                    </summary>
+
+                                    <div class="pi-session-body">
+
+                                        <!-- ── Step 1: Understand Your Setup ──────── -->
+                                        <div class="s-step" id="s1-understand">
+                                            <div class="s-step-left">
+                                                <div class="s-step-num">1</div>
+                                                <div class="s-step-line"></div>
+                                            </div>
+                                            <div class="s-step-right">
+                                                <div class="s-step-title-row">
+                                                    <h3 class="s-step-title">Understand Your Setup</h3>
+                                                    <span class="s-step-badge">~5 min</span>
+                                                </div>
+                                                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 12px;">Pick the path that matches your codebase — one of these will be yours.</p>
+                                                <div class="stack-routing-list">
+                                                    <div class="stack-route-row">
+                                                        <span class="stack-route-row-if">Have a <strong>developer + AI coding assistant</strong></span>
+                                                        <span class="route-badge route-badge--ai">AI Enabled</span>
+                                                        <span class="stack-route-row-note">fastest</span>
+                                                    </div>
+                                                    <div class="stack-route-row">
+                                                        <span class="stack-route-row-if">Frontend app, <strong>prefer manual</strong></span>
+                                                        <span class="route-badge">Manual → Code</span>
+                                                    </div>
+                                                    <div class="stack-route-row">
+                                                        <span class="stack-route-row-if"><strong>Auth and product</strong> live in separate repos</span>
+                                                        <span class="route-badge">Multi-Repo guide</span>
+                                                    </div>
+                                                    <div class="stack-route-row">
+                                                        <span class="stack-route-row-if"><strong>Backend-only</strong> or server-side instrumentation</span>
+                                                        <span class="route-badge">HTTP API</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- ── Step 2: Install Script ──────────────── -->
+                                        <div class="s-step" id="s1-install">
+                                            <div class="s-step-left">
+                                                <div class="s-step-num">2</div>
+                                                <div class="s-step-line"></div>
+                                            </div>
+                                            <div class="s-step-right">
+                                                <div class="s-step-title-row">
+                                                    <h3 class="s-step-title">Install Script &amp; Instrument Events</h3>
+                                                    <span class="s-step-badge">~30 min–2 hrs</span>
+                                                </div>
+
+                                                <div class="install-tab-list" role="tablist">
+                                                    <button class="install-tab active" data-tab="s1-ai" role="tab" aria-selected="true">
+                                                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Enabled
+                                                    </button>
+                                                    <button class="install-tab" data-tab="s1-manual" role="tab" aria-selected="false">
+                                                        <i class="fa-solid fa-book-open"></i> Manual
+                                                    </button>
+                                                </div>
+
+                                                <!-- AI tab -->
+                                                <div class="install-panel active" id="panel-s1-ai">
+                                                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.6;">The AI prompt handles everything in one pass — it reads your codebase, installs the script, locates your auth context, and fires all lifecycle and identity events in the correct order.</p>
+                                                    <div class="pi-deliverables" style="margin-bottom: 16px;">
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Script tag added to root layout</span>
+                                                                <span class="pi-deliverable-desc"><code>script.js</code> with <code>source="product"</code>, API key from env var.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Signup, login &amp; logout</span>
+                                                                <span class="pi-deliverable-desc"><code>identify()</code>, <code>signed_up</code>, <code>signed_in</code>, <code>signed_out</code> in the correct firing order.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Account creation &amp; user linking</span>
+                                                                <span class="pi-deliverable-desc"><code>group()</code> → <code>account_created</code> → <code>account_added_user</code> at every entry point.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Account &amp; user properties</span>
+                                                                <span class="pi-deliverable-desc">Account name, domain, plan, and user traits attached to every event.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pi-book-row" style="margin-bottom: 8px;">
+                                                        <div class="pi-book-row-left">
+                                                            <i class="fa-solid fa-calendar-check" style="color: var(--text-muted); font-size: 14px;"></i>
+                                                            <div>
+                                                                <p class="pi-book-label">Guided Onboarding</p>
+                                                                <p class="pi-book-meta">1 session &nbsp;·&nbsp; ~30 min with ThriveStack team</p>
+                                                            </div>
+                                                        </div>
+                                                        <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="pi-book-btn">Book session</a>
+                                                    </div>
+                                                    <a href="setup-with-ai.html" class="pi-docs-link">
+                                                        <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px; color: #93c5fd;"></i>Setup with AI — full documentation</span>
+                                                        <i class="fa-solid fa-arrow-right pi-docs-link-arrow"></i>
+                                                    </a>
+                                                </div>
+
+                                                <!-- Manual tab -->
+                                                <div class="install-panel" id="panel-s1-manual">
+                                                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.6;">Add the script tag manually, then instrument each lifecycle event by following the step-by-step guide. Expect ~1–2 hrs for a complete implementation.</p>
+                                                    <div class="pi-deliverables" style="margin-bottom: 16px;">
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Add script tag to root layout</span>
+                                                                <span class="pi-deliverable-desc">Place once in your root layout with <code>source="product"</code> and your API key in an environment variable.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Instrument lifecycle events</span>
+                                                                <span class="pi-deliverable-desc">Follow the Events Telemetry guide to add <code>identify()</code>, <code>group()</code>, and all track calls in the correct order.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Set account &amp; user properties</span>
+                                                                <span class="pi-deliverable-desc">Pass account name, domain, plan tier, and user traits alongside every event.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pi-book-row" style="margin-bottom: 8px;">
+                                                        <div class="pi-book-row-left">
+                                                            <i class="fa-solid fa-calendar-check" style="color: var(--text-muted); font-size: 14px;"></i>
+                                                            <div>
+                                                                <p class="pi-book-label">Guided Onboarding</p>
+                                                                <p class="pi-book-meta">1 session &nbsp;·&nbsp; ~30 min with ThriveStack team</p>
+                                                            </div>
+                                                        </div>
+                                                        <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="pi-book-btn">Book session</a>
+                                                    </div>
+                                                    <a href="saas-growth-events.html" class="pi-docs-link">
+                                                        <span><i class="fa-solid fa-book-open" style="margin-right: 6px; color: var(--text-muted);"></i>Understand Events Telemetry — full documentation</span>
+                                                        <i class="fa-solid fa-arrow-right pi-docs-link-arrow"></i>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- ── Step 3: Verify in ThriveStack ──────── -->
+                                        <div class="s-step" id="s1-verify">
+                                            <div class="s-step-left">
+                                                <div class="s-step-num">3</div>
+                                            </div>
+                                            <div class="s-step-right">
+                                                <div class="s-step-title-row">
+                                                    <h3 class="s-step-title">Verify in ThriveStack</h3>
+                                                    <span class="s-step-badge">~5 min</span>
+                                                </div>
+                                                <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.6; margin-bottom: 16px;">Once your changes are deployed, open the ThriveStack setup checklist to confirm events are arriving.</p>
+                                                <a href="https://app.thrivestack.ai/analyze/onboarding/product-analytics?step=1"
+                                                    target="_blank" rel="noopener noreferrer" class="pi-checklist-cta" style="padding-bottom: 14px;">
+                                                    <div>
+                                                        <p class="pi-checklist-title"><i class="fa-solid fa-circle-check" style="color: #22c55e; margin-right: 8px;"></i>Open Setup Checklist</p>
+                                                        <p class="pi-checklist-desc">See whether ThriveStack is receiving lifecycle events from your product.</p>
+                                                    </div>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--text-muted); font-size: 12px; flex-shrink: 0;"></i>
+                                                </a>
+                                                <div class="email-note">
+                                                    <i class="fa-solid fa-envelope" style="color: var(--text-muted); margin-right: 8px; flex-shrink: 0;"></i>
+                                                    <span>ThriveStack sends a daily setup email showing which checklist items are complete and what to tackle next.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </details>
+
+                                <!-- ── Session 2 ───────────────────────────────────── -->
+                                <details class="pi-session" id="session-2">
+                                    <summary class="pi-session-summary">
+                                        <div class="pi-session-summary-left">
+                                            <span class="pi-session-num">Session 2</span>
+                                            <div class="pi-session-summary-text">
+                                                <span class="pi-session-title">Instrumenting Feature Usage</span>
+                                                <span class="pi-session-meta">
+                                                    <span class="pi-meta-item"><i class="fa-regular fa-clock"></i> ~1 hr</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down pi-session-chevron"></i>
+                                    </summary>
+
+                                    <div class="pi-session-body">
+                                        <p class="pi-session-desc">Instrument <code>feature_used</code> events for every meaningful action in your product. ThriveStack classifies features into three types — core, sticky, and support — and uses that classification to power feature adoption and retention analytics.</p>
+
+                                        <!-- ── Step 1: List & Classify ─────────────── -->
+                                        <div class="s-step" id="s2-classify">
+                                            <div class="s-step-left">
+                                                <div class="s-step-num">1</div>
+                                                <div class="s-step-line"></div>
+                                            </div>
+                                            <div class="s-step-right">
+                                                <div class="s-step-title-row">
+                                                    <h3 class="s-step-title">List &amp; Classify Your Features</h3>
+                                                    <span class="s-step-badge">~15 min</span>
+                                                </div>
+                                                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 14px; line-height: 1.6;">Before writing any code, list every meaningful user action in your product and agree on a type with your product team. Getting this right upfront ensures your analytics reflect how users actually experience the product.</p>
+
+                                                <div class="pi-feature-table-wrapper">
+                                                    <table class="pi-feature-table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Type</th>
+                                                                <th>Definition</th>
+                                                                <th>Example</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><code>core</code></td>
+                                                                <td>The primary reason a user signs up and pays</td>
+                                                                <td>Creating a report, running an analysis</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><code>sticky</code></td>
+                                                                <td>Drives repeated engagement and habit formation</td>
+                                                                <td>Viewing a dashboard, checking notifications</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><code>support</code></td>
+                                                                <td>Utility and configuration actions</td>
+                                                                <td>Updating settings, connecting an integration</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <p style="color: var(--text-muted); font-size: 13px; margin: 0; line-height: 1.6;">Every feature maps to exactly one type. If you're unsure, the ThriveStack team can help you classify during a guided session.</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- ── Step 2: Instrument the Code ────────── -->
+                                        <div class="s-step" id="s2-instrument">
+                                            <div class="s-step-left">
+                                                <div class="s-step-num">2</div>
+                                                <div class="s-step-line"></div>
+                                            </div>
+                                            <div class="s-step-right">
+                                                <div class="s-step-title-row">
+                                                    <h3 class="s-step-title">Instrument the Code</h3>
+                                                    <span class="s-step-badge">~30 min–1 hr</span>
+                                                </div>
+
+                                                <div class="install-tab-list" role="tablist">
+                                                    <button class="install-tab active" data-tab="s2-ai" role="tab" aria-selected="true">
+                                                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Enabled
+                                                    </button>
+                                                    <button class="install-tab" data-tab="s2-manual" role="tab" aria-selected="false">
+                                                        <i class="fa-solid fa-book-open"></i> Manual
+                                                    </button>
+                                                </div>
+
+                                                <!-- AI tab -->
+                                                <div class="install-panel active" id="panel-s2-ai">
+                                                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.6;">Give your AI coding assistant the feature list you classified in step 1. The AI locates each feature's interaction handler in the codebase and adds the correct <code>feature_used</code> call with the right type and name.</p>
+                                                    <div class="pi-deliverables" style="margin-bottom: 16px;">
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">AI locates each feature's handler</span>
+                                                                <span class="pi-deliverable-desc">No manual file hunting — the prompt instructs the AI to search for the interaction point for each feature you listed.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Fires <code>feature_used</code> with correct type and name</span>
+                                                                <span class="pi-deliverable-desc"><code>feature_name</code> in <code>[noun]_[verb]</code> format, <code>feature_type</code> set to your classification, <code>user_id</code> and <code>context.group_id</code> attached.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Self-verifies coverage</span>
+                                                                <span class="pi-deliverable-desc">The AI produces a summary table confirming every feature from your list has been instrumented.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pi-book-row" style="margin-bottom: 8px;">
+                                                        <div class="pi-book-row-left">
+                                                            <i class="fa-solid fa-calendar-check" style="color: var(--text-muted); font-size: 14px;"></i>
+                                                            <div>
+                                                                <p class="pi-book-label">Guided Onboarding</p>
+                                                                <p class="pi-book-meta">1 session &nbsp;·&nbsp; ~30 min with ThriveStack team</p>
+                                                            </div>
+                                                        </div>
+                                                        <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="pi-book-btn">Book session</a>
+                                                    </div>
+                                                    <a href="setup-with-ai.html" class="pi-docs-link">
+                                                        <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px; color: #93c5fd;"></i>Setup with AI — full documentation</span>
+                                                        <i class="fa-solid fa-arrow-right pi-docs-link-arrow"></i>
+                                                    </a>
+                                                </div>
+
+                                                <!-- Manual tab -->
+                                                <div class="install-panel" id="panel-s2-manual">
+                                                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.6;">For each feature in your list, locate its interaction handler and add a <code>feature_used</code> call. Fire after the action succeeds — never before.</p>
+                                                    <div class="pi-deliverables" style="margin-bottom: 16px;">
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">One call per feature interaction</span>
+                                                                <span class="pi-deliverable-desc">Fire <code>feature_used</code> with <code>feature_name</code> in <code>[noun]_[verb]</code> format and the agreed <code>feature_type</code>.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Always include <code>user_id</code> and <code>context.group_id</code></span>
+                                                                <span class="pi-deliverable-desc">These link the event to the right user and account in ThriveStack's analytics.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Guard against undefined <code>thriveStack</code></span>
+                                                                <span class="pi-deliverable-desc">Wrap every call with <code>if (typeof thriveStack === 'undefined') return</code> to prevent errors during script load.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a href="saas-growth-events.html" class="pi-docs-link">
+                                                        <span><i class="fa-solid fa-book-open" style="margin-right: 6px; color: var(--text-muted);"></i>Understand Events Telemetry — full documentation</span>
+                                                        <i class="fa-solid fa-arrow-right pi-docs-link-arrow"></i>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- ── Step 3: Verify in ThriveStack ──────── -->
+                                        <div class="s-step" id="s2-verify">
+                                            <div class="s-step-left">
+                                                <div class="s-step-num">3</div>
+                                            </div>
+                                            <div class="s-step-right">
+                                                <div class="s-step-title-row">
+                                                    <h3 class="s-step-title">Verify in ThriveStack</h3>
+                                                    <span class="s-step-badge">~5 min</span>
+                                                </div>
+                                                <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.6; margin-bottom: 16px;">Trigger a few feature interactions in your app and confirm the events appear in ThriveStack with the correct type and name.</p>
+                                                <a href="https://app.thrivestack.ai/analyze/onboarding/product-analytics?step=1"
+                                                    target="_blank" rel="noopener noreferrer" class="pi-checklist-cta" style="padding-bottom: 14px;">
+                                                    <div>
+                                                        <p class="pi-checklist-title"><i class="fa-solid fa-circle-check" style="color: #22c55e; margin-right: 8px;"></i>Open Setup Checklist</p>
+                                                        <p class="pi-checklist-desc">Confirm <code>feature_used</code> events are arriving with the correct <code>feature_type</code> and <code>feature_name</code>.</p>
+                                                    </div>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--text-muted); font-size: 12px; flex-shrink: 0;"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </details>
+
+                                <!-- ── Session 3 ───────────────────────────────────── -->
+                                <details class="pi-session" id="session-3">
+                                    <summary class="pi-session-summary">
+                                        <div class="pi-session-summary-left">
+                                            <span class="pi-session-num">Session 3</span>
+                                            <div class="pi-session-summary-text">
+                                                <span class="pi-session-title">Setting Up Activation Journeys</span>
+                                                <span class="pi-session-meta">
+                                                    <span class="pi-meta-item"><i class="fa-regular fa-clock"></i> ~1 hr</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down pi-session-chevron"></i>
+                                    </summary>
+
+                                    <div class="pi-session-body">
+                                        <p class="pi-session-desc">Map your onboarding flow, instrument the right events, then configure the activation journey inside ThriveStack. This session unlocks activation rate tracking, step-by-step funnel analysis, and automatic alerting for accounts stuck before reaching value.</p>
+
+                                        <!-- ── Step 1: Understand Onboarding ──────── -->
+                                        <div class="s-step" id="s3-understand">
+                                            <div class="s-step-left">
+                                                <div class="s-step-num">1</div>
+                                                <div class="s-step-line"></div>
+                                            </div>
+                                            <div class="s-step-right">
+                                                <div class="s-step-title-row">
+                                                    <h3 class="s-step-title">Understand Your Product Onboarding Journey</h3>
+                                                    <span class="s-step-badge">~15 min</span>
+                                                </div>
+                                                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 14px; line-height: 1.6;">Before writing any code, map the sequence of steps a new user must complete to reach their first moment of value. This becomes the source of truth for what ThriveStack tracks and reports on.</p>
+                                                <div class="stack-routing-list">
+                                                    <div class="stack-route-row">
+                                                        <span class="stack-route-row-if">What is the <strong>first action</strong> a new user takes after signing up?</span>
+                                                    </div>
+                                                    <div class="stack-route-row">
+                                                        <span class="stack-route-row-if">What are the <strong>discrete steps</strong> between signup and value?</span>
+                                                    </div>
+                                                    <div class="stack-route-row">
+                                                        <span class="stack-route-row-if">What is the <strong>aha moment</strong> — the point where a user first experiences the product's core value?</span>
+                                                    </div>
+                                                    <div class="stack-route-row">
+                                                        <span class="stack-route-row-if">Do users go through onboarding <strong>individually or as a team</strong>?</span>
+                                                    </div>
+                                                </div>
+                                                <p style="color: var(--text-muted); font-size: 13px; margin: 10px 0 0; line-height: 1.6;">Write these steps down in order — you'll use this list in steps 2 and 3. The ThriveStack team can help you identify and sequence your aha moment during a guided session.</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- ── Step 2: Instrument Events ──────────── -->
+                                        <div class="s-step" id="s3-instrument">
+                                            <div class="s-step-left">
+                                                <div class="s-step-num">2</div>
+                                                <div class="s-step-line"></div>
+                                            </div>
+                                            <div class="s-step-right">
+                                                <div class="s-step-title-row">
+                                                    <h3 class="s-step-title">Instrument the Onboarding Events</h3>
+                                                    <span class="s-step-badge">~30 min–1 hr</span>
+                                                </div>
+
+                                                <div class="install-tab-list" role="tablist">
+                                                    <button class="install-tab active" data-tab="s3-ai" role="tab" aria-selected="true">
+                                                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Enabled
+                                                    </button>
+                                                    <button class="install-tab" data-tab="s3-manual" role="tab" aria-selected="false">
+                                                        <i class="fa-solid fa-book-open"></i> Manual
+                                                    </button>
+                                                </div>
+
+                                                <!-- AI tab -->
+                                                <div class="install-panel active" id="panel-s3-ai">
+                                                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.6;">Provide the AI with your ordered list of onboarding steps. It locates the completion handler for each step and adds the correct event call, including <code>invite_sent</code> wherever team invitations are triggered.</p>
+                                                    <div class="pi-deliverables" style="margin-bottom: 16px;">
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title"><code>onboarding_step_completed</code> per step</span>
+                                                                <span class="pi-deliverable-desc">Fired after each discrete onboarding action succeeds, with <code>step_name</code> matching the names from your journey map.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title"><code>invite_sent</code> at every invitation point</span>
+                                                                <span class="pi-deliverable-desc">Fired whenever a user sends a team invitation — a key virality and activation signal.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">AI self-verifies step coverage</span>
+                                                                <span class="pi-deliverable-desc">The AI produces a summary confirming every step from your list is instrumented before handing back control.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pi-book-row" style="margin-bottom: 8px;">
+                                                        <div class="pi-book-row-left">
+                                                            <i class="fa-solid fa-calendar-check" style="color: var(--text-muted); font-size: 14px;"></i>
+                                                            <div>
+                                                                <p class="pi-book-label">Guided Onboarding</p>
+                                                                <p class="pi-book-meta">1 session &nbsp;·&nbsp; ~30 min with ThriveStack team</p>
+                                                            </div>
+                                                        </div>
+                                                        <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="pi-book-btn">Book session</a>
+                                                    </div>
+                                                    <a href="setup-with-ai.html" class="pi-docs-link">
+                                                        <span><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px; color: #93c5fd;"></i>Setup with AI — full documentation</span>
+                                                        <i class="fa-solid fa-arrow-right pi-docs-link-arrow"></i>
+                                                    </a>
+                                                </div>
+
+                                                <!-- Manual tab -->
+                                                <div class="install-panel" id="panel-s3-manual">
+                                                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.6;">For each step in your journey map, locate its completion handler and fire the event after the action succeeds. Use consistent <code>step_name</code> values — these are what ThriveStack uses to build your funnel.</p>
+                                                    <div class="pi-deliverables" style="margin-bottom: 16px;">
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Fire <code>onboarding_step_completed</code> per step</span>
+                                                                <span class="pi-deliverable-desc">Include <code>step_name</code>, <code>user_id</code>, and <code>context.group_id</code>. Use the same step names you'll enter in the ThriveStack dashboard.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Fire <code>invite_sent</code> at every invitation entry point</span>
+                                                                <span class="pi-deliverable-desc">Covers in-app invite forms, bulk imports, and any SSO or admin-triggered additions.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Never fire before the action succeeds</span>
+                                                                <span class="pi-deliverable-desc">Place event calls after the server confirms success or the UI transitions — not on button click.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a href="saas-growth-events.html" class="pi-docs-link">
+                                                        <span><i class="fa-solid fa-book-open" style="margin-right: 6px; color: var(--text-muted);"></i>Understand Events Telemetry — full documentation</span>
+                                                        <i class="fa-solid fa-arrow-right pi-docs-link-arrow"></i>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- ── Step 3: Configure in ThriveStack ───── -->
+                                        <div class="s-step" id="s3-configure">
+                                            <div class="s-step-left">
+                                                <div class="s-step-num">3</div>
+                                                <div class="s-step-line"></div>
+                                            </div>
+                                            <div class="s-step-right">
+                                                <div class="s-step-title-row">
+                                                    <h3 class="s-step-title">Configure Activation Journeys in ThriveStack</h3>
+                                                    <span class="s-step-badge">~15 min</span>
+                                                </div>
+                                                <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.6; margin-bottom: 14px;">With events flowing, open the ThriveStack product and map your journey steps to the instrumented events. This is done entirely in the UI — no additional code required.</p>
+                                                <div class="pi-deliverables" style="margin-bottom: 16px;">
+                                                    <div class="pi-deliverable">
+                                                        <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                        <div>
+                                                            <span class="pi-deliverable-title">Define your activation milestone</span>
+                                                            <span class="pi-deliverable-desc">Select the event that represents your aha moment — the point where an account is considered activated.</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pi-deliverable">
+                                                        <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                        <div>
+                                                            <span class="pi-deliverable-title">Map each onboarding step</span>
+                                                            <span class="pi-deliverable-desc">Enter your <code>step_name</code> values in order. ThriveStack uses this sequence to calculate step completion rates and identify where accounts drop off.</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pi-deliverable">
+                                                        <i class="fa-regular fa-circle pi-deliverable-icon"></i>
+                                                        <div>
+                                                            <span class="pi-deliverable-title">Set account-level activation goals</span>
+                                                            <span class="pi-deliverable-desc">Configure whether activation is measured at the user level, the account level, or both.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="https://app.thrivestack.ai/analyze/onboarding/product-analytics" target="_blank" rel="noopener noreferrer" class="pi-docs-link">
+                                                    <span><i class="fa-solid fa-arrow-up-right-from-square" style="margin-right: 6px; color: var(--text-muted);"></i>Open Activation Journey Setup in ThriveStack</span>
+                                                    <i class="fa-solid fa-arrow-right pi-docs-link-arrow"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <!-- ── Step 4: Verify in ThriveStack ──────── -->
+                                        <div class="s-step" id="s3-verify">
+                                            <div class="s-step-left">
+                                                <div class="s-step-num">4</div>
+                                            </div>
+                                            <div class="s-step-right">
+                                                <div class="s-step-title-row">
+                                                    <h3 class="s-step-title">Verify in ThriveStack</h3>
+                                                    <span class="s-step-badge">~5 min</span>
+                                                </div>
+                                                <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.6; margin-bottom: 16px;">Walk through your onboarding flow and confirm that each step appears in the activation funnel with the correct sequence and completion rate.</p>
+                                                <a href="https://app.thrivestack.ai/analyze/onboarding/product-analytics?step=1"
+                                                    target="_blank" rel="noopener noreferrer" class="pi-checklist-cta" style="padding-bottom: 14px;">
+                                                    <div>
+                                                        <p class="pi-checklist-title"><i class="fa-solid fa-circle-check" style="color: #22c55e; margin-right: 8px;"></i>Open Setup Checklist</p>
+                                                        <p class="pi-checklist-desc">Confirm onboarding steps are arriving and the activation funnel is populated correctly.</p>
+                                                    </div>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--text-muted); font-size: 12px; flex-shrink: 0;"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </details>
+
+                                <!-- ── Session 4 ───────────────────────────────────── -->
+                                <details class="pi-session" id="session-4">
+                                    <summary class="pi-session-summary">
+                                        <div class="pi-session-summary-left">
+                                            <span class="pi-session-num pi-session-num--final">Session 4</span>
+                                            <div class="pi-session-summary-text">
+                                                <span class="pi-session-title">Validating the Instrumentation End to End</span>
+                                                <span class="pi-session-meta">
+                                                    <span class="pi-meta-item"><i class="fa-regular fa-clock"></i> ~30 min</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down pi-session-chevron"></i>
+                                    </summary>
+
+                                    <div class="pi-session-body">
+                                        <p class="pi-session-desc">Deploy to production and confirm every event is arriving correctly. Use ThriveStack's built-in tooling to validate reports, review your account list, and set yourself up to debug quickly in the future.</p>
+
+                                        <div class="s-steps-list">
+
+                                            <!-- ── Step 1: Validate Reports ───────────── -->
+                                            <div class="s-step" id="s4-reports">
+                                                <div class="s-step-left">
+                                                    <div class="s-step-num">1</div>
+                                                    <div class="s-step-line"></div>
+                                                </div>
+                                                <div class="s-step-right">
+                                                    <div class="s-step-title-row">
+                                                        <h3 class="s-step-title">Validate the Reports</h3>
+                                                        <span class="s-step-badge">~15 min</span>
+                                                    </div>
+                                                    <p>With your instrumentation live, open the core Product Intelligence reports and confirm they reflect real data.</p>
+                                                    <ul>
+                                                        <li><strong>Activation Report</strong> — verify user activation rates and funnel drop-off points are being tracked.</li>
+                                                        <li><strong>Feature Adoption Report</strong> — confirm core, sticky, and support features are registering usage.</li>
+                                                        <li><strong>Retention / Cohort Report</strong> — check that account-level cohorts are forming correctly.</li>
+                                                        <li><strong>Setup Checklist</strong> — open the <a href="https://app.thrivestack.ai/analyze/onboarding/product-analytics?step=1" target="_blank" rel="noopener noreferrer">ThriveStack setup checklist</a> and confirm all lifecycle and feature events are green.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!-- ── Step 2: Validate Account List ─────── -->
+                                            <div class="s-step" id="s4-accounts">
+                                                <div class="s-step-left">
+                                                    <div class="s-step-num">2</div>
+                                                    <div class="s-step-line"></div>
+                                                </div>
+                                                <div class="s-step-right">
+                                                    <div class="s-step-title-row">
+                                                        <h3 class="s-step-title">Validate the Account List</h3>
+                                                        <span class="s-step-badge">~10 min</span>
+                                                    </div>
+                                                    <p>Review your account and user list to ensure identity resolution is working as expected.</p>
+                                                    <ul>
+                                                        <li>Open the <a href="https://app.thrivestack.ai/analyze/accounts" target="_blank" rel="noopener noreferrer">Accounts</a> view — confirm accounts created during signup are appearing.</li>
+                                                        <li>Verify users are correctly linked to their accounts (user-to-account association).</li>
+                                                        <li>Check that account traits (plan, company name, etc.) are populated if you're sending them.</li>
+                                                        <li>Confirm no duplicate or anonymous accounts are appearing unexpectedly.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!-- ── Step 3: Debug Tooling Reference ───── -->
+                                            <div class="s-step" id="s4-debug">
+                                                <div class="s-step-left">
+                                                    <div class="s-step-num">3</div>
+                                                </div>
+                                                <div class="s-step-right">
+                                                    <div class="s-step-title-row">
+                                                        <h3 class="s-step-title">Debugging in the Future</h3>
+                                                        <span class="s-step-badge">Reference</span>
+                                                    </div>
+                                                    <p>When something looks off, use these built-in ThriveStack tools to diagnose and fix issues fast.</p>
+                                                    <div class="pi-deliverables" style="margin-top: 12px;">
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-solid fa-chart-bar pi-deliverable-icon" style="color: var(--text-muted);"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Diagnostics Report</span>
+                                                                <span class="pi-deliverable-desc">A health-check report that flags missing events, broken identity calls, or instrumentation gaps. Start here when something isn't showing up.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-solid fa-scroll pi-deliverable-icon" style="color: var(--text-muted);"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Audit Logs</span>
+                                                                <span class="pi-deliverable-desc">A full record of every API call ThriveStack has received — useful for verifying payloads, timestamps, and event names.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pi-deliverable">
+                                                            <i class="fa-solid fa-bolt pi-deliverable-icon" style="color: var(--text-muted);"></i>
+                                                            <div>
+                                                                <span class="pi-deliverable-title">Live Events Stream</span>
+                                                                <span class="pi-deliverable-desc">A real-time feed of incoming events. Trigger an action in your app and watch it appear here instantly — ideal for testing during development.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pi-session-footer" style="margin-top: 16px;">
+                                                        <a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank" rel="noopener noreferrer" class="pi-checklist-cta">
+                                                            <div>
+                                                                <p class="pi-checklist-title"><i class="fa-solid fa-stethoscope" style="color: #22c55e; margin-right: 8px;"></i>Open Diagnostics Report</p>
+                                                                <p class="pi-checklist-desc">Your first stop when events are missing or reports look wrong.</p>
+                                                            </div>
+                                                            <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--text-muted); font-size: 12px; flex-shrink: 0;"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div><!-- /s-steps-list -->
+                                    </div>
+                                </details>
+
+                            </div><!-- /pi-sessions -->
+
+                        </article>
+                    </section>
+                </section>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank"
+                            rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true"
+                            data-file="introduction.html">Last updated: April 13, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#session-1" class="toc-link">Session 1 — User &amp; Group Instrumentation</a>
+                    <a href="#session-2" class="toc-link">Session 2 — Feature Usage</a>
+                    <a href="#session-3" class="toc-link">Session 3 — Activation Journeys</a>
+                    <a href="#session-4" class="toc-link">Session 4 — End-to-End Validation</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <style>
+        /* ── Inner step stepper (within a session) ─────────── */
+        .s-step {
+            display: flex;
+            gap: 16px;
+            align-items: stretch;
+        }
+
+        .s-step-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            width: 28px;
+        }
+
+        .s-step-num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            font-size: 12px;
+            font-weight: 700;
+            color: #93c5fd;
+            flex-shrink: 0;
+        }
+
+        .s-step-line {
+            width: 1px;
+            flex: 1;
+            background: var(--border-color);
+            margin: 8px 0 0;
+        }
+
+        .s-step-right {
+            flex: 1;
+            padding-bottom: 32px;
+            min-width: 0;
+        }
+
+        .s-step-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            min-height: 28px;
+        }
+
+        .s-step-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .s-step-badge {
+            flex-shrink: 0;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: rgba(100, 116, 139, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1px 7px;
+        }
+
+        /* ── Stack routing rows ─────────────────────────────── */
+        .stack-routing-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .stack-route-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 10px;
+            border-radius: 6px;
+            transition: background 0.12s;
+        }
+
+        .stack-route-row:hover { background: rgba(255, 255, 255, 0.04); }
+
+        .stack-route-row-if {
+            font-size: 13px;
+            color: var(--text-muted);
+            flex: 1;
+        }
+
+        .stack-route-row-note {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .route-badge {
+            display: inline-block;
+            padding: 1px 7px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(100, 116, 139, 0.15);
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .route-badge--ai {
+            background: rgba(59, 130, 246, 0.15);
+            color: #93c5fd;
+        }
+
+        /* ── Install tabs ───────────────────────────────────── */
+        .install-tab-list {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .install-tab {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 500;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: color 0.15s, border-color 0.15s;
+        }
+
+        .install-tab:hover { color: var(--text-secondary); }
+
+        .install-tab.active {
+            color: var(--text-primary);
+            border-bottom-color: #3b82f6;
+        }
+
+        .install-panel { display: none; }
+        .install-panel.active { display: block; }
+
+        /* ── Email note ─────────────────────────────────────── */
+        .email-note {
+            display: flex;
+            align-items: flex-start;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            padding: 4px 0 8px;
+        }
+
+        /* ── Sessions wrapper ───────────────────────────────── */
+        .pi-sessions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ── Session collapsible ────────────────────────────── */
+        .pi-session {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* ── Summary / header ───────────────────────────────── */
+        .pi-session-summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 14px 18px;
+            cursor: pointer;
+            list-style: none;
+            user-select: none;
+            background: rgba(255, 255, 255, 0.02);
+            transition: background 0.15s;
+        }
+
+        .pi-session-summary::-webkit-details-marker { display: none; }
+
+        .pi-session-summary:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .pi-session[open] > .pi-session-summary {
+            background: rgba(59, 130, 246, 0.06);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .pi-session-summary-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        /* ── Session number bubble ──────────────────────────── */
+        .pi-session-num {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: #93c5fd;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .pi-session-num--final {
+            background: rgba(34, 197, 94, 0.08);
+            border-color: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        /* ── Title + meta stack ─────────────────────────────── */
+        .pi-session-summary-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .pi-session-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .pi-session-meta {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+
+        .pi-meta-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .pi-meta-item i {
+            font-size: 10px;
+        }
+
+        .pi-meta-sep {
+            display: inline-block;
+            width: 1px;
+            height: 10px;
+            background: var(--border-color);
+            margin: 0 10px;
+            flex-shrink: 0;
+        }
+
+        /* ── Chevron ────────────────────────────────────────── */
+        .pi-session-chevron {
+            font-size: 12px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .pi-session[open] .pi-session-chevron {
+            transform: rotate(180deg);
+        }
+
+        /* ── Body ───────────────────────────────────────────── */
+        .pi-session-body {
+            padding: 20px 20px 0;
+        }
+
+        .pi-session-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin: 0 0 20px;
+        }
+
+        /* ── Deliverables ───────────────────────────────────── */
+        .pi-deliverables-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-muted);
+            margin: 0 0 10px;
+        }
+
+        .pi-deliverables {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .pi-deliverable {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .pi-deliverable-icon {
+            font-size: 11px;
+            color: var(--border-color);
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .pi-deliverable-title {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .pi-deliverable-desc {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* ── Feature table ──────────────────────────────────── */
+        .pi-feature-table-wrapper {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .pi-feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .pi-feature-table th {
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .pi-feature-table td {
+            padding: 9px 12px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        .pi-feature-table tr:last-child td { border-bottom: none; }
+
+        /* ── Footer ─────────────────────────────────────────── */
+        .pi-session-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 14px 0 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .pi-book-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2px;
+        }
+
+        .pi-book-row-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .pi-book-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            margin: 0 0 2px;
+        }
+
+        .pi-book-meta {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .pi-book-btn {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: border-color 0.15s, color 0.15s;
+            white-space: nowrap;
+        }
+
+        .pi-book-btn:hover {
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+        }
+
+        /* ── Docs link ──────────────────────────────────────── */
+        .pi-docs-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: opacity 0.15s;
+        }
+
+        .pi-docs-link:hover { opacity: 0.7; }
+
+        .pi-docs-link-arrow {
+            font-size: 11px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            transition: transform 0.15s;
+        }
+
+        .pi-docs-link:hover .pi-docs-link-arrow { transform: translateX(3px); }
+
+        /* ── Checklist CTA (session 4) ──────────────────────── */
+        .pi-checklist-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 6px 0 10px;
+            text-decoration: none;
+            transition: opacity 0.15s;
+        }
+
+        .pi-checklist-cta:hover { opacity: 0.8; }
+
+        .pi-checklist-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 3px;
+        }
+
+        .pi-checklist-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
+
+    <script>
+        // Install tab switching (scoped per s-step-right)
+        document.querySelectorAll('.install-tab').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                var target = this.dataset.tab;
+                var container = this.closest('.s-step-right');
+                container.querySelectorAll('.install-tab').forEach(function (t) {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                container.querySelectorAll('.install-panel').forEach(function (p) {
+                    p.classList.remove('active');
+                });
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+                container.querySelector('#panel-' + target).classList.add('active');
+            });
+        });
+    </script>
+    <script src="../../../script.js"></script>
+</body>
+
+</html>

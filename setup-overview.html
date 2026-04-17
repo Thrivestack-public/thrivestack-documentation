@@ -81,6 +81,15 @@
             </div>
 
             <div class="sidebar-section">
+                <h3>Guided Setup</h3>
+                <ul>
+                    <li><a href="guided-setup.html" class="nav-item"><span>Overview</span></a></li>
+                    <li><a href="public/marketing/setup/marketing-analytics.html" class="nav-item"><span>Marketing Analytics</span></a></li>
+                    <li><a href="public/product/setup/product-analytics.html" class="nav-item"><span>Product Analytics</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
                 <h3>Marketing Intelligence</h3>
                 <ul>
                     <li><a href="public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI
@@ -135,6 +144,7 @@
                     <li><a href="guided-onboarding.html" class="nav-item"><span>Setup with ThriveStack Team</span></a></li>
                 </ul>
             </div>
+
         </aside>
         <div class="resizer" id="sidebar-resizer"></div>
 
@@ -483,86 +493,116 @@
                                                     <tr>
                                                         <th>Department</th>
                                                         <th>Who is needed</th>
+                                                        <th>What they need access to</th>
                                                         <th>What they'll do</th>
-                                                        <th>Time it should take</th>
-                                                        <th>Documentation link</th>
+                                                        <th>Setup</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td><strong><i class="fa-solid fa-bullhorn icon-marketing"
-                                                                    style="margin-right: 6px;"></i> Marketing</strong>
-                                                        </td>
-                                                        <td>Typically done by Marketing Ops or anyone with permission to
-                                                            add a
-                                                            script to your website</td>
-                                                        <td>Should have access to your Marketing website to install a
-                                                            custom script
-                                                        </td>
-                                                        <td><span class="time-pill">&lt;2 mins</span></td>
-                                                        <td><a href="public/marketing/setup/setup-with-ai.html"
-                                                                class="btn-primary btn-sm">See documentation</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong><i class="fa-solid fa-box-open icon-product"
-                                                                    style="margin-right: 6px;"></i> Product</strong>
-                                                        </td>
-                                                        <td>Developer / Product Manager</td>
-                                                        <td>Enable <a
-                                                                href="public/product/setup/saas-growth-events.html">Growth
-                                                                Instrumentation</a> within your app using AI-assistant
+                                                        <td><strong><i class="fa-solid fa-bullhorn icon-marketing" style="margin-right: 6px;"></i> Marketing</strong></td>
+                                                        <td>
+                                                            <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--text-primary);"><i class="fa-solid fa-user" style="font-size: 10px; color: var(--text-muted); width: 12px; text-align: center;"></i> Marketing Ops</div>
                                                         </td>
                                                         <td>
-                                                            <span class="time-pill">&lt;4 mins</span> <br>
-                                                            <small class="text-muted-sm">depending on the complexity of
-                                                                code
-                                                                base<br>with other tools 4-8 weeks</small>
+                                                            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--text-secondary);">
+                                                                <div style="display: flex; align-items: flex-start; gap: 6px;"><i class="fa-solid fa-code" style="font-size: 10px; color: var(--text-muted); margin-top: 3px; width: 12px; text-align: center;"></i> Marketing website codebase</div>
+                                                                <div style="display: flex; align-items: flex-start; gap: 6px;"><i class="fa-solid fa-globe" style="font-size: 10px; color: var(--text-muted); margin-top: 3px; width: 12px; text-align: center;"></i> Or CMS access (Webflow, WordPress, etc.)</div>
+                                                            </div>
                                                         </td>
-                                                        <td><a href="public/product/setup/setup-with-ai.html"
-                                                                class="btn-primary btn-sm">See documentation</a></td>
+                                                        <td>Install a tracking script on your marketing website for visitor identification and UTM attribution</td>
+                                                        <td>
+                                                            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+                                                                <a href="public/marketing/setup/setup-with-ai.html" class="btn-primary btn-sm" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> Setup with AI <span style="padding-left: 6px; border-left: 1px solid rgba(255,255,255,0.25); font-weight: 400; font-size: 0.78em;">&lt;2 mins</span></a>
+                                                                <a href="#" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.8rem; text-decoration: none;"><i class="fa-solid fa-book-open"></i> Setup Manually <span style="padding-left: 6px; border-left: 1px solid var(--border-color); font-weight: 400; font-size: 0.9em;">~10 mins</span></a>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><strong><i class="fa-solid fa-chart-line icon-revenue"
-                                                                    style="margin-right: 6px;"></i> Revenue</strong>
-                                                        </td>
-                                                        <td>RevOps / Sales Admin</td>
-                                                        <td>Sync Revenue Signals (Stripe, Chargebee etc) to ThriveStack
+                                                        <td><strong><i class="fa-solid fa-box-open icon-product" style="margin-right: 6px;"></i> Product</strong></td>
+                                                        <td>
+                                                            <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--text-primary);"><i class="fa-solid fa-user" style="font-size: 10px; color: var(--text-muted); width: 12px; text-align: center;"></i> Engineer(s)</div>
                                                         </td>
                                                         <td>
-                                                            <span class="time-pill">&lt;4 mins</span> <br>
-                                                            <small class="text-muted-sm">depending on the complexity of
-                                                                code
-                                                                base<br>with other tools 2-4 weeks</small>
+                                                            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--text-secondary);">
+                                                                <div style="display: flex; align-items: flex-start; gap: 6px;"><i class="fa-solid fa-code" style="font-size: 10px; color: var(--text-muted); margin-top: 3px; width: 12px; text-align: center;"></i> All product codebases (user lifecycle &amp; features)</div>
+                                                                <div style="display: flex; align-items: flex-start; gap: 6px;"><i class="fa-solid fa-upload" style="font-size: 10px; color: var(--text-muted); margin-top: 3px; width: 12px; text-align: center;"></i> Ability to commit and push changes</div>
+                                                            </div>
                                                         </td>
-                                                        <td><a href="public/revenue/setup/setup-with-ai.html"
-                                                                class="btn-primary btn-sm">See documentation</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong><i class="fa-solid fa-database icon-crm"
-                                                                    style="margin-right: 6px;"></i> CRM Sync</strong>
-                                                        </td>
-                                                        <td>CRM Admin</td>
-                                                        <td>Authenticate and Sync Signals to your CRM (e.g. Hubspot)
-                                                        </td>
-                                                        <td><span class="time-pill">&lt;2 mins</span></td>
-                                                        <td><a href="public/marketing/CRM/setup-with-ai.html"
-                                                                class="btn-primary btn-sm">See documentation</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong><i class="fa-solid fa-handshake-angle icon-cs"
-                                                                    style="margin-right: 6px;"></i> Customer
-                                                                Success</strong></td>
-                                                        <td>CS Ops / CS Leader</td>
-                                                        <td>Review At-Risk Accounts, Churn Prediction, Expansion
-                                                            Signals, Billing issues</td>
+                                                        <td>Enable <a href="public/product/setup/saas-growth-events.html">Growth Instrumentation</a> within your app — signups, logins, feature usage, and the full customer journey</td>
                                                         <td>
-                                                            <span class="time-pill">&lt;4 mins</span> <br>
-                                                            <small class="text-muted-sm">Compare with other tools 2-4
-                                                                weeks with traditional Customer
-                                                                Success Platform (e.g. ChurnZero, Vitally)</small>
+                                                            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+                                                                <a href="public/product/setup/setup-with-ai.html" class="btn-primary btn-sm" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> Setup with AI <span style="padding-left: 6px; border-left: 1px solid rgba(255,255,255,0.25); font-weight: 400; font-size: 0.78em;">&lt;4 mins</span></a>
+                                                                <a href="#" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.8rem; text-decoration: none;"><i class="fa-solid fa-book-open"></i> Setup Manually <span style="padding-left: 6px; border-left: 1px solid var(--border-color); font-weight: 400; font-size: 0.9em;">~1 hr</span></a>
+                                                                <small class="text-muted-sm" style="margin-top: 0;">vs. 4–8 weeks with other tools</small>
+                                                            </div>
                                                         </td>
-                                                        <td><a href="public/cs/setup/setup-with-ai.html"
-                                                                class="btn-primary btn-sm">See documentation</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong><i class="fa-solid fa-chart-line icon-revenue" style="margin-right: 6px;"></i> Revenue</strong></td>
+                                                        <td>
+                                                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                                                <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--text-primary);"><i class="fa-solid fa-user" style="font-size: 10px; color: var(--text-muted); width: 12px; text-align: center;"></i> Engineer</div>
+                                                                <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--text-primary);"><i class="fa-solid fa-user" style="font-size: 10px; color: var(--text-muted); width: 12px; text-align: center;"></i> Revenue / Billing admin</div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                                                <div style="display: flex; flex-direction: column; gap: 5px; font-size: 13px; color: var(--text-secondary);">
+                                                                    <div style="display: flex; align-items: flex-start; gap: 6px;"><i class="fa-solid fa-code" style="font-size: 10px; color: var(--text-muted); margin-top: 3px; width: 12px; text-align: center;"></i> Backend billing codebase</div>
+                                                                </div>
+                                                                <div style="display: flex; flex-direction: column; gap: 5px; font-size: 13px; color: var(--text-secondary); padding-top: 4px; border-top: 1px solid var(--border-color);">
+                                                                    <div style="display: flex; align-items: flex-start; gap: 6px;"><i class="fa-solid fa-credit-card" style="font-size: 10px; color: var(--text-muted); margin-top: 3px; width: 12px; text-align: center;"></i> Stripe or Chargebee admin (test + production)</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>Sync revenue signals (Stripe, Chargebee, etc.) to ThriveStack for MRR, ARR, churn, and expansion tracking</td>
+                                                        <td>
+                                                            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+                                                                <a href="public/revenue/setup/setup-with-ai.html" class="btn-primary btn-sm" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> Setup with AI <span style="padding-left: 6px; border-left: 1px solid rgba(255,255,255,0.25); font-weight: 400; font-size: 0.78em;">&lt;4 mins</span></a>
+                                                                <a href="#" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.8rem; text-decoration: none;"><i class="fa-solid fa-book-open"></i> Setup Manually <span style="padding-left: 6px; border-left: 1px solid var(--border-color); font-weight: 400; font-size: 0.9em;">~1 hr</span></a>
+                                                                <small class="text-muted-sm" style="margin-top: 0;">vs. 2–4 weeks with other tools</small>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong><i class="fa-solid fa-database icon-crm" style="margin-right: 6px;"></i> CRM Sync</strong></td>
+                                                        <td>
+                                                            <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--text-primary);"><i class="fa-solid fa-user" style="font-size: 10px; color: var(--text-muted); width: 12px; text-align: center;"></i> HubSpot admin</div>
+                                                        </td>
+                                                        <td>
+                                                            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--text-secondary);">
+                                                                <div style="display: flex; align-items: flex-start; gap: 6px;"><i class="fa-brands fa-hubspot" style="font-size: 10px; color: var(--text-muted); margin-top: 3px; width: 12px; text-align: center;"></i> HubSpot admin credentials</div>
+                                                                <div style="display: flex; align-items: flex-start; gap: 6px;"><i class="fa-solid fa-list" style="font-size: 10px; color: var(--text-muted); margin-top: 3px; width: 12px; text-align: center;"></i> List of properties to sync (optional)</div>
+                                                            </div>
+                                                        </td>
+                                                        <td>Authenticate and sync product and revenue signals into your CRM (e.g. HubSpot) — no manual exports</td>
+                                                        <td>
+                                                            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+                                                                <a href="public/marketing/CRM/setup-with-ai.html" class="btn-primary btn-sm" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> Setup with AI <span style="padding-left: 6px; border-left: 1px solid rgba(255,255,255,0.25); font-weight: 400; font-size: 0.78em;">&lt;2 mins</span></a>
+                                                                <a href="#" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.8rem; text-decoration: none;"><i class="fa-solid fa-book-open"></i> Setup Manually <span style="padding-left: 6px; border-left: 1px solid var(--border-color); font-weight: 400; font-size: 0.9em;">~45 mins</span></a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong><i class="fa-solid fa-handshake-angle icon-cs" style="margin-right: 6px;"></i> Customer Success</strong></td>
+                                                        <td>
+                                                            <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--text-primary);"><i class="fa-solid fa-user" style="font-size: 10px; color: var(--text-muted); width: 12px; text-align: center;"></i> CS Ops / CS Leader</div>
+                                                        </td>
+                                                        <td>
+                                                            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--text-secondary);">
+                                                                <div style="display: flex; align-items: flex-start; gap: 6px;"><i class="fa-solid fa-chart-bar" style="font-size: 10px; color: var(--text-muted); margin-top: 3px; width: 12px; text-align: center;"></i> Customer health dashboards or CS platform</div>
+                                                                <div style="display: flex; align-items: flex-start; gap: 6px;"><i class="fa-solid fa-users" style="font-size: 10px; color: var(--text-muted); margin-top: 3px; width: 12px; text-align: center;"></i> Account and subscription data</div>
+                                                            </div>
+                                                        </td>
+                                                        <td>Review at-risk accounts, churn prediction, expansion signals, and billing issues</td>
+                                                        <td>
+                                                            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+                                                                <a href="public/cs/setup/setup-with-ai.html" class="btn-primary btn-sm" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> Setup with AI <span style="padding-left: 6px; border-left: 1px solid rgba(255,255,255,0.25); font-weight: 400; font-size: 0.78em;">&lt;4 mins</span></a>
+                                                                <a href="#" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.8rem; text-decoration: none;"><i class="fa-solid fa-book-open"></i> Setup Manually <span style="padding-left: 6px; border-left: 1px solid var(--border-color); font-weight: 400; font-size: 0.9em;">~1 hr</span></a>
+                                                                <small class="text-muted-sm" style="margin-top: 0;">vs. 2–4 weeks with ChurnZero, Vitally</small>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>

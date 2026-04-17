@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guided Setup Overview - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Guided Setup Overview - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <button id="desktop-sidebar-toggle" class="icon-btn" aria-label="Toggle Sidebar" title="Toggle Sidebar"
+                style="margin-right: 0.5rem;">
+                <i class="fa-solid fa-bars-staggered" style="font-size: 1.1rem;"></i>
+            </button>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="index.html">Get Started</a>
+                <a href="setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="analyze-signals.html">Analyze Signals</a>
+                <a href="take-action.html">Take Action</a>
+                <a href="api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="public/product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Guided Setup</h3>
+                <ul>
+                    <li><a href="guided-setup.html" class="nav-item active"><span>Overview</span></a></li>
+                    <li><a href="public/marketing/setup/marketing-analytics.html" class="nav-item"><span>Marketing Analytics</span></a></li>
+                    <li><a href="public/product/setup/product-analytics.html" class="nav-item"><span>Product Analytics</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="public/product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="public/product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="guided-setup" class="content-section">
+                    <section class="doc-page">
+
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Guided Setup</span>
+                            <h1 class="doc-page-title">Overview</h1>
+                            <p class="doc-page-description">
+                                A high-level overview of how the guided setup with ThriveStack works — how many sessions each track takes, who to bring to each one, and what you'll have set up by the end.
+                            </p>
+                        </header>
+
+                        <article class="doc-page-body">
+
+                            <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.7; margin-bottom: 32px;">
+                                ThriveStack setup is structured into tracks — <strong>Marketing Analytics</strong>, <strong>Product Analytics</strong>, and more. Each track is broken into focused sessions with a clear owner, a defined scope, and a specific outcome. Use this page to understand the full picture before you begin, and to align your team on who needs to be involved and when.
+                            </p>
+
+                            <!-- ── Track cards ───────────────────────────────────── -->
+                            <div class="gs-tracks">
+
+                                <!-- Marketing Analytics Track -->
+                                <div class="gs-track">
+                                    <div class="gs-track-header">
+                                        <div class="gs-track-icon gs-track-icon--marketing">
+                                            <i class="fa-solid fa-bullhorn"></i>
+                                        </div>
+                                        <div class="gs-track-header-text">
+                                            <h2 class="gs-track-title">Marketing Analytics</h2>
+                                            <p class="gs-track-subtitle">Track visitors, attribute signups, and connect marketing channels to product outcomes.</p>
+                                        </div>
+                                        <div class="gs-track-pills">
+                                            <span class="gs-pill"><i class="fa-regular fa-calendar"></i> 1 session</span>
+                                            <span class="gs-pill"><i class="fa-regular fa-clock"></i> ~1–2 hrs</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-track-who">
+                                        <span class="gs-section-label">Who to bring</span>
+                                        <div class="gs-who-chips">
+                                            <span class="gs-who-chip">Developer or marketer with CMS access</span>
+                                            <span class="gs-who-chip">Access to the marketing site or codebase</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-track-sessions-panel">
+                                        <span class="gs-section-label">Session plan</span>
+                                        <div class="gs-timeline">
+                                            <div class="gs-tl-item gs-tl-item--last">
+                                                <div class="gs-tl-left">
+                                                    <div class="gs-tl-dot"></div>
+                                                </div>
+                                                <div class="gs-tl-right">
+                                                    <div class="gs-tl-title-row">
+                                                        <span class="gs-tl-num">Session 1</span>
+                                                        <span class="gs-tl-name">Install &amp; Verify</span>
+                                                        <span class="gs-tl-time">~1–2 hrs</span>
+                                                    </div>
+                                                    <span class="gs-tl-desc">Install the tracking snippet on your marketing site, verify page view and conversion events, and confirm attribution is working end to end.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-track-unlocks-panel">
+                                        <span class="gs-section-label">What you unlock</span>
+                                        <div class="gs-unlock-chips">
+                                            <span class="gs-unlock-chip">Which channels drive signups and free trials</span>
+                                            <span class="gs-unlock-chip">How leads move from marketing touch to signup</span>
+                                            <span class="gs-unlock-chip">Full visitor-to-customer attribution</span>
+                                            <span class="gs-unlock-chip">Marketing-to-product journey correlation</span>
+                                        </div>
+                                    </div>
+
+                                    <a href="public/marketing/setup/marketing-analytics.html" class="gs-track-cta">
+                                        <span>View full session guide</span>
+                                        <i class="fa-solid fa-arrow-right" style="font-size: 12px;"></i>
+                                    </a>
+                                </div>
+
+                                <!-- Product Analytics Track -->
+                                <div class="gs-track">
+                                    <div class="gs-track-header">
+                                        <div class="gs-track-icon gs-track-icon--product">
+                                            <i class="fa-solid fa-layer-group"></i>
+                                        </div>
+                                        <div class="gs-track-header-text">
+                                            <h2 class="gs-track-title">Product Analytics</h2>
+                                            <p class="gs-track-subtitle">Instrument your product, map feature usage, and track activation journeys end to end.</p>
+                                        </div>
+                                        <div class="gs-track-pills">
+                                            <span class="gs-pill"><i class="fa-regular fa-calendar"></i> 4 sessions</span>
+                                            <span class="gs-pill"><i class="fa-regular fa-clock"></i> ~8–12 hrs</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-track-who">
+                                        <span class="gs-section-label">Who to bring</span>
+                                        <div class="gs-who-chips">
+                                            <span class="gs-who-chip">Backend engineer</span>
+                                            <span class="gs-who-chip">Frontend engineer</span>
+                                            <span class="gs-who-chip">Product manager</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-track-sessions-panel">
+                                        <span class="gs-section-label">Session plan</span>
+                                        <div class="gs-timeline">
+                                            <div class="gs-tl-item">
+                                                <div class="gs-tl-left">
+                                                    <div class="gs-tl-dot"></div>
+                                                    <div class="gs-tl-line"></div>
+                                                </div>
+                                                <div class="gs-tl-right">
+                                                    <div class="gs-tl-title-row">
+                                                        <span class="gs-tl-num">Session 1</span>
+                                                        <span class="gs-tl-name">User &amp; Group Instrumentation</span>
+                                                        <span class="gs-tl-time">~2–3 hrs</span>
+                                                    </div>
+                                                    <span class="gs-tl-desc">Wire up identify and group calls at signup, login, and account creation so every user and workspace is tracked from day one.</span>
+                                                </div>
+                                            </div>
+                                            <div class="gs-tl-item">
+                                                <div class="gs-tl-left">
+                                                    <div class="gs-tl-dot"></div>
+                                                    <div class="gs-tl-line"></div>
+                                                </div>
+                                                <div class="gs-tl-right">
+                                                    <div class="gs-tl-title-row">
+                                                        <span class="gs-tl-num">Session 2</span>
+                                                        <span class="gs-tl-name">Feature Usage Instrumentation</span>
+                                                        <span class="gs-tl-time">~2–3 hrs</span>
+                                                    </div>
+                                                    <span class="gs-tl-desc">Add track calls to key product features and user interactions — the events that reveal how people actually use your product.</span>
+                                                </div>
+                                            </div>
+                                            <div class="gs-tl-item">
+                                                <div class="gs-tl-left">
+                                                    <div class="gs-tl-dot"></div>
+                                                    <div class="gs-tl-line"></div>
+                                                </div>
+                                                <div class="gs-tl-right">
+                                                    <div class="gs-tl-title-row">
+                                                        <span class="gs-tl-num">Session 3</span>
+                                                        <span class="gs-tl-name">Activation Journey Setup</span>
+                                                        <span class="gs-tl-time">~2–3 hrs</span>
+                                                    </div>
+                                                    <span class="gs-tl-desc">Map your onboarding funnel, define activation milestones, and configure the journey from signup to first value.</span>
+                                                </div>
+                                            </div>
+                                            <div class="gs-tl-item gs-tl-item--last">
+                                                <div class="gs-tl-left">
+                                                    <div class="gs-tl-dot"></div>
+                                                </div>
+                                                <div class="gs-tl-right">
+                                                    <div class="gs-tl-title-row">
+                                                        <span class="gs-tl-num">Session 4</span>
+                                                        <span class="gs-tl-name">End-to-End Validation</span>
+                                                        <span class="gs-tl-time">~1 hr</span>
+                                                    </div>
+                                                    <span class="gs-tl-desc">Validate reports and account lists, then walk through diagnostics — live events, audit logs, and debugging tools for the future.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-track-unlocks-panel">
+                                        <span class="gs-section-label">What you unlock</span>
+                                        <div class="gs-unlock-chips">
+                                            <span class="gs-unlock-chip">Feature adoption and stickiness by cohort</span>
+                                            <span class="gs-unlock-chip">Activation rates and funnel drop-off visibility</span>
+                                            <span class="gs-unlock-chip">Retention and early churn signals</span>
+                                            <span class="gs-unlock-chip">Account-level journey from signup to active user</span>
+                                        </div>
+                                    </div>
+
+                                    <a href="public/product/setup/product-analytics.html" class="gs-track-cta">
+                                        <span>View full session guide</span>
+                                        <i class="fa-solid fa-arrow-right" style="font-size: 12px;"></i>
+                                    </a>
+                                </div>
+
+                                <!-- Revenue Analytics Track -->
+                                <div class="gs-track">
+                                    <div class="gs-track-header">
+                                        <div class="gs-track-icon gs-track-icon--revenue">
+                                            <i class="fa-solid fa-chart-line"></i>
+                                        </div>
+                                        <div class="gs-track-header-text">
+                                            <h2 class="gs-track-title">Revenue Analytics</h2>
+                                            <p class="gs-track-subtitle">Connect your billing system and see investor-grade revenue reports, account-level details, channel performance, and payment failures.</p>
+                                        </div>
+                                        <div class="gs-track-pills" id="rev-pills">
+                                            <span class="gs-pill"><i class="fa-regular fa-calendar"></i> <span id="rev-sessions">1 session</span></span>
+                                            <span class="gs-pill"><i class="fa-regular fa-clock"></i> <span id="rev-time">~60 min</span></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-track-who">
+                                        <span class="gs-section-label">Who to bring</span>
+                                        <div class="gs-who-chips">
+                                            <span class="gs-who-chip">Engineer with billing codebase access</span>
+                                            <span class="gs-who-chip">Stripe or Chargebee admin</span>
+                                            <span class="gs-who-chip">Billing repo + credentials</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-track-sessions-panel">
+                                        <span class="gs-section-label">Session plan</span>
+                                        <div class="gs-crm-tabs" style="border-top: none; padding: 0; margin-bottom: 16px;">
+                                            <button class="gs-crm-tab gs-crm-tab--active" onclick="revTab(this,'rev-stripe')" id="rev-tab-stripe">Stripe / Chargebee</button>
+                                            <button class="gs-crm-tab" onclick="revTab(this,'rev-api')" id="rev-tab-api">API Integration</button>
+                                        </div>
+
+                                        <div id="rev-stripe" class="gs-timeline">
+                                            <div class="gs-tl-item gs-tl-item--last">
+                                                <div class="gs-tl-left"><div class="gs-tl-dot"></div></div>
+                                                <div class="gs-tl-right">
+                                                    <div class="gs-tl-title-row">
+                                                        <span class="gs-tl-num">Session 1</span>
+                                                        <span class="gs-tl-name">Connect &amp; Verify</span>
+                                                        <span class="gs-tl-time">~60 min</span>
+                                                    </div>
+                                                    <span class="gs-tl-desc">Authorize the integration, validate data sync, and confirm revenue metrics are flowing into ThriveStack.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="rev-api" class="gs-timeline" style="display:none;">
+                                            <div class="gs-tl-item">
+                                                <div class="gs-tl-left"><div class="gs-tl-dot"></div><div class="gs-tl-line"></div></div>
+                                                <div class="gs-tl-right">
+                                                    <div class="gs-tl-title-row">
+                                                        <span class="gs-tl-num">Session 1</span>
+                                                        <span class="gs-tl-name">Discovery &amp; Recommendations</span>
+                                                        <span class="gs-tl-time">~1–2 hrs</span>
+                                                    </div>
+                                                    <span class="gs-tl-desc">Walk through your billing system, understand the data model, and map out the API calls needed to surface revenue data in ThriveStack.</span>
+                                                </div>
+                                            </div>
+                                            <div class="gs-tl-item gs-tl-item--last">
+                                                <div class="gs-tl-left"><div class="gs-tl-dot"></div></div>
+                                                <div class="gs-tl-right">
+                                                    <div class="gs-tl-title-row">
+                                                        <span class="gs-tl-num">Session 2</span>
+                                                        <span class="gs-tl-name">Implementation &amp; Validation</span>
+                                                        <span class="gs-tl-time">~1–2 hrs</span>
+                                                    </div>
+                                                    <span class="gs-tl-desc">Review the completed integration, validate revenue reports against billing data, and confirm everything is accurate.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-track-unlocks-panel">
+                                        <span class="gs-section-label">What you unlock</span>
+                                        <div class="gs-unlock-chips">
+                                            <span class="gs-unlock-chip">Investor-grade revenue reports (MRR, ARR, churn)</span>
+                                            <span class="gs-unlock-chip">Account-level revenue details</span>
+                                            <span class="gs-unlock-chip">Channel performance by revenue</span>
+                                            <span class="gs-unlock-chip">Payment failure analysis</span>
+                                        </div>
+                                    </div>
+
+                                    <a href="#" class="gs-track-cta">
+                                        <span>View full session guide</span>
+                                        <i class="fa-solid fa-arrow-right" style="font-size: 12px;"></i>
+                                    </a>
+                                </div>
+
+                                <!-- CRM Sync Track -->
+                                <div class="gs-track">
+                                    <div class="gs-track-header">
+                                        <div class="gs-track-icon gs-track-icon--crm">
+                                            <i class="fa-solid fa-arrows-rotate"></i>
+                                        </div>
+                                        <div class="gs-track-header-text">
+                                            <h2 class="gs-track-title">CRM Sync</h2>
+                                            <p class="gs-track-subtitle">Connect your CRM to bring sales context into ThriveStack and push product signals back to your sales team.</p>
+                                        </div>
+                                        <div class="gs-track-pills">
+                                            <span class="gs-pill"><i class="fa-regular fa-calendar"></i> 2 sessions</span>
+                                            <span class="gs-pill"><i class="fa-regular fa-clock"></i> ~2–3 hrs</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-crm-tabs">
+                                        <button class="gs-crm-tab gs-crm-tab--active">HubSpot</button>
+                                        <button class="gs-crm-tab gs-crm-tab--disabled" disabled>
+                                            Salesforce <span class="gs-crm-tab-badge">Coming soon</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="gs-track-who">
+                                        <span class="gs-section-label">Who to bring</span>
+                                        <div class="gs-who-chips">
+                                            <span class="gs-who-chip">HubSpot admin</span>
+                                            <span class="gs-who-chip">Sales ops or RevOps manager</span>
+                                            <span class="gs-who-chip">HubSpot workflow access</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-track-sessions-panel">
+                                        <span class="gs-section-label">Session plan</span>
+                                        <div class="gs-timeline">
+                                            <div class="gs-tl-item">
+                                                <div class="gs-tl-left">
+                                                    <div class="gs-tl-dot"></div>
+                                                    <div class="gs-tl-line"></div>
+                                                </div>
+                                                <div class="gs-tl-right">
+                                                    <div class="gs-tl-title-row">
+                                                        <span class="gs-tl-num">Session 1</span>
+                                                        <span class="gs-tl-name">HubSpot → ThriveStack</span>
+                                                        <span class="gs-tl-time">~1 hr</span>
+                                                    </div>
+                                                    <span class="gs-tl-desc">Sync HubSpot contacts, companies, and deals into ThriveStack so your sales-led signals show up alongside product data.</span>
+                                                </div>
+                                            </div>
+                                            <div class="gs-tl-item gs-tl-item--last">
+                                                <div class="gs-tl-left">
+                                                    <div class="gs-tl-dot"></div>
+                                                </div>
+                                                <div class="gs-tl-right">
+                                                    <div class="gs-tl-title-row">
+                                                        <span class="gs-tl-num">Session 2</span>
+                                                        <span class="gs-tl-name">ThriveStack → HubSpot</span>
+                                                        <span class="gs-tl-time">~1–2 hrs</span>
+                                                    </div>
+                                                    <span class="gs-tl-desc">Push product signals — feature adoption, activation status, health scores — into HubSpot, and set up automation workflows to act on them.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="gs-track-unlocks-panel">
+                                        <span class="gs-section-label">What you unlock</span>
+                                        <div class="gs-unlock-chips">
+                                            <span class="gs-unlock-chip">Sales-led signals and deal context in ThriveStack</span>
+                                            <span class="gs-unlock-chip">Product adoption signals in HubSpot</span>
+                                            <span class="gs-unlock-chip">Automated workflows triggered by product activity</span>
+                                            <span class="gs-unlock-chip">Full sales-to-product journey visibility</span>
+                                        </div>
+                                    </div>
+
+                                    <a href="#" class="gs-track-cta">
+                                        <span>View full session guide</span>
+                                        <i class="fa-solid fa-arrow-right" style="font-size: 12px;"></i>
+                                    </a>
+                                </div>
+
+                            </div><!-- /gs-tracks -->
+
+                            <!-- ── Before you begin ──────────────────────────────── -->
+                            <div class="gs-prepare">
+                                <h2 class="gs-prepare-title">Before the first session</h2>
+                                <div class="gs-prepare-items">
+                                    <div class="gs-prepare-item">
+                                        <div class="gs-prepare-num">1</div>
+                                        <div class="gs-prepare-body">
+                                            <span class="gs-prepare-label">Create your ThriveStack account</span>
+                                            <span class="gs-prepare-desc">Sign up at <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" target="_blank" rel="noopener noreferrer">app.thrivestack.ai</a> and retrieve your API key from Settings → API Keys.</span>
+                                        </div>
+                                    </div>
+                                    <div class="gs-prepare-item">
+                                        <div class="gs-prepare-num">2</div>
+                                        <div class="gs-prepare-body">
+                                            <span class="gs-prepare-label">Decide which tracks to run</span>
+                                            <span class="gs-prepare-desc">Marketing Analytics and Product Analytics can run in parallel or sequentially. Most teams start with Marketing Analytics (1 session) while Product Analytics is scheduled over 1–2 weeks.</span>
+                                        </div>
+                                    </div>
+                                    <div class="gs-prepare-item">
+                                        <div class="gs-prepare-num">3</div>
+                                        <div class="gs-prepare-body">
+                                            <span class="gs-prepare-label">Identify the right people</span>
+                                            <span class="gs-prepare-desc">Use the "Who to bring" lists above to confirm who needs to join each session. Blocked engineers are the most common reason sessions slip — pre-book their calendars.</span>
+                                        </div>
+                                    </div>
+                                    <div class="gs-prepare-item">
+                                        <div class="gs-prepare-num">4</div>
+                                        <div class="gs-prepare-body">
+                                            <span class="gs-prepare-label">Book time with the ThriveStack team</span>
+                                            <span class="gs-prepare-desc">Schedule your first session — the ThriveStack team walks through the setup with you live.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="gs-book-btn">
+                                    <i class="fa-solid fa-calendar-check" style="margin-right: 8px;"></i>
+                                    Book a session with ThriveStack
+                                </a>
+                            </div>
+
+                        </article>
+                    </section>
+                </section>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank"
+                            rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a href="#" tabindex="-1">Last updated: April 14, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#guided-setup" class="toc-link active">Overview</a>
+                    <a href="#marketing-track" class="toc-link">Marketing Analytics</a>
+                    <a href="#product-track" class="toc-link">Product Analytics</a>
+                    <a href="#prepare" class="toc-link">Before the first session</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <style>
+        /* ── Track list ──────────────────────────────── */
+        .gs-tracks {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        /* ── Active track card ───────────────────────── */
+        .gs-track {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header row: icon · title/subtitle · pills */
+        .gs-track-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+        }
+
+        .gs-track-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .gs-track-icon--marketing,
+        .gs-track-icon--product,
+        .gs-track-icon--revenue,
+        .gs-track-icon--crm {
+            background: var(--sidebar-hover-bg, rgba(255,255,255,0.04));
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .gs-track-header-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .gs-track-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 2px;
+        }
+
+        .gs-track-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .gs-track-pills {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .gs-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 3px 10px;
+            white-space: nowrap;
+        }
+
+        /* Section labels */
+        .gs-section-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin: 0;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* Section labels with dash prefix when inline */
+        .gs-track-who .gs-section-label::before,
+        .gs-track-unlocks-panel .gs-section-label::before {
+            content: "— ";
+            opacity: 0.5;
+        }
+
+        /* CRM tab bar */
+        .gs-crm-tabs {
+            border-top: 1px solid var(--border-color);
+            padding: 0 24px;
+            display: flex;
+            gap: 0;
+        }
+
+        .gs-crm-tab {
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            margin-bottom: -1px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: color 0.15s;
+        }
+
+        .gs-crm-tab--active {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+
+        .gs-crm-tab--disabled {
+            opacity: 0.45;
+            cursor: default;
+        }
+
+        .gs-crm-tab-badge {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1px 7px;
+        }
+
+        /* Who to bring — horizontal row */
+        .gs-track-who {
+            border-top: 1px solid var(--border-color);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .gs-who-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .gs-who-chip {
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: var(--sidebar-hover-bg, rgba(255,255,255,0.03));
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 3px 10px;
+        }
+
+        /* Session plan — full width */
+        .gs-track-sessions-panel {
+            border-top: 1px solid var(--border-color);
+            padding: 20px 24px;
+        }
+
+        .gs-track-sessions-panel .gs-section-label {
+            display: block;
+            margin-bottom: 14px;
+        }
+
+        .gs-track-sessions-panel .gs-timeline {
+            padding-left: 16px;
+        }
+
+        .gs-track-sessions-panel .gs-section-label::before {
+            content: "— ";
+            opacity: 0.5;
+        }
+
+        /* What you unlock — horizontal row */
+        .gs-track-unlocks-panel {
+            border-top: 1px solid var(--border-color);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .gs-unlock-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .gs-unlock-chip {
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .gs-unlock-chip::before {
+            content: "✓";
+            font-size: 10px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        /* Timeline */
+        .gs-timeline {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gs-tl-item {
+            display: flex;
+            gap: 12px;
+            align-items: stretch;
+        }
+
+        .gs-tl-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            width: 12px;
+        }
+
+        .gs-tl-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 4px;
+            background: rgba(59, 130, 246, 0.3);
+            border: 2px solid rgba(59, 130, 246, 0.5);
+        }
+
+        .gs-tl-item--last .gs-tl-dot {
+            background: rgba(74, 222, 128, 0.3);
+            border-color: rgba(74, 222, 128, 0.5);
+        }
+
+        .gs-tl-line {
+            width: 1px;
+            flex: 1;
+            background: var(--border-color);
+            margin: 4px 0;
+        }
+
+        .gs-tl-right {
+            flex: 1;
+            padding-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .gs-tl-item--last .gs-tl-right {
+            padding-bottom: 0;
+        }
+
+        .gs-tl-title-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .gs-tl-num {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .gs-tl-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .gs-tl-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .gs-tl-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-top: 1px;
+        }
+
+        /* CTA bar */
+        .gs-track-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 11px 24px;
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .gs-track-cta:hover {
+            background: var(--sidebar-hover-bg, rgba(255,255,255,0.04));
+            color: var(--text-primary);
+        }
+
+        /* ── Coming soon placeholder card ─────────────── */
+        .gs-track--coming-soon {
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            opacity: 0.55;
+        }
+
+        .gs-track--coming-soon .gs-track-icon {
+            background: transparent;
+            border: 1px dashed var(--border-color);
+            color: var(--text-muted);
+        }
+
+        .gs-coming-soon-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .gs-coming-soon-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .gs-coming-soon-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .gs-coming-soon-badge {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 3px 9px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* ── Before the first session ────────────────── */
+        .gs-prepare {
+            border-top: 1px solid var(--border-color);
+            padding-top: 36px;
+        }
+
+        .gs-prepare-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 24px;
+        }
+
+        .gs-prepare-items {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 28px;
+        }
+
+        .gs-prepare-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .gs-prepare-item:last-child {
+            border-bottom: none;
+        }
+
+        .gs-prepare-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--sidebar-hover-bg, rgba(255,255,255,0.06));
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .gs-prepare-body {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .gs-prepare-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .gs-prepare-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .gs-prepare-desc a {
+            color: var(--link-color, #60a5fa);
+        }
+
+        /* Book button */
+        .gs-book-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 18px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #93c5fd;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+
+        .gs-book-btn:hover {
+            background: rgba(59, 130, 246, 0.18);
+        }
+    </style>
+
+    <script>
+        function revTab(btn, showId) {
+            // Toggle tab active state
+            btn.closest('.gs-crm-tabs').querySelectorAll('.gs-crm-tab').forEach(function(t) {
+                t.classList.remove('gs-crm-tab--active');
+            });
+            btn.classList.add('gs-crm-tab--active');
+            // Toggle timeline visibility
+            ['rev-stripe', 'rev-api'].forEach(function(id) {
+                document.getElementById(id).style.display = id === showId ? '' : 'none';
+            });
+            // Update header pills
+            if (showId === 'rev-stripe') {
+                document.getElementById('rev-sessions').textContent = '1 session';
+                document.getElementById('rev-time').textContent = '~60 min';
+            } else {
+                document.getElementById('rev-sessions').textContent = '2 sessions';
+                document.getElementById('rev-time').textContent = '~3–4 hrs';
+            }
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

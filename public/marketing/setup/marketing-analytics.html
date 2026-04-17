@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Marketing Analytics - Guided Setup - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Marketing Analytics - Guided Setup - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.app.thrivestack.ai/latest/script.js" api-key="{{THRIVESTACK_API_KEY}}"
+        source="marketing"></script>
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <button id="desktop-sidebar-toggle" class="icon-btn" aria-label="Toggle Sidebar" title="Toggle Sidebar"
+                style="margin-right: 0.5rem;">
+                <i class="fa-solid fa-bars-staggered" style="font-size: 1.1rem;"></i>
+            </button>
+            <a href="../../../index.html" class="logo">
+                <img src="../../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../../index.html">Get Started</a>
+                <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="../../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../../take-action.html">Take Action</a>
+                <a href="../../../api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="../../product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Guided Setup</h3>
+                <ul>
+                    <li><a href="../../../guided-setup.html" class="nav-item"><span>Overview</span></a></li>
+                    <li><a href="marketing-analytics.html" class="nav-item active"><span>Marketing Analytics</span></a></li>
+                    <li><a href="../../product/setup/product-analytics.html" class="nav-item"><span>Product Analytics</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="../../product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="../../product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="../../product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="content-section">
+                    <section class="doc-page">
+
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Guided Setup</span>
+                            <h1 class="doc-page-title">Marketing Analytics</h1>
+                            <p class="doc-page-description">
+                                This guide gives you the full picture of setting up Marketing Intelligence — so you can answer which channels drive signups, how leads convert, and how marketing touches correlate with product usage and revenue.
+                            </p>
+                        </header>
+
+                        <article class="doc-page-body">
+
+                            <div style="padding: 4px 0 28px;">
+                                <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 8px;">What you need</p>
+                                <div style="display: flex; flex-direction: column; gap: 6px;">
+                                    <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary);">
+                                        <i class="fa-solid fa-user" style="color: var(--text-muted); font-size: 11px; width: 12px;"></i>
+                                        Someone who can deploy to the marketing website
+                                    </span>
+                                    <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary);">
+                                        <i class="fa-solid fa-code" style="color: var(--text-muted); font-size: 11px; width: 12px;"></i>
+                                        Access to the marketing site codebase or CMS
+                                    </span>
+                                    <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary);">
+                                        <i class="fa-solid fa-key" style="color: var(--text-muted); font-size: 11px; width: 12px;"></i>
+                                        A ThriveStack account — <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" target="_blank" rel="noopener noreferrer">sign up free</a>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- ── Step 1: Understand Your Stack ──────────────────── -->
+                            <div class="setup-step" id="understand-stack">
+                                <div class="setup-step-left">
+                                    <div class="setup-step-num">1</div>
+                                    <div class="setup-step-line"></div>
+                                </div>
+                                <div class="setup-step-right">
+                                    <div class="setup-step-title-row">
+                                        <h2 class="setup-step-title">Understanding Your Stack</h2>
+                                        <span class="step-time-badge">~5 min</span>
+                                    </div>
+                                    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 10px;">Pick the path that matches your setup — one of these will be yours.</p>
+                                    <div class="stack-routing-list">
+                                        <div class="stack-route-row">
+                                            <span class="stack-route-row-if">Site is on <strong>Webflow</strong></span>
+                                            <span class="route-badge">Manual → Webflow</span>
+                                        </div>
+                                        <div class="stack-route-row">
+                                            <span class="stack-route-row-if">Using <strong>Google Tag Manager</strong></span>
+                                            <span class="route-badge">Manual → GTM</span>
+                                        </div>
+                                        <div class="stack-route-row">
+                                            <span class="stack-route-row-if">Have a <strong>developer + codebase</strong></span>
+                                            <span class="route-badge route-badge--ai">AI Enabled</span>
+                                            <span class="stack-route-row-note">fastest</span>
+                                        </div>
+                                        <div class="stack-route-row">
+                                            <span class="stack-route-row-if">Have a developer, <strong>prefer manual</strong></span>
+                                            <span class="route-badge">Manual → Code</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ── Step 2: Install ────────────────────────────────── -->
+                            <div class="setup-step" id="install">
+                                <div class="setup-step-left">
+                                    <div class="setup-step-num">2</div>
+                                    <div class="setup-step-line"></div>
+                                </div>
+                                <div class="setup-step-right">
+                                <div class="setup-step-title-row">
+                                    <h2 class="setup-step-title">Installing the Script</h2>
+                                    <span class="step-time-badge">~2–30 min</span>
+                                </div>
+
+                                <!-- Main tab bar -->
+                                <div class="install-tab-list" role="tablist">
+                                    <button class="install-tab active" data-tab="ai" role="tab" aria-selected="true">
+                                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Enabled
+                                    </button>
+                                    <button class="install-tab" data-tab="manual" role="tab" aria-selected="false">
+                                        <i class="fa-solid fa-book-open"></i> Manual
+                                    </button>
+                                </div>
+
+                                <!-- ── AI TAB ──────────────────────────────────────── -->
+                                <div class="install-panel active" id="panel-ai">
+                                    <div class="session-card">
+                                        <div class="session-card-header">
+                                            <i class="fa-solid fa-calendar-check session-card-icon"></i>
+                                            <div>
+                                                <p class="session-card-label">Guided Onboarding</p>
+                                                <p class="session-card-meta">1 session &nbsp;·&nbsp; ~30 min with ThriveStack team</p>
+                                            </div>
+                                            <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="session-book-btn">Book a session</a>
+                                        </div>
+                                        <div class="session-card-body">
+                                            <p class="session-label">What happens in this session</p>
+                                            <div class="session-items">
+                                                <div class="session-item"><i class="fa-solid fa-key session-item-icon"></i> Get your ThriveStack API key</div>
+                                                <div class="session-item"><i class="fa-solid fa-wand-magic-sparkles session-item-icon"></i> Run the AI prompt in your codebase — AI locates the layout file and adds the script tag <span class="session-item-time">~4 min</span></div>
+                                                <div class="session-item"><i class="fa-solid fa-circle-check session-item-icon"></i> AI self-verifies the tag is present on all pages</div>
+                                                <div class="session-item"><i class="fa-solid fa-chart-bar session-item-icon"></i> Confirm data is arriving in ThriveStack dashboard</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="setup-with-ai.html" class="docs-link-card">
+                                        <div>
+                                            <p class="docs-link-card-title"><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 7px; color: #93c5fd;"></i>Setup with AI — full documentation</p>
+                                            <p class="docs-link-card-desc">Step-by-step guide: get your API key, copy the prompt, run it, and verify the install.</p>
+                                        </div>
+                                        <i class="fa-solid fa-arrow-right docs-link-card-arrow"></i>
+                                    </a>
+                                </div>
+
+                                <!-- ── MANUAL TAB ───────────────────────────────────── -->
+                                <div class="install-panel" id="panel-manual">
+
+                                    <!-- Method sub-tabs -->
+                                    <div class="method-tab-list" role="tablist">
+                                        <button class="method-tab active" data-method="gtm" role="tab">
+                                            <i class="fa-brands fa-google" style="margin-right: 4px;"></i> Google Tag Manager
+                                        </button>
+                                        <button class="method-tab" data-method="webflow" role="tab">
+                                            <i class="fa-brands fa-webflow" style="margin-right: 4px;"></i> Webflow
+                                        </button>
+                                        <button class="method-tab" data-method="code" role="tab">
+                                            <i class="fa-solid fa-code" style="margin-right: 4px;"></i> Code
+                                        </button>
+                                    </div>
+
+                                    <!-- GTM panel -->
+                                    <div class="method-panel active" id="panel-gtm">
+                                        <div class="session-card">
+                                            <div class="session-card-header">
+                                                <i class="fa-solid fa-calendar-check session-card-icon"></i>
+                                                <div>
+                                                    <p class="session-card-label">Guided Onboarding</p>
+                                                    <p class="session-card-meta">1 session &nbsp;·&nbsp; ~30 min with ThriveStack team</p>
+                                                </div>
+                                                <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="session-book-btn">Book a session</a>
+                                            </div>
+                                            <div class="session-card-body">
+                                                <p class="session-label">What happens in this session</p>
+                                                <div class="session-items">
+                                                    <div class="session-item"><i class="fa-solid fa-key session-item-icon"></i> Get your ThriveStack API key</div>
+                                                    <div class="session-item"><i class="fa-solid fa-code session-item-icon"></i> Add the ThriveStack script to your site</div>
+                                                    <div class="session-item"><i class="fa-solid fa-circle-check session-item-icon"></i> Verify the script is present on all pages</div>
+                                                    <div class="session-item"><i class="fa-solid fa-chart-bar session-item-icon"></i> Confirm data arriving in ThriveStack dashboard</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="docs-link-card">
+                                            <div>
+                                                <p class="docs-link-card-title"><i class="fa-solid fa-book-open" style="margin-right: 7px; color: var(--text-muted);"></i>Setup Manually — full documentation</p>
+                                                <p class="docs-link-card-desc">Step-by-step guide to manually adding the ThriveStack script to your marketing site.</p>
+                                            </div>
+                                            <i class="fa-solid fa-arrow-right docs-link-card-arrow"></i>
+                                        </a>
+                                    </div>
+
+                                    <!-- Webflow panel -->
+                                    <div class="method-panel" id="panel-webflow">
+                                        <div class="session-card">
+                                            <div class="session-card-header">
+                                                <i class="fa-solid fa-calendar-check session-card-icon"></i>
+                                                <div>
+                                                    <p class="session-card-label">Guided Onboarding</p>
+                                                    <p class="session-card-meta">1 session &nbsp;·&nbsp; ~30 min with ThriveStack team</p>
+                                                </div>
+                                                <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="session-book-btn">Book a session</a>
+                                            </div>
+                                            <div class="session-card-body">
+                                                <p class="session-label">What happens in this session</p>
+                                                <div class="session-items">
+                                                    <div class="session-item"><i class="fa-solid fa-key session-item-icon"></i> Get your ThriveStack API key</div>
+                                                    <div class="session-item"><i class="fa-solid fa-code session-item-icon"></i> Add the ThriveStack script to your site</div>
+                                                    <div class="session-item"><i class="fa-solid fa-circle-check session-item-icon"></i> Verify the script is present on all pages</div>
+                                                    <div class="session-item"><i class="fa-solid fa-chart-bar session-item-icon"></i> Confirm data arriving in ThriveStack dashboard</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="docs-link-card">
+                                            <div>
+                                                <p class="docs-link-card-title"><i class="fa-solid fa-book-open" style="margin-right: 7px; color: var(--text-muted);"></i>Setup Manually — full documentation</p>
+                                                <p class="docs-link-card-desc">Step-by-step guide to manually adding the ThriveStack script to your marketing site.</p>
+                                            </div>
+                                            <i class="fa-solid fa-arrow-right docs-link-card-arrow"></i>
+                                        </a>
+                                    </div>
+
+                                    <!-- Code panel -->
+                                    <div class="method-panel" id="panel-code">
+                                        <div class="session-card">
+                                            <div class="session-card-header">
+                                                <i class="fa-solid fa-calendar-check session-card-icon"></i>
+                                                <div>
+                                                    <p class="session-card-label">Guided Onboarding</p>
+                                                    <p class="session-card-meta">1 session &nbsp;·&nbsp; ~30 min with ThriveStack team</p>
+                                                </div>
+                                                <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="session-book-btn">Book a session</a>
+                                            </div>
+                                            <div class="session-card-body">
+                                                <p class="session-label">What happens in this session</p>
+                                                <div class="session-items">
+                                                    <div class="session-item"><i class="fa-solid fa-key session-item-icon"></i> Get your ThriveStack API key</div>
+                                                    <div class="session-item"><i class="fa-solid fa-code session-item-icon"></i> Add the ThriveStack script to your site</div>
+                                                    <div class="session-item"><i class="fa-solid fa-circle-check session-item-icon"></i> Verify the script is present on all pages</div>
+                                                    <div class="session-item"><i class="fa-solid fa-chart-bar session-item-icon"></i> Confirm data arriving in ThriveStack dashboard</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="docs-link-card">
+                                            <div>
+                                                <p class="docs-link-card-title"><i class="fa-solid fa-book-open" style="margin-right: 7px; color: var(--text-muted);"></i>Setup Manually — full documentation</p>
+                                                <p class="docs-link-card-desc">Step-by-step guide to manually adding the ThriveStack script to your marketing site.</p>
+                                            </div>
+                                            <i class="fa-solid fa-arrow-right docs-link-card-arrow"></i>
+                                        </a>
+                                    </div>
+
+                                </div><!-- /install panels -->
+                                </div><!-- /setup-step-right -->
+                            </div><!-- /step 2 -->
+
+                            <!-- ── Step 3: Verify ──────────────────────────────────── -->
+                            <div class="setup-step" id="verify">
+                                <div class="setup-step-left">
+                                    <div class="setup-step-num">3</div>
+                                    <div class="setup-step-line"></div>
+                                </div>
+                                <div class="setup-step-right">
+                                <div class="setup-step-title-row">
+                                    <h2 class="setup-step-title">Verifying in ThriveStack</h2>
+                                    <span class="step-time-badge">~5 min</span>
+                                </div>
+                                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
+                                    Once your script is live, come back to ThriveStack to confirm data is flowing.
+                                </p>
+
+                                <a href="https://app.thrivestack.ai/analyze/onboarding/marketing-analytics?step=1"
+                                    target="_blank" rel="noopener noreferrer" class="verify-cta-plain">
+                                    <div>
+                                        <p class="verify-cta-title"><i class="fa-solid fa-circle-check" style="color: #22c55e; margin-right: 8px;"></i>Open Setup Checklist</p>
+                                        <p class="verify-cta-desc">See whether ThriveStack is receiving visitors and page views from your marketing site — your ground truth for a working install.</p>
+                                    </div>
+                                    <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--text-muted); font-size: 12px; flex-shrink: 0;"></i>
+                                </a>
+
+                                <div class="email-note">
+                                    <i class="fa-solid fa-envelope" style="color: var(--text-muted); margin-right: 8px; flex-shrink: 0;"></i>
+                                    <span>ThriveStack sends a daily setup email showing which checklist items are complete and what to tackle next. Check your inbox after your first deployment.</span>
+                                </div>
+                                </div><!-- /setup-step-right -->
+                            </div><!-- /step 3 -->
+
+                            <!-- ── Step 4: What did you achieve ────────────────────── -->
+                            <div class="setup-step" id="achieve">
+                                <div class="setup-step-left">
+                                    <div class="setup-step-num">4</div>
+                                </div>
+                                <div class="setup-step-right">
+                                <div class="setup-step-title-row">
+                                    <h2 class="setup-step-title">What You Just Achieved</h2>
+                                    <span class="step-time-badge">~5 min read</span>
+                                </div>
+                                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
+                                    Traditional Marketing Analytics tools show you vanity metrics like Traffic, Page Visits, and Visitor Trends — most of that is free with Google Analytics. ThriveStack goes far beyond that. It gives you full-journey correlation by stitching together Marketing touchpoints, Product usage, Account behavior, and Billing events.
+                                </p>
+
+                                <div style="overflow-x: auto; margin-bottom: 24px; border-radius: 8px; border: 1px solid var(--border-color);">
+                                    <table style="width: 100%; text-align: left; border-collapse: collapse; font-size: 13px;">
+                                        <thead style="background: rgba(255,255,255,0.02);">
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <th style="padding: 12px 16px; font-weight: 600;">Feature</th>
+                                                <th style="padding: 12px 16px; font-weight: 600; text-align: center;">Traditional Analytics</th>
+                                                <th style="padding: 12px 16px; font-weight: 600; text-align: center; background-color: rgba(59,130,246,0.08);">ThriveStack</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <td style="padding: 11px 16px; color: var(--text-secondary);">Track pages</td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <td style="padding: 11px 16px; color: var(--text-secondary);">Track New Visitors</td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <td style="padding: 11px 16px; color: var(--text-secondary);">Traffic by UTM</td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <td style="padding: 11px 16px; color: var(--text-secondary);">Content Performance</td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <td style="padding: 11px 16px; color: var(--text-secondary);">Track Returning Visitors</td>
+                                                <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <td style="padding: 11px 16px; color: var(--text-secondary);">Goal Conversions</td>
+                                                <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <td style="padding: 11px 16px; color: var(--text-secondary);">Lead Quality</td>
+                                                <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <td style="padding: 11px 16px; color: var(--text-secondary);">Multi-Touch Attribution</td>
+                                                <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 11px; font-weight: 600; margin-left: 4px; color: var(--text-muted);">[P][R]</span></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <td style="padding: 11px 16px; color: var(--text-secondary);">Channel Performance (correlated with Product &amp; Revenue)</td>
+                                                <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 11px; font-weight: 600; margin-left: 4px; color: var(--text-muted);">[P][R]</span></td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <td style="padding: 11px 16px; color: var(--text-secondary);">Time to Acquisition</td>
+                                                <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 11px; font-weight: 600; margin-left: 4px; color: var(--text-muted);">[P]</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 11px 16px; color: var(--text-secondary);">Touchpoints to Acquisition</td>
+                                                <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                                <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 11px; font-weight: 600; margin-left: 4px; color: var(--text-muted);">[P]</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+                                    <span style="font-weight: 600; color: var(--text-secondary);">[P]</span> and <span style="font-weight: 600; color: var(--text-secondary);">[R]</span> mean Product and Revenue co-relation.
+                                </p>
+
+                                <ul style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; padding-left: 20px; margin-bottom: 0;">
+                                    <li>Various Marketing Intelligence reports are now available.</li>
+                                    <li>Out of box reports are set up — share with your Marketing, Product, and Sales teams.</li>
+                                    <li>Account-level analytics including 40+ metrics across Activation, Feature Usage, and API Usage are available in the <a href="https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list" target="_blank" rel="noopener noreferrer">Full Journey CRM</a>.</li>
+                                </ul>
+                                </div><!-- /setup-step-right -->
+                            </div><!-- /step 4 -->
+
+                        </article>
+                    </section>
+                </section>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank"
+                            rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true"
+                            data-file="introduction.html">Last updated: April 13, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#understand-stack" class="toc-link">1. Understanding Your Stack</a>
+                    <a href="#install" class="toc-link">2. Installing the Script</a>
+                    <a href="#verify" class="toc-link">3. Verifying in ThriveStack</a>
+                    <a href="#achieve" class="toc-link">4. What You Just Achieved</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <style>
+        /* ── Stepper layout ─────────────────────────────────── */
+        .setup-step {
+            display: flex;
+            gap: 20px;
+        }
+
+        .setup-step-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            width: 32px;
+        }
+
+        .setup-step-num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            font-size: 14px;
+            font-weight: 700;
+            color: #93c5fd;
+            flex-shrink: 0;
+        }
+
+        .setup-step-line {
+            width: 1px;
+            flex: 1;
+            background: var(--border-color);
+            margin: 8px 0;
+            min-height: 24px;
+        }
+
+        .setup-step-right {
+            flex: 1;
+            padding-bottom: 36px;
+            min-width: 0;
+        }
+
+        .setup-step-title-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .setup-step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 4px 0 0;
+        }
+
+        .step-time-badge {
+            flex-shrink: 0;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: rgba(100, 116, 139, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 2px 8px;
+            align-self: center;
+        }
+
+        /* ── Stack routing ──────────────────────────────────── */
+        .stack-routing-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stack-route-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 9px 12px;
+            border-radius: 6px;
+            cursor: default;
+            transition: background 0.12s;
+        }
+
+        .stack-route-row:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .stack-route-row-if {
+            font-size: 13px;
+            color: var(--text-muted);
+            flex: 1;
+        }
+
+        .stack-route-row-note {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .route-badge {
+            display: inline-block;
+            padding: 1px 7px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(100, 116, 139, 0.15);
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .route-badge--ai {
+            background: rgba(59, 130, 246, 0.15);
+            color: #93c5fd;
+        }
+
+        /* ── Main install tabs ──────────────────────────────── */
+        .install-tab-list {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 28px;
+        }
+
+        .install-tab {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: color 0.15s, border-color 0.15s;
+        }
+
+        .install-tab:hover {
+            color: var(--text-secondary);
+        }
+
+        .install-tab.active {
+            color: var(--text-primary);
+            border-bottom-color: var(--brand-primary, #3b82f6);
+        }
+
+        .install-panel {
+            display: none;
+        }
+
+        .install-panel.active {
+            display: block;
+        }
+
+        /* ── Method sub-tabs ────────────────────────────────── */
+        .method-tab-list {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .method-tab {
+            display: flex;
+            align-items: center;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.15s;
+        }
+
+        .method-tab:hover {
+            color: var(--text-secondary);
+            border-color: var(--text-muted);
+        }
+
+        .method-tab.active {
+            background: rgba(59, 130, 246, 0.12);
+            border-color: rgba(59, 130, 246, 0.4);
+            color: #93c5fd;
+        }
+
+        .method-panel {
+            display: none;
+        }
+
+        .method-panel.active {
+            display: block;
+        }
+
+        /* ── Session card ───────────────────────────────────── */
+        .session-card {
+            margin-bottom: 8px;
+        }
+
+        .session-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 0 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .session-card-icon {
+            font-size: 15px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .session-card-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            margin: 0 0 2px;
+        }
+
+        .session-card-meta {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .session-book-btn {
+            margin-left: auto;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: border-color 0.15s, color 0.15s;
+        }
+
+        .session-book-btn:hover {
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+        }
+
+        .session-card-body {
+            padding: 16px 0;
+        }
+
+        .session-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-muted);
+            margin: 0 0 10px;
+        }
+
+        .session-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .session-item {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .session-item-icon {
+            font-size: 10px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            width: 12px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .session-item-time {
+            margin-left: auto;
+            flex-shrink: 0;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: rgba(100, 116, 139, 0.1);
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        /* ── AI phase list ──────────────────────────────────── */
+        .phase-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .phase-item {
+            display: flex;
+            gap: 14px;
+        }
+
+        .phase-num {
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #93c5fd;
+            margin-top: 1px;
+        }
+
+        .phase-item strong {
+            font-size: 14px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .phase-item p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ── Verify options (AI tab) ─────────────────────────── */
+        .verify-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .verify-option {
+            padding: 18px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .verify-option-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .verify-option-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            font-size: 11px;
+            font-weight: 700;
+            color: #93c5fd;
+            flex-shrink: 0;
+        }
+
+        .verify-steps {
+            margin: 0 0 0 16px;
+            padding: 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.9;
+        }
+
+        /* ── Manual steps ────────────────────────────────────── */
+        .manual-steps {
+            margin: 0 0 0 18px;
+            padding: 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+        }
+
+        /* ── Framework table (Code tab) ─────────────────────── */
+        .framework-table-wrapper {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0 20px;
+        }
+
+        .framework-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .framework-table th {
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .framework-table td {
+            padding: 9px 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .framework-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ── Info callout ────────────────────────────────────── */
+        .info-callout {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 16px;
+            background: rgba(59, 130, 246, 0.06);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .info-callout i {
+            color: #60a5fa;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        /* ── Docs link card ─────────────────────────────────── */
+        .docs-link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 0;
+            margin-top: 4px;
+            text-decoration: none;
+            transition: opacity 0.15s;
+        }
+
+        .docs-link-card:hover {
+            opacity: 0.8;
+        }
+
+        .docs-link-card:hover .docs-link-card-arrow {
+            transform: translateX(3px);
+        }
+
+        .docs-link-card-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 0 0 4px;
+        }
+
+        .docs-link-card-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .docs-link-card-arrow {
+            font-size: 12px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            transition: transform 0.15s;
+        }
+
+        /* ── Verify section ──────────────────────────────────── */
+        .checklist-preview {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .checklist-section-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .checklist-item--done {
+            color: var(--text-primary);
+        }
+
+        .checklist-item--locked {
+            opacity: 0.45;
+        }
+
+        .checklist-item-icon {
+            font-size: 12px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .checklist-item--done .checklist-item-icon {
+            color: #3b82f6;
+        }
+
+        .checklist-item-badge {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 600;
+            color: #93c5fd;
+            background: rgba(59, 130, 246, 0.12);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .verify-cta-plain {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 6px 0 14px;
+            text-decoration: none;
+            transition: opacity 0.15s;
+        }
+
+        .verify-cta-plain:hover {
+            opacity: 0.8;
+        }
+
+        /* kept for backward compat if referenced elsewhere */
+        .verify-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 18px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+            text-decoration: none;
+            margin-bottom: 14px;
+            transition: border-color 0.15s, background 0.15s;
+        }
+
+        .verify-cta:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            background: rgba(59, 130, 246, 0.04);
+        }
+
+        .verify-cta-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 5px;
+        }
+
+        .verify-cta-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .email-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            padding: 12px 0;
+        }
+    </style>
+
+    <script>
+        // ── Main install tabs ──────────────────────────────────
+        document.querySelectorAll('.install-tab').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                var target = this.dataset.tab;
+                document.querySelectorAll('.install-tab').forEach(function (t) {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                document.querySelectorAll('.install-panel').forEach(function (p) {
+                    p.classList.remove('active');
+                });
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+                document.getElementById('panel-' + target).classList.add('active');
+            });
+        });
+
+        // ── Method sub-tabs ────────────────────────────────────
+        document.querySelectorAll('.method-tab').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                var target = this.dataset.method;
+                var parent = this.closest('.install-panel');
+                parent.querySelectorAll('.method-tab').forEach(function (t) {
+                    t.classList.remove('active');
+                });
+                parent.querySelectorAll('.method-panel').forEach(function (p) {
+                    p.classList.remove('active');
+                });
+                this.classList.add('active');
+                document.getElementById('panel-' + target).classList.add('active');
+            });
+        });
+
+        // ── Copy code snippets ─────────────────────────────────
+        function copyCode(id, btn) {
+            var text = document.getElementById(id).textContent;
+            navigator.clipboard.writeText(text).then(function () {
+                var orig = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+                setTimeout(function () { btn.innerHTML = orig; }, 2000);
+            });
+        }
+    </script>
+
+    <script src="../../../script.js"></script>
+</body>
+
+</html>
