@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Environment Co-relation - ThriveStack Documentation">
+    <meta name="description" content="Environments and API Keys - ThriveStack Documentation">
     <script>
         (function () {
             try {
@@ -15,7 +15,7 @@
             }
         })();
     </script>
-    <title>Environment Co-relation - ThriveStack</title>
+    <title>Environments and API Keys - ThriveStack</title>
     <link rel="icon" type="image/png"
         href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="apple-touch-icon"
@@ -286,7 +286,7 @@
                 <ul>
                     <li><a href="../../../public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
                     <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
-                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item active"><span>Environment Co-relation</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item active"><span>Environments and API Keys</span></a></li>
                 </ul>
             </div>
 
@@ -297,7 +297,7 @@
                     <li><a href="../../../public/product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
                     <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
                     <li><a href="../../../public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
-                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item active"><span>Environment Co-relation</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item active"><span>Environments and API Keys</span></a></li>
                 </ul>
             </div>
 
@@ -331,7 +331,7 @@
                     <section class="doc-page">
                         <header class="doc-page-header">
                             <span class="doc-page-header-eyebrow">Setup (Unify)</span>
-                            <h1 class="doc-page-title">Environment Co-relation</h1>
+                            <h1 class="doc-page-title">Environments and API Keys</h1>
                             <p class="doc-page-description">
                                 You can create as many environments as you need — one per deployment stage. For correlation to work, your marketing site and product app must both use the API key from the <em>same</em> environment.
                             </p>
@@ -358,7 +358,7 @@
                                     </div>
                                     <div class="env-card-body">
                                         <div class="env-key-label">API key</div>
-                                        <span class="env-key-pill prod"><i class="fa-solid fa-key"></i> ts_prod_a1b2c3…</span>
+                                        <span class="env-key-pill prod"><i class="fa-solid fa-key"></i> a1b2c3…</span>
                                     </div>
                                 </div>
                                 <div class="env-card">
@@ -368,7 +368,7 @@
                                     </div>
                                     <div class="env-card-body">
                                         <div class="env-key-label">API key</div>
-                                        <span class="env-key-pill stage"><i class="fa-solid fa-key"></i> ts_stg_x7y8z9…</span>
+                                        <span class="env-key-pill stage"><i class="fa-solid fa-key"></i> x7y8z9…</span>
                                     </div>
                                 </div>
                                 <div class="env-card">
@@ -378,7 +378,7 @@
                                     </div>
                                     <div class="env-card-body">
                                         <div class="env-key-label">API key</div>
-                                        <span class="env-key-pill dev"><i class="fa-solid fa-key"></i> ts_dev_p4q5r6…</span>
+                                        <span class="env-key-pill dev"><i class="fa-solid fa-key"></i> p4q5r6…</span>
                                     </div>
                                 </div>
                             </div>
@@ -399,14 +399,14 @@
                                     <div class="corr-row">
                                         <span class="corr-row-label" style="color: #86efac;">Works</span>
                                         <div class="corr-box">
-                                            <div class="corr-box-header"><i class="fa-solid fa-globe"></i> yoursite.com</div>
+                                            <div class="corr-box-header"><i class="fa-solid fa-globe"></i> your-marketing.com</div>
                                             <div class="corr-box-body">
                                                 <span class="env-key-pill prod" style="font-size: 11px; padding: 3px 8px;"><i class="fa-solid fa-key"></i> ts_prod_a1b2c3</span>
                                             </div>
                                         </div>
                                         <span class="corr-arrow">+</span>
                                         <div class="corr-box">
-                                            <div class="corr-box-header"><i class="fa-solid fa-display"></i> app.yoursite.com</div>
+                                            <div class="corr-box-header"><i class="fa-solid fa-display"></i> app.your-product.com</div>
                                             <div class="corr-box-body">
                                                 <span class="env-key-pill prod" style="font-size: 11px; padding: 3px 8px;"><i class="fa-solid fa-key"></i> ts_prod_a1b2c3</span>
                                             </div>
@@ -421,16 +421,16 @@
                                     <div class="corr-row">
                                         <span class="corr-row-label" style="color: #fca5a5;">Broken</span>
                                         <div class="corr-box">
-                                            <div class="corr-box-header"><i class="fa-solid fa-globe"></i> yoursite.com</div>
+                                            <div class="corr-box-header"><i class="fa-solid fa-globe"></i> your-marketing.com</div>
                                             <div class="corr-box-body">
                                                 <span class="env-key-pill prod" style="font-size: 11px; padding: 3px 8px;"><i class="fa-solid fa-key"></i> ts_prod_a1b2c3</span>
                                             </div>
                                         </div>
                                         <span class="corr-arrow">+</span>
                                         <div class="corr-box mismatch">
-                                            <div class="corr-box-header"><i class="fa-solid fa-display"></i> app.yoursite.com</div>
+                                            <div class="corr-box-header"><i class="fa-solid fa-display"></i> app.your-product.com</div>
                                             <div class="corr-box-body">
-                                                <span class="env-key-pill dev" style="font-size: 11px; padding: 3px 8px;"><i class="fa-solid fa-key"></i> ts_dev_p4q5r6</span>
+                                                <span class="env-key-pill dev" style="font-size: 11px; padding: 3px 8px;"><i class="fa-solid fa-key"></i> p4q5r6</span>
                                             </div>
                                         </div>
                                         <span class="corr-arrow">→</span>
