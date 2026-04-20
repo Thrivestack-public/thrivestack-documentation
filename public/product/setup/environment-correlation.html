@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Environment Setup for Correlation - ThriveStack Documentation">
+    <meta name="description" content="Environment Co-relation - ThriveStack Documentation">
     <script>
         (function () {
             try {
@@ -15,7 +15,7 @@
             }
         })();
     </script>
-    <title>Environment Setup for Correlation - ThriveStack</title>
+    <title>Environment Co-relation - ThriveStack</title>
     <link rel="icon" type="image/png"
         href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="apple-touch-icon"
@@ -25,6 +25,205 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../../styles.css">
+
+    <style>
+        /* ── Rule banner ── */
+        .rule-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px 18px;
+            border-radius: 8px;
+            background: rgba(59, 130, 246, 0.07);
+            border: 1px solid rgba(59, 130, 246, 0.18);
+            margin: 0 0 40px;
+        }
+        .rule-banner i { font-size: 16px; color: #93c5fd; margin-top: 2px; flex-shrink: 0; }
+        .rule-banner p { margin: 0; font-size: 14px; color: var(--text-secondary, #cbd5e1); line-height: 1.6; }
+        .rule-banner strong { color: var(--text-primary, #f1f5f9); }
+
+        /* ── Env grid (the "your environments" illustration) ── */
+        .env-grid {
+            display: flex;
+            gap: 12px;
+            margin: 24px 0 8px;
+            flex-wrap: wrap;
+        }
+
+        .env-card {
+            flex: 1;
+            min-width: 160px;
+            border: 1px solid var(--border-color, #2a2a2a);
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--code-bg, #111);
+        }
+
+        .env-card-header {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color, #2a2a2a);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .env-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .env-dot.prod  { background: #22c55e; }
+        .env-dot.stage { background: #f59e0b; }
+        .env-dot.dev   { background: #60a5fa; }
+
+        .env-card-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary, #f1f5f9);
+        }
+
+        .env-card-body { padding: 12px 14px; }
+
+        .env-key-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-muted, #555);
+            margin-bottom: 6px;
+        }
+
+        .env-key-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            padding: 4px 9px;
+            border-radius: 5px;
+        }
+
+        .env-key-pill.prod  { background: rgba(34,197,94,0.08); color: #86efac; border: 1px solid rgba(34,197,94,0.2); }
+        .env-key-pill.stage { background: rgba(245,158,11,0.08); color: #fcd34d; border: 1px solid rgba(245,158,11,0.2); }
+        .env-key-pill.dev   { background: rgba(96,165,250,0.08); color: #93c5fd; border: 1px solid rgba(96,165,250,0.2); }
+
+        /* ── Correlation diagram ── */
+        .corr-diagram {
+            border: 1px solid var(--border-color, #2a2a2a);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 28px 0 8px;
+            background: var(--code-bg, #111);
+        }
+
+        .corr-diagram-titlebar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border-color, #2a2a2a);
+            background: rgba(255,255,255,0.02);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted, #666);
+        }
+
+        .corr-diagram-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Each scenario row */
+        .corr-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .corr-row-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            min-width: 70px;
+            color: var(--text-muted, #555);
+            flex-shrink: 0;
+        }
+
+        .corr-box {
+            border: 1px solid var(--border-color, #2a2a2a);
+            border-radius: 8px;
+            overflow: hidden;
+            min-width: 150px;
+            flex: 0 0 auto;
+        }
+
+        .corr-box-header {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 11px;
+            border-bottom: 1px solid var(--border-color, #2a2a2a);
+            background: rgba(255,255,255,0.025);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary, #94a3b8);
+        }
+
+        .corr-box-header i { font-size: 10px; color: var(--text-muted, #555); }
+
+        .corr-box-body {
+            padding: 8px 11px;
+        }
+
+        .corr-arrow {
+            font-size: 16px;
+            color: var(--text-muted, #444);
+            flex-shrink: 0;
+        }
+
+        .corr-result {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .corr-result i { font-size: 12px; }
+        .corr-result.ok  { background: rgba(34,197,94,0.07); color: #86efac; border: 1px solid rgba(34,197,94,0.18); }
+        .corr-result.bad { background: rgba(239,68,68,0.07); color: #fca5a5; border: 1px solid rgba(239,68,68,0.18); }
+
+        .corr-divider {
+            height: 1px;
+            background: var(--border-color, #222);
+            margin: 0 -24px;
+        }
+
+        /* ── Key mismatch highlight ── */
+        .corr-box.mismatch {
+            border-color: rgba(239,68,68,0.35);
+        }
+        .corr-box.mismatch .corr-box-header {
+            background: rgba(239,68,68,0.06);
+            border-bottom-color: rgba(239,68,68,0.2);
+        }
+
+        /* ── Caption under diagram ── */
+        .diagram-caption {
+            font-size: 12px;
+            color: var(--text-muted, #666);
+            margin: 4px 0 32px;
+            font-style: italic;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,9 +242,8 @@
             <div class="nav-links">
                 <a href="../../../index.html">Get Started</a>
                 <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
-                <a href="../../../analyze-signals.html">Analyze Signals</a>
-                <a href="../../../take-action.html">Take Action</a>
-                <a href="../../../api-reference.html">API Reference</a>
+                <a href="#">Analyze Signals</a>
+                <a href="#">Take Action</a>
             </div>
         </div>
         <div class="nav-right">
@@ -124,155 +322,144 @@
                     <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
                 </ul>
             </div>
-
         </aside>
         <div class="resizer" id="sidebar-resizer"></div>
 
         <main class="main-content">
             <div class="content-wrapper">
                 <section id="environment-correlation" class="content-section">
-                    <div class="breadcrumbs">
-                        <a href="../../../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
-                        <a href="../../../setup-overview.html">Setup (Unify)</a> <i class="fa-solid fa-chevron-right"></i>
-                        <span>Environment Co-relation</span>
-                    </div>
-
-                    <header class="doc-page-header">
-                        <span class="doc-page-header-eyebrow">Setup (Unify)</span>
-                        <h1 class="doc-page-title">Environment Setup for Correlation</h1>
-                        <p class="doc-page-description">
-                            Use the same API key environment across Marketing and Product Intelligence — a mismatch silently breaks attribution.
-                        </p>
-                    </header>
-
-                    <article class="doc-page-body">
-
-                        <blockquote>
-                            <i class="fa-solid fa-triangle-exclamation" style="margin-right: 4px;"></i>
-                            <strong>Important:</strong> Correlation between Marketing Intelligence and Product
-                            Intelligence only works when both use an API key from the <strong>same environment</strong>.
-                            A development key on one side and a production key on the other will break attribution.
-                        </blockquote>
-
-                        <!-- ─── MARKETING INTELLIGENCE ──────────────────────── -->
-                        <div id="marketing-environment">
-                            <h2>Marketing Intelligence</h2>
-                            <p>
-                                ThriveStack's Marketing Intelligence script captures visitor attribution data — UTM
-                                parameters, referrer, landing pages — and links them to signed-up users and accounts.
-                                For this correlation to work end-to-end, the API key used on your marketing site must
-                                match the environment used in your product.
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Setup (Unify)</span>
+                            <h1 class="doc-page-title">Environment Co-relation</h1>
+                            <p class="doc-page-description">
+                                You can create as many environments as you need — one per deployment stage. For correlation to work, your marketing site and product app must both use the API key from the <em>same</em> environment.
                             </p>
+                        </header>
 
-                            <h3>Rule</h3>
-                            <div style="overflow-x: auto; margin-bottom: 24px; border-radius: 8px; border: 1px solid var(--table-row-border, #333);">
-                                <table style="width: 100%; text-align: left; border-collapse: collapse;">
-                                    <thead style="background: rgba(255,255,255,0.02);">
-                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <th style="padding: 14px 16px; font-weight: 600;">Where</th>
-                                            <th style="padding: 14px 16px; font-weight: 600;">API Key to use</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <td style="padding: 14px 16px;">Local / staging / testing</td>
-                                            <td style="padding: 14px 16px;"><code>Development</code> environment API key</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding: 14px 16px;">Live production site</td>
-                                            <td style="padding: 14px 16px; color: #22c55e;"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i><code>Production</code> environment API key — required for correlation</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <hr />
+
+                        <article class="doc-page-body">
+
+                            <div class="rule-banner">
+                                <i class="fa-solid fa-key"></i>
+                                <p><strong>The rule:</strong> for end-to-end correlation, your marketing and product analytics must use the <strong>same API key</strong>. Different keys = different environments = no correlation.</p>
                             </div>
 
-                            <h3>What to do</h3>
-                            <ol>
-                                <li>
-                                    <strong>Testing locally?</strong> Use your <code>Development</code> environment API
-                                    key. This keeps test traffic isolated from real data.
-                                </li>
-                                <li>
-                                    <strong>Pushing to your live marketing site?</strong> Switch to your
-                                    <code>Production</code> environment API key before deploying. This is required for
-                                    ThriveStack to join marketing visits with product sign-ups and usage.
-                                </li>
-                                <li>
-                                    <strong>No Production environment yet?</strong> Click the environment dropdown in
-                                    the top-left of the ThriveStack setup page and select <strong>New environment</strong>
-                                    to create one and get its API key.
-                                </li>
-                            </ol>
+                            <!-- ── Your environments ── -->
+                            <h2 id="your-envs" style="margin-bottom: 6px;">Your environments, your keys</h2>
+                            <p style="font-size: 14px; color: var(--text-muted, #777); margin-bottom: 0;">Create as many as you need. Each one gets its own unique API key.</p>
 
-                            <blockquote>
-                                <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i>
-                                <strong>Note:</strong> Your marketing site and product app must both use API keys from
-                                the same environment for correlation to work. If your product runs on
-                                <code>Production</code>, your marketing site must also use a <code>Production</code>
-                                key.
-                            </blockquote>
-                        </div>
+                            <div class="env-grid">
+                                <div class="env-card">
+                                    <div class="env-card-header">
+                                        <span class="env-dot prod"></span>
+                                        <span class="env-card-name">Production</span>
+                                    </div>
+                                    <div class="env-card-body">
+                                        <div class="env-key-label">API key</div>
+                                        <span class="env-key-pill prod"><i class="fa-solid fa-key"></i> ts_prod_a1b2c3…</span>
+                                    </div>
+                                </div>
+                                <div class="env-card">
+                                    <div class="env-card-header">
+                                        <span class="env-dot stage"></span>
+                                        <span class="env-card-name">Staging</span>
+                                    </div>
+                                    <div class="env-card-body">
+                                        <div class="env-key-label">API key</div>
+                                        <span class="env-key-pill stage"><i class="fa-solid fa-key"></i> ts_stg_x7y8z9…</span>
+                                    </div>
+                                </div>
+                                <div class="env-card">
+                                    <div class="env-card-header">
+                                        <span class="env-dot dev"></span>
+                                        <span class="env-card-name">Development</span>
+                                    </div>
+                                    <div class="env-card-body">
+                                        <div class="env-key-label">API key</div>
+                                        <span class="env-key-pill dev"><i class="fa-solid fa-key"></i> ts_dev_p4q5r6…</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="diagram-caption">Three separate environments — three separate keys. Events from each stay isolated.</p>
 
-                        <!-- ─── PRODUCT INTELLIGENCE ────────────────────────── -->
-                        <div id="product-environment">
-                            <h2>Product Intelligence</h2>
-                            <p>
-                                ThriveStack's Product Intelligence script tracks user and account activity inside your
-                                app — sign-ups, feature usage, activation milestones. For marketing attribution to flow
-                                through to product events, your app must use an API key from the same environment as
-                                your marketing site.
-                            </p>
+                            <!-- ── Correlation diagram ── -->
+                            <h2 id="correlation" style="margin-bottom: 6px;">How correlation works</h2>
+                            <p style="font-size: 14px; color: var(--text-muted, #777); margin-bottom: 0;">ThriveStack joins a marketing visit to a product event by matching the API key. Same key = same environment = the visitor and the signed-up user are one person.</p>
 
-                            <h3>Rule</h3>
-                            <div style="overflow-x: auto; margin-bottom: 24px; border-radius: 8px; border: 1px solid var(--table-row-border, #333);">
-                                <table style="width: 100%; text-align: left; border-collapse: collapse;">
-                                    <thead style="background: rgba(255,255,255,0.02);">
-                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <th style="padding: 14px 16px; font-weight: 600;">Where</th>
-                                            <th style="padding: 14px 16px; font-weight: 600;">API Key to use</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="border-bottom: 1px solid var(--table-row-border, #333);">
-                                            <td style="padding: 14px 16px;">Local / staging / testing</td>
-                                            <td style="padding: 14px 16px;"><code>Development</code> environment API key</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding: 14px 16px;">Live production app</td>
-                                            <td style="padding: 14px 16px; color: #22c55e;"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i><code>Production</code> environment API key — required for correlation</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="corr-diagram">
+                                <div class="corr-diagram-titlebar">
+                                    <i class="fa-solid fa-diagram-project" style="font-size: 11px;"></i>
+                                    Production example
+                                </div>
+                                <div class="corr-diagram-body">
+
+                                    <!-- ✅ Works -->
+                                    <div class="corr-row">
+                                        <span class="corr-row-label" style="color: #86efac;">Works</span>
+                                        <div class="corr-box">
+                                            <div class="corr-box-header"><i class="fa-solid fa-globe"></i> yoursite.com</div>
+                                            <div class="corr-box-body">
+                                                <span class="env-key-pill prod" style="font-size: 11px; padding: 3px 8px;"><i class="fa-solid fa-key"></i> ts_prod_a1b2c3</span>
+                                            </div>
+                                        </div>
+                                        <span class="corr-arrow">+</span>
+                                        <div class="corr-box">
+                                            <div class="corr-box-header"><i class="fa-solid fa-display"></i> app.yoursite.com</div>
+                                            <div class="corr-box-body">
+                                                <span class="env-key-pill prod" style="font-size: 11px; padding: 3px 8px;"><i class="fa-solid fa-key"></i> ts_prod_a1b2c3</span>
+                                            </div>
+                                        </div>
+                                        <span class="corr-arrow">→</span>
+                                        <span class="corr-result ok"><i class="fa-solid fa-link"></i> Visitor linked to signed-up user</span>
+                                    </div>
+
+                                    <div class="corr-divider"></div>
+
+                                    <!-- ❌ Broken -->
+                                    <div class="corr-row">
+                                        <span class="corr-row-label" style="color: #fca5a5;">Broken</span>
+                                        <div class="corr-box">
+                                            <div class="corr-box-header"><i class="fa-solid fa-globe"></i> yoursite.com</div>
+                                            <div class="corr-box-body">
+                                                <span class="env-key-pill prod" style="font-size: 11px; padding: 3px 8px;"><i class="fa-solid fa-key"></i> ts_prod_a1b2c3</span>
+                                            </div>
+                                        </div>
+                                        <span class="corr-arrow">+</span>
+                                        <div class="corr-box mismatch">
+                                            <div class="corr-box-header"><i class="fa-solid fa-display"></i> app.yoursite.com</div>
+                                            <div class="corr-box-body">
+                                                <span class="env-key-pill dev" style="font-size: 11px; padding: 3px 8px;"><i class="fa-solid fa-key"></i> ts_dev_p4q5r6</span>
+                                            </div>
+                                        </div>
+                                        <span class="corr-arrow">→</span>
+                                        <span class="corr-result bad"><i class="fa-solid fa-link-slash"></i> No link — two unrelated streams</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <p class="diagram-caption">The marketing site uses the Production key. The product app must also use the Production key — not Staging or Development.</p>
+
+                            <!-- ── What breaks ── -->
+                            <h2 id="what-breaks" style="margin-bottom: 12px;">What breaks silently</h2>
+                            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px;">
+                                <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text-secondary, #94a3b8);">
+                                    <i class="fa-solid fa-triangle-exclamation" style="color: #fcd34d; margin-top: 2px; flex-shrink: 0;"></i>
+                                    <span>Visitor-to-user attribution is lost — ThriveStack can't connect an anonymous site visit to the account that eventually signed up.</span>
+                                </div>
+                                <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text-secondary, #94a3b8);">
+                                    <i class="fa-solid fa-triangle-exclamation" style="color: #fcd34d; margin-top: 2px; flex-shrink: 0;"></i>
+                                    <span>The full account journey is incomplete — UTM parameters, marketing touchpoints, and time-to-signup are missing from every account record.</span>
+                                </div>
+                                <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text-secondary, #94a3b8);">
+                                    <i class="fa-solid fa-triangle-exclamation" style="color: #fcd34d; margin-top: 2px; flex-shrink: 0;"></i>
+                                    <span>No error is thrown — events from both sides arrive in ThriveStack, they just can't be correlated.</span>
+                                </div>
                             </div>
 
-                            <h3>What to do</h3>
-                            <ol>
-                                <li>
-                                    <strong>Testing locally?</strong> Use your <code>Development</code> environment API
-                                    key. This keeps test events isolated from real production data.
-                                </li>
-                                <li>
-                                    <strong>Pushing to your live product app?</strong> Switch to your
-                                    <code>Production</code> environment API key before deploying. This is required for
-                                    ThriveStack to correlate marketing attribution with product sign-ups and feature
-                                    usage.
-                                </li>
-                                <li>
-                                    <strong>No Production environment yet?</strong> Click the environment dropdown in
-                                    the top-left of the ThriveStack setup page and select <strong>New environment</strong>
-                                    to create one and get its API key.
-                                </li>
-                            </ol>
-
-                            <blockquote>
-                                <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i>
-                                <strong>Note:</strong> Your product app and marketing site must both use API keys from
-                                the same environment for correlation to work. If your marketing site runs on
-                                <code>Production</code>, your product app must also use a <code>Production</code> key.
-                            </blockquote>
-                        </div>
-
-                    </article>
+                        </article>
+                    </section>
                 </section>
 
                 <footer class="content-footer">
@@ -283,7 +470,7 @@
                     </div>
                     <div class="footer-links">
                         <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
-                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="environment-correlation.html">Last updated: April 2, 2026</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="environment-correlation.html">Last updated: April 20, 2026</a>
                     </div>
                 </footer>
             </div>
@@ -293,8 +480,9 @@
             <div class="toc-container sticky-top">
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
-                    <a href="#marketing-environment" class="toc-link active">Marketing Intelligence</a>
-                    <a href="#product-environment" class="toc-link">Product Intelligence</a>
+                    <a href="#your-envs" class="toc-link active">Your environments</a>
+                    <a href="#correlation" class="toc-link">How correlation works</a>
+                    <a href="#what-breaks" class="toc-link">What breaks silently</a>
                 </nav>
                 <ready-to-scale-promo></ready-to-scale-promo>
             </div>
