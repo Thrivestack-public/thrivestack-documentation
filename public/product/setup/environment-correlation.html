@@ -386,86 +386,140 @@
 
                             <!-- ── Correlation diagram ── -->
                             <h2 id="correlation" style="margin-bottom: 6px;">How correlation works</h2>
-                            <p style="font-size: 14px; color: var(--text-muted, #777); margin-bottom: 16px;">The environment is where correlation happens. When both marketing and product analytics send events into the same environment, ThriveStack can join them.</p>
+                            <p style="font-size: 14px; color: var(--text-muted, #777); margin-bottom: 20px;">Your ThriveStack environment is where the data lands. Each stream that reaches it is tracked — correlation only activates when both streams are present.</p>
 
-                            <!-- Works -->
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px;">
+                            <!-- ❌ Broken -->
+                            <div style="border: 1px solid var(--border-color, #2a2a2a); border-radius: 12px; overflow: hidden; background: var(--code-bg, #111); margin-bottom: 16px;">
+                                <div style="padding: 10px 16px; border-bottom: 1px solid var(--border-color, #2a2a2a); background: rgba(255,255,255,0.02); display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted, #666); font-weight: 600;">
+                                    <i class="fa-solid fa-circle-xmark" style="color: #fca5a5; font-size: 11px;"></i> Wrong API key on product analytics — telemetry not flowing in
+                                </div>
+                                <div style="padding: 20px 20px; display: flex; align-items: center; gap: 0; flex-wrap: wrap;">
 
-                                <!-- ✅ Works -->
-                                <div style="border: 1px solid rgba(34,197,94,0.2); border-radius: 10px; overflow: hidden; background: var(--code-bg, #111);">
-                                    <div style="padding: 10px 14px; border-bottom: 1px solid rgba(34,197,94,0.15); background: rgba(34,197,94,0.05); display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #86efac;">
-                                        <i class="fa-solid fa-circle-check" style="font-size: 11px;"></i> Works
-                                    </div>
-                                    <div style="padding: 16px 14px; display: flex; flex-direction: column; gap: 10px;">
-                                        <!-- Inputs -->
-                                        <div style="display: flex; flex-direction: column; gap: 6px;">
-                                            <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary, #94a3b8);">
-                                                <i class="fa-solid fa-globe" style="width: 14px; color: var(--text-muted, #555);"></i>
-                                                Marketing Analytics
-                                                <span style="margin-left: auto; font-size: 11px; font-family: monospace; background: rgba(34,197,94,0.08); color: #86efac; border: 1px solid rgba(34,197,94,0.2); padding: 1px 7px; border-radius: 4px;">a1b2c3…</span>
+                                    <!-- Sources -->
+                                    <div style="display: flex; flex-direction: column; gap: 10px; flex: 0 0 auto; min-width: 180px;">
+                                        <!-- Marketing source -->
+                                        <div style="border: 1px solid var(--border-color, #2a2a2a); border-radius: 8px; overflow: hidden;">
+                                            <div style="padding: 7px 11px; border-bottom: 1px solid var(--border-color, #2a2a2a); background: rgba(255,255,255,0.02); font-size: 11px; font-weight: 600; color: var(--text-secondary, #94a3b8); display: flex; align-items: center; gap: 6px;">
+                                                <i class="fa-solid fa-globe" style="color: var(--text-muted, #555); font-size: 10px;"></i> your-marketing.com
                                             </div>
-                                            <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary, #94a3b8);">
-                                                <i class="fa-solid fa-display" style="width: 14px; color: var(--text-muted, #555);"></i>
-                                                Product Analytics
-                                                <span style="margin-left: auto; font-size: 11px; font-family: monospace; background: rgba(34,197,94,0.08); color: #86efac; border: 1px solid rgba(34,197,94,0.2); padding: 1px 7px; border-radius: 4px;">a1b2c3…</span>
+                                            <div style="padding: 8px 11px; display: flex; align-items: center; gap: 6px;">
+                                                <span style="font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted, #555);">Key</span>
+                                                <span style="font-size: 11px; font-family: monospace; background: rgba(34,197,94,0.08); color: #86efac; border: 1px solid rgba(34,197,94,0.2); padding: 1px 7px; border-radius: 4px;">a1b2c3…</span>
                                             </div>
                                         </div>
-                                        <!-- Arrow -->
-                                        <div style="display: flex; justify-content: center; color: var(--text-muted, #444); font-size: 14px;">↓</div>
-                                        <!-- Environment -->
-                                        <div style="border: 1px solid rgba(34,197,94,0.25); border-radius: 8px; overflow: hidden;">
-                                            <div style="padding: 8px 12px; border-bottom: 1px solid rgba(34,197,94,0.15); background: rgba(34,197,94,0.06); display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--text-primary, #f1f5f9);">
-                                                <span style="width: 7px; height: 7px; border-radius: 50%; background: #22c55e; display: inline-block;"></span>
-                                                Production
+                                        <!-- Product source -->
+                                        <div style="border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; overflow: hidden;">
+                                            <div style="padding: 7px 11px; border-bottom: 1px solid rgba(239,68,68,0.2); background: rgba(239,68,68,0.04); font-size: 11px; font-weight: 600; color: var(--text-secondary, #94a3b8); display: flex; align-items: center; gap: 6px;">
+                                                <i class="fa-solid fa-display" style="color: var(--text-muted, #555); font-size: 10px;"></i> app.your-product.com
                                             </div>
-                                            <div style="padding: 10px 12px;">
-                                                <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 11px; background: rgba(34,197,94,0.08); color: #86efac; border: 1px solid rgba(34,197,94,0.2); padding: 4px 10px; border-radius: 5px;">
-                                                    <i class="fa-solid fa-link" style="font-size: 10px;"></i> Correlation active
+                                            <div style="padding: 8px 11px; display: flex; align-items: center; gap: 6px;">
+                                                <span style="font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted, #555);">Key</span>
+                                                <span style="font-size: 11px; font-family: monospace; background: rgba(96,165,250,0.08); color: #93c5fd; border: 1px solid rgba(96,165,250,0.2); padding: 1px 7px; border-radius: 4px;">p4q5r6…</span>
+                                                <span style="margin-left: auto; font-size: 10px; color: #fca5a5; font-weight: 600;">wrong env</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Arrows -->
+                                    <div style="display: flex; flex-direction: column; gap: 10px; padding: 0 14px; flex: 0 0 auto;">
+                                        <div style="display: flex; align-items: center; gap: 4px; font-size: 12px; color: #86efac;">
+                                            <span style="font-size: 13px;">→</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 4px; font-size: 12px; color: #fca5a5;">
+                                            <span style="font-size: 13px; text-decoration: line-through; opacity: 0.5;">→</span>
+                                            <i class="fa-solid fa-xmark" style="font-size: 10px;"></i>
+                                        </div>
+                                    </div>
+
+                                    <!-- ThriveStack env -->
+                                    <div style="flex: 1; min-width: 200px; border: 1px solid var(--border-color, #2a2a2a); border-radius: 8px; overflow: hidden;">
+                                        <div style="padding: 8px 12px; border-bottom: 1px solid var(--border-color, #2a2a2a); background: rgba(255,255,255,0.025); display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--text-primary, #f1f5f9);">
+                                            <span style="width: 7px; height: 7px; border-radius: 50%; background: #22c55e; flex-shrink: 0; display: inline-block;"></span>
+                                            ThriveStack — Production
+                                        </div>
+                                        <div style="padding: 12px;">
+                                            <div style="display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px;">
+                                                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px;">
+                                                    <span style="color: var(--text-secondary, #94a3b8);">Marketing Analytics</span>
+                                                    <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #86efac;"><i class="fa-solid fa-circle-check" style="font-size: 10px;"></i> receiving</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px;">
+                                                    <span style="color: var(--text-secondary, #94a3b8);">Product Analytics</span>
+                                                    <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #fca5a5;"><i class="fa-solid fa-circle-xmark" style="font-size: 10px;"></i> no events</span>
                                                 </div>
                                             </div>
+                                            <div style="height: 1px; background: var(--border-color, #2a2a2a); margin-bottom: 10px;"></div>
+                                            <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 11px; background: rgba(239,68,68,0.07); color: #fca5a5; border: 1px solid rgba(239,68,68,0.2); padding: 4px 10px; border-radius: 5px;">
+                                                <i class="fa-solid fa-link-slash" style="font-size: 10px;"></i> Correlation not possible
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- ❌ Broken -->
-                                <div style="border: 1px solid rgba(239,68,68,0.2); border-radius: 10px; overflow: hidden; background: var(--code-bg, #111);">
-                                    <div style="padding: 10px 14px; border-bottom: 1px solid rgba(239,68,68,0.15); background: rgba(239,68,68,0.05); display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #fca5a5;">
-                                        <i class="fa-solid fa-circle-xmark" style="font-size: 11px;"></i> Broken
-                                    </div>
-                                    <div style="padding: 16px 14px; display: flex; flex-direction: column; gap: 10px;">
-                                        <!-- Inputs -->
-                                        <div style="display: flex; flex-direction: column; gap: 6px;">
-                                            <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary, #94a3b8);">
-                                                <i class="fa-solid fa-globe" style="width: 14px; color: var(--text-muted, #555);"></i>
-                                                Marketing Analytics
-                                                <span style="margin-left: auto; font-size: 11px; font-family: monospace; background: rgba(34,197,94,0.08); color: #86efac; border: 1px solid rgba(34,197,94,0.2); padding: 1px 7px; border-radius: 4px;">a1b2c3…</span>
-                                            </div>
-                                            <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary, #94a3b8);">
-                                                <i class="fa-solid fa-display" style="width: 14px; color: var(--text-muted, #555);"></i>
-                                                Product Analytics
-                                                <span style="margin-left: auto; font-size: 11px; font-family: monospace; background: rgba(96,165,250,0.08); color: #93c5fd; border: 1px solid rgba(96,165,250,0.2); padding: 1px 7px; border-radius: 4px;">p4q5r6…</span>
-                                            </div>
-                                        </div>
-                                        <!-- Arrow -->
-                                        <div style="display: flex; justify-content: center; color: var(--text-muted, #444); font-size: 14px;">↓</div>
-                                        <!-- Environment -->
-                                        <div style="border: 1px solid rgba(239,68,68,0.25); border-radius: 8px; overflow: hidden;">
-                                            <div style="padding: 8px 12px; border-bottom: 1px solid rgba(239,68,68,0.15); background: rgba(239,68,68,0.06); display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--text-primary, #f1f5f9);">
-                                                <span style="width: 7px; height: 7px; border-radius: 50%; background: #22c55e; display: inline-block;"></span>
-                                                Production
-                                                <span style="margin-left: auto; font-size: 10px; font-weight: 500; color: var(--text-muted, #666);">+ Development receiving separately</span>
-                                            </div>
-                                            <div style="padding: 10px 12px;">
-                                                <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 11px; background: rgba(239,68,68,0.07); color: #fca5a5; border: 1px solid rgba(239,68,68,0.2); padding: 4px 10px; border-radius: 5px;">
-                                                    <i class="fa-solid fa-link-slash" style="font-size: 10px;"></i> No correlation
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-
                             </div>
-                            <p class="diagram-caption">Same key on both sides → both streams land in the same environment → correlation is active. Different keys → events land in different environments → no correlation.</p>
+
+                            <!-- ✅ Fixed -->
+                            <div style="border: 1px solid var(--border-color, #2a2a2a); border-radius: 12px; overflow: hidden; background: var(--code-bg, #111);">
+                                <div style="padding: 10px 16px; border-bottom: 1px solid var(--border-color, #2a2a2a); background: rgba(255,255,255,0.02); display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted, #666); font-weight: 600;">
+                                    <i class="fa-solid fa-circle-check" style="color: #86efac; font-size: 11px;"></i> Same API key on both — both streams flowing in
+                                </div>
+                                <div style="padding: 20px 20px; display: flex; align-items: center; gap: 0; flex-wrap: wrap;">
+
+                                    <!-- Sources -->
+                                    <div style="display: flex; flex-direction: column; gap: 10px; flex: 0 0 auto; min-width: 180px;">
+                                        <div style="border: 1px solid var(--border-color, #2a2a2a); border-radius: 8px; overflow: hidden;">
+                                            <div style="padding: 7px 11px; border-bottom: 1px solid var(--border-color, #2a2a2a); background: rgba(255,255,255,0.02); font-size: 11px; font-weight: 600; color: var(--text-secondary, #94a3b8); display: flex; align-items: center; gap: 6px;">
+                                                <i class="fa-solid fa-globe" style="color: var(--text-muted, #555); font-size: 10px;"></i> your-marketing.com
+                                            </div>
+                                            <div style="padding: 8px 11px; display: flex; align-items: center; gap: 6px;">
+                                                <span style="font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted, #555);">Key</span>
+                                                <span style="font-size: 11px; font-family: monospace; background: rgba(34,197,94,0.08); color: #86efac; border: 1px solid rgba(34,197,94,0.2); padding: 1px 7px; border-radius: 4px;">a1b2c3…</span>
+                                            </div>
+                                        </div>
+                                        <div style="border: 1px solid var(--border-color, #2a2a2a); border-radius: 8px; overflow: hidden;">
+                                            <div style="padding: 7px 11px; border-bottom: 1px solid var(--border-color, #2a2a2a); background: rgba(255,255,255,0.02); font-size: 11px; font-weight: 600; color: var(--text-secondary, #94a3b8); display: flex; align-items: center; gap: 6px;">
+                                                <i class="fa-solid fa-display" style="color: var(--text-muted, #555); font-size: 10px;"></i> app.your-product.com
+                                            </div>
+                                            <div style="padding: 8px 11px; display: flex; align-items: center; gap: 6px;">
+                                                <span style="font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted, #555);">Key</span>
+                                                <span style="font-size: 11px; font-family: monospace; background: rgba(34,197,94,0.08); color: #86efac; border: 1px solid rgba(34,197,94,0.2); padding: 1px 7px; border-radius: 4px;">a1b2c3…</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Arrows -->
+                                    <div style="display: flex; flex-direction: column; gap: 10px; padding: 0 14px; flex: 0 0 auto;">
+                                        <div style="font-size: 13px; color: #86efac;">→</div>
+                                        <div style="font-size: 13px; color: #86efac;">→</div>
+                                    </div>
+
+                                    <!-- ThriveStack env -->
+                                    <div style="flex: 1; min-width: 200px; border: 1px solid var(--border-color, #2a2a2a); border-radius: 8px; overflow: hidden;">
+                                        <div style="padding: 8px 12px; border-bottom: 1px solid var(--border-color, #2a2a2a); background: rgba(255,255,255,0.025); display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--text-primary, #f1f5f9);">
+                                            <span style="width: 7px; height: 7px; border-radius: 50%; background: #22c55e; flex-shrink: 0; display: inline-block;"></span>
+                                            ThriveStack — Production
+                                        </div>
+                                        <div style="padding: 12px;">
+                                            <div style="display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px;">
+                                                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px;">
+                                                    <span style="color: var(--text-secondary, #94a3b8);">Marketing Analytics</span>
+                                                    <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #86efac;"><i class="fa-solid fa-circle-check" style="font-size: 10px;"></i> receiving</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px;">
+                                                    <span style="color: var(--text-secondary, #94a3b8);">Product Analytics</span>
+                                                    <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #86efac;"><i class="fa-solid fa-circle-check" style="font-size: 10px;"></i> receiving</span>
+                                                </div>
+                                            </div>
+                                            <div style="height: 1px; background: var(--border-color, #2a2a2a); margin-bottom: 10px;"></div>
+                                            <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 11px; background: rgba(34,197,94,0.07); color: #86efac; border: 1px solid rgba(34,197,94,0.18); padding: 4px 10px; border-radius: 5px;">
+                                                <i class="fa-solid fa-link" style="font-size: 10px;"></i> Correlation active
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <p class="diagram-caption">The environment exists in ThriveStack — but if the wrong API key is used in your product app, its events never reach it.</p>
 
                             <!-- ── What breaks ── -->
                             <h2 id="what-breaks" style="margin-bottom: 12px;">What breaks silently</h2>
