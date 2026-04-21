@@ -96,6 +96,7 @@
                     <li><a href="../../../public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
                     <li><a href="../../../public/revenue/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
                     <li><a href="../../../public/revenue/setup/why-correlation.html" class="nav-item active"><span>Why Correlation Matters</span></a></li>
+                    <li><a href="../../../public/revenue/setup/exceptional-use-cases.html" class="nav-item"><span>Exceptional Use Cases</span></a></li>
                 </ul>
             </div>
             <div class="sidebar-section">
@@ -966,13 +967,14 @@
                                 var chargebeeBadge = document.getElementById('chargebee-badge');
                                 var outputWrap     = document.getElementById('outputWrap');
 
+                                // ThriveStack output panel is always visible
+                                outputWrap.classList.add('visible');
+
                                 function pulse() {
                                     stripeBadge.classList.remove('visible');
                                     chargebeeBadge.classList.remove('visible');
-                                    outputWrap.classList.remove('visible');
                                     setTimeout(function () { stripeBadge.classList.add('visible'); }, 2000);
                                     setTimeout(function () { chargebeeBadge.classList.add('visible'); }, 2600);
-                                    setTimeout(function () { outputWrap.classList.add('visible'); }, 3400);
                                 }
                                 pulse();
                                 setInterval(pulse, 5000);

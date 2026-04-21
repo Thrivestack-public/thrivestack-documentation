@@ -189,6 +189,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'Subscriptions API',
                 url: 'public/api/subscriptions.html#subscriptions',
                 terms: 'subscriptions billing recurring revenue crud create list get update cancel plan interval status trial active past_due'
+            },
+            {
+                title: 'Exceptional Use Cases',
+                url: 'public/revenue/setup/exceptional-use-cases.html#exceptional-use-cases',
+                terms: 'exceptional use cases chargebee stripe payment gateway marketplace platform fee revenue billing connect transactions api'
             }
         ];
 

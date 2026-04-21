@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Revenue Intelligence - Exceptional Use Cases - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Exceptional Use Cases — Revenue Intelligence - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../../index.html" class="logo">
+                <img src="../../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../../index.html">Get Started</a>
+                <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="../../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../../take-action.html">Take Action</a>
+                <a href="../../../api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../../public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../../public/revenue/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../../public/revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
+                    <li><a href="../../../public/revenue/setup/exceptional-use-cases.html" class="nav-item active"><span>Exceptional Use Cases</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="exceptional-use-cases" class="content-section">
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Revenue Intelligence</span>
+                            <h1 class="doc-page-title">Exceptional Use Cases</h1>
+                            <p class="doc-page-description">
+                                Not every billing setup is straightforward. These are the common non-standard revenue flows and how ThriveStack handles each one.
+                            </p>
+                        </header>
+
+                        <hr />
+
+                        <article class="doc-page-body">
+
+                            <!-- ─────────────────────────────────────── -->
+                            <!-- USE CASE 1 -->
+                            <!-- ─────────────────────────────────────── -->
+                            <div class="uc-section" id="uc-chargebee-stripe-pg">
+                                <div class="uc-header">
+                                    <div class="uc-number">01</div>
+                                    <div>
+                                        <h2 class="uc-title">Chargebee subscription with Stripe as payment gateway</h2>
+                                        <p class="uc-desc">Subscription is created and managed in Chargebee. The actual payment is collected by Stripe acting as the underlying payment gateway — but all the revenue data (invoices, subscription status, MRR) lives in Chargebee.</p>
+                                    </div>
+                                </div>
+
+                                <div class="uc-diagram">
+                                    <!-- Customer -->
+                                    <div class="uc-box uc-customer">
+                                        <div class="uc-box-icon"><i class="fa-solid fa-user"></i></div>
+                                        <div class="uc-box-label">Customer</div>
+                                    </div>
+
+                                    <!-- Arrow: pays subscription -->
+                                    <div class="uc-flow">
+                                        <div class="uc-flow-arrow"></div>
+                                        <span class="uc-flow-label">subscribes</span>
+                                    </div>
+
+                                    <!-- Chargebee -->
+                                    <div class="uc-box uc-chargebee">
+                                        <div class="uc-box-icon"><img src="../../../chargebee_logo.png" alt="Chargebee" style="width:22px;height:22px;object-fit:contain;"></div>
+                                        <div class="uc-box-label">Chargebee</div>
+                                        <div class="uc-box-sub">Creates invoice · Manages subscription</div>
+                                        <div class="uc-data-pill uc-pill-green">
+                                            <i class="fa-solid fa-database" style="font-size:9px;"></i>
+                                            All revenue data lives here
+                                        </div>
+                                    </div>
+
+                                    <!-- Arrow: PG -->
+                                    <div class="uc-flow uc-flow-dashed">
+                                        <div class="uc-flow-arrow uc-arrow-stripe"></div>
+                                        <span class="uc-flow-label">payment via PG</span>
+                                    </div>
+
+                                    <!-- Stripe -->
+                                    <div class="uc-box uc-stripe uc-box-dim">
+                                        <div class="uc-box-icon"><img src="../../../stripe_logo.png" alt="Stripe" style="width:22px;height:22px;object-fit:contain;"></div>
+                                        <div class="uc-box-label">Stripe</div>
+                                        <div class="uc-box-sub">Payment gateway only</div>
+                                        <div class="uc-data-pill uc-pill-muted">
+                                            <i class="fa-solid fa-eye-slash" style="font-size:9px;"></i>
+                                            No subscription data
+                                        </div>
+                                    </div>
+
+                                    <!-- Arrow: connector -->
+                                    <div class="uc-flow">
+                                        <div class="uc-flow-arrow uc-arrow-ts"></div>
+                                        <span class="uc-flow-label">Chargebee Connector</span>
+                                    </div>
+
+                                    <!-- ThriveStack -->
+                                    <div class="uc-box uc-ts">
+                                        <div class="uc-box-icon"><i class="fa-solid fa-layer-group" style="color:#3b82f6;"></i></div>
+                                        <div class="uc-box-label">ThriveStack</div>
+                                        <div class="uc-ts-rows">
+                                            <div class="uc-ts-row uc-ts-ok"><i class="fa-solid fa-check"></i> MRR · ARR</div>
+                                            <div class="uc-ts-row uc-ts-ok"><i class="fa-solid fa-check"></i> Subscription status</div>
+                                            <div class="uc-ts-row uc-ts-ok"><i class="fa-solid fa-check"></i> Invoices &amp; payments</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="uc-callout uc-callout-green">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <div>
+                                        <strong>Connect Chargebee only.</strong> Since all subscription and revenue data resides in Chargebee, the Chargebee connector is sufficient. Adding Stripe would create duplicate transactions for every subscription payment.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ─────────────────────────────────────── -->
+                            <!-- USE CASE 2 -->
+                            <!-- ─────────────────────────────────────── -->
+                            <div class="uc-section" id="uc-marketplace-platform-fee">
+                                <div class="uc-header">
+                                    <div class="uc-number">02</div>
+                                    <div>
+                                        <h2 class="uc-title">Marketplace platform fee — full transaction in Stripe</h2>
+                                        <p class="uc-desc">A customer pays <strong>$10</strong> for a service on the platform. The full transaction flows through Stripe. The platform takes a <strong>$2 cut</strong> and pays out <strong>$8</strong> to the service provider. Both the full charge and the platform fee are visible in the platform's Stripe account.</p>
+                                    </div>
+                                </div>
+
+                                <div class="uc-diagram uc-diagram-tall">
+                                    <!-- Customer -->
+                                    <div class="uc-box uc-customer">
+                                        <div class="uc-box-icon"><i class="fa-solid fa-user"></i></div>
+                                        <div class="uc-box-label">Customer</div>
+                                        <div class="uc-box-sub">pays for service</div>
+                                    </div>
+
+                                    <!-- Arrow -->
+                                    <div class="uc-flow">
+                                        <div class="uc-flow-arrow uc-arrow-stripe"></div>
+                                        <span class="uc-flow-label uc-flow-amount">$10</span>
+                                    </div>
+
+                                    <!-- Stripe (Platform) -->
+                                    <div class="uc-box uc-stripe">
+                                        <div class="uc-box-icon"><img src="../../../stripe_logo.png" alt="Stripe" style="width:22px;height:22px;object-fit:contain;"></div>
+                                        <div class="uc-box-label">Stripe</div>
+                                        <div class="uc-box-sub">Platform account</div>
+                                        <div class="uc-split-rows">
+                                            <div class="uc-split-row uc-split-keep">
+                                                <i class="fa-solid fa-arrow-down" style="font-size:9px;"></i>
+                                                <span>$2 platform fee stays</span>
+                                            </div>
+                                            <div class="uc-split-row uc-split-out">
+                                                <i class="fa-solid fa-arrow-right" style="font-size:9px;"></i>
+                                                <span>$8 paid out to provider</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Arrow: connector -->
+                                    <div class="uc-flow">
+                                        <div class="uc-flow-arrow uc-arrow-ts"></div>
+                                        <span class="uc-flow-label">Stripe Connector</span>
+                                    </div>
+
+                                    <!-- ThriveStack -->
+                                    <div class="uc-box uc-ts">
+                                        <div class="uc-box-icon"><i class="fa-solid fa-layer-group" style="color:#3b82f6;"></i></div>
+                                        <div class="uc-box-label">ThriveStack</div>
+                                        <div class="uc-ts-rows">
+                                            <div class="uc-ts-row uc-ts-ok"><i class="fa-solid fa-check"></i> Full $10 charge</div>
+                                            <div class="uc-ts-row uc-ts-ok"><i class="fa-solid fa-check"></i> $2 platform revenue</div>
+                                            <div class="uc-ts-row uc-ts-ok"><i class="fa-solid fa-check"></i> $8 payout to provider</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Service provider payout note -->
+                                <div class="uc-payout-note">
+                                    <div class="uc-payout-line"></div>
+                                    <div class="uc-payout-box">
+                                        <i class="fa-solid fa-store" style="color:#22c55e;font-size:13px;"></i>
+                                        <div>
+                                            <div class="uc-payout-label">Service Provider</div>
+                                            <div class="uc-payout-amount">receives $8 payout</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="uc-callout uc-callout-blue">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    <div>
+                                        <strong>Connect Stripe only.</strong> The full transaction including the platform cut flows through Stripe. ThriveStack ingests the charge ($10), the transfer ($8), and the retained platform fee ($2) — giving you a complete picture of marketplace revenue.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ─────────────────────────────────────── -->
+                            <!-- USE CASE 3 -->
+                            <!-- ─────────────────────────────────────── -->
+                            <div class="uc-section" id="uc-external-platform-fee">
+                                <div class="uc-header">
+                                    <div class="uc-number">03</div>
+                                    <div>
+                                        <h2 class="uc-title">Platform fee processed externally — only the cut reaches Stripe</h2>
+                                        <p class="uc-desc">The full <strong>$10</strong> customer payment is processed by an external system (not the platform's Stripe account). The platform's cut of <strong>$2</strong> is then transferred separately into the product's Stripe account. ThriveStack only ever sees the <strong>$2</strong> — not the full transaction.</p>
+                                    </div>
+                                </div>
+
+                                <div class="uc-diagram uc-diagram-tall">
+                                    <!-- Customer -->
+                                    <div class="uc-box uc-customer">
+                                        <div class="uc-box-icon"><i class="fa-solid fa-user"></i></div>
+                                        <div class="uc-box-label">Customer</div>
+                                        <div class="uc-box-sub">pays for service</div>
+                                    </div>
+
+                                    <!-- Arrow -->
+                                    <div class="uc-flow">
+                                        <div class="uc-flow-arrow uc-arrow-external"></div>
+                                        <span class="uc-flow-label uc-flow-amount">$10</span>
+                                    </div>
+
+                                    <!-- External Processor -->
+                                    <div class="uc-box uc-external">
+                                        <div class="uc-box-icon"><i class="fa-solid fa-server"></i></div>
+                                        <div class="uc-box-label">External Processor</div>
+                                        <div class="uc-box-sub">Handles full transaction</div>
+                                        <div class="uc-split-rows">
+                                            <div class="uc-split-row uc-split-out">
+                                                <i class="fa-solid fa-arrow-right" style="font-size:9px;"></i>
+                                                <span>$8 to service provider</span>
+                                            </div>
+                                            <div class="uc-split-row uc-split-keep">
+                                                <i class="fa-solid fa-arrow-right" style="font-size:9px;"></i>
+                                                <span>$2 cut transferred out</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Arrow: only $2 -->
+                                    <div class="uc-flow">
+                                        <div class="uc-flow-arrow uc-arrow-stripe"></div>
+                                        <span class="uc-flow-label uc-flow-amount uc-flow-partial">$2 only</span>
+                                    </div>
+
+                                    <!-- Stripe (product account) -->
+                                    <div class="uc-box uc-stripe">
+                                        <div class="uc-box-icon"><img src="../../../stripe_logo.png" alt="Stripe" style="width:22px;height:22px;object-fit:contain;"></div>
+                                        <div class="uc-box-label">Stripe</div>
+                                        <div class="uc-box-sub">Product's account</div>
+                                        <div class="uc-data-pill uc-pill-orange">
+                                            <i class="fa-solid fa-triangle-exclamation" style="font-size:9px;"></i>
+                                            Only platform fee credited
+                                        </div>
+                                    </div>
+
+                                    <!-- Arrow: connector -->
+                                    <div class="uc-flow">
+                                        <div class="uc-flow-arrow uc-arrow-ts"></div>
+                                        <span class="uc-flow-label">Stripe Connector</span>
+                                    </div>
+
+                                    <!-- ThriveStack -->
+                                    <div class="uc-box uc-ts">
+                                        <div class="uc-box-icon"><i class="fa-solid fa-layer-group" style="color:#3b82f6;"></i></div>
+                                        <div class="uc-box-label">ThriveStack</div>
+                                        <div class="uc-ts-rows">
+                                            <div class="uc-ts-row uc-ts-ok"><i class="fa-solid fa-check"></i> $2 platform fee</div>
+                                            <div class="uc-ts-row uc-ts-warn"><i class="fa-solid fa-triangle-exclamation"></i> Full $10 not visible</div>
+                                            <div class="uc-ts-row uc-ts-warn"><i class="fa-solid fa-triangle-exclamation"></i> GMV not captured</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Service provider note -->
+                                <div class="uc-payout-note">
+                                    <div class="uc-payout-line"></div>
+                                    <div class="uc-payout-box">
+                                        <i class="fa-solid fa-store" style="color:#22c55e;font-size:13px;"></i>
+                                        <div>
+                                            <div class="uc-payout-label">Service Provider</div>
+                                            <div class="uc-payout-amount">receives $8 directly from external processor</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="uc-callout uc-callout-orange">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    <div>
+                                        <strong>Partial visibility.</strong> ThriveStack can only capture what reaches your Stripe account — the $2 platform fee. The full $10 gross transaction value (GMV) processed externally is not visible unless you push that data in via the <a href="../../../public/api/transactions.html" style="color:#fb923c;">Transactions API</a>.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </article>
+
+                        <style>
+                            /* ── Use case sections ── */
+                            .uc-section {
+                                margin-bottom: 56px;
+                                padding-bottom: 48px;
+                                border-bottom: 1px solid var(--border-color, #333);
+                            }
+                            .uc-section:last-child { border-bottom: none; }
+
+                            .uc-header {
+                                display: flex;
+                                align-items: flex-start;
+                                gap: 20px;
+                                margin-bottom: 28px;
+                            }
+                            .uc-number {
+                                flex-shrink: 0;
+                                width: 40px; height: 40px;
+                                border-radius: 10px;
+                                background: rgba(59,130,246,0.12);
+                                border: 1px solid rgba(59,130,246,0.25);
+                                color: #60a5fa;
+                                font-size: 13px; font-weight: 800;
+                                display: flex; align-items: center; justify-content: center;
+                                letter-spacing: 0.04em;
+                            }
+                            .uc-title {
+                                font-size: 18px; font-weight: 700;
+                                color: var(--text-primary, #fff);
+                                margin: 0 0 8px;
+                            }
+                            .uc-desc {
+                                font-size: 14px; line-height: 1.75;
+                                color: var(--text-secondary, #cbd5e1);
+                                margin: 0;
+                            }
+
+                            /* ── Flow diagram ── */
+                            .uc-diagram {
+                                display: flex;
+                                align-items: center;
+                                gap: 0;
+                                padding: 28px 24px;
+                                border-radius: 12px;
+                                border: 1px solid var(--border-color, #333);
+                                background: rgba(255,255,255,0.02);
+                                margin-bottom: 16px;
+                                overflow-x: auto;
+                            }
+
+                            /* ── Boxes ── */
+                            .uc-box {
+                                flex-shrink: 0;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                gap: 5px;
+                                padding: 16px 14px;
+                                border-radius: 10px;
+                                border: 1px solid var(--border-color, #333);
+                                background: rgba(255,255,255,0.03);
+                                text-align: center;
+                                min-width: 120px;
+                            }
+                            .uc-customer  { border-color: rgba(148,163,184,0.4); background: rgba(148,163,184,0.05); }
+                            .uc-chargebee { border-color: rgba(255,122,89,0.4);  background: rgba(255,122,89,0.06); }
+                            .uc-stripe    { border-color: rgba(103,114,229,0.4); background: rgba(103,114,229,0.06); }
+                            .uc-external  { border-color: rgba(234,179,8,0.4);   background: rgba(234,179,8,0.05); }
+                            .uc-ts        { border-color: rgba(59,130,246,0.4);  background: rgba(59,130,246,0.06); }
+                            .uc-box-dim   { opacity: 0.65; }
+
+                            .uc-box-icon { font-size: 20px; color: var(--text-secondary, #cbd5e1); margin-bottom: 2px; }
+                            .uc-customer .uc-box-icon  { color: #94a3b8; }
+                            .uc-external .uc-box-icon  { color: #eab308; }
+                            .uc-box-label { font-weight: 700; font-size: 13px; color: var(--text-primary, #fff); }
+                            .uc-box-sub   { font-size: 10px; color: var(--text-muted, #888); line-height: 1.4; max-width: 120px; }
+
+                            /* Pills inside boxes */
+                            .uc-data-pill {
+                                display: flex; align-items: center; gap: 4px;
+                                font-size: 9px; font-weight: 600; padding: 3px 7px;
+                                border-radius: 999px; margin-top: 4px; white-space: nowrap;
+                            }
+                            .uc-pill-green  { background: rgba(34,197,94,0.15);  color: #4ade80; }
+                            .uc-pill-muted  { background: rgba(148,163,184,0.1); color: #94a3b8; }
+                            .uc-pill-orange { background: rgba(249,115,22,0.15); color: #fb923c; }
+
+                            /* Split rows inside Stripe box */
+                            .uc-split-rows { display: flex; flex-direction: column; gap: 3px; margin-top: 6px; width: 100%; }
+                            .uc-split-row {
+                                display: flex; align-items: center; gap: 5px;
+                                font-size: 10px; padding: 3px 6px; border-radius: 4px;
+                                white-space: nowrap;
+                            }
+                            .uc-split-keep { background: rgba(34,197,94,0.08);  color: #4ade80; }
+                            .uc-split-out  { background: rgba(148,163,184,0.08); color: #94a3b8; }
+
+                            /* ThriveStack result rows */
+                            .uc-ts-rows { display: flex; flex-direction: column; gap: 3px; margin-top: 6px; width: 100%; }
+                            .uc-ts-row {
+                                display: flex; align-items: center; gap: 5px;
+                                font-size: 10px; padding: 3px 7px; border-radius: 4px;
+                                white-space: nowrap; text-align: left;
+                            }
+                            .uc-ts-ok   { background: rgba(34,197,94,0.08);  color: #4ade80; }
+                            .uc-ts-warn { background: rgba(249,115,22,0.08); color: #fb923c; }
+
+                            /* ── Arrows between boxes ── */
+                            .uc-flow {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                gap: 4px;
+                                padding: 0 10px;
+                                flex-shrink: 0;
+                                min-width: 70px;
+                            }
+                            .uc-flow-arrow {
+                                width: 100%; height: 2px;
+                                background: linear-gradient(90deg, rgba(148,163,184,0.5), rgba(148,163,184,0.2));
+                                position: relative;
+                            }
+                            .uc-flow-arrow::after {
+                                content: '';
+                                position: absolute;
+                                right: -6px; top: 50%;
+                                transform: translateY(-50%);
+                                width: 0; height: 0;
+                                border-top: 5px solid transparent;
+                                border-bottom: 5px solid transparent;
+                                border-left: 7px solid rgba(148,163,184,0.6);
+                            }
+                            .uc-arrow-stripe { background: linear-gradient(90deg, rgba(103,114,229,0.6), rgba(103,114,229,0.2)); }
+                            .uc-arrow-stripe::after { border-left-color: rgba(103,114,229,0.8); }
+                            .uc-arrow-external { background: linear-gradient(90deg, rgba(234,179,8,0.5), rgba(234,179,8,0.2)); }
+                            .uc-arrow-external::after { border-left-color: rgba(234,179,8,0.7); }
+                            .uc-arrow-ts { background: linear-gradient(90deg, rgba(59,130,246,0.5), rgba(59,130,246,0.2)); }
+                            .uc-arrow-ts::after { border-left-color: rgba(59,130,246,0.8); }
+                            .uc-flow-dashed .uc-flow-arrow {
+                                background: repeating-linear-gradient(90deg, rgba(103,114,229,0.5) 0, rgba(103,114,229,0.5) 5px, transparent 5px, transparent 9px);
+                            }
+                            .uc-flow-label {
+                                font-size: 9px; color: var(--text-muted, #888);
+                                white-space: nowrap; font-style: italic;
+                            }
+                            .uc-flow-amount {
+                                font-size: 12px; font-weight: 700;
+                                color: var(--text-primary, #fff);
+                                font-style: normal;
+                                background: rgba(59,130,246,0.12);
+                                border: 1px solid rgba(59,130,246,0.2);
+                                padding: 1px 8px; border-radius: 999px;
+                            }
+                            .uc-flow-partial {
+                                background: rgba(249,115,22,0.12);
+                                border-color: rgba(249,115,22,0.25);
+                                color: #fb923c;
+                            }
+
+                            /* ── Service provider payout note ── */
+                            .uc-payout-note {
+                                display: flex;
+                                align-items: center;
+                                gap: 0;
+                                margin: -4px 0 16px 0;
+                                padding-left: 24px;
+                            }
+                            .uc-payout-line {
+                                width: 32px; height: 1px;
+                                background: repeating-linear-gradient(90deg, rgba(34,197,94,0.5) 0, rgba(34,197,94,0.5) 4px, transparent 4px, transparent 7px);
+                            }
+                            .uc-payout-box {
+                                display: flex; align-items: center; gap: 10px;
+                                padding: 8px 14px;
+                                border-radius: 8px;
+                                border: 1px solid rgba(34,197,94,0.2);
+                                background: rgba(34,197,94,0.05);
+                            }
+                            .uc-payout-label  { font-size: 11px; font-weight: 700; color: var(--text-primary, #fff); }
+                            .uc-payout-amount { font-size: 10px; color: #4ade80; margin-top: 1px; }
+
+                            /* ── Callout boxes ── */
+                            .uc-callout {
+                                display: flex;
+                                align-items: flex-start;
+                                gap: 12px;
+                                padding: 14px 18px;
+                                border-radius: 10px;
+                                font-size: 13px;
+                                line-height: 1.7;
+                                margin-top: 4px;
+                            }
+                            .uc-callout > i { font-size: 15px; flex-shrink: 0; margin-top: 2px; }
+                            .uc-callout-green  { border: 1px solid rgba(34,197,94,0.25);  background: rgba(34,197,94,0.06);  color: var(--text-secondary, #cbd5e1); }
+                            .uc-callout-green  > i { color: #4ade80; }
+                            .uc-callout-blue   { border: 1px solid rgba(59,130,246,0.25); background: rgba(59,130,246,0.06); color: var(--text-secondary, #cbd5e1); }
+                            .uc-callout-blue   > i { color: #60a5fa; }
+                            .uc-callout-orange { border: 1px solid rgba(249,115,22,0.3);  background: rgba(249,115,22,0.06); color: var(--text-secondary, #cbd5e1); }
+                            .uc-callout-orange > i { color: #fb923c; }
+
+                            /* light mode text tweaks */
+                            [data-theme="light"] .uc-desc { color: #475569; }
+                        </style>
+
+                        <div class="content-footer">
+                            <p>Was this page helpful?</p>
+                            <div class="feedback-buttons">
+                                <button class="feedback-btn btn-icon"><i class="fa-regular fa-thumbs-up"></i></button>
+                                <button class="feedback-btn btn-icon"><i class="fa-regular fa-thumbs-down"></i></button>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../../script.js"></script>
+</body>
+
+</html>
