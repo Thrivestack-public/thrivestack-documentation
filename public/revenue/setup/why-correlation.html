@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Revenue Intelligence - Why Correlation Matters - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Why Correlation Matters — Revenue Intelligence - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../../index.html" class="logo">
+                <img src="../../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../../index.html">Get Started</a>
+                <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="../../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../../take-action.html">Take Action</a>
+                <a href="../../../api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../../public/product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../../public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../../public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../../public/revenue/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../../public/revenue/setup/why-correlation.html" class="nav-item active"><span>Why Correlation Matters</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="why-correlation" class="content-section">
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Revenue Intelligence</span>
+                            <h1 class="doc-page-title">Why Correlation Matters</h1>
+                            <p class="doc-page-description">
+                                How a single shared key connects your product usage data with your billing data — unlocking churn signals, expansion signals, and the full bow-tie revenue model.
+                            </p>
+                        </header>
+
+                        <hr />
+
+                        <article class="doc-page-body">
+
+                            <h2 id="the-problem">The problem with disconnected data</h2>
+                            <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.8; margin-bottom: 16px;">
+                                Your product knows everything about how customers use your app — which features they adopt, how often they log in, where they drop off. Your billing system knows everything about revenue — MRR, subscription status, invoices, payments.
+                            </p>
+                            <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.8; margin-bottom: 32px;">
+                                But without a shared key linking them, these two datasets live in separate silos. You can't answer questions like <em>"which accounts are at risk of churning based on their product usage?"</em> or <em>"which features correlate with expansion revenue?"</em> — because there is no way to join the data.
+                            </p>
+
+                            <h2 id="the-correlation-key">The correlation key: <code>group_id</code></h2>
+                            <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.8; margin-bottom: 16px;">
+                                ThriveStack uses a single field — <code>group_id</code> — as the correlation key between product telemetry and billing data. It represents the paying account or organisation in your system (e.g. <code>organization_id</code>, <code>account_id</code>, <code>workspace_id</code>).
+                            </p>
+                            <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.8; margin-bottom: 16px;">
+                                The same <code>group_id</code> value must be present in <strong>two places</strong>:
+                            </p>
+                            <ul style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 2; margin-bottom: 16px;">
+                                <li><strong>Product telemetry</strong> — passed as <code>group_id</code> in your <code>thrivestack.group()</code> calls</li>
+                                <li><strong>Stripe customers</strong> — set as <code>metadata[group_id]</code> on every Stripe customer object</li>
+                                <li><strong>Chargebee customers</strong> — set as <code>meta_data[group_id]</code> on every Chargebee customer object</li>
+                            </ul>
+                            <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.8; margin-bottom: 32px;">
+                                When the same value appears on both sides, ThriveStack joins the two datasets at the account level automatically — no manual mapping required.
+                            </p>
+
+                            <!-- ANIMATED DIAGRAM -->
+                            <h2 id="how-it-flows">How <code>group_id</code> flows</h2>
+                            <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 24px;">
+                                The <code>group_id</code> originates in your product and must be set as customer metadata in each billing provider with the exact same value.
+                            </p>
+
+                            <div class="corr-diagram" id="corrDiagram">
+                                <!-- Product box -->
+                                <div class="corr-box corr-product">
+                                    <div class="corr-box-icon"><i class="fa-solid fa-cube"></i></div>
+                                    <div class="corr-box-title">Your Product</div>
+                                    <div class="corr-box-sub">thrivestack.group()</div>
+                                    <div class="corr-key-badge">
+                                        <span class="corr-key-label">group_id</span>
+                                        <span class="corr-key-value">"org_abc123"</span>
+                                    </div>
+                                </div>
+
+                                <!-- Arrows + label -->
+                                <div class="corr-arrows">
+                                    <div class="corr-arrow-row corr-arrow-stripe">
+                                        <div class="corr-arrow-line">
+                                            <div class="corr-arrow-dot"></div>
+                                            <div class="corr-arrow-track">
+                                                <div class="corr-arrow-packet" id="packet1"></div>
+                                            </div>
+                                            <div class="corr-arrow-head"></div>
+                                        </div>
+                                        <span class="corr-arrow-label">metadata[group_id]</span>
+                                    </div>
+                                    <div class="corr-arrow-row corr-arrow-chargebee">
+                                        <div class="corr-arrow-line">
+                                            <div class="corr-arrow-dot"></div>
+                                            <div class="corr-arrow-track">
+                                                <div class="corr-arrow-packet" id="packet2"></div>
+                                            </div>
+                                            <div class="corr-arrow-head"></div>
+                                        </div>
+                                        <span class="corr-arrow-label">meta_data[group_id]</span>
+                                    </div>
+                                </div>
+
+                                <!-- Billing boxes -->
+                                <div class="corr-billing">
+                                    <div class="corr-box corr-stripe">
+                                        <div class="corr-box-icon">
+                                            <img src="../../../stripe_logo.png" alt="Stripe" style="width:22px;height:22px;object-fit:contain;">
+                                        </div>
+                                        <div class="corr-box-title">Stripe</div>
+                                        <div class="corr-box-sub">Customer metadata</div>
+                                        <div class="corr-key-badge corr-key-received" id="stripe-badge">
+                                            <span class="corr-key-label">metadata[group_id]</span>
+                                            <span class="corr-key-value">"org_abc123"</span>
+                                        </div>
+                                    </div>
+                                    <div class="corr-box corr-chargebee">
+                                        <div class="corr-box-icon">
+                                            <img src="../../../chargebee_logo.png" alt="Chargebee" style="width:22px;height:22px;object-fit:contain;">
+                                        </div>
+                                        <div class="corr-box-title">Chargebee</div>
+                                        <div class="corr-box-sub">Customer meta_data</div>
+                                        <div class="corr-key-badge corr-key-received" id="chargebee-badge">
+                                            <span class="corr-key-label">meta_data[group_id]</span>
+                                            <span class="corr-key-value">"org_abc123"</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ThriveStack output panel -->
+                                <div class="corr-output-wrap" id="outputWrap">
+                                    <div class="corr-output-arrow">
+                                        <div class="corr-output-arrow-line"></div>
+                                        <div class="corr-output-arrow-head"></div>
+                                    </div>
+                                    <div class="corr-output-panel" id="outputPanel">
+                                        <div class="corr-output-header">
+                                            <div class="corr-output-title-row">
+                                                <i class="fa-solid fa-layer-group" style="color:#3b82f6;font-size:12px;"></i>
+                                                <span class="corr-output-title">All Account List</span>
+                                                <span class="corr-output-count">24 accounts</span>
+                                                <span class="corr-output-growth"><i class="fa-solid fa-arrow-up" style="font-size:9px;"></i> +5.2%</span>
+                                            </div>
+                                        </div>
+                                        <table class="corr-output-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Account</th>
+                                                    <th>Journey</th>
+                                                    <th>MRR</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="corr-acct-name">Monday.com</td>
+                                                    <td><span class="corr-journey partial">1/2 activated</span></td>
+                                                    <td class="corr-mrr">$2,800</td>
+                                                    <td><span class="corr-status active">Active</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="corr-acct-name">Miro</td>
+                                                    <td><span class="corr-journey partial">1/2 activated</span></td>
+                                                    <td class="corr-mrr">$3,200</td>
+                                                    <td><span class="corr-status active">Active</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="corr-acct-name">Figma</td>
+                                                    <td><span class="corr-journey none">0/2 activated</span></td>
+                                                    <td class="corr-mrr">$6,000</td>
+                                                    <td><span class="corr-status failed">Failed</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="corr-acct-name">Linear</td>
+                                                    <td><span class="corr-journey full">2/2 activated</span></td>
+                                                    <td class="corr-mrr">$950</td>
+                                                    <td><span class="corr-status active">Active</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="corr-acct-name">Airtable</td>
+                                                    <td><span class="corr-journey full">2/2 activated</span></td>
+                                                    <td class="corr-mrr">$2,200</td>
+                                                    <td><span class="corr-status pastdue">Past due</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="corr-output-footer">
+                                            <i class="fa-solid fa-link" style="color:#3b82f6;font-size:10px;margin-right:4px;"></i>
+                                            Joined on <code style="font-size:10px;color:#60a5fa;">group_id</code> · Product + Revenue
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end diagram -->
+
+                            <h2 id="what-unlocks" style="margin-top: 48px;">What this unlocks</h2>
+                            <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.8; margin-bottom: 20px;">
+                                Once both sides carry the same <code>group_id</code>, ThriveStack can correlate product behaviour with revenue outcomes for every account. This powers:
+                            </p>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 32px;">
+                                <div class="corr-signal-card corr-risk">
+                                    <div class="corr-signal-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                    <div>
+                                        <p class="corr-signal-title">Churn Risk Signals</p>
+                                        <p class="corr-signal-desc">Accounts whose product usage is declining while still paying. Flag before the cancellation happens.</p>
+                                    </div>
+                                </div>
+                                <div class="corr-signal-card corr-contraction">
+                                    <div class="corr-signal-icon"><i class="fa-solid fa-arrow-trend-down"></i></div>
+                                    <div>
+                                        <p class="corr-signal-title">Contraction Signals</p>
+                                        <p class="corr-signal-desc">Accounts downgrading or reducing seats. Correlate the revenue drop with the product usage drop that preceded it.</p>
+                                    </div>
+                                </div>
+                                <div class="corr-signal-card corr-expansion">
+                                    <div class="corr-signal-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                                    <div>
+                                        <p class="corr-signal-title">Expansion Signals</p>
+                                        <p class="corr-signal-desc">Accounts hitting usage limits or activating high-value features — ready to upgrade. Surface them before they ask.</p>
+                                    </div>
+                                </div>
+                                <div class="corr-signal-card corr-bowtie">
+                                    <div class="corr-signal-icon"><i class="fa-solid fa-bow-arrow" style="transform:rotate(90deg)"></i>🎯</div>
+                                    <div>
+                                        <p class="corr-signal-title">Full Bow-tie Model</p>
+                                        <p class="corr-signal-desc">Map every account from first marketing touch → product activation → revenue → expansion or churn. End-to-end visibility.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h2 id="the-rule">The one rule</h2>
+                            <blockquote>
+                                <i class="fa-solid fa-triangle-exclamation" style="margin-right:6px;"></i>
+                                <strong>The <code>group_id</code> value must be exactly identical in both places.</strong>
+                                Format, casing, and type must match — <code>"Org_ABC123"</code> and <code>"org_abc123"</code> are treated as different accounts. A mismatch silently breaks revenue attribution with no error message.
+                            </blockquote>
+
+                            <h2 id="exceptional-use-cases" style="margin-top: 40px;">Exceptional use cases</h2>
+
+                            <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#fff);margin:20px 0 10px;">Chargebee + Stripe as payment gateway</h3>
+                            <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.8; margin-bottom: 16px;">
+                                Some businesses use <strong>Chargebee for subscription management</strong> while routing payments through <strong>Stripe as the underlying payment gateway</strong>. On top of that, Stripe may also receive direct platform-level charges — for example, a marketplace that takes a percentage cut from customer transactions outside of the subscription cycle.
+                            </p>
+                            <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.8; margin-bottom: 16px;">
+                                In this setup, you must connect <strong>both</strong> the Chargebee connector and the Stripe connector to ThriveStack in order to ingest all transaction data — Chargebee captures subscription events, while Stripe captures the direct marketplace/platform-fee transactions that never flow through Chargebee.
+                            </p>
+
+                            <div class="corr-exception-box">
+                                <div class="corr-exception-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                <div>
+                                    <p class="corr-exception-title">Potential duplicate transactions</p>
+                                    <p class="corr-exception-desc">When Chargebee uses Stripe as its payment gateway, subscription payments are recorded in <strong>both</strong> systems — once in Chargebee (as an invoice/transaction) and once in Stripe (as a charge). If both connectors are active, ThriveStack may ingest the same subscription transaction twice, inflating MRR and ARR figures.</p>
+                                </div>
+                            </div>
+
+                            <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.8; margin: 20px 0 20px;">
+                                The direct Stripe transactions (platform cuts, marketplace fees) do not appear in Chargebee at all — those must come from the Stripe connector. But the overlap on subscription payments creates a deduplication challenge.
+                            </p>
+
+                            <!-- EXCEPTIONAL USE CASE DIAGRAM -->
+                            <!-- Exceptional case: same layout as primary diagram above, billing boxes extended with transaction data -->
+                            <div class="corr-diagram">
+
+                                <!-- Product box — same as primary, slightly narrower -->
+                                <div class="corr-box corr-product exc2-product-box">
+                                    <div class="corr-box-icon"><i class="fa-solid fa-cube"></i></div>
+                                    <div class="corr-box-title">Your Product</div>
+                                    <div class="corr-box-sub">thrivestack.group()</div>
+                                    <div class="corr-key-badge">
+                                        <span class="corr-key-label">group_id</span>
+                                        <span class="corr-key-value">"org_abc123"</span>
+                                    </div>
+                                </div>
+
+                                <!-- Arrows — Chargebee on top, Stripe on bottom -->
+                                <div class="corr-arrows">
+                                    <div class="corr-arrow-row corr-arrow-chargebee">
+                                        <div class="corr-arrow-line">
+                                            <div class="corr-arrow-dot"></div>
+                                            <div class="corr-arrow-track">
+                                                <div class="corr-arrow-packet" id="excPkt1"></div>
+                                            </div>
+                                            <div class="corr-arrow-head"></div>
+                                        </div>
+                                        <span class="corr-arrow-label">meta_data[group_id]</span>
+                                    </div>
+                                    <div class="corr-arrow-row corr-arrow-stripe">
+                                        <div class="corr-arrow-line">
+                                            <div class="corr-arrow-dot"></div>
+                                            <div class="corr-arrow-track">
+                                                <div class="corr-arrow-packet" id="excPkt2"></div>
+                                            </div>
+                                            <div class="corr-arrow-head"></div>
+                                        </div>
+                                        <span class="corr-arrow-label">metadata[group_id]</span>
+                                    </div>
+                                </div>
+
+                                <!-- Billing column — extended with transaction rows + PG connector -->
+                                <div class="exc2-billing-wrap">
+                                    <div class="exc2-col-label">Billing System</div>
+                                    <div class="corr-billing exc2-billing">
+                                        <!-- Chargebee — top, extended -->
+                                        <div class="corr-box corr-chargebee exc2-billing-box">
+                                            <div class="corr-box-icon">
+                                                <img src="../../../chargebee_logo.png" alt="Chargebee" style="width:22px;height:22px;object-fit:contain;">
+                                            </div>
+                                            <div class="corr-box-title">Chargebee</div>
+                                            <div class="corr-box-sub">Subscription management</div>
+                                            <div class="corr-key-badge">
+                                                <span class="corr-key-label">meta_data[group_id]</span>
+                                                <span class="corr-key-value">"org_abc123"</span>
+                                            </div>
+                                            <div class="exc2-txn-divider">Subscription invoices</div>
+                                            <div class="exc2-txn-row exc2-txn-sub">
+                                                <i class="fa-solid fa-file-invoice-dollar" style="color:#FF7A59;font-size:10px;flex-shrink:0;"></i>
+                                                <span class="exc2-txn-id">INV-1001 — $2,800</span>
+                                                <span class="exc2-badge-sub">Subscription</span>
+                                            </div>
+                                            <div class="exc2-txn-row exc2-txn-sub">
+                                                <i class="fa-solid fa-file-invoice-dollar" style="color:#FF7A59;font-size:10px;flex-shrink:0;"></i>
+                                                <span class="exc2-txn-id">INV-1002 — $3,200</span>
+                                                <span class="exc2-badge-sub">Subscription</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- PG connector: Chargebee routes payments down to Stripe -->
+                                        <div class="exc2-pg-row">
+                                            <div class="exc2-pg-line"></div>
+                                            <span class="exc2-pg-label"><i class="fa-solid fa-credit-card" style="margin-right:4px;"></i>Chargebee routes subscription payments through Stripe as payment gateway</span>
+                                            <div class="exc2-pg-arrowhead"></div>
+                                        </div>
+
+                                        <!-- Stripe — bottom, extended -->
+                                        <div class="corr-box corr-stripe exc2-billing-box">
+                                            <div class="corr-box-icon">
+                                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1.5 13.5c-1.93 0-3-1.03-3-2.5 0-2.07 1.57-2.75 3-3.08V8.5c-.57.1-1.08.37-1.5.75l-1-1.25C11.57 7.37 12.73 7 14 7c1.93 0 3 1.03 3 2.5 0 2.03-1.57 2.72-3 3.06v1.44c.6-.1 1.15-.4 1.57-.82l1 1.25C15.93 15.12 14.78 15.5 13.5 15.5z" fill="#6772e5"/></svg>
+                                            </div>
+                                            <div class="corr-box-title">Stripe</div>
+                                            <div class="corr-box-sub">Payment gateway + direct fees</div>
+                                            <div class="corr-key-badge" style="border-color:rgba(103,114,229,0.3);background:rgba(103,114,229,0.1);">
+                                                <span class="corr-key-label" style="color:#a5b4fc;">metadata[group_id]</span>
+                                                <span class="corr-key-value" style="color:#818cf8;">"org_abc123"</span>
+                                            </div>
+                                            <div class="exc2-txn-divider">Charges received</div>
+                                            <div class="exc2-txn-row exc2-txn-overlap">
+                                                <i class="fa-solid fa-bolt" style="color:#f97316;font-size:10px;flex-shrink:0;"></i>
+                                                <span class="exc2-txn-id">ch_abc — $2,800</span>
+                                                <span class="exc2-badge-overlap">via Chargebee</span>
+                                            </div>
+                                            <div class="exc2-txn-row exc2-txn-overlap">
+                                                <i class="fa-solid fa-bolt" style="color:#f97316;font-size:10px;flex-shrink:0;"></i>
+                                                <span class="exc2-txn-id">ch_def — $3,200</span>
+                                                <span class="exc2-badge-overlap">via Chargebee</span>
+                                            </div>
+                                            <div class="exc2-txn-row exc2-txn-direct">
+                                                <i class="fa-solid fa-arrow-right-to-bracket" style="color:#22c55e;font-size:10px;flex-shrink:0;"></i>
+                                                <span class="exc2-txn-id">ch_xyz — $180</span>
+                                                <span class="exc2-badge-direct">Platform fee</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ThriveStack output — same arrow + panel style, always visible -->
+                                <div class="exc2-ts-wrap">
+                                    <div class="exc2-col-label">ThriveStack</div>
+                                    <div class="corr-output-wrap exc2-always-visible">
+                                        <div class="corr-output-arrow">
+                                            <div class="corr-output-arrow-line"></div>
+                                            <div class="corr-output-arrow-head"></div>
+                                        </div>
+                                        <div class="corr-output-panel exc2-output-panel">
+                                            <div class="corr-output-header">
+                                                <div class="corr-output-title-row">
+                                                    <i class="fa-solid fa-layer-group" style="color:#3b82f6;font-size:12px;"></i>
+                                                    <span class="corr-output-title">What gets ingested</span>
+                                                </div>
+                                                <div class="corr-key-badge" style="margin-top:8px;width:100%;box-sizing:border-box;">
+                                                    <span class="corr-key-label">group_id</span>
+                                                    <span class="corr-key-value">"org_abc123"</span>
+                                                </div>
+                                            </div>
+                                            <div class="exc2-ts-section">
+                                                <div class="exc2-ts-section-label">
+                                                    <i class="fa-solid fa-triangle-exclamation" style="color:#f97316;"></i>
+                                                    Subscription payments
+                                                </div>
+                                                <div class="exc2-ingest-row exc2-ingest-dup">
+                                                    <i class="fa-solid fa-file-invoice-dollar" style="color:#FF7A59;font-size:11px;flex-shrink:0;"></i>
+                                                    <span class="exc2-ingest-label">Chargebee INV-1001 <span class="exc2-equals">≈</span> Stripe ch_abc</span>
+                                                    <span class="exc2-badge-warn">Duplicate?</span>
+                                                </div>
+                                                <div class="exc2-ingest-row exc2-ingest-dup">
+                                                    <i class="fa-solid fa-file-invoice-dollar" style="color:#FF7A59;font-size:11px;flex-shrink:0;"></i>
+                                                    <span class="exc2-ingest-label">Chargebee INV-1002 <span class="exc2-equals">≈</span> Stripe ch_def</span>
+                                                    <span class="exc2-badge-warn">Duplicate?</span>
+                                                </div>
+                                            </div>
+                                            <div class="exc2-ts-section" style="border-bottom:none;">
+                                                <div class="exc2-ts-section-label">
+                                                    <i class="fa-solid fa-check" style="color:#22c55e;"></i>
+                                                    Platform fees — unique to Stripe
+                                                </div>
+                                                <div class="exc2-ingest-row exc2-ingest-ok">
+                                                    <i class="fa-solid fa-bolt" style="color:#22c55e;font-size:11px;flex-shrink:0;"></i>
+                                                    <span class="exc2-ingest-label">Stripe ch_xyz — $180 platform fee</span>
+                                                    <span class="exc2-badge-ok">Unique</span>
+                                                </div>
+                                            </div>
+                                            <div class="corr-output-footer">
+                                                <i class="fa-solid fa-hammer" style="color:#60a5fa;font-size:10px;margin-right:4px;"></i>
+                                                Deduplication in progress
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- end exceptional diagram -->
+
+                            <div class="corr-wip-box">
+                                <i class="fa-solid fa-hammer" style="color:#60a5fa;font-size:15px;flex-shrink:0;margin-top:2px;"></i>
+                                <div>
+                                    <p style="font-weight:700;font-size:13px;color:var(--text-primary,#fff);margin:0 0 4px;">We're working on this</p>
+                                    <p style="font-size:13px;color:var(--text-secondary,#cbd5e1);margin:0;line-height:1.7;">ThriveStack is actively building automatic deduplication for the Chargebee + Stripe gateway scenario. Once released, duplicate subscription transactions will be collapsed into a single record so your revenue metrics stay accurate.</p>
+                                </div>
+                            </div>
+
+                            <h2 id="next-steps" style="margin-top: 40px;">Next steps</h2>
+                            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px;">
+                                <a href="../../../public/revenue/setup/setup-with-ai.html" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;border:1px solid #3b82f6;background:rgba(59,130,246,0.12);color:#60a5fa;font-size:14px;font-weight:600;text-decoration:none;">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Set up with AI
+                                </a>
+                                <a href="../../../public/revenue/setup/setup-manually.html" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;border:1px solid var(--border-color,#333);background:transparent;color:var(--text-secondary,#cbd5e1);font-size:14px;font-weight:600;text-decoration:none;">
+                                    <i class="fa-solid fa-code"></i> Set up manually
+                                </a>
+                            </div>
+
+                        </article>
+
+                        <style>
+                            /* ── Diagram ── */
+                            .corr-diagram {
+                                display: flex;
+                                align-items: center;
+                                gap: 0;
+                                padding: 32px 24px;
+                                margin-bottom: 16px;
+                                border-radius: 12px;
+                                border: 1px solid var(--border-color, #333);
+                                background: rgba(255,255,255,0.02);
+                                overflow-x: auto;
+                                min-width: 0;
+                            }
+                            .corr-box {
+                                flex-shrink: 0;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                gap: 6px;
+                                padding: 20px 18px;
+                                border-radius: 10px;
+                                border: 1px solid var(--border-color, #333);
+                                background: var(--bg-glass, rgba(255,255,255,0.04));
+                                min-width: 140px;
+                                text-align: center;
+                            }
+                            .corr-product { border-color: #3b82f6; background: rgba(59,130,246,0.06); }
+                            .corr-stripe  { border-color: #6772e5; background: rgba(103,114,229,0.06); }
+                            .corr-chargebee { border-color: #FF7A59; background: rgba(255,122,89,0.06); }
+                            .corr-box-icon { font-size: 22px; color: var(--text-secondary, #cbd5e1); margin-bottom: 2px; }
+                            .corr-product .corr-box-icon { color: #3b82f6; }
+                            .corr-stripe .corr-box-icon  { color: #6772e5; }
+                            .corr-box-title { font-weight: 700; font-size: 14px; color: var(--text-primary, #fff); }
+                            .corr-box-sub   { font-size: 11px; color: var(--text-muted, #888); margin-bottom: 4px; }
+                            .corr-key-badge {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                gap: 2px;
+                                padding: 6px 10px;
+                                border-radius: 6px;
+                                background: rgba(59,130,246,0.15);
+                                border: 1px solid rgba(59,130,246,0.3);
+                                margin-top: 6px;
+                            }
+                            .corr-key-received {
+                                opacity: 0;
+                                transition: opacity 0.4s ease;
+                            }
+                            .corr-key-received.visible { opacity: 1; }
+                            .corr-key-label { font-size: 10px; color: #93c5fd; font-weight: 600; letter-spacing: 0.05em; }
+                            .corr-key-value { font-size: 11px; color: #60a5fa; font-family: monospace; }
+                            [data-theme="light"] .corr-key-label { color: #1d4ed8; }
+                            [data-theme="light"] .corr-key-value { color: #1e40af; }
+                            [data-theme="light"] .corr-key-badge {
+                                background: rgba(59,130,246,0.12);
+                                border-color: rgba(59,130,246,0.4);
+                            }
+                            [data-theme="light"] .corr-arrow-label { color: #475569; }
+                            [data-theme="light"] .corr-output-footer { color: #475569; }
+                            [data-theme="light"] .corr-output-footer code { color: #1d4ed8; }
+
+                            /* ── Arrows ── */
+                            .corr-arrows {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                gap: 28px;
+                                padding: 0 16px;
+                                min-width: 160px;
+                            }
+                            .corr-arrow-row {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 4px;
+                            }
+                            .corr-arrow-line {
+                                display: flex;
+                                align-items: center;
+                                gap: 0;
+                                width: 100%;
+                            }
+                            .corr-arrow-dot {
+                                width: 8px; height: 8px;
+                                border-radius: 50%;
+                                background: #3b82f6;
+                                flex-shrink: 0;
+                            }
+                            .corr-arrow-track {
+                                flex: 1;
+                                height: 2px;
+                                background: linear-gradient(90deg, rgba(59,130,246,0.3), rgba(59,130,246,0.1));
+                                position: relative;
+                                overflow: hidden;
+                            }
+                            .corr-arrow-packet {
+                                position: absolute;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                width: 28px;
+                                height: 6px;
+                                border-radius: 3px;
+                                background: #3b82f6;
+                                left: -28px;
+                                animation: movePacket 2.2s ease-in-out infinite;
+                            }
+                            #packet2 { animation-delay: 0.6s; }
+                            .corr-arrow-chargebee .corr-arrow-packet { background: #FF7A59; }
+                            .corr-arrow-chargebee .corr-arrow-dot { background: #FF7A59; }
+                            .corr-arrow-chargebee .corr-arrow-track {
+                                background: linear-gradient(90deg, rgba(255,122,89,0.3), rgba(255,122,89,0.1));
+                            }
+                            .corr-arrow-head {
+                                width: 0; height: 0;
+                                border-top: 5px solid transparent;
+                                border-bottom: 5px solid transparent;
+                                border-left: 8px solid #3b82f6;
+                                flex-shrink: 0;
+                            }
+                            .corr-arrow-chargebee .corr-arrow-head { border-left-color: #FF7A59; }
+                            .corr-arrow-label {
+                                font-size: 10px;
+                                color: var(--text-muted, #888);
+                                font-family: monospace;
+                                padding-left: 10px;
+                            }
+                            @keyframes movePacket {
+                                0%   { left: -28px; opacity: 0; }
+                                10%  { opacity: 1; }
+                                90%  { opacity: 1; }
+                                100% { left: 100%; opacity: 0; }
+                            }
+
+                            /* ── Billing column ── */
+                            .corr-billing {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 16px;
+                                flex-shrink: 0;
+                            }
+
+                            /* ── Output panel ── */
+                            .corr-output-wrap {
+                                display: flex;
+                                align-items: center;
+                                padding-left: 16px;
+                                flex-shrink: 0;
+                                opacity: 0;
+                                transform: translateX(12px);
+                                transition: opacity 0.5s ease, transform 0.5s ease;
+                            }
+                            .corr-output-wrap.visible {
+                                opacity: 1;
+                                transform: translateX(0);
+                            }
+                            .corr-output-arrow {
+                                display: flex;
+                                align-items: center;
+                                margin-right: 4px;
+                            }
+                            .corr-output-arrow-line {
+                                width: 28px;
+                                height: 2px;
+                                background: rgba(59,130,246,0.5);
+                            }
+                            .corr-output-arrow-head {
+                                width: 0; height: 0;
+                                border-top: 5px solid transparent;
+                                border-bottom: 5px solid transparent;
+                                border-left: 8px solid rgba(59,130,246,0.5);
+                            }
+                            .corr-output-panel {
+                                border-radius: 10px;
+                                border: 1px solid rgba(59,130,246,0.25);
+                                background: var(--bg-glass, rgba(255,255,255,0.03));
+                                overflow: hidden;
+                                min-width: 280px;
+                                max-width: 340px;
+                            }
+                            .corr-output-header {
+                                padding: 10px 14px 8px;
+                                border-bottom: 1px solid rgba(59,130,246,0.12);
+                                background: rgba(59,130,246,0.06);
+                            }
+                            .corr-output-title-row {
+                                display: flex;
+                                align-items: center;
+                                gap: 7px;
+                            }
+                            .corr-output-title {
+                                font-weight: 700;
+                                font-size: 12px;
+                                color: var(--text-primary, #fff);
+                            }
+                            .corr-output-count {
+                                font-size: 10px;
+                                color: var(--text-muted, #888);
+                                margin-left: 2px;
+                            }
+                            .corr-output-growth {
+                                font-size: 10px;
+                                color: #22c55e;
+                                font-weight: 600;
+                                margin-left: auto;
+                            }
+                            .corr-output-table {
+                                width: 100%;
+                                border-collapse: collapse;
+                                font-size: 11px;
+                            }
+                            .corr-output-table thead tr {
+                                border-bottom: 1px solid rgba(255,255,255,0.06);
+                            }
+                            .corr-output-table th {
+                                padding: 6px 10px;
+                                text-align: left;
+                                color: var(--text-muted, #888);
+                                font-weight: 600;
+                                font-size: 10px;
+                                letter-spacing: 0.06em;
+                                text-transform: uppercase;
+                            }
+                            .corr-output-table td {
+                                padding: 6px 10px;
+                                border-bottom: 1px solid rgba(255,255,255,0.04);
+                                color: var(--text-secondary, #cbd5e1);
+                            }
+                            .corr-output-table tbody tr:last-child td { border-bottom: none; }
+                            .corr-acct-name { font-weight: 600; color: var(--text-primary, #fff) !important; font-size: 11px; }
+                            .corr-mrr { font-weight: 600; color: var(--text-primary, #fff) !important; }
+                            .corr-journey {
+                                display: inline-block;
+                                padding: 2px 7px;
+                                border-radius: 999px;
+                                font-size: 10px;
+                                font-weight: 600;
+                                white-space: nowrap;
+                            }
+                            .corr-journey.full     { background: rgba(34,197,94,0.15);  color: #4ade80; }
+                            .corr-journey.partial  { background: rgba(234,179,8,0.15);  color: #facc15; }
+                            .corr-journey.none     { background: rgba(148,163,184,0.1); color: #94a3b8; }
+                            .corr-status {
+                                display: inline-block;
+                                padding: 2px 8px;
+                                border-radius: 999px;
+                                font-size: 10px;
+                                font-weight: 600;
+                                white-space: nowrap;
+                            }
+                            .corr-status.active  { background: rgba(34,197,94,0.15);  color: #4ade80; }
+                            .corr-status.failed  { background: rgba(239,68,68,0.15);  color: #f87171; }
+                            .corr-status.pastdue { background: rgba(249,115,22,0.15); color: #fb923c; }
+                            .corr-output-footer {
+                                padding: 7px 14px;
+                                border-top: 1px solid rgba(59,130,246,0.12);
+                                background: rgba(59,130,246,0.04);
+                                font-size: 10px;
+                                color: var(--text-muted, #888);
+                            }
+
+                            /* ── Exception boxes ── */
+                            .corr-exception-box {
+                                display: flex;
+                                gap: 16px;
+                                padding: 18px 20px;
+                                border-radius: 10px;
+                                border: 1px solid rgba(249,115,22,0.35);
+                                background: rgba(249,115,22,0.07);
+                                margin: 20px 0;
+                            }
+                            .corr-exception-icon {
+                                font-size: 18px;
+                                color: #f97316;
+                                flex-shrink: 0;
+                                margin-top: 2px;
+                            }
+                            .corr-exception-title {
+                                font-weight: 700;
+                                font-size: 14px;
+                                color: var(--text-primary, #fff);
+                                margin: 0 0 6px;
+                            }
+                            .corr-exception-desc {
+                                font-size: 13px;
+                                color: var(--text-secondary, #cbd5e1);
+                                line-height: 1.7;
+                                margin: 0;
+                            }
+                            .corr-wip-box {
+                                display: flex;
+                                gap: 14px;
+                                padding: 18px 20px;
+                                border-radius: 10px;
+                                border: 1px solid rgba(59,130,246,0.3);
+                                background: rgba(59,130,246,0.06);
+                                margin-bottom: 32px;
+                            }
+
+                            /* ── Exceptional use case diagram — minimal additions on top of shared corr-* styles ── */
+
+                            /* Column label ("Billing System" / "ThriveStack") */
+                            .exc2-col-label {
+                                font-size: 10px; font-weight: 700; text-transform: uppercase;
+                                letter-spacing: 0.08em; color: var(--text-muted,#888);
+                                text-align: center; margin-bottom: 8px;
+                            }
+                            /* Compact product box + arrows so the diagram fits without scrolling */
+                            .exc2-product-box {
+                                min-width: 0;
+                                width: 90px;
+                                padding: 14px 10px;
+                                flex-shrink: 0;
+                            }
+                            .exc2-product-box .corr-box-title { font-size: 12px; }
+                            .exc2-product-box .corr-box-sub   { font-size: 10px; }
+                            .exc2-product-box .corr-key-badge { padding: 4px 6px; }
+                            .exc2-product-box .corr-key-label { font-size: 8px; }
+                            .exc2-product-box .corr-key-value { font-size: 9px; }
+                            /* Tighter arrows column in exceptional diagram */
+                            .exc2-diagram .corr-arrows { min-width: 100px; padding: 0 10px; }
+                            /* Wrapper gives the billing column a label without breaking corr-billing flex */
+                            .exc2-billing-wrap { display: flex; flex-direction: column; flex-shrink: 0; }
+                            .exc2-billing { align-items: stretch; }
+                            .exc2-billing-box { text-align: left; align-items: flex-start; min-width: 180px; }
+                            /* Wrapper for ThriveStack column */
+                            .exc2-ts-wrap { display: flex; flex-direction: column; flex-shrink: 0; }
+                            /* Make the output panel always visible (override the opacity:0 start state) */
+                            .exc2-always-visible { opacity: 1 !important; transform: none !important; }
+                            .exc2-output-panel { min-width: 0; width: 230px; }
+
+                            /* Transaction divider inside extended billing boxes */
+                            .exc2-txn-divider {
+                                width: 100%; font-size: 9px; font-weight: 700;
+                                color: var(--text-muted,#888); text-transform: uppercase; letter-spacing: 0.06em;
+                                border-top: 1px solid rgba(255,255,255,0.07); padding-top: 7px; margin-top: 7px;
+                            }
+                            /* Transaction rows */
+                            .exc2-txn-row {
+                                display: flex; align-items: center; gap: 6px; width: 100%;
+                                padding: 4px 6px; border-radius: 5px; font-size: 11px; margin-top: 4px;
+                            }
+                            .exc2-txn-sub     { background: rgba(255,122,89,0.07); }
+                            .exc2-txn-overlap { background: rgba(249,115,22,0.09); }
+                            .exc2-txn-direct  { background: rgba(34,197,94,0.07); }
+                            .exc2-txn-id { font-weight: 600; color: var(--text-primary,#fff); font-family: monospace; flex: 1; }
+                            .exc2-badge-sub {
+                                font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+                                background: rgba(255,122,89,0.15); color: #FF7A59; white-space: nowrap;
+                            }
+                            .exc2-badge-overlap {
+                                font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+                                background: rgba(249,115,22,0.2); color: #fb923c; white-space: nowrap;
+                            }
+                            .exc2-badge-direct {
+                                font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+                                background: rgba(34,197,94,0.15); color: #4ade80; white-space: nowrap;
+                            }
+                            /* PG connector row between Stripe and Chargebee inside billing column */
+                            .exc2-pg-row {
+                                display: flex; align-items: center; gap: 8px;
+                                padding: 5px 8px; margin: 2px 0;
+                            }
+                            .exc2-pg-line {
+                                width: 14px; height: 1px; flex-shrink: 0;
+                                background: repeating-linear-gradient(90deg,rgba(103,114,229,0.6) 0,rgba(103,114,229,0.6) 4px,transparent 4px,transparent 8px);
+                            }
+                            .exc2-pg-label { font-size: 9px; color: var(--text-muted,#888); font-style: italic; flex: 1; }
+                            .exc2-pg-arrowhead {
+                                width: 0; height: 0; flex-shrink: 0;
+                                border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+                                border-left: 6px solid rgba(103,114,229,0.5);
+                            }
+                            /* ThriveStack output sections */
+                            .exc2-ts-section {
+                                padding: 10px 12px;
+                                border-bottom: 1px solid rgba(255,255,255,0.05);
+                            }
+                            .exc2-ts-section-label {
+                                display: flex; align-items: center; gap: 6px;
+                                font-size: 10px; font-weight: 700; text-transform: uppercase;
+                                letter-spacing: 0.04em; color: var(--text-secondary,#cbd5e1);
+                                margin-bottom: 7px;
+                            }
+                            .exc2-ingest-row {
+                                display: flex; align-items: center; gap: 8px;
+                                padding: 5px 8px; border-radius: 5px; font-size: 11px; margin-top: 4px;
+                            }
+                            .exc2-ingest-dup { background: rgba(249,115,22,0.08); }
+                            .exc2-ingest-ok  { background: rgba(34,197,94,0.07); }
+                            .exc2-ingest-label { flex: 1; color: var(--text-secondary,#cbd5e1); }
+                            .exc2-equals { color: var(--text-muted,#888); font-weight: 700; margin: 0 2px; }
+                            .exc2-badge-warn {
+                                font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+                                background: rgba(249,115,22,0.2); color: #fb923c; white-space: nowrap;
+                            }
+                            .exc2-badge-ok {
+                                font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+                                background: rgba(34,197,94,0.15); color: #4ade80; white-space: nowrap;
+                            }
+
+                            /* ── Signal cards ── */
+                            .corr-signal-card {
+                                display: flex;
+                                align-items: flex-start;
+                                gap: 14px;
+                                padding: 18px;
+                                border-radius: 10px;
+                                border: 1px solid var(--border-color, #333);
+                                background: rgba(255,255,255,0.02);
+                            }
+                            .corr-signal-icon {
+                                font-size: 20px;
+                                flex-shrink: 0;
+                                width: 32px;
+                                text-align: center;
+                                margin-top: 2px;
+                            }
+                            .corr-risk        .corr-signal-icon { color: #ef4444; }
+                            .corr-contraction .corr-signal-icon { color: #f97316; }
+                            .corr-expansion   .corr-signal-icon { color: #22c55e; }
+                            .corr-signal-title { font-weight: 700; font-size: 14px; color: var(--text-primary, #fff); margin: 0 0 4px; }
+                            .corr-signal-desc  { font-size: 13px; color: var(--text-secondary, #cbd5e1); line-height: 1.6; margin: 0; }
+                        </style>
+
+                        <script>
+                            window.addEventListener('load', function () {
+                                // Primary diagram animation
+                                var stripeBadge    = document.getElementById('stripe-badge');
+                                var chargebeeBadge = document.getElementById('chargebee-badge');
+                                var outputWrap     = document.getElementById('outputWrap');
+
+                                function pulse() {
+                                    stripeBadge.classList.remove('visible');
+                                    chargebeeBadge.classList.remove('visible');
+                                    outputWrap.classList.remove('visible');
+                                    setTimeout(function () { stripeBadge.classList.add('visible'); }, 2000);
+                                    setTimeout(function () { chargebeeBadge.classList.add('visible'); }, 2600);
+                                    setTimeout(function () { outputWrap.classList.add('visible'); }, 3400);
+                                }
+                                pulse();
+                                setInterval(pulse, 5000);
+
+                                // Exceptional case: packets animate via CSS (excPkt1/2), output panel is always visible
+                            });
+                        </script>
+
+                        <div class="content-footer">
+                            <p>Was this page helpful?</p>
+                            <div class="feedback-buttons">
+                                <button class="feedback-btn" onclick="sendFeedback('yes', this)">
+                                    <i class="fa-regular fa-thumbs-up"></i> Yes
+                                </button>
+                                <button class="feedback-btn" onclick="sendFeedback('no', this)">
+                                    <i class="fa-regular fa-thumbs-down"></i> No
+                                </button>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../../script.js"></script>
+</body>
+
+</html>
