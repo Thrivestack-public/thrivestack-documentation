@@ -718,7 +718,7 @@ Call this when a subscription is created, updated, or cancelled.
 
 **Create:**
 ```
-POST https://azure.dev.app.thrivestack.ai/revenue/subscriptions
+POST https://api.app.thrivestack.ai/revenue/subscriptions
 {
   "subscription_id": "<your subscription ID>",
   "customer_id": "<your customer ID>",
@@ -733,7 +733,7 @@ POST https://azure.dev.app.thrivestack.ai/revenue/subscriptions
 
 **Update:**
 ```
-PUT https://azure.dev.app.thrivestack.ai/revenue/subscriptions
+PUT https://api.app.thrivestack.ai/revenue/subscriptions
 {
   "subscription_id": "<your subscription ID>",
   "status": "cancelled",
@@ -744,7 +744,7 @@ PUT https://azure.dev.app.thrivestack.ai/revenue/subscriptions
 
 **Delete:**
 ```
-DELETE https://azure.dev.app.thrivestack.ai/revenue/subscriptions
+DELETE https://api.app.thrivestack.ai/revenue/subscriptions
 { "subscription_id": "<your subscription ID>" }
 ```
 
@@ -757,7 +757,7 @@ Call this for each line item (plan/price) within a subscription.
 
 **Create:**
 ```
-POST https://azure.dev.app.thrivestack.ai/revenue/subscription-items
+POST https://api.app.thrivestack.ai/revenue/subscription-items
 {
   "subscription_item_id": "<your item ID>",
   "subscription_id": "<parent subscription ID>",
@@ -776,7 +776,7 @@ POST https://azure.dev.app.thrivestack.ai/revenue/subscription-items
 
 **Update:**
 ```
-PUT https://azure.dev.app.thrivestack.ai/revenue/subscription-items
+PUT https://api.app.thrivestack.ai/revenue/subscription-items
 {
   "subscription_item_id": "<your item ID>",
   "price_id": "<new price ID>",
@@ -787,7 +787,7 @@ PUT https://azure.dev.app.thrivestack.ai/revenue/subscription-items
 
 **Delete:**
 ```
-DELETE https://azure.dev.app.thrivestack.ai/revenue/subscription-items
+DELETE https://api.app.thrivestack.ai/revenue/subscription-items
 { "subscription_item_id": "<your item ID>" }
 ```
 
@@ -800,7 +800,7 @@ Call this when an invoice is created or its status changes.
 
 **Create:**
 ```
-POST https://azure.dev.app.thrivestack.ai/revenue/invoices
+POST https://api.app.thrivestack.ai/revenue/invoices
 {
   "invoice_id": "<your invoice ID>",
   "customer_id": "<your customer ID>",
@@ -821,7 +821,7 @@ Call this when a payment succeeds or fails.
 
 **Create:**
 ```
-POST https://azure.dev.app.thrivestack.ai/revenue/transactions
+POST https://api.app.thrivestack.ai/revenue/transactions
 {
   "transaction_id": "<your transaction ID>",
   "customer_id": "<your customer ID>",
