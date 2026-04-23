@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Data Collection - ThriveStack Documentation">
+    <!-- Theme bootstrapping: pick saved theme before paint -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Data Collection - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <button id="desktop-sidebar-toggle" class="icon-btn" aria-label="Toggle Sidebar" title="Toggle Sidebar"
+                style="margin-right: 0.5rem;">
+                <i class="fa-solid fa-bars-staggered" style="font-size: 1.1rem;"></i>
+            </button>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="index.html">Get Started</a>
+                <a href="setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="analyze-signals.html">Analyze Signals</a>
+                <a href="take-action.html">Take Action</a>
+                <a href="api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                    <li><a href="data-collection.html" class="nav-item active"><span>Data Collection</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="public/product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure
+                                ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Guided Setup</h3>
+                <ul>
+                    <li><a href="guided-setup.html" class="nav-item"><span>Overview</span></a></li>
+                    <li><a href="public/marketing/setup/marketing-analytics.html" class="nav-item"><span>Marketing Analytics</span></a></li>
+                    <li><a href="public/product/setup/product-analytics.html" class="nav-item"><span>Product Analytics</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI
+                                (LLM)</span><span class="time-badge">2
+                                mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10
+                                mins</span></a></li>
+                    <li><a href="public/product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="public/product/setup/setup-with-ai.html" class="nav-item"><span>Setup with
+                                AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="public/product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a>
+                    </li>
+                    <li><a href="public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events
+                                Telemetry</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI
+                                (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="public/revenue/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="public/revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Guided Onboarding</h3>
+                <ul>
+                    <li><a href="guided-onboarding.html" class="nav-item"><span>Setup with ThriveStack Team</span></a></li>
+                </ul>
+            </div>
+
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="data-collection" class="content-section">
+                    <section class="doc-page">
+                        <div class="breadcrumbs">
+                            <a href="index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                            <a href="setup-overview.html">Setup (Unify)</a> <i class="fa-solid fa-chevron-right"></i>
+                            <span>Data Collection</span>
+                        </div>
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Setup (Unify)</span>
+                            <h1 class="doc-page-title">Data Collection</h1>
+                            <p class="doc-page-description">
+                                Overview of compliance, defined terms, and data collection specifics across ThriveStack modules.
+                            </p>
+                        </header>
+
+                        <article class="doc-page-body">
+                            <style>
+                                .role-pills {
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    gap: 1.5rem;
+                                    margin: 1.5rem 0;
+                                }
+
+                                .role-pills .pill {
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 0.5rem;
+                                    padding: 0;
+                                    font-size: 0.95rem;
+                                    font-weight: 600;
+                                    color: var(--text-primary);
+                                    background: transparent;
+                                    border: none;
+                                }
+
+                                .table-container {
+                                    border: 1px solid var(--border-color);
+                                    border-radius: 12px;
+                                    overflow: hidden;
+                                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+                                    margin-bottom: 1.5rem;
+                                }
+
+                                .text-muted-sm {
+                                    color: var(--text-muted);
+                                    font-size: 0.8rem;
+                                    display: block;
+                                    margin-top: 0.25rem;
+                                }
+
+                                /* Stepper Accordion Styles */
+                                .stepper-accordion {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 1rem;
+                                    margin-top: 1.5rem;
+                                    margin-bottom: 2rem;
+                                }
+
+                                .stepper-item {
+                                    border: 1px solid var(--border-color);
+                                    border-radius: 8px;
+                                    background: var(--bg-main);
+                                    overflow: hidden;
+                                    transition: all 0.2s ease;
+                                }
+
+                                .stepper-item[open] {
+                                    border-color: var(--border-color);
+                                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+                                }
+
+                                .stepper-item[open] .stepper-header {
+                                    background: rgba(59, 130, 246, 0.1);
+                                    border-bottom: 1px solid var(--border-color);
+                                }
+
+                                [data-theme="dark"] .stepper-item[open] .stepper-header {
+                                    background: rgba(96, 165, 250, 0.15);
+                                }
+
+                                .stepper-header {
+                                    display: flex;
+                                    align-items: center;
+                                    padding: 1rem 1.25rem;
+                                    cursor: pointer;
+                                    background: rgba(0, 0, 0, 0.03);
+                                    user-select: none;
+                                    list-style: none;
+                                }
+
+                                [data-theme="dark"] .stepper-header {
+                                    background: rgba(255, 255, 255, 0.03);
+                                }
+
+                                .stepper-header::-webkit-details-marker {
+                                    display: none;
+                                }
+
+                                .step-num {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    width: 28px;
+                                    height: 28px;
+                                    border-radius: 50%;
+                                    background: #e2e8f0;
+                                    color: #475569;
+                                    font-weight: 700;
+                                    font-size: 0.9rem;
+                                    margin-right: 1rem;
+                                    flex-shrink: 0;
+                                }
+
+                                [data-theme="dark"] .step-num {
+                                    background: #334155;
+                                    color: #94a3b8;
+                                }
+
+                                .stepper-item[open] .step-num {
+                                    background: rgba(59, 130, 246, 0.15);
+                                    color: #000000;
+                                }
+
+                                [data-theme="dark"] .stepper-item[open] .step-num {
+                                    background: rgba(96, 165, 250, 0.2);
+                                    color: #ffffff;
+                                }
+
+                                .step-title {
+                                    font-size: 1.1rem;
+                                    font-weight: 600;
+                                    color: var(--text-primary);
+                                    flex-grow: 1;
+                                    margin: 0 !important;
+                                }
+
+                                .step-icon {
+                                    color: var(--text-muted);
+                                    transition: transform 0.3s ease;
+                                }
+
+                                .stepper-item[open] .step-icon {
+                                    transform: rotate(180deg);
+                                }
+
+                                .stepper-content {
+                                    padding: 1.5rem;
+                                    padding-top: 1rem;
+                                    background: var(--bg-main);
+                                }
+                            </style>
+
+                            <section id="compliance" class="content-section mt-8">
+                                <h2>Compliance</h2>
+                                <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem; padding: 1rem; background: var(--bg-hover); border-radius: 8px; border: 1px solid var(--border-color);">
+                                    <div style="font-size: 2.5rem; color: #4F46E5;">
+                                        <i class="fa-solid fa-shield-check"></i>
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0; font-weight: 600; font-size: 1.1rem;">ThriveStack is SOC2 Type II compliant</p>
+                                        <p style="margin: 0.25rem 0 0 0; font-size: 0.9em;"><a href="https://trustcenter.thrivestack.ai/" target="_blank" rel="noopener noreferrer">Visit our Trust Center <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.85em;"></i></a></p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section id="defined-terms" class="content-section mt-8">
+                                <h2>Defined Terms</h2>
+                                <ul class="styled-list">
+                                    <li>
+                                        <div class="list-icon text-blue bg-blue-light"><i class="fa-solid fa-address-card"></i></div>
+                                        <div class="list-content"><strong>Personal Data</strong></div>
+                                    </li>
+                                    <li>
+                                        <div class="list-icon text-green bg-green-light"><i class="fa-solid fa-building-columns"></i></div>
+                                        <div class="list-content"><strong>Financial Partners</strong></div>
+                                    </li>
+                                </ul>
+
+                                <h3 style="margin-top: 2.5rem;">Contextual Definitions of "You"</h3>
+                                <p>Depending on the context, “you” might be an End Customer, End User, Representative, or Visitor:</p>
+                                
+                                <div class="info-card mt-4" style="padding: 1.25rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-main);">
+                                    <p><strong><i class="fa-solid fa-user text-blue" style="margin-right: 8px;"></i>End Users.</strong> When you use an End User Service, such as saving a payment method with Link, for personal use we refer to you as an “End User.”</p>
+                                    <p class="mt-3"><strong><i class="fa-solid fa-cart-shopping text-green" style="margin-right: 8px;"></i>End Customers.</strong> When you are not directly transacting with ThriveStack, but we receive your Personal Data to provide Services to a Business User, including when you make a purchase from a Business User on a Stripe Checkout page or receive payments or other services from a Business User, we refer to you as an “End Customer.”</p>
+                                    <p class="mt-3"><strong><i class="fa-solid fa-briefcase text-purple" style="margin-right: 8px;"></i>Representatives.</strong> When you are acting on behalf of an existing or potential Business User—perhaps as a company founder, account administrator for a Business User, or a recipient of an employee credit card from a Business User via Stripe Issuing—we refer to you as a “Representative.”</p>
+                                    <p class="mt-3"><strong><i class="fa-solid fa-eye text-orange" style="margin-right: 8px;"></i>Visitors.</strong> When you interact with ThriveStack by visiting a Site without being logged into a ThriveStack account, or when your interaction with ThriveStack does not involve you being an End User, End Customer, or Representative.</p>
+                                </div>
+                            </section>
+
+                            <section id="data-collected" class="content-section mt-8">
+                                <h2>Data Collected by various Modules</h2>
+
+                                <div class="stepper-accordion">
+                                    
+                                    <!-- 1. Marketing Intelligence -->
+                                    <details class="stepper-item" open>
+                                        <summary class="stepper-header">
+                                            <div class="step-num">1</div>
+                                            <h3 class="step-title">Marketing Intelligence</h3>
+                                            <i class="fa-solid fa-chevron-down step-icon"></i>
+                                        </summary>
+                                        <div class="stepper-content">
+                                            <ul class="styled-list">
+                                                <li>
+                                                    <div class="list-icon text-orange bg-orange-light"><i class="fa-solid fa-code"></i></div>
+                                                    <div class="list-content"><strong>ThriveStack tracking script</strong><span>Used by modules Marketing Intelligence and Product Intelligence.</span></div>
+                                                </li>
+                                                <li>
+                                                    <div class="list-icon text-blue bg-blue-light"><i class="fa-solid fa-cookie-bite"></i></div>
+                                                    <div class="list-content"><strong>Cookieless tracking</strong><span>Privacy-first capability.</span></div>
+                                                </li>
+                                                <li>
+                                                    <div class="list-icon text-purple bg-purple-light"><i class="fa-solid fa-fingerprint"></i></div>
+                                                    <div class="list-content"><strong>Browser Fingerprinting</strong><span>Collecting non-PII browser characteristics.</span></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </details>
+
+                                    <!-- 2. Product Intelligence -->
+                                    <details class="stepper-item">
+                                        <summary class="stepper-header">
+                                            <div class="step-num">2</div>
+                                            <h3 class="step-title">Product Intelligence</h3>
+                                            <i class="fa-solid fa-chevron-down step-icon"></i>
+                                        </summary>
+                                        <div class="stepper-content">
+                                            <p>Various JS, SDKs, npm packages use the following to identify users and accounts:</p>
+                                            
+                                            <h4 class="mt-6 mb-3"><strong><code>identify()</code></strong></h4>
+                                            <div class="table-container">
+                                                <table class="params-table" style="margin: 0; width: 100%;">
+                                                    <thead>
+                                                        <tr><th>Trait</th><th>Type</th><th>Description</th></tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr><td><code>user_email</code></td><td>string</td><td>User's email address.</td></tr>
+                                                        <tr><td><code>user_name</code></td><td>string</td><td>User's full display name.</td></tr>
+                                                        <tr><td><code>first_name</code></td><td>string</td><td>First name.</td></tr>
+                                                        <tr><td><code>last_name</code></td><td>string</td><td>Last name.</td></tr>
+                                                        <tr><td><code>phone</code></td><td>string</td><td>Phone number.</td></tr>
+                                                        <tr><td><code>avatar</code></td><td>string</td><td>URL of the user's avatar image.</td></tr>
+                                                        <tr><td><code>title</code></td><td>string</td><td>Job title or professional role.</td></tr>
+                                                        <tr><td><code>username</code></td><td>string</td><td>Username or handle.</td></tr>
+                                                        <tr><td><code>created_at</code></td><td>string</td><td>ISO 8601 date when the user account was created.</td></tr>
+                                                        <tr><td><code>plan</code></td><td>string</td><td>Current subscription plan (e.g., <code>"free"</code>, <code>"pro"</code>).</td></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <h4 class="mt-6 mb-3"><strong><code>group()</code></strong></h4>
+                                            <div class="table-container">
+                                                <table class="params-table" style="margin: 0; width: 100%;">
+                                                    <thead>
+                                                        <tr><th>Trait</th><th>Type</th><th>Description</th></tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr><td><code>account_name</code></td><td>string</td><td>Display name of the account or organization.</td></tr>
+                                                        <tr><td><code>account_domain</code></td><td>string</td><td>Primary domain of the account (e.g., <code>"acme.com"</code>).</td></tr>
+                                                        <tr><td><code>group_type</code></td><td>string</td><td>Type of group (e.g., <code>"Account"</code>, <code>"Team"</code>).</td></tr>
+                                                        <tr><td><code>industry</code></td><td>string</td><td>Industry classification of the account.</td></tr>
+                                                        <tr><td><code>employees</code></td><td>number</td><td>Number of employees in the organization.</td></tr>
+                                                        <tr><td><code>plan</code></td><td>string</td><td>Current subscription plan (e.g., <code>"free"</code>, <code>"enterprise"</code>).</td></tr>
+                                                        <tr><td><code>website</code></td><td>string</td><td>Account's website URL.</td></tr>
+                                                        <tr><td><code>phone</code></td><td>string</td><td>Account contact number.</td></tr>
+                                                        <tr><td><code>created_at</code></td><td>string</td><td>ISO 8601 date when the account was created.</td></tr>
+                                                        <tr><td><code>description</code></td><td>string</td><td>Short description or biography of the account.</td></tr>
+                                                        <tr><td><code>avatar</code></td><td>string</td><td>URL of the account's logo or avatar image.</td></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <h4 class="mt-6 mb-3"><strong><code>track()</code></strong></h4>
+                                            <div class="table-container">
+                                                <table class="params-table" style="margin: 0; width: 100%;">
+                                                    <thead>
+                                                        <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr><td><code>revenue</code></td><td>number</td><td>Dollar amount associated with the event (e.g., MRR change). Use decimal format: <code>49.99</code>.</td></tr>
+                                                        <tr><td><code>currency</code></td><td>string</td><td>ISO 4217 currency code (e.g., <code>"USD"</code>). Defaults to <code>"USD"</code> if omitted.</td></tr>
+                                                        <tr><td><code>value</code></td><td>number</td><td>Abstract numeric value for non-revenue events (e.g., points, score).</td></tr>
+                                                        <tr><td><code>feature_name</code></td><td>string</td><td>Name of the product feature involved.</td></tr>
+                                                        <tr><td><code>feature_type</code></td><td>string</td><td>Classification of the feature: <code>"core"</code>, <code>"secondary"</code>, <code>"add-on"</code>.</td></tr>
+                                                        <tr><td><code>page_url</code></td><td>string</td><td>Full URL of the page where the event occurred.</td></tr>
+                                                        <tr><td><code>page_path</code></td><td>string</td><td>Path portion of the URL (e.g., <code>"/dashboard"</code>).</td></tr>
+                                                        <tr><td><code>page_referrer</code></td><td>string</td><td>URL of the referring page.</td></tr>
+                                                        <tr><td><code>utm_source</code></td><td>string</td><td>UTM source parameter for attribution.</td></tr>
+                                                        <tr><td><code>utm_medium</code></td><td>string</td><td>UTM medium parameter for attribution.</td></tr>
+                                                        <tr><td><code>utm_campaign</code></td><td>string</td><td>UTM campaign parameter for attribution.</td></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </details>
+
+                                    <!-- 3. Revenue Intelligence -->
+                                    <details class="stepper-item">
+                                        <summary class="stepper-header">
+                                            <div class="step-num">3</div>
+                                            <h3 class="step-title">Revenue Intelligence</h3>
+                                            <i class="fa-solid fa-chevron-down step-icon"></i>
+                                        </summary>
+                                        <div class="stepper-content">
+                                            <p>Collects and aggregates Revenue data. For more details, refer to the API References:</p>
+                                            <ul class="styled-list mt-3">
+                                                <li>
+                                                    <div class="list-icon text-blue bg-blue-light"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                                                    <div class="list-content"><a href="public/api/subscriptions.html"><strong>Subscriptions</strong></a></div>
+                                                </li>
+                                                <li>
+                                                    <div class="list-icon text-purple bg-purple-light"><i class="fa-solid fa-box"></i></div>
+                                                    <div class="list-content"><a href="public/api/subscription-items.html"><strong>Subscription Items</strong></a></div>
+                                                </li>
+                                                <li>
+                                                    <div class="list-icon text-orange bg-orange-light"><i class="fa-solid fa-receipt"></i></div>
+                                                    <div class="list-content"><a href="public/api/invoices.html"><strong>Invoices</strong> (including Taxes)</a></div>
+                                                </li>
+                                                <li>
+                                                    <div class="list-icon text-green bg-green-light"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                                                    <div class="list-content"><a href="public/api/transactions.html"><strong>Transactions</strong></a></div>
+                                                </li>
+                                            </ul>
+                                            <div class="info-card mt-3 mb-3" style="padding: 1rem; border-left: 4px solid var(--color-green); background: rgba(52, 211, 153, 0.05); border-radius: 4px;">
+                                                <p style="margin: 0;">Includes <strong>name, email address, Transaction amount, Currency, Payment method.</strong></p>
+                                            </div>
+                                            <p><strong><i class="fa-solid fa-shield-halved text-green" style="margin-right: 6px;"></i> No Credit card or bank information is collected.</strong></p>
+                                            <p class="text-muted mt-2"><i class="fa-solid fa-lock" style="margin-right: 4px;"></i> All data is Readonly and can never be written/updated to your Billing systems (Stripe, Chargebee, and other connectors).</p>
+                                        </div>
+                                    </details>
+
+                                    <!-- 4. CRM Sync -->
+                                    <details class="stepper-item">
+                                        <summary class="stepper-header">
+                                            <div class="step-num">4</div>
+                                            <h3 class="step-title">CRM Sync</h3>
+                                            <i class="fa-solid fa-chevron-down step-icon"></i>
+                                        </summary>
+                                        <div class="stepper-content">
+                                            <p>We provide a <strong>Bidirectional Sync</strong> between ThriveStack and your CRM system.</p>
+                                            
+                                            <div class="sync-direction mt-4" style="background: var(--bg-hover); padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                                                <h4 style="margin-top: 0; display: flex; align-items: center; gap: 8px;">
+                                                    <i class="fa-solid fa-database text-blue"></i> CRM <i class="fa-solid fa-arrow-right text-muted"></i> <i class="fa-solid fa-layer-group text-purple"></i> ThriveStack
+                                                </h4>
+                                                <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">Objects synced from your CRM to ThriveStack will include:</p>
+                                                <div class="role-pills mt-2" style="margin-top: 0.5rem; margin-bottom: 0;">
+                                                    <span class="pill"><i class="fa-solid fa-address-book text-green"></i> Contacts</span>
+                                                    <span class="pill"><i class="fa-solid fa-building text-blue"></i> Companies</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="sync-direction mt-4" style="background: var(--bg-hover); padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                                                <h4 style="margin-top: 0; display: flex; align-items: center; gap: 8px;">
+                                                    <i class="fa-solid fa-layer-group text-purple"></i> ThriveStack <i class="fa-solid fa-arrow-right text-muted"></i> <i class="fa-solid fa-database text-blue"></i> CRM
+                                                </h4>
+                                                <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">Objects and new fields synced to your CRM indicating metrics for <a href="https://www.thrivestack.ai/research/autonomous-revenue-engine#:~:text=build%2C%20fractional%20costs-,SECTION%2005,-Full%20Journey%20Account" target="_blank" rel="noopener noreferrer" style="font-weight: 600;">Full Journey Account Signals</a>.</p>
+                                            </div>
+                                        </div>
+                                    </details>
+
+                                </div>
+                            </section>
+                        </article>
+                    </section>
+                </section>
+
+                <div class="page-nav">
+                    <a href="setup-overview.html" class="nav-card prev-card">
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">Setup Overview</span>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank"
+                            rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#compliance" class="toc-link">Compliance</a>
+                    <a href="#defined-terms" class="toc-link">Defined Terms</a>
+                    <a href="#data-collected" class="toc-link">Data Collected</a>
+                </nav>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
