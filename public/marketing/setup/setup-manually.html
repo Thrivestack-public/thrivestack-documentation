@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Marketing Analytics - Setup Manually - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Marketing Analytics - Setup Manually - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../styles.css">
+    <script src="https://cdn.app.thrivestack.ai/latest/script.js" data-api-key="{{THRIVESTACK_API_KEY}}"
+        data-source="marketing"></script>
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <button id="desktop-sidebar-toggle" class="icon-btn" aria-label="Toggle Sidebar" title="Toggle Sidebar"
+                style="margin-right: 0.5rem;">
+                <i class="fa-solid fa-bars-staggered" style="font-size: 1.1rem;"></i>
+            </button>
+            <a href="../../../index.html" class="logo">
+                <img src="../../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../../index.html">Get Started</a>
+                <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="../../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../../take-action.html">Take Action</a>
+                <a href="../../../api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="../../product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Guided Setup</h3>
+                <ul>
+                    <li><a href="../../../guided-setup.html" class="nav-item"><span>Overview</span></a></li>
+                    <li><a href="marketing-analytics.html" class="nav-item"><span>Marketing Analytics</span></a></li>
+                    <li><a href="../../product/setup/product-analytics.html" class="nav-item"><span>Product Analytics</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="setup-manually.html" class="nav-item active"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="../../product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="../../product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="../../product/setup/environment-correlation.html" class="nav-item"><span>Environment Co-relation</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../../revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="#" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="content-section">
+                    <section class="doc-page">
+
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Marketing Intelligence</span>
+                            <h1 class="doc-page-title">Setup Manually</h1>
+                            <p class="doc-page-description">
+                                Add one script tag to your marketing site and ThriveStack immediately starts tracking all visitors, page views, and UTM campaigns — no events to define, no further instrumentation needed.
+                            </p>
+                        </header>
+
+                        <hr />
+
+                        <article class="doc-page-body">
+
+                            <div style="padding: 8px 0 24px;">
+                                <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 8px;">What you need</p>
+                                <div style="display: flex; flex-direction: column; gap: 5px;">
+                                    <span style="display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-secondary);">
+                                        <i class="fa-solid fa-user" style="color: var(--text-muted); font-size: 11px; width: 12px;"></i>
+                                        Someone who can deploy to the marketing website
+                                    </span>
+                                    <span style="display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-secondary);">
+                                        <i class="fa-solid fa-code" style="color: var(--text-muted); font-size: 11px; width: 12px;"></i>
+                                        Access to the marketing site codebase or CMS
+                                    </span>
+                                    <span style="display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-secondary);">
+                                        <i class="fa-solid fa-key" style="color: var(--text-muted); font-size: 11px; width: 12px;"></i>
+                                        A ThriveStack account — <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" target="_blank" rel="noopener noreferrer">sign up free</a>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Step 1: API Key -->
+                            <h2 id="step1">Step 1: Get your API key</h2>
+                            <p style="margin-bottom: 20px; color: var(--text-secondary); font-size: 15px; line-height: 1.6;">
+                                <a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank" rel="noopener noreferrer">Create or reuse your API key</a> from the ThriveStack dashboard. You'll paste it into the script tag in the next step.
+                            </p>
+
+                            <hr />
+
+                            <!-- Step 2: Install -->
+                            <h2 id="step2">Step 2: Install the script</h2>
+                            <p style="margin-bottom: 20px; color: var(--text-secondary); font-size: 15px; line-height: 1.6;">
+                                Choose the method that matches your marketing site's platform.
+                            </p>
+
+                            <!-- Platform tabs -->
+                            <div class="platform-tab-list" role="tablist">
+                                <button class="platform-tab active" data-platform="gtm" role="tab" aria-selected="true">
+                                    <i class="fa-brands fa-google" style="margin-right: 5px;"></i> Google Tag Manager
+                                </button>
+                                <button class="platform-tab" data-platform="webflow" role="tab" aria-selected="false">
+                                    <i class="fa-brands fa-webflow" style="margin-right: 5px;"></i> Webflow
+                                </button>
+                                <button class="platform-tab" data-platform="wordpress" role="tab" aria-selected="false">
+                                    <i class="fa-brands fa-wordpress" style="margin-right: 5px;"></i> WordPress
+                                </button>
+                                <button class="platform-tab" data-platform="code" role="tab" aria-selected="false">
+                                    <i class="fa-solid fa-code" style="margin-right: 5px;"></i> Code
+                                </button>
+                            </div>
+
+                            <!-- ── GTM ── -->
+                            <div class="platform-panel active" id="pp-gtm">
+
+                                <div class="install-step">
+                                    <div class="install-step-num">1</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Create a Custom HTML tag</p>
+                                        <ol>
+                                            <li>In GTM, open your <strong>Web container</strong> and go to <strong>Tags → New</strong></li>
+                                            <li>Click <strong>Tag Configuration</strong> and choose <strong>Custom HTML</strong></li>
+                                            <li>Paste your ThriveStack script into the HTML field:
+                                                <div class="code-snippet">
+                                                    &lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"<br>
+                                                    &nbsp; data-api-key="YOUR_API_KEY" data-source="marketing"&gt;&lt;/script&gt;
+                                                </div>
+                                            </li>
+                                            <li>Name the tag <strong>ThriveStack — Marketing Script</strong></li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">2</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Set the trigger to All Pages</p>
+                                        <ol>
+                                            <li>In the <strong>Triggering</strong> section, click <strong>+</strong></li>
+                                            <li>Choose <strong>Page View → All Pages</strong> — fires the tag on every page where GTM is installed</li>
+                                            <li>Click <strong>Save</strong></li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">3</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Verify with GTM Preview</p>
+                                        <ol>
+                                            <li>Click <strong>Preview</strong> (top right) — Google Tag Assistant opens in a new tab</li>
+                                            <li>Enter your site URL and click <strong>Connect</strong></li>
+                                            <li>Navigate a page and check the <strong>Tags</strong> panel — <em>ThriveStack — Marketing Script</em> should appear under <strong>Tags Fired</strong></li>
+                                            <li>Check your browser console for any script errors</li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">4</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Publish the container</p>
+                                        <ol>
+                                            <li>Click <strong>Submit</strong> → add a version name (e.g., <em>Add ThriveStack script</em>)</li>
+                                            <li>Click <strong>Publish</strong> — the tag is now live on your site</li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- ── Webflow ── -->
+                            <div class="platform-panel" id="pp-webflow">
+
+                                <div class="install-step">
+                                    <div class="install-step-num">1</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Open Project Settings → Custom Code</p>
+                                        <ol>
+                                            <li>In the Webflow Designer, click the <strong>W</strong> icon (top-left) to open <strong>Project Settings</strong></li>
+                                            <li>Go to the <strong>Custom Code</strong> tab</li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">2</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Paste the script in the Head Code section</p>
+                                        <ol>
+                                            <li>Under <strong>Head Code</strong>, paste your ThriveStack script tag:
+                                                <div class="code-snippet">
+                                                    &lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"<br>
+                                                    &nbsp; data-api-key="YOUR_API_KEY" data-source="marketing"&gt;&lt;/script&gt;
+                                                </div>
+                                            </li>
+                                            <li>Click <strong>Save Changes</strong></li>
+                                        </ol>
+                                        <p class="install-step-note">Head Code runs on every page of your site. Don't include <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code> wrapper tags — only the script tag itself.</p>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">3</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Publish your site</p>
+                                        <ol>
+                                            <li>Click <strong>Publish</strong> in the Designer toolbar — custom code is invisible in Designer preview and only runs on the published site</li>
+                                            <li>You can publish to your staging domain first (e.g., <em>yoursite.webflow.io</em>) to test before going live</li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">4</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Verify the script is running</p>
+                                        <ol>
+                                            <li>Visit any published page and open browser DevTools (<strong>F12</strong>)</li>
+                                            <li>In the <strong>Network</strong> tab, filter by <em>thrivestack</em> — you should see the script loaded</li>
+                                            <li>Check the <strong>Console</strong> tab for any errors</li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                                <div class="callout callout--warning">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    <span>Custom code requires a <strong>paid Webflow Site plan</strong> (Basic or higher). The free Starter plan does not support custom code.</span>
+                                </div>
+
+                            </div>
+
+                            <!-- ── WordPress ── -->
+                            <div class="platform-panel" id="pp-wordpress">
+
+                                <div class="install-step">
+                                    <div class="install-step-num">A</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Via WPCode plugin <span class="method-badge">Recommended</span></p>
+                                        <ol>
+                                            <li>In WordPress admin, go to <strong>Plugins → Add New</strong> and install <strong>WPCode</strong> (formerly Insert Headers and Footers)</li>
+                                            <li>Go to <strong>Code Snippets → Header &amp; Footer</strong></li>
+                                            <li>Paste your ThriveStack script tag into the <strong>Header</strong> box:
+                                                <div class="code-snippet">
+                                                    &lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"<br>
+                                                    &nbsp; data-api-key="YOUR_API_KEY" data-source="marketing"&gt;&lt;/script&gt;
+                                                </div>
+                                            </li>
+                                            <li>Click <strong>Save Changes</strong></li>
+                                        </ol>
+                                        <p class="install-step-note">The script loads on every page automatically and survives theme updates.</p>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num install-step-num--alt">B</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Via child theme's <code>functions.php</code></p>
+                                        <ol>
+                                            <li>Make sure you're working in a <strong>child theme</strong> — changes to parent themes are lost on theme updates</li>
+                                            <li>Open <strong>Appearance → Theme File Editor</strong>, select your child theme's <code>functions.php</code></li>
+                                            <li>Add the following at the bottom of the file:
+                                                <div class="code-snippet" style="white-space: pre;">function thrivestack_script() {
+  echo '&lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"
+    data-api-key="YOUR_API_KEY" data-source="marketing"&gt;&lt;/script&gt;';
+}
+add_action( 'wp_head', 'thrivestack_script', 999 );</div>
+                                            </li>
+                                            <li>Click <strong>Update File</strong></li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- ── Code ── -->
+                            <div class="platform-panel" id="pp-code">
+
+                                <div class="install-step">
+                                    <div class="install-step-num">1</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Find your shared layout file</p>
+                                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 12px; line-height: 1.6;">The script must go in the <code>&lt;head&gt;</code> of every marketing page. Most frameworks have one shared file for this:</p>
+                                        <div style="border: 1px solid var(--border-color); border-radius: 7px; overflow: hidden;">
+                                            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                                                <thead>
+                                                    <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border-color);">
+                                                        <th style="padding: 9px 14px; text-align: left; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px;">Framework</th>
+                                                        <th style="padding: 9px 14px; text-align: left; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px;">File to edit</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                                        <td style="padding: 9px 14px; color: var(--text-secondary);">Plain HTML</td>
+                                                        <td style="padding: 9px 14px; font-family: monospace; font-size: 12px; color: var(--text-muted);">index.html (or any shared layout template)</td>
+                                                    </tr>
+                                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                                        <td style="padding: 9px 14px; color: var(--text-secondary);">Next.js</td>
+                                                        <td style="padding: 9px 14px; font-family: monospace; font-size: 12px; color: var(--text-muted);">pages/_document.js &nbsp;or&nbsp; app/layout.tsx</td>
+                                                    </tr>
+                                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                                        <td style="padding: 9px 14px; color: var(--text-secondary);">Nuxt</td>
+                                                        <td style="padding: 9px 14px; font-family: monospace; font-size: 12px; color: var(--text-muted);">nuxt.config.ts → head.script &nbsp;or&nbsp; app.vue</td>
+                                                    </tr>
+                                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                                        <td style="padding: 9px 14px; color: var(--text-secondary);">Angular</td>
+                                                        <td style="padding: 9px 14px; font-family: monospace; font-size: 12px; color: var(--text-muted);">src/index.html</td>
+                                                    </tr>
+                                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                                        <td style="padding: 9px 14px; color: var(--text-secondary);">Gatsby</td>
+                                                        <td style="padding: 9px 14px; font-family: monospace; font-size: 12px; color: var(--text-muted);">gatsby-ssr.js → onRenderBody</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 9px 14px; color: var(--text-secondary);">Hugo / Jekyll</td>
+                                                        <td style="padding: 9px 14px; font-family: monospace; font-size: 12px; color: var(--text-muted);">layouts/_default/baseof.html &nbsp;or&nbsp; _includes/head.html</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">2</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Add the script tag before <code>&lt;/head&gt;</code></p>
+                                        <div class="code-snippet">
+                                            &lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"<br>
+                                            &nbsp; data-api-key="YOUR_API_KEY" data-source="marketing"&gt;&lt;/script&gt;
+                                        </div>
+                                        <p class="install-step-note">Replace <code>YOUR_API_KEY</code> with the key from your ThriveStack dashboard. Place this in the shared layout so it loads on every page.</p>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">3</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Deploy your changes</p>
+                                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6;">Push and deploy as you normally would. The script only needs to be added once — it will load on every page that uses the shared layout.</p>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">4</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Verify the script is loading</p>
+                                        <ol>
+                                            <li>Open any page of your live site and press <strong>F12</strong> to open DevTools</li>
+                                            <li>In the <strong>Network</strong> tab, filter by <em>thrivestack</em> — the script request should appear</li>
+                                            <li>In the <strong>Elements</strong> tab, search for <code>thrivestack</code> to confirm the tag is in <code>&lt;head&gt;</code></li>
+                                            <li>Check the <strong>Console</strong> tab for any errors</li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <hr />
+
+                            <!-- Step 3: Verify in ThriveStack -->
+                            <h2 id="step3">Step 3: Confirm data is arriving</h2>
+                            <p style="margin-bottom: 20px; color: var(--text-secondary); font-size: 15px; line-height: 1.6;">
+                                Once your script is live, check that visitors are arriving in ThriveStack.
+                            </p>
+
+                            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px;">
+                                <a href="https://app.thrivestack.ai/analyze/onboarding/marketing-analytics?step=1"
+                                    target="_blank" rel="noopener noreferrer" class="verify-link-card">
+                                    <div>
+                                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
+                                            <i class="fa-solid fa-circle-check" style="color: #22c55e; font-size: 14px;"></i>
+                                            <strong style="font-size: 14px; color: var(--text-primary);">Setup Checklist</strong>
+                                        </div>
+                                        <p style="margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5;">See whether ThriveStack is receiving visitors and page views from your marketing site — your ground truth for a working install.</p>
+                                    </div>
+                                    <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--text-muted); font-size: 12px; flex-shrink: 0; margin-top: 2px;"></i>
+                                </a>
+                                <a href="https://app.thrivestack.ai/analyze/events?eventsTab=liveEvents&devTab=Overview"
+                                    target="_blank" rel="noopener noreferrer" class="verify-link-card">
+                                    <div>
+                                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
+                                            <i class="fa-solid fa-bolt" style="color: #fbbf24; font-size: 14px;"></i>
+                                            <strong style="font-size: 14px; color: var(--text-primary);">Live Events</strong>
+                                        </div>
+                                        <p style="margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5;">Real-time stream of page view and visitor events. Useful right after deployment to confirm the tag is working across all pages.</p>
+                                    </div>
+                                    <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--text-muted); font-size: 12px; flex-shrink: 0; margin-top: 2px;"></i>
+                                </a>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.15); border-radius: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 8px;">
+                                <i class="fa-solid fa-envelope" style="color: var(--text-muted); margin-top: 1px; flex-shrink: 0;"></i>
+                                <span>ThriveStack sends a daily setup email showing which checklist items are complete and what to tackle next. Check your inbox after your first deployment.</span>
+                            </div>
+
+                            <hr />
+
+                            <!-- What did you achieve -->
+                            <h2 id="achieve">What did you just achieve?</h2>
+                            <p style="margin-bottom: 24px; color: var(--text-secondary); font-size: 15px; line-height: 1.6;">
+                                Traditional Marketing Analytics tools show you vanity metrics like Traffic, Page Visits, and Visitor Trends — most of that is free with Google Analytics. ThriveStack goes far beyond that. It gives you full-journey correlation by stitching together Marketing touchpoints, Product usage, Account behavior, and Billing events.
+                            </p>
+
+                            <div style="overflow-x: auto; margin-bottom: 28px; border-radius: 8px; border: 1px solid var(--border-color);">
+                                <table style="width: 100%; text-align: left; border-collapse: collapse; font-size: 13px;">
+                                    <thead style="background: rgba(255,255,255,0.02);">
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <th style="padding: 12px 16px; font-weight: 600;">Feature</th>
+                                            <th style="padding: 12px 16px; font-weight: 600; text-align: center;">Traditional Analytics</th>
+                                            <th style="padding: 12px 16px; font-weight: 600; text-align: center; background-color: rgba(59,130,246,0.08);">ThriveStack</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <td style="padding: 11px 16px; color: var(--text-secondary);">Track pages</td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <td style="padding: 11px 16px; color: var(--text-secondary);">Track New Visitors</td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <td style="padding: 11px 16px; color: var(--text-secondary);">Traffic by UTM</td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <td style="padding: 11px 16px; color: var(--text-secondary);">Content Performance</td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center;"><i class="fa-solid fa-circle-check"></i></td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <td style="padding: 11px 16px; color: var(--text-secondary);">Track Returning Visitors</td>
+                                            <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <td style="padding: 11px 16px; color: var(--text-secondary);">Goal Conversions</td>
+                                            <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <td style="padding: 11px 16px; color: var(--text-secondary);">Lead Quality</td>
+                                            <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <td style="padding: 11px 16px; color: var(--text-secondary);">Multi-Touch Attribution</td>
+                                            <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 11px; font-weight: 600; margin-left: 4px; color: var(--text-muted);">[P][R]</span></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <td style="padding: 11px 16px; color: var(--text-secondary);">Channel Performance (correlated with Product &amp; Revenue)</td>
+                                            <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 11px; font-weight: 600; margin-left: 4px; color: var(--text-muted);">[P][R]</span></td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <td style="padding: 11px 16px; color: var(--text-secondary);">Time to Acquisition</td>
+                                            <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 11px; font-weight: 600; margin-left: 4px; color: var(--text-muted);">[P]</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 11px 16px; color: var(--text-secondary);">Touchpoints to Acquisition</td>
+                                            <td style="padding: 11px 16px; color: #ef4444; text-align: center;"><i class="fa-solid fa-xmark"></i></td>
+                                            <td style="padding: 11px 16px; color: #22c55e; text-align: center; background-color: rgba(59,130,246,0.05);"><i class="fa-solid fa-circle-check"></i> <span style="font-size: 11px; font-weight: 600; margin-left: 4px; color: var(--text-muted);">[P]</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+                                <span style="font-weight: 600; color: var(--text-secondary);">[P]</span> and <span style="font-weight: 600; color: var(--text-secondary);">[R]</span> mean Product and Revenue co-relation.
+                            </p>
+
+                            <ul style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; padding-left: 20px; margin-bottom: 0;">
+                                <li>Various Marketing Intelligence reports are now available.</li>
+                                <li>Out of box reports are set up — share with your Marketing, Product, and Sales teams.</li>
+                                <li>Account-level analytics including 40+ metrics across Activation, Feature Usage, and API Usage are available in the <a href="https://app.thrivestack.ai/analyze/accounts/list?segmentName=all_account_list" target="_blank" rel="noopener noreferrer">Full Journey CRM</a>.</li>
+                            </ul>
+
+                            <hr />
+
+                            <h2 id="next-steps">What's next?</h2>
+                            <p style="margin-bottom: 16px; color: var(--text-secondary); font-size: 15px; line-height: 1.6;">
+                                Marketing Intelligence is one half of the picture. Set up Product Intelligence to start correlating marketing touchpoints with product usage, account behaviour, and revenue.
+                            </p>
+                            <a href="../../product/setup/setup-with-ai.html"
+                                style="display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px; border: 1px solid rgba(59,130,246,0.35); background: rgba(59,130,246,0.08); text-decoration: none; font-size: 14px; font-weight: 600; color: #93c5fd; transition: border-color 0.15s, background 0.15s;"
+                                onmouseover="this.style.borderColor='rgba(59,130,246,0.6)';this.style.background='rgba(59,130,246,0.14)'"
+                                onmouseout="this.style.borderColor='rgba(59,130,246,0.35)';this.style.background='rgba(59,130,246,0.08)'">
+                                <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 12px;"></i>
+                                Set up Product Intelligence
+                                <i class="fa-solid fa-arrow-right" style="font-size: 11px;"></i>
+                            </a>
+
+                        </article>
+                    </section>
+                </section>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank"
+                            rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true">Last updated: April 23, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#step1" class="toc-link">1. Get your API key</a>
+                    <a href="#step2" class="toc-link">2. Install the script</a>
+                    <a href="#step3" class="toc-link">3. Confirm data is arriving</a>
+                    <a href="#achieve" class="toc-link">What did you achieve?</a>
+                    <a href="#next-steps" class="toc-link">What's next?</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <style>
+        /* ── Platform tabs ──────────────────────────────────── */
+        .platform-tab-list {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .platform-tab {
+            display: flex;
+            align-items: center;
+            padding: 7px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.15s;
+        }
+
+        .platform-tab:hover {
+            color: var(--text-secondary);
+            border-color: var(--text-muted);
+        }
+
+        .platform-tab.active {
+            background: rgba(59, 130, 246, 0.12);
+            border-color: rgba(59, 130, 246, 0.4);
+            color: #93c5fd;
+        }
+
+        .platform-panel {
+            display: none;
+        }
+
+        .platform-panel.active {
+            display: block;
+        }
+
+        /* ── Install steps ──────────────────────────────────── */
+        .install-step {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .install-step-num {
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #93c5fd;
+            margin-top: 2px;
+        }
+
+        .install-step-num--alt {
+            background: rgba(100, 116, 139, 0.1);
+            border-color: var(--border-color);
+            color: var(--text-muted);
+        }
+
+        .install-step-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .install-step-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin: 0 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .install-step-body ol {
+            margin: 0 0 0 18px;
+            padding: 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+
+        .install-step-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 8px 0 0;
+            line-height: 1.5;
+        }
+
+        /* ── Code snippet ───────────────────────────────────── */
+        .code-snippet {
+            margin: 10px 0 6px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        /* ── Method badge ───────────────────────────────────── */
+        .method-badge {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: rgba(100, 116, 139, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1px 7px;
+        }
+
+        /* ── Callouts ───────────────────────────────────────── */
+        .callout {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 7px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-top: 4px;
+        }
+
+        .callout--warning {
+            background: rgba(234, 179, 8, 0.06);
+            border: 1px solid rgba(234, 179, 8, 0.2);
+        }
+
+        .callout--warning i {
+            color: #ca8a04;
+            margin-top: 1px;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+
+        /* ── Verify link cards ──────────────────────────────── */
+        .verify-link-card {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 18px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+            text-decoration: none;
+            transition: border-color 0.15s, background 0.15s;
+        }
+
+        .verify-link-card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            background: rgba(59, 130, 246, 0.04);
+        }
+    </style>
+
+    <script>
+        document.querySelectorAll('.platform-tab').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                var target = this.dataset.platform;
+                document.querySelectorAll('.platform-tab').forEach(function (t) {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                document.querySelectorAll('.platform-panel').forEach(function (p) {
+                    p.classList.remove('active');
+                });
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+                document.getElementById('pp-' + target).classList.add('active');
+            });
+        });
+    </script>
+
+    <script src="../../../script.js"></script>
+</body>
+
+</html>
