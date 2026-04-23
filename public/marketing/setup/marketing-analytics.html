@@ -265,6 +265,9 @@
                                         <button class="method-tab" data-method="webflow" role="tab">
                                             <i class="fa-brands fa-webflow" style="margin-right: 4px;"></i> Webflow
                                         </button>
+                                        <button class="method-tab" data-method="wordpress" role="tab">
+                                            <i class="fa-brands fa-wordpress" style="margin-right: 4px;"></i> WordPress
+                                        </button>
                                         <button class="method-tab" data-method="code" role="tab">
                                             <i class="fa-solid fa-code" style="margin-right: 4px;"></i> Code
                                         </button>
@@ -272,29 +275,72 @@
 
                                     <!-- GTM panel -->
                                     <div class="method-panel active" id="panel-gtm">
-                                        <div class="session-card">
-                                            <div class="session-card-header">
-                                                <i class="fa-solid fa-calendar-check session-card-icon"></i>
-                                                <div>
-                                                    <p class="session-card-label">Guided Onboarding</p>
-                                                    <p class="session-card-meta">1 session &nbsp;·&nbsp; ~30 min with ThriveStack team</p>
-                                                </div>
-                                                <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="session-book-btn">Book a session</a>
+                                        <div style="margin: 0 0 6px;">
+                                            <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 14px;">How to install</p>
+
+                                            <!-- Step 1: Create tag -->
+                                            <div style="margin-bottom: 18px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">1</span>
+                                                    Create a Custom HTML tag
+                                                </p>
+                                                <ol style="margin: 0 0 0 18px; padding: 0; font-size: 13px; color: var(--text-secondary); line-height: 2;">
+                                                    <li>In GTM, open your <strong>Web container</strong> and go to <strong>Tags → New</strong></li>
+                                                    <li>Click <strong>Tag Configuration</strong> and choose <strong>Custom HTML</strong></li>
+                                                    <li>Paste your ThriveStack script into the HTML field:
+                                                        <div style="margin: 8px 0 4px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 12px; color: var(--text-secondary); line-height: 1.6; overflow-x: auto; white-space: nowrap;">
+                                                            &lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"<br>
+                                                            &nbsp; data-api-key="YOUR_API_KEY" data-source="marketing"&gt;&lt;/script&gt;
+                                                        </div>
+                                                    </li>
+                                                    <li>Name the tag something like <strong>ThriveStack — Marketing Script</strong></li>
+                                                </ol>
                                             </div>
-                                            <div class="session-card-body">
-                                                <p class="session-label">What happens in this session</p>
-                                                <div class="session-items">
-                                                    <div class="session-item"><i class="fa-solid fa-key session-item-icon"></i> Get your ThriveStack API key</div>
-                                                    <div class="session-item"><i class="fa-solid fa-code session-item-icon"></i> Add the ThriveStack script to your site</div>
-                                                    <div class="session-item"><i class="fa-solid fa-circle-check session-item-icon"></i> Verify the script is present on all pages</div>
-                                                    <div class="session-item"><i class="fa-solid fa-chart-bar session-item-icon"></i> Confirm data arriving in ThriveStack dashboard</div>
-                                                </div>
+
+                                            <!-- Step 2: Set trigger -->
+                                            <div style="margin-bottom: 18px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">2</span>
+                                                    Set the trigger to All Pages
+                                                </p>
+                                                <ol style="margin: 0 0 0 18px; padding: 0; font-size: 13px; color: var(--text-secondary); line-height: 2;">
+                                                    <li>In the <strong>Triggering</strong> section, click the <strong>+</strong> button</li>
+                                                    <li>Choose <strong>Page View → All Pages</strong> — this fires the tag on every page where GTM is installed</li>
+                                                    <li>Click <strong>Save</strong></li>
+                                                </ol>
+                                            </div>
+
+                                            <!-- Step 3: Preview -->
+                                            <div style="margin-bottom: 18px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">3</span>
+                                                    Verify with GTM Preview
+                                                </p>
+                                                <ol style="margin: 0 0 0 18px; padding: 0; font-size: 13px; color: var(--text-secondary); line-height: 2;">
+                                                    <li>Click <strong>Preview</strong> (top right) — Google Tag Assistant opens in a new tab</li>
+                                                    <li>Enter your site URL and click <strong>Connect</strong></li>
+                                                    <li>Navigate a page and check the <strong>Tags</strong> panel — <em>ThriveStack — Marketing Script</em> should appear under <strong>Tags Fired</strong></li>
+                                                    <li>In your browser console, confirm no script errors are logged</li>
+                                                </ol>
+                                            </div>
+
+                                            <!-- Step 4: Publish -->
+                                            <div style="margin-bottom: 4px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">4</span>
+                                                    Publish the container
+                                                </p>
+                                                <ol style="margin: 0 0 0 18px; padding: 0; font-size: 13px; color: var(--text-secondary); line-height: 2;">
+                                                    <li>Click <strong>Submit</strong> → add a version name (e.g., <em>Add ThriveStack script</em>)</li>
+                                                    <li>Click <strong>Publish</strong> — the tag is now live on your site</li>
+                                                </ol>
                                             </div>
                                         </div>
+
                                         <a href="#" class="docs-link-card">
                                             <div>
                                                 <p class="docs-link-card-title"><i class="fa-solid fa-book-open" style="margin-right: 7px; color: var(--text-muted);"></i>Setup Manually — full documentation</p>
-                                                <p class="docs-link-card-desc">Step-by-step guide to manually adding the ThriveStack script to your marketing site.</p>
+                                                <p class="docs-link-card-desc">Step-by-step guide to adding the ThriveStack script via Google Tag Manager.</p>
                                             </div>
                                             <i class="fa-solid fa-arrow-right docs-link-card-arrow"></i>
                                         </a>
@@ -302,29 +348,129 @@
 
                                     <!-- Webflow panel -->
                                     <div class="method-panel" id="panel-webflow">
-                                        <div class="session-card">
-                                            <div class="session-card-header">
-                                                <i class="fa-solid fa-calendar-check session-card-icon"></i>
-                                                <div>
-                                                    <p class="session-card-label">Guided Onboarding</p>
-                                                    <p class="session-card-meta">1 session &nbsp;·&nbsp; ~30 min with ThriveStack team</p>
-                                                </div>
-                                                <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="session-book-btn">Book a session</a>
+                                        <div style="margin: 0 0 6px;">
+                                            <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 14px;">How to install</p>
+
+                                            <!-- Steps -->
+                                            <div style="margin-bottom: 18px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">1</span>
+                                                    Open Project Settings → Custom Code
+                                                </p>
+                                                <ol style="margin: 0 0 0 18px; padding: 0; font-size: 13px; color: var(--text-secondary); line-height: 2;">
+                                                    <li>In the Webflow Designer, click the <strong>W</strong> icon (top-left) to open <strong>Project Settings</strong></li>
+                                                    <li>Go to the <strong>Custom Code</strong> tab</li>
+                                                </ol>
                                             </div>
-                                            <div class="session-card-body">
-                                                <p class="session-label">What happens in this session</p>
-                                                <div class="session-items">
-                                                    <div class="session-item"><i class="fa-solid fa-key session-item-icon"></i> Get your ThriveStack API key</div>
-                                                    <div class="session-item"><i class="fa-solid fa-code session-item-icon"></i> Add the ThriveStack script to your site</div>
-                                                    <div class="session-item"><i class="fa-solid fa-circle-check session-item-icon"></i> Verify the script is present on all pages</div>
-                                                    <div class="session-item"><i class="fa-solid fa-chart-bar session-item-icon"></i> Confirm data arriving in ThriveStack dashboard</div>
-                                                </div>
+
+                                            <div style="margin-bottom: 18px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">2</span>
+                                                    Paste the script in the Head Code section
+                                                </p>
+                                                <ol style="margin: 0 0 0 18px; padding: 0; font-size: 13px; color: var(--text-secondary); line-height: 2;">
+                                                    <li>Under <strong>Head Code</strong>, paste your ThriveStack script tag:
+                                                        <div style="margin: 8px 0 4px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 12px; color: var(--text-secondary); line-height: 1.6; overflow-x: auto; white-space: nowrap;">
+                                                            &lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"<br>
+                                                            &nbsp; api-key="YOUR_API_KEY" source="marketing"&gt;&lt;/script&gt;
+                                                        </div>
+                                                    </li>
+                                                    <li>Click <strong>Save Changes</strong></li>
+                                                </ol>
+                                                <p style="font-size: 12px; color: var(--text-muted); margin: 6px 0 0 18px;">Head Code runs on every page of your site. Don't include <code style="font-size: 11px; background: rgba(0,0,0,0.15); padding: 1px 4px; border-radius: 3px;">&lt;html&gt;</code> or <code style="font-size: 11px; background: rgba(0,0,0,0.15); padding: 1px 4px; border-radius: 3px;">&lt;body&gt;</code> wrapper tags — only the script tag itself.</p>
+                                            </div>
+
+                                            <div style="margin-bottom: 18px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">3</span>
+                                                    Publish your site
+                                                </p>
+                                                <ol style="margin: 0 0 0 18px; padding: 0; font-size: 13px; color: var(--text-secondary); line-height: 2;">
+                                                    <li>Click <strong>Publish</strong> in the Designer toolbar — custom code is invisible in Designer preview and only runs on the published site</li>
+                                                    <li>You can publish to your Webflow staging domain first (e.g., <em>yoursite.webflow.io</em>) to test before going live on your custom domain</li>
+                                                </ol>
+                                            </div>
+
+                                            <div style="margin-bottom: 4px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">4</span>
+                                                    Verify the script is running
+                                                </p>
+                                                <ol style="margin: 0 0 0 18px; padding: 0; font-size: 13px; color: var(--text-secondary); line-height: 2;">
+                                                    <li>Visit any published page and open browser DevTools (<strong>F12</strong>)</li>
+                                                    <li>In the <strong>Network</strong> tab, filter by <em>thrivestack</em> — you should see the script loaded</li>
+                                                    <li>Check the <strong>Console</strong> tab for any errors</li>
+                                                </ol>
+                                            </div>
+
+                                            <!-- Plan note -->
+                                            <div style="display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; padding: 10px 14px; background: rgba(234,179,8,0.06); border: 1px solid rgba(234,179,8,0.2); border-radius: 7px; font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+                                                <i class="fa-solid fa-triangle-exclamation" style="color: #ca8a04; margin-top: 1px; flex-shrink: 0; font-size: 12px;"></i>
+                                                <span>Custom code requires a <strong>paid Webflow Site plan</strong> (Basic or higher). The free Starter plan does not support custom code.</span>
                                             </div>
                                         </div>
+
                                         <a href="#" class="docs-link-card">
                                             <div>
                                                 <p class="docs-link-card-title"><i class="fa-solid fa-book-open" style="margin-right: 7px; color: var(--text-muted);"></i>Setup Manually — full documentation</p>
-                                                <p class="docs-link-card-desc">Step-by-step guide to manually adding the ThriveStack script to your marketing site.</p>
+                                                <p class="docs-link-card-desc">Step-by-step guide to adding the ThriveStack script to your Webflow site.</p>
+                                            </div>
+                                            <i class="fa-solid fa-arrow-right docs-link-card-arrow"></i>
+                                        </a>
+                                    </div>
+
+                                    <!-- WordPress panel -->
+                                    <div class="method-panel" id="panel-wordpress">
+                                        <div style="margin: 0 0 6px;">
+                                            <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 14px;">How to install</p>
+
+                                            <!-- Method A: WPCode plugin -->
+                                            <div style="margin-bottom: 20px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 10px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">A</span>
+                                                    Via WPCode plugin <span style="font-size: 11px; font-weight: 500; color: var(--text-muted); background: rgba(100,116,139,0.1); border: 1px solid var(--border-color); border-radius: 4px; padding: 1px 7px; margin-left: 4px;">Recommended</span>
+                                                </p>
+                                                <ol style="margin: 0 0 0 18px; padding: 0; font-size: 13px; color: var(--text-secondary); line-height: 2;">
+                                                    <li>In WordPress admin, go to <strong>Plugins → Add New</strong> and install <strong>WPCode</strong> (formerly Insert Headers and Footers)</li>
+                                                    <li>Go to <strong>Code Snippets → Header &amp; Footer</strong></li>
+                                                    <li>Paste your ThriveStack script tag into the <strong>Header</strong> box:
+                                                        <div style="margin: 8px 0 4px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 12px; color: var(--text-secondary); line-height: 1.6; overflow-x: auto; white-space: nowrap;">
+                                                            &lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"<br>
+                                                            &nbsp; api-key="YOUR_API_KEY" source="marketing"&gt;&lt;/script&gt;
+                                                        </div>
+                                                    </li>
+                                                    <li>Click <strong>Save Changes</strong></li>
+                                                </ol>
+                                                <p style="font-size: 12px; color: var(--text-muted); margin: 6px 0 0 18px;">The script loads on every page automatically and survives theme updates.</p>
+                                            </div>
+
+                                            <!-- Method B: functions.php -->
+                                            <div style="margin-bottom: 4px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 10px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(100,116,139,0.1); border: 1px solid var(--border-color); font-size: 10px; font-weight: 700; color: var(--text-muted); flex-shrink: 0;">B</span>
+                                                    Via child theme's <code style="font-size: 12px; background: rgba(0,0,0,0.15); padding: 1px 5px; border-radius: 3px;">functions.php</code>
+                                                </p>
+                                                <ol style="margin: 0 0 0 18px; padding: 0; font-size: 13px; color: var(--text-secondary); line-height: 2;">
+                                                    <li>Make sure you're working in a <strong>child theme</strong> — changes to parent themes are lost on theme updates</li>
+                                                    <li>Open <strong>Appearance → Theme File Editor</strong>, select your child theme's <code style="font-size: 12px; background: rgba(0,0,0,0.15); padding: 1px 5px; border-radius: 3px;">functions.php</code></li>
+                                                    <li>Add the following at the bottom of the file:
+                                                        <div style="margin: 8px 0 4px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 12px; color: var(--text-secondary); line-height: 1.7; overflow-x: auto;">
+                                                            function thrivestack_script() {<br>
+                                                            &nbsp; echo '&lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"<br>
+                                                            &nbsp; &nbsp; api-key="YOUR_API_KEY" source="marketing"&gt;&lt;/script&gt;';<br>
+                                                            }<br>
+                                                            add_action( 'wp_head', 'thrivestack_script', 999 );
+                                                        </div>
+                                                    </li>
+                                                    <li>Click <strong>Update File</strong></li>
+                                                </ol>
+                                            </div>
+                                        </div>
+
+                                        <a href="#" class="docs-link-card">
+                                            <div>
+                                                <p class="docs-link-card-title"><i class="fa-solid fa-book-open" style="margin-right: 7px; color: var(--text-muted);"></i>Setup Manually — full documentation</p>
+                                                <p class="docs-link-card-desc">Step-by-step guide to manually adding the ThriveStack script to your WordPress site.</p>
                                             </div>
                                             <i class="fa-solid fa-arrow-right docs-link-card-arrow"></i>
                                         </a>
@@ -332,25 +478,91 @@
 
                                     <!-- Code panel -->
                                     <div class="method-panel" id="panel-code">
-                                        <div class="session-card">
-                                            <div class="session-card-header">
-                                                <i class="fa-solid fa-calendar-check session-card-icon"></i>
-                                                <div>
-                                                    <p class="session-card-label">Guided Onboarding</p>
-                                                    <p class="session-card-meta">1 session &nbsp;·&nbsp; ~30 min with ThriveStack team</p>
+                                        <div style="margin: 0 0 6px;">
+                                            <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 14px;">How to install</p>
+
+                                            <!-- Step 1: Find layout file -->
+                                            <div style="margin-bottom: 18px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">1</span>
+                                                    Find your shared layout file
+                                                </p>
+                                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0 0 10px 26px; line-height: 1.6;">The script must go in the <code style="font-size: 12px; background: rgba(0,0,0,0.15); padding: 1px 4px; border-radius: 3px;">&lt;head&gt;</code> of every marketing page. Most frameworks have one shared file for this:</p>
+                                                <div style="border: 1px solid var(--border-color); border-radius: 7px; overflow: hidden; margin-left: 26px;">
+                                                    <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                                                        <thead>
+                                                            <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border-color);">
+                                                                <th style="padding: 8px 12px; text-align: left; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px;">Framework</th>
+                                                                <th style="padding: 8px 12px; text-align: left; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px;">File to edit</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                                <td style="padding: 8px 12px; color: var(--text-secondary);">Plain HTML</td>
+                                                                <td style="padding: 8px 12px; font-family: monospace; font-size: 11px; color: var(--text-muted);">index.html (or any shared layout template)</td>
+                                                            </tr>
+                                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                                <td style="padding: 8px 12px; color: var(--text-secondary);">Next.js</td>
+                                                                <td style="padding: 8px 12px; font-family: monospace; font-size: 11px; color: var(--text-muted);">pages/_document.js &nbsp;or&nbsp; app/layout.tsx</td>
+                                                            </tr>
+                                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                                <td style="padding: 8px 12px; color: var(--text-secondary);">Nuxt</td>
+                                                                <td style="padding: 8px 12px; font-family: monospace; font-size: 11px; color: var(--text-muted);">nuxt.config.ts → head.script &nbsp;or&nbsp; app.vue</td>
+                                                            </tr>
+                                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                                <td style="padding: 8px 12px; color: var(--text-secondary);">Angular</td>
+                                                                <td style="padding: 8px 12px; font-family: monospace; font-size: 11px; color: var(--text-muted);">src/index.html</td>
+                                                            </tr>
+                                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                                <td style="padding: 8px 12px; color: var(--text-secondary);">Gatsby</td>
+                                                                <td style="padding: 8px 12px; font-family: monospace; font-size: 11px; color: var(--text-muted);">gatsby-ssr.js → onRenderBody</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 8px 12px; color: var(--text-secondary);">Hugo / Jekyll</td>
+                                                                <td style="padding: 8px 12px; font-family: monospace; font-size: 11px; color: var(--text-muted);">layouts/_default/baseof.html &nbsp;or&nbsp; _includes/head.html</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
-                                                <a href="https://cal.com/thrivestack/strategy?duration=45" target="_blank" rel="noopener noreferrer" class="session-book-btn">Book a session</a>
                                             </div>
-                                            <div class="session-card-body">
-                                                <p class="session-label">What happens in this session</p>
-                                                <div class="session-items">
-                                                    <div class="session-item"><i class="fa-solid fa-key session-item-icon"></i> Get your ThriveStack API key</div>
-                                                    <div class="session-item"><i class="fa-solid fa-code session-item-icon"></i> Add the ThriveStack script to your site</div>
-                                                    <div class="session-item"><i class="fa-solid fa-circle-check session-item-icon"></i> Verify the script is present on all pages</div>
-                                                    <div class="session-item"><i class="fa-solid fa-chart-bar session-item-icon"></i> Confirm data arriving in ThriveStack dashboard</div>
+
+                                            <!-- Step 2: Add the script -->
+                                            <div style="margin-bottom: 18px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">2</span>
+                                                    Add the script tag before <code style="font-size: 12px; background: rgba(0,0,0,0.15); padding: 1px 4px; border-radius: 3px;">&lt;/head&gt;</code>
+                                                </p>
+                                                <div style="margin: 0 0 8px 26px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 12px; color: var(--text-secondary); line-height: 1.6; overflow-x: auto; white-space: nowrap;">
+                                                    &lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"<br>
+                                                    &nbsp; data-api-key="YOUR_API_KEY" data-source="marketing"&gt;&lt;/script&gt;
                                                 </div>
+                                                <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 0 26px;">Replace <code style="font-size: 11px; background: rgba(0,0,0,0.15); padding: 1px 4px; border-radius: 3px;">YOUR_API_KEY</code> with the key from your ThriveStack dashboard. Place this in the shared layout so it loads on every page.</p>
+                                            </div>
+
+                                            <!-- Step 3: Deploy -->
+                                            <div style="margin-bottom: 18px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">3</span>
+                                                    Deploy your changes
+                                                </p>
+                                                <p style="font-size: 13px; color: var(--text-secondary); margin: 0 0 0 26px; line-height: 1.6;">Push and deploy as you normally would. The script only needs to be added once — it will load on every page that uses the shared layout.</p>
+                                            </div>
+
+                                            <!-- Step 4: Verify -->
+                                            <div style="margin-bottom: 4px;">
+                                                <p style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; display: flex; align-items: center; gap: 8px;">
+                                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); font-size: 10px; font-weight: 700; color: #93c5fd; flex-shrink: 0;">4</span>
+                                                    Verify the script is loading
+                                                </p>
+                                                <ol style="margin: 0 0 0 26px; padding: 0; font-size: 13px; color: var(--text-secondary); line-height: 2;">
+                                                    <li>Open any page of your live site and press <strong>F12</strong> to open DevTools</li>
+                                                    <li>In the <strong>Network</strong> tab, filter by <em>thrivestack</em> — the script request should appear</li>
+                                                    <li>Check the <strong>Elements</strong> tab and search for <code style="font-size: 12px; background: rgba(0,0,0,0.15); padding: 1px 4px; border-radius: 3px;">thrivestack</code> to confirm the tag is in <code style="font-size: 12px; background: rgba(0,0,0,0.15); padding: 1px 4px; border-radius: 3px;">&lt;head&gt;</code></li>
+                                                    <li>Check the <strong>Console</strong> tab for any errors</li>
+                                                </ol>
                                             </div>
                                         </div>
+
                                         <a href="#" class="docs-link-card">
                                             <div>
                                                 <p class="docs-link-card-title"><i class="fa-solid fa-book-open" style="margin-right: 7px; color: var(--text-muted);"></i>Setup Manually — full documentation</p>
