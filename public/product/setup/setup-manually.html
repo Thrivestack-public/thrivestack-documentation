@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Implement with Prompt (Marketing) - ThriveStack Documentation">
+    <meta name="description" content="Product Intelligence - Setup Manually - ThriveStack Documentation">
     <!-- Theme bootstrapping: pick saved theme before paint -->
     <script>
-        (function() {
+        (function () {
             try {
                 var saved = localStorage.getItem('theme') || 'dark';
                 document.documentElement.setAttribute('data-theme', saved);
@@ -15,20 +16,20 @@
             }
         })();
     </script>
-    <title>Implement with Prompt (Marketing) - ThriveStack</title>
-    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
-    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <title>Product Intelligence - Setup Manually - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../../styles.css">
-    <script
-      src="https://ts-script.app.thrivestack.ai/latest/thrivestack.js"
-      api-key="{{THRIVESTACK_API_KEY}}"
-      source="marketing">
-    </script>
+    <script src="https://cdn.app.thrivestack.ai/latest/script.js" api-key="{{THRIVESTACK_API_KEY}}"
+        source="product"></script>
 </head>
+
 <body>
     <nav class="top-nav">
         <div class="nav-left">
@@ -53,7 +54,8 @@
             <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
                 <i class="fa-solid fa-sun" id="theme-icon"></i>
             </button>
-            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
             <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
@@ -71,30 +73,32 @@
                         <div class="sidebar-section">
                 <h3>ThriveStack MCP</h3>
                 <ul>
-                    <li><a href="../../product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                    <li><a href="thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
                 </ul>
             </div>
 
             <div class="sidebar-section">
                 <h3>Marketing Intelligence</h3>
                 <ul>
-                    <li><a href="../../../public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2
+                    <li><a href="../../../public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with
+                                AI (LLM)</span><span class="time-badge">2
                                 mins</span></a></li>
-                    <li><a href="setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">10
+                    <li><a href="../../../public/marketing/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">10
                                 mins</span></a></li>
-                    <li><a href="../../../public/product/setup/environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
+                    <li><a href="../../../public/product/setup/environment-correlation.html"
+                            class="nav-item"><span>Environments and API Keys</span></a></li>
                 </ul>
             </div>
 
             <div class="sidebar-section">
                 <h3>Product Intelligence</h3>
                 <ul>
-                    <li><a href="../../product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
-                    <li><a href="../../product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
-                    <li><a href="../../product/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
-                    <li><a href="../../product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="setup-manually.html" class="nav-item active"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
                     <li><a href="../../revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
-                    <li><a href="../../product/setup/environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
+                    <li><a href="environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
                 
                 </ul>
             </div>
@@ -102,8 +106,10 @@
             <div class="sidebar-section">
                 <h3>Revenue Intelligence</h3>
                 <ul>
-                    <li><a href="../../../public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
-                    <li><a href="../../../public/revenue/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../../public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI
+                                (LLM)</span><span class="time-badge">2
+                                mins</span></a></li>
+                    <li><a href="../../revenue/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
                     <li><a href="../../../public/revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
                     <li><a href="../../revenue/setup/exceptional-use-cases.html" class="nav-item"><span>Exceptional Use Cases</span></a></li>
                 </ul>
@@ -128,46 +134,45 @@
 
         <main class="main-content">
             <div class="content-wrapper">
-                <section id="implement-with-prompt-marketing" class="content-section">
+                <section id="setup-manually-product" class="content-section">
                     <section class="doc-page">
                         <header class="doc-page-header">
-                            <span class="doc-page-header-eyebrow">Marketing Intelligence</span>
-                            <h1 class="doc-page-title">Implement with Prompt</h1>
+                            <span class="doc-page-header-eyebrow">Product Intelligence</span>
+                            <h1 class="doc-page-title">Setup Manually</h1>
                             <p class="doc-page-description">
-                                Use an AI coding assistant to instrument your marketing site or docs with ThriveStack visitor tracking in minutes.
+                                Manual setup guide for Product Intelligence. This page is intentionally left empty for now.
                             </p>
+                            <div class="ai-logos"
+                                style="display: flex; gap: 12px; align-items: center; margin-top: 16px; margin-bottom: 24px; flex-wrap: wrap;">
+                                <img src="https://www.google.com/s2/favicons?domain=anthropic.com&sz=32" alt="Claude"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Anthropic Claude">
+                                <img src="https://www.google.com/s2/favicons?domain=lovable.dev&sz=32" alt="Lovable"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Lovable">
+                                <img src="https://www.google.com/s2/favicons?domain=replit.com&sz=32" alt="Replit"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Replit">
+                                <img src="https://www.google.com/s2/favicons?domain=bolt.new&sz=32" alt="Bolt.new"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Bolt.new">
+                                <img src="https://www.google.com/s2/favicons?domain=openai.com&sz=32" alt="OpenAI Codex"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Open AI Codex">
+                                <img src="https://www.google.com/s2/favicons?domain=aistudio.google.com&sz=32"
+                                    alt="Google AI Studio" style="width: 24px; height: 24px; border-radius: 4px;"
+                                    title="Google AI Studio">
+                                <img src="https://www.google.com/s2/favicons?domain=deepmind.google&sz=32"
+                                    alt="Antigravity" style="width: 24px; height: 24px; border-radius: 4px;"
+                                    title="Antigravity">
+                                <img src="https://www.google.com/s2/favicons?domain=emergent.com&sz=32" alt="Emergent"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Emergent">
+                                <img src="https://www.google.com/s2/favicons?domain=codeium.com&sz=32" alt="Windsurf"
+                                    style="width: 24px; height: 24px; border-radius: 4px;" title="Windsurf">
+                                <span style="font-size: 14px; color: var(--text-muted, #888); font-weight: 500;">and
+                                    more</span>
+                            </div>
                         </header>
 
+                        <hr />
+
                         <article class="doc-page-body">
-
-                            <h2>Step 1 — Get your API key</h2>
-                            <p>Go to <a href="https://app.thrivestack.ai/analyze/settings/api-keys" target="_blank" rel="noopener noreferrer">Settings → API Keys</a> and copy your API key.</p>
-
-                            <hr />
-
-                            <h2>Step 2 — Copy the prompt</h2>
-                            <p>Copy the prompt below and replace <code>YOUR_API_KEY_HERE</code> with your key from Step 1.</p>
-
-                            <p>Use this to track visitors on any public-facing website or docs site.</p>
-                            <div class="code-block-wrapper">
-                                <button class="copy-btn" onclick="copyPrompt('prompt-marketing', this)"><i class="fa-regular fa-copy"></i> Copy</button>
-                                <pre><code id="prompt-marketing">Loading...</code></pre>
-                            </div>
-
-                            <hr />
-
-                            <h2>Step 3 — Run it in your AI coding assistant</h2>
-                            <p>Paste the prompt into Claude, Cursor, Copilot, or any AI coding tool. It will read the full instrumentation guide and add the correct telemetry to your codebase automatically.</p>
-
-                            <hr />
-
-                            <h2>Step 4 — Verify</h2>
-                            <p>Once the AI is done, check your events are arriving:</p>
-                            <ul>
-                                <li><a href="https://app.thrivestack.ai/analyze/diagnostics-report" target="_blank" rel="noopener noreferrer">Diagnostics Report</a> — confirms events are being received</li>
-                                <li><a href="https://app.thrivestack.ai/analyze/events" target="_blank" rel="noopener noreferrer">API / Audit Logs</a> — inspect raw events as they arrive</li>
-                            </ul>
-
+                            <p style="color: var(--text-secondary);">This page is intentionally left empty for now.</p>
                         </article>
 
                         <style>
@@ -175,10 +180,12 @@
                                 position: relative;
                                 margin: 12px 0 24px;
                             }
+
                             .code-block-wrapper pre {
                                 margin: 0;
                                 padding-top: 40px;
                             }
+
                             .copy-btn {
                                 position: absolute;
                                 top: 8px;
@@ -197,10 +204,12 @@
                                 color: var(--text-muted, #aaa);
                                 transition: color 0.15s, border-color 0.15s;
                             }
+
                             .copy-btn:hover {
                                 color: var(--text-primary, #fff);
                                 border-color: var(--text-muted, #888);
                             }
+
                             .copy-btn.copied {
                                 color: #4ade80;
                                 border-color: #4ade80;
@@ -208,19 +217,19 @@
                         </style>
 
                         <script>
-                            fetch('/ai-setup/marketing/prompt.txt')
-                                .then(function(r) { return r.text(); })
-                                .then(function(t) {
-                                    document.getElementById('prompt-marketing').textContent =
+                            fetch('/ai-setup/product/prompt.txt')
+                                .then(function (r) { return r.text(); })
+                                .then(function (t) {
+                                    document.getElementById('prompt-product').textContent =
                                         t.replace('{{THRIVESTACK_API_KEY}}', 'YOUR_API_KEY_HERE').trim();
                                 });
 
                             function copyPrompt(id, btn) {
                                 var text = document.getElementById(id).innerText;
-                                navigator.clipboard.writeText(text).then(function() {
+                                navigator.clipboard.writeText(text).then(function () {
                                     btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Copied';
                                     btn.classList.add('copied');
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
                                         btn.classList.remove('copied');
                                     }, 2000);
@@ -248,11 +257,14 @@
             <div class="toc-container sticky-top">
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
-                    <a href="#implement-with-prompt-marketing" class="toc-link active">Implement with Prompt</a>
+                    <a href="#implement-with-prompt-product" class="toc-link active">Setup with AI</a>
+                    <a href="#how-it-works" class="toc-link">How it works</a>
                     <a href="#step1" class="toc-link">1. Get API key</a>
                     <a href="#step2" class="toc-link">2. Copy the prompt</a>
                     <a href="#step3" class="toc-link">3. Run it</a>
-                    <a href="#step4" class="toc-link">4. Verify</a>
+                    <a href="#step4" class="toc-link">4. Confirm events fire</a>
+                    <a href="#step5" class="toc-link">5. Verify your setup</a>
+                    <a href="#related" class="toc-link">Related guides</a>
                 </nav>
                 <ready-to-scale-promo></ready-to-scale-promo>
             </div>
@@ -261,4 +273,5 @@
 
     <script src="../../../script.js"></script>
 </body>
+
 </html>

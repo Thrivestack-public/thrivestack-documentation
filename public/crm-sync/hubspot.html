@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HubSpot CRM Sync - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>HubSpot CRM Sync - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar"><i class="fa-solid fa-search"></i><input type="text" placeholder="Search documentation... (Ctrl+K)"></div>
+        </div>
+        <div class="nav-center"><div class="nav-links"><a href="../../index.html">Get Started</a><a href="../../setup-overview.html" class="active">Setup (Unify)</a><a href="#">Analyze Signals</a><a href="#">Take Action</a></div></div>
+        <div class="nav-right"><button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme"><i class="fa-solid fa-sun" id="theme-icon"></i></button><a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a><button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button></div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section"><h3>Overview</h3><ul>
+                <li><a href="../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                <li><a href="../../data-collection.html" class="nav-item"><span>Data Collection</span></a></li>
+            </ul></div>
+            <div class="sidebar-section"><h3>ThriveStack MCP</h3><ul>
+                <li><a href="../product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+            </ul></div>
+            <div class="sidebar-section"><h3>Marketing Intelligence</h3><ul>
+                <li><a href="../marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                <li><a href="../marketing/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                <li><a href="../product/setup/environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
+            </ul></div>
+            <div class="sidebar-section"><h3>Product Intelligence</h3><ul>
+                <li><a href="../product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                <li><a href="../product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                <li><a href="../product/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                <li><a href="../product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                <li><a href="../revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
+                <li><a href="../product/setup/environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
+            </ul></div>
+            <div class="sidebar-section"><h3>Revenue Intelligence</h3><ul>
+                <li><a href="../revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                <li><a href="../revenue/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                <li><a href="../revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
+                <li><a href="../revenue/setup/exceptional-use-cases.html" class="nav-item"><span>Exceptional Use Cases</span></a></li>
+            </ul></div>
+            <div class="sidebar-section"><h3>CRM Sync</h3><ul>
+                <li><a href="../crm-sync/hubspot.html" class="nav-item active"><span>HubSpot</span></a></li>
+            </ul></div>
+            <div class="sidebar-section"><h3>Customer Success</h3><ul>
+                <li><a href="../customer-success/setup-health-scores.html" class="nav-item"><span>Setup Health Scores</span></a></li>
+            </ul></div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+        <main class="main-content"><div class="content-wrapper"><section class="content-section"><section class="doc-page">
+            <header class="doc-page-header">
+                <span class="doc-page-header-eyebrow">CRM Sync</span>
+                <h1 class="doc-page-title">HubSpot</h1>
+                <p class="doc-page-description">CRM synchronization docs and setup steps.</p>
+            </header>
+            <article class="doc-page-body">
+                <p>This page is under construction. Coming soon.</p>
+            </article>
+        </section></section></div></main>
+    </div>
+    <script src="../../script.js"></script>
+</body>
+</html>
