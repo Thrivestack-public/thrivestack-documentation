@@ -54,7 +54,7 @@ X/9 implemented
 | 6 | account_added_user | ✅/⚠️/❌ | Entry points covered |
 | 7 | feature_used | ✅/⚠️/❌ | Features and their feature_type |
 | 8 | invite_sent | ✅/⚠️/❌ | Handler, file or N/A |
-| 9 | onboarding_step_completed | ✅/⚠️/❌ | Steps found or N/A |
+| 9 | onboarding_[step_name]_completed | ✅/⚠️/❌ | Steps found or N/A |
 
 User ID: [field] in [file]
 Group hierarchy: [e.g. Organization → Account (billing root) → Workspace] or [B2C fallback]
@@ -398,18 +398,29 @@ thriveStack.track([{
 
 ---
 
-### onboarding_step_completed
+### onboarding_[step_name]_completed
 When: User completes a discrete setup step.
 Search for: `<Stepper>` `onStepComplete` `handleNext` `setCurrentStep` `markStepComplete`
 
+Each onboarding step fires its own event. The event name encodes the step:
+`onboarding_[step_name]_completed` — where `step_name` is a snake_case description of the step.
+
+Examples:
+- `onboarding_connected_data_source_completed`
+- `onboarding_invited_team_member_completed`
+- `onboarding_installed_sdk_completed`
+- `onboarding_configured_workspace_completed`
+
+Derive `step_name` from the step's label, heading, or route. Snake_case only. Never use a generic name like `step_1` or `step_completed`.
+
 ```javascript
+// Example: step "Connect Data Source" at index 0 of 4 total steps
 thriveStack.track([{
-  "event_name": "onboarding_step_completed",
+  "event_name": "onboarding_connected_data_source_completed",
   "user_id": user.id,
   "properties": {
     "user_email": user.email,
     "user_name": user.name,
-    "step_name": stepName,      // snake_case: "connected_data_source"
     "step_index": stepIndex,    // 0-based integer
     "total_steps": totalSteps
   },
@@ -417,6 +428,8 @@ thriveStack.track([{
   "timestamp": new Date().toISOString()
 }])
 ```
+
+One `track()` call per step. Identify each step's label/heading in the UI and derive its `step_name` before writing any code. Ask the developer to confirm the step names if the labels are ambiguous.
 
 ---
 
@@ -534,7 +547,7 @@ Before delivering the summary, verify all 9 points. Fix anything missing first.
 - [ ] 6. account_added_user — all applicable entry points covered
 - [ ] 7. feature_used — at least one, feature_type confirmed with developer
 - [ ] 8. invite_sent — all invite handlers found
-- [ ] 9. onboarding_step_completed — all stepper/wizard flows found
+- [ ] 9. onboarding_[step_name]_completed — all stepper/wizard flows found, one event per step with descriptive name
 
 ### Summary format
 
@@ -553,7 +566,7 @@ X/9 implemented
 | 6 | account_added_user | ✅/⚠️/❌ | Entry points covered |
 | 7 | feature_used | ✅/⚠️/❌ | Features and their feature_type |
 | 8 | invite_sent | ✅/⚠️/❌ | Handler, file or N/A |
-| 9 | onboarding_step_completed | ✅/⚠️/❌ | Steps found or N/A |
+| 9 | onboarding_[step_name]_completed | ✅/⚠️/❌ | Steps found or N/A |
 
 **User ID:** [field] in [file]
 **Group hierarchy:** [e.g. Organization → Account (billing root) → Workspace] or [B2C fallback]
