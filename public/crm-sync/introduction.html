@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Setup Health Scores - ThriveStack Documentation">
+    <meta name="description" content="CRM Sync Introduction - ThriveStack Documentation">
     <script>
         (function () {
             try {
@@ -14,7 +14,7 @@
             }
         })();
     </script>
-    <title>Setup Health Scores - ThriveStack</title>
+    <title>CRM Sync Introduction - ThriveStack</title>
     <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,14 +22,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .intro-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 8px;
+        }
+        .intro-option-card {
+            display: block;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--card-bg);
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color .2s ease, transform .2s ease, background .2s ease;
+        }
+        .intro-option-card:hover {
+            border-color: var(--brand-primary);
+            background: var(--card-hover-bg);
+            transform: translateY(-1px);
+        }
+        .intro-option-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--brand-primary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .intro-option-desc {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
     <nav class="top-nav">
         <div class="nav-left">
-            <a href="../../index.html" class="logo">
-                <img src="../../logo.png" alt="ThriveStack" class="logo-img">
-                <span class="logo-text"></span>
-            </a>
+            <a href="../../index.html" class="logo"><img src="../../logo.png" alt="ThriveStack" class="logo-img"><span class="logo-text"></span></a>
             <div class="search-bar"><i class="fa-solid fa-search"></i><input type="text" placeholder="Search documentation... (Ctrl+K)"></div>
         </div>
         <div class="nav-center"><div class="nav-links"><a href="../../index.html">Get Started</a><a href="../../setup-overview.html" class="active">Setup (Unify)</a><a href="#">Analyze Signals</a><a href="#">Take Action</a></div></div>
@@ -45,14 +79,16 @@
             <div class="sidebar-section"><h3>ThriveStack MCP</h3><ul>
                 <li><a href="../product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
             </ul></div>
+
             <div class="sidebar-section"><h3>Marketing Intelligence</h3><ul>
-                    <li><a href="../marketing/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                <li><a href="../marketing/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
                 <li><a href="../marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
                 <li><a href="../marketing/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
                 <li><a href="../product/setup/environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
             </ul></div>
+
             <div class="sidebar-section"><h3>Product Intelligence</h3><ul>
-                    <li><a href="../product/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                <li><a href="../product/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
                 <li><a href="../product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
                 <li><a href="../product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
                 <li><a href="../product/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
@@ -60,34 +96,47 @@
                 <li><a href="../revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
                 <li><a href="../product/setup/environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
             </ul></div>
+
             <div class="sidebar-section"><h3>Revenue Intelligence</h3><ul>
-                    <li><a href="../revenue/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                <li><a href="../revenue/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
                 <li><a href="../revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
                 <li><a href="../revenue/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
                 <li><a href="../revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
                 <li><a href="../revenue/setup/exceptional-use-cases.html" class="nav-item"><span>Exceptional Use Cases</span></a></li>
             </ul></div>
+
             <div class="sidebar-section"><h3>CRM Sync</h3><ul>
-                    <li><a href="../crm-sync/introduction.html" class="nav-item"><span>Introduction</span></a></li>
-                <li><a href="../crm-sync/hubspot.html" class="nav-item"><span>HubSpot</span></a></li>
+                <li><a href="introduction.html" class="nav-item active"><span>Introduction</span></a></li>
+                <li><a href="hubspot.html" class="nav-item"><span>HubSpot</span></a></li>
             </ul></div>
             <div class="sidebar-section"><h3>Customer Success</h3><ul>
-                    <li><a href="introduction.html" class="nav-item"><span>Introduction</span></a></li>
-                <li><a href="../customer-success/setup-health-scores.html" class="nav-item active"><span>Setup Health Scores</span></a></li>
+                <li><a href="../customer-success/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                <li><a href="../customer-success/setup-health-scores.html" class="nav-item"><span>Setup Health Scores</span></a></li>
             </ul></div>
         </aside>
+
         <div class="resizer" id="sidebar-resizer"></div>
         <main class="main-content"><div class="content-wrapper"><section class="content-section"><section class="doc-page">
             <header class="doc-page-header">
-                <span class="doc-page-header-eyebrow">Customer Success</span>
-                <h1 class="doc-page-title">Setup Health Scores</h1>
-                <p class="doc-page-description">Customer success setup guides and health scoring docs.</p>
+                <span class="doc-page-header-eyebrow">CRM Sync</span>
+                <h1 class="doc-page-title">Introduction</h1>
+                <p class="doc-page-description">Start here to connect CRM workflows and synced account signals.</p>
             </header>
             <article class="doc-page-body">
-                <p>This page is under construction. Coming soon.</p>
+                <div class="intro-card-grid">
+                    <a href="hubspot.html" class="intro-option-card">
+                        <p class="intro-option-title"><i class="fa-solid fa-wand-magic-sparkles"></i>Setup with AI</p>
+                        <p class="intro-option-desc">Use the AI-guided path to get started quickly.</p>
+                    </a>
+                    <a href="hubspot.html" class="intro-option-card">
+                        <p class="intro-option-title"><i class="fa-solid fa-book-open"></i>Setup Manually</p>
+                        <p class="intro-option-desc">Follow step-by-step manual documentation.</p>
+                    </a>
+                </div>
             </article>
         </section></section></div></main>
     </div>
+
     <script src="../../script.js"></script>
 </body>
 </html>
