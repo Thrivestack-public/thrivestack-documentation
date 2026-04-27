@@ -211,6 +211,9 @@
                                 <button class="platform-tab" data-platform="code" role="tab" aria-selected="false">
                                     <i class="fa-solid fa-code" style="margin-right: 5px;"></i> Code
                                 </button>
+                                <button class="platform-tab" data-platform="framer" role="tab" aria-selected="false">
+                                    <svg width="13" height="13" viewBox="0 0 100 150" fill="currentColor" style="margin-right: 5px; vertical-align: middle; display: inline-block;"><rect x="0" y="0" width="100" height="50"/><polygon points="0,50 100,50 50,100 0,100"/><polygon points="50,100 100,100 100,150 50,150"/></svg> Framer
+                                </button>
                             </div>
 
                             <!-- ── GTM ── -->
@@ -455,6 +458,87 @@ add_action( 'wp_head', 'thrivestack_script', 999 );</div>
                                         </ol>
                                     </div>
                                 </div>
+
+                            </div>
+
+                            <!-- ── Framer ── -->
+                            <div class="platform-panel" id="pp-framer">
+
+                                <div class="install-step">
+                                    <div class="install-step-num">1</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Open Project Settings</p>
+                                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6;">In the Framer editor, open <strong>Project Settings</strong>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">2</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Select the Custom Code tab</p>
+                                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6;">Select the <strong>Custom Code</strong> tab from the left sidebar.</p>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">3</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Add a script</p>
+                                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6;">Click <strong>Add Script</strong> if you haven't added any code yet. Otherwise, click the <strong>+</strong> icon.</p>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">4</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Name the script</p>
+                                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 10px; line-height: 1.6;">Give the script a clear, recognizable name so you can identify it later — e.g., <em>ThriveStack — Marketing Script</em>.</p>
+                                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 8px; line-height: 1.6;">Then paste your ThriveStack script tag into the code field:</p>
+                                        <div class="code-snippet">
+                                            &lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"<br>
+                                            &nbsp; data-api-key="YOUR_API_KEY" data-source="marketing"&gt;&lt;/script&gt;
+                                        </div>
+                                        <p class="install-step-note">Replace <code>YOUR_API_KEY</code> with the key from your ThriveStack dashboard.</p>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">5</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Choose where the code should be placed</p>
+                                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6;">Choose where the code should be placed on your site. Select <strong>Head</strong> so the script loads on every page.</p>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">6</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Publish your site</p>
+                                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6;">Click <strong>Publish</strong> — custom code only runs on the published site, not in the editor preview.</p>
+                                    </div>
+                                </div>
+
+                                <div class="install-step">
+                                    <div class="install-step-num">7</div>
+                                    <div class="install-step-body">
+                                        <p class="install-step-title">Verify the script is running</p>
+                                        <ol>
+                                            <li>Visit any published page and open browser DevTools (<strong>F12</strong>)</li>
+                                            <li>In the <strong>Network</strong> tab, filter by <em>thrivestack</em> — you should see the script loaded</li>
+                                            <li>Check the <strong>Console</strong> tab for any errors</li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                                <div class="callout callout--warning">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    <span>Custom code requires a <strong>paid Framer plan</strong>. The free plan does not support custom code injection.</span>
+                                </div>
+
+                                <p style="font-size: 13px; color: var(--text-muted); margin: 12px 0 0;">
+                                    <i class="fa-solid fa-book" style="margin-right: 5px;"></i>
+                                    Official docs: <a href="https://www.framer.com/help/articles/how-to-add-custom-code/" target="_blank" rel="noopener noreferrer" style="color: var(--brand-primary);">How to add custom code — Framer Help</a>
+                                </p>
 
                             </div>
 
@@ -806,21 +890,36 @@ add_action( 'wp_head', 'thrivestack_script', 999 );</div>
     </style>
 
     <script>
+        function activatePlatformTab(platform) {
+            var tab = document.querySelector('.platform-tab[data-platform="' + platform + '"]');
+            var panel = document.getElementById('pp-' + platform);
+            if (!tab || !panel) return;
+            document.querySelectorAll('.platform-tab').forEach(function (t) {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            document.querySelectorAll('.platform-panel').forEach(function (p) {
+                p.classList.remove('active');
+            });
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            panel.classList.add('active');
+        }
+
         document.querySelectorAll('.platform-tab').forEach(function (tab) {
             tab.addEventListener('click', function () {
                 var target = this.dataset.platform;
-                document.querySelectorAll('.platform-tab').forEach(function (t) {
-                    t.classList.remove('active');
-                    t.setAttribute('aria-selected', 'false');
-                });
-                document.querySelectorAll('.platform-panel').forEach(function (p) {
-                    p.classList.remove('active');
-                });
-                this.classList.add('active');
-                this.setAttribute('aria-selected', 'true');
-                document.getElementById('pp-' + target).classList.add('active');
+                activatePlatformTab(target);
+                history.replaceState(null, '', '#' + target);
             });
         });
+
+        // Activate tab from URL hash on load
+        var hash = window.location.hash.replace('#', '');
+        var validPlatforms = ['gtm', 'webflow', 'wordpress', 'code', 'framer'];
+        if (hash && validPlatforms.indexOf(hash) !== -1) {
+            activatePlatformTab(hash);
+        }
     </script>
 
     <script src="../../../script.js"></script>
