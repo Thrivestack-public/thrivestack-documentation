@@ -24,10 +24,10 @@ Work through these phases in order. Do not write any code until Phase 0 is compl
 
 ### Phase 0 — Understand the codebase first
 
-1. **Verify Step 1 is complete.** Check that the ThriveStack script tag is present in the root layout.
-   - If not found: STOP. Tell the developer:
-     > "The ThriveStack script tag is missing from the root layout. Complete Step 1 first before running this prompt."
-   - If found: proceed.
+1. **Verify Step 1 is complete** and detect the codebase type:
+   - **Frontend/full-stack**: check that the ThriveStack script tag is present in the root layout. If not found: STOP and tell the developer: "The ThriveStack script tag is missing from the root layout. Complete Step 1 first before running this prompt."
+   - **Backend/server-side** (Node.js API, Express, Python, Go, etc.): check that the HTTP helper file (e.g. `thrivestack.js`, `thrivestack.py`) and `THRIVESTACK_API_KEY` env var exist. If not found: STOP and tell the developer: "The ThriveStack HTTP helper is missing. Complete Step 1 first before running this prompt."
+   - If backend confirmed: read https://docs.thrivestack.ai/ai-setup/product/backend/calls.txt now, then continue with this guide — replace every `thriveStack.*([...])` SDK call with the `thrivestack('endpoint', [...])` helper pattern from that file, remove all `if (typeof thriveStack === 'undefined') return` guards, and add `"source": "product"` to every `context` block. Everything else in this guide applies unchanged.
 
 2. Locate `userId` and `groupId` — they were found in Step 1 but this is a new session. Identify them again quickly using the same search patterns as Step 1 (auth context, session, store). Do not ask the developer unless genuinely not found.
 

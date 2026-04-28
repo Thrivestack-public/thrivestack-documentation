@@ -1,0 +1,164 @@
+# ThriveStack Backend HTTP Helper
+# Hosted at: https://docs.thrivestack.ai/ai-setup/product/backend/calls.txt
+#
+# This is NOT a standalone guide.
+# Read this alongside a scoped instrumentation prompt (Step 1, 2, or 3).
+# It tells you how to make ThriveStack API calls from a backend/server-side codebase.
+# All event schemas, firing rules, and verification steps remain in the scoped prompt.
+
+---
+
+## WHEN TO USE THIS FILE
+
+Use this file when the codebase is **backend/server-side with no browser context**:
+Node.js API server, Express, Fastify, Python/Django/FastAPI/Flask, Go service,
+Ruby on Rails API, Java/Spring, or any server that runs outside a browser.
+
+Do NOT use this for frontend/full-stack apps that render in a browser — those use the
+script tag approach described in the scoped prompt directly.
+
+---
+
+## STEP 1 — STORE THE API KEY
+
+Store your API key as an environment variable. Never commit it to source code.
+
+Recommended name: `THRIVESTACK_API_KEY`
+
+Add to your environment file (`.env`, `.env.local`, `application.yml`, etc.):
+```
+THRIVESTACK_API_KEY=your_key_here
+```
+
+---
+
+## STEP 2 — CREATE THE HTTP HELPER
+
+Create this helper once in your codebase. Use it for every ThriveStack call.
+
+### Node.js / TypeScript
+```javascript
+// thrivestack.js (or thrivestack.ts)
+async function thrivestack(endpoint, payload) {
+  fetch(`https://api.app.thrivestack.ai/api/${endpoint}`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': process.env.THRIVESTACK_API_KEY
+    },
+    body: JSON.stringify(payload)
+  }).catch(() => {}) // fire-and-forget — never block the request
+}
+module.exports = { thrivestack }
+// ESM: export { thrivestack }
+```
+
+### Python
+```python
+# thrivestack.py
+import os, requests
+
+def thrivestack(endpoint, payload):
+    try:
+        requests.post(
+            f"https://api.app.thrivestack.ai/api/{endpoint}",
+            json=payload,
+            headers={"x-api-key": os.environ["THRIVESTACK_API_KEY"]},
+            timeout=3
+        )
+    except Exception:
+        pass  # fire-and-forget — never block the request
+```
+
+### Go
+```go
+// thrivestack/thrivestack.go
+package thrivestack
+
+import (
+    "bytes"
+    "encoding/json"
+    "net/http"
+    "os"
+)
+
+func Send(endpoint string, payload interface{}) {
+    data, _ := json.Marshal(payload)
+    req, _ := http.NewRequest("POST",
+        "https://api.app.thrivestack.ai/api/"+endpoint,
+        bytes.NewBuffer(data))
+    req.Header.Set("content-type", "application/json")
+    req.Header.Set("x-api-key", os.Getenv("THRIVESTACK_API_KEY"))
+    go http.DefaultClient.Do(req) // fire-and-forget — never block the request
+}
+```
+
+### Ruby
+```ruby
+# lib/thrivestack.rb
+require 'net/http'
+require 'json'
+
+def thrivestack(endpoint, payload)
+  Thread.new do
+    uri = URI("https://api.app.thrivestack.ai/api/#{endpoint}")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json', 'x-api-key' => ENV['THRIVESTACK_API_KEY'])
+    req.body = payload.to_json
+    http.request(req)
+  rescue
+    nil # fire-and-forget
+  end
+end
+```
+
+---
+
+## STEP 3 — CALL SYNTAX
+
+Every call in the scoped prompt uses the frontend SDK syntax:
+```javascript
+thriveStack.identify([{ ... }])
+thriveStack.group([{ ... }])
+thriveStack.track([{ ... }])
+```
+
+Replace each with the helper, and add `"source": "product"` to every `context` block:
+
+```javascript
+// Frontend SDK             →   Backend helper
+thriveStack.identify([{...}])  →  thrivestack('identify', [{...}])
+thriveStack.group([{...}])     →  thrivestack('group',    [{...}])
+thriveStack.track([{...}])     →  thrivestack('track',    [{...}])
+```
+
+Every `context` block must include `"source": "product"`:
+```javascript
+"context": { "group_id": groupId, "source": "product" }
+```
+
+Remove the `if (typeof thriveStack === 'undefined') return` guard — it is frontend-only and does not apply here.
+
+---
+
+## STEP 4 — VERIFY STEP 1 IS COMPLETE
+
+The scoped prompts check for the ThriveStack script tag to confirm Step 1 is done.
+In a backend codebase there is no script tag. Instead, confirm:
+- The HTTP helper file exists (e.g. `thrivestack.js`, `thrivestack.py`, `thrivestack.go`)
+- `THRIVESTACK_API_KEY` is present in the environment file
+- The helper is imported in the auth handler files
+
+If all three are present, Step 1 is complete — proceed.
+
+---
+
+## HARD RULES (backend-specific)
+
+1. API key from environment variable only — never in source code
+2. Helper is always fire-and-forget — never `await` or block on ThriveStack calls
+3. `"source": "product"` in every call's context block — always
+4. No guard clause needed — the `if (typeof thriveStack === 'undefined')` check is frontend-only, omit it
+5. Timestamps: Node `new Date().toISOString()` | Python `datetime.utcnow().isoformat()+'Z'` | Go `time.Now().UTC().Format(time.RFC3339)`
+6. When multiple events fire in the same handler, offset timestamps by 1ms: `new Date(now).toISOString()`, `new Date(now+1).toISOString()`, etc.

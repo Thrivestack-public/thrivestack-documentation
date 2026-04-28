@@ -25,9 +25,14 @@ Work through these phases in order. Do not write any code until Phase 0 is compl
 ### Phase 0 — Understand the codebase first
 
 1. Determine if the codebase is **frontend/full-stack** or **backend-only**:
-   - If it runs in a browser or has a frontend entry point (Next.js, React, Vue, Nuxt, Angular, Svelte, plain HTML), continue with this guide.
-   - If it is a **backend/server-side application with no browser context** (Node.js API server, Express, Fastify, Python/Django/FastAPI/Flask, Go service, Ruby on Rails API, etc.), **stop here** and use the backend guide instead:
-     → https://docs.thrivestack.ai/ai-setup/product/backend/llms.txt
+   - If it runs in a browser or has a frontend entry point (Next.js, React, Vue, Nuxt, Angular, Svelte, plain HTML), continue with this guide as written.
+   - If it is a **backend/server-side application with no browser context** (Node.js API server, Express, Fastify, Python/Django/FastAPI/Flask, Go service, Ruby on Rails API, etc.):
+     Read https://docs.thrivestack.ai/ai-setup/product/backend/calls.txt now, then continue with this guide.
+     Apply these two differences throughout:
+     - Replace every `thriveStack.identify/group/track([...])` call with the `thrivestack('identify/group/track', [...])` HTTP helper pattern from that file
+     - Replace every `if (typeof thriveStack === 'undefined') return` guard with nothing — that guard is frontend-only
+     - Add `"source": "product"` to every `context` block
+     Everything else in this guide — event schemas, firing order, questions to ask, verification checklist — applies unchanged.
 
 2. **STOP** and ask the developer all three questions in a single message. Do not ask them separately. Do not proceed until all three are answered.
    > "Before I start, I have three quick questions:
