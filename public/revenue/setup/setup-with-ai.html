@@ -176,6 +176,11 @@
 
                         <article class="doc-page-body">
 
+                            <blockquote>
+                                <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>
+                                <strong>Connect Subscription management first</strong> — MRR, ARR, churn, and expansion won't appear until it's active. Skip it only if you need invoice and transaction tracking alone.
+                            </blockquote>
+
                             <div style="padding: 10px 0 14px; border-bottom: 1px solid var(--border-color, #1e293b); margin-bottom: 24px;">
                                 <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted, #64748b); margin: 0 0 8px;">What you need</p>
                                 <div style="display: flex; flex-direction: column; gap: 5px;">
@@ -229,14 +234,23 @@
 
                                 <h2>Step 1: Connect your billing provider to ThriveStack</h2>
                                 <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 12px;">
-                                    Open the ThriveStack Revenue setup page and connect your Stripe or Chargebee account. This is a no-code step — it only takes a few clicks and does not require any code changes.
+                                    Open the Revenue setup page and pick a source type:
                                 </p>
+                                <ul style="color: var(--text-secondary, #cbd5e1); font-size: 14px; line-height: 1.9; margin: 0 0 16px; padding-left: 20px;">
+                                    <li><strong>Subscription management</strong> — Chargebee or Stripe Billing. Required for MRR, ARR, churn &amp; expansion metrics.</li>
+                                    <li><strong>Transactions &amp; invoices</strong> — Direct Stripe charges, API-pushed data, or CSV. Add after subscription management, or alone if you only need transaction tracking.</li>
+                                </ul>
+                                <blockquote>
+                                    <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>
+                                    <strong>Start with Subscription management</strong> — MRR/ARR metrics won't appear until it's connected. Skip it only if you need invoice and transaction tracking alone.<br>
+                                    <span style="display: block; margin-top: 6px; font-size: 13px; color: var(--text-secondary, #94a3b8);">Using Chargebee <em>and</em> Stripe? Configure both — Subscription management first, then Transactions &amp; invoices.</span>
+                                </blockquote>
                                 <a href="https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; padding: 10px 18px; border-radius: 8px; border: 1px solid #3b82f6; background: rgba(59,130,246,0.12); color: #60a5fa; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.15s;">
-                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Connect Billing Provider
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Set Up Revenue Connection
                                 </a>
                                 <blockquote>
                                     <i class="fa-solid fa-circle-info" style="margin-right: 4px;"></i>
-                                    <strong>Note:</strong> Come back to this page once the connection is active — the next step is to instrument your billing code.
+                                    <strong>Note:</strong> Come back once your first connection is active — next step is to instrument your billing code.
                                 </blockquote>
 
                                 <h2>Step 2: Copy the Prompt</h2>
