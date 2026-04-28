@@ -228,8 +228,16 @@
                                             <li>Click <strong>Tag Configuration</strong> and choose <strong>Custom HTML</strong></li>
                                             <li>Paste your ThriveStack script into the HTML field:
                                                 <div class="code-snippet">
-                                                    &lt;script src="https://cdn.app.thrivestack.ai/latest/script.js"<br>
-                                                    &nbsp; data-api-key="YOUR_API_KEY" data-source="marketing"&gt;&lt;/script&gt;
+                                                    &lt;script&gt;<br>
+                                                    &nbsp; (function() {<br>
+                                                    &nbsp;&nbsp;&nbsp; var script = document.createElement('script');<br>
+                                                    &nbsp;&nbsp;&nbsp; script.src = 'https://cdn.app.thrivestack.ai/latest/script.js';<br>
+                                                    &nbsp;&nbsp;&nbsp; script.setAttribute('data-api-key', 'YOUR_API_KEY');<br>
+                                                    &nbsp;&nbsp;&nbsp; script.setAttribute('data-source', 'marketing');<br>
+                                                    &nbsp;&nbsp;&nbsp; script.async = true;<br>
+                                                    &nbsp;&nbsp;&nbsp; document.head.appendChild(script);<br>
+                                                    &nbsp; })();<br>
+                                                    &lt;/script&gt;
                                                 </div>
                                             </li>
                                             <li>Name the tag <strong>ThriveStack — Marketing Script</strong></li>
