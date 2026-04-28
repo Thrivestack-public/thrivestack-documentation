@@ -1,0 +1,262 @@
+# ThriveStack Product Telemetry — Step 3 of 3: Feature Events
+# Version: 1.0
+# Hosted at: https://docs.thrivestack.ai/ai-setup/product/scoped/features/llms.txt
+
+---
+
+## PURPOSE
+
+This file gives AI coding assistants complete, executable instructions for instrumenting
+feature usage events with ThriveStack. This is Step 3 of 3.
+
+Events covered in this step:
+  feature_used — one event per confirmed feature action
+
+User/account lifecycle events are covered in Step 1.
+Onboarding events are covered in Step 2.
+All event schemas are non-exhaustive. Additional properties beyond those listed are always allowed.
+
+---
+
+## HOW TO USE THIS GUIDE
+
+Work through these phases in order. Do not write any code until Phase 0 is complete.
+
+### Phase 0 — Understand the codebase first
+
+1. **Verify Step 1 is complete.** Check that the ThriveStack script tag is present in the root layout.
+   - If not found: STOP. Tell the developer:
+     > "The ThriveStack script tag is missing from the root layout. Complete Step 1 before running this prompt."
+   - If found: proceed.
+
+2. Locate `userId` and `groupId` — identify them quickly using auth context, session, or store patterns. Do not ask the developer unless genuinely not found.
+
+3. **STOP** and ask about EU compliance before exploring features:
+   > "Do you have **European customers**? If yes, I'll instrument in EU compliance mode — user PII (email, name) will be excluded from all events globally."
+
+   Apply answer:
+   - EU yes → activate EU compliance mode (see EU COMPLIANCE MODE section)
+   - EU no → send all fields as documented
+
+4. Scan the codebase for instrumentable feature actions. Look for:
+   - Button click handlers that trigger a core product action
+   - Form submissions that create, edit, or delete a key entity
+   - API calls that represent meaningful product usage
+   - Functions named with action verbs: `create*`, `export*`, `publish*`, `send*`, `run*`, `connect*`, `configure*`
+   - Event handlers on primary CTAs
+
+   Focus on actions that represent value delivery — things a user does to get the core benefit of the product. Skip navigation, settings reads, and purely administrative actions.
+
+   If no instrumentable actions found: STOP. Tell the developer:
+   > "I couldn't identify clear feature actions in this repository. Share the component or file where your core product interactions happen and I'll instrument those."
+
+   If feature code lives in a different repo: note it in the summary and tell the developer to run this prompt there.
+
+5. For each feature found, propose a `feature_name` in `[noun]_[verb]` snake_case and infer a recommended `feature_type` based on what the feature does:
+   - **core** — clearly the primary value the product delivers; why users signed up
+   - **sticky** — users return to this regularly; habit-forming
+   - **support** — administrative or operational; raises switching cost
+
+   **STOP** and present your recommendations to the developer. Ask exactly:
+   > "I found these feature actions. I've suggested a name and type for each — please confirm or correct before I write any code:
+   >
+   > | Feature | Proposed name | Recommended type | Reason |
+   > |---------|--------------|-----------------|--------|
+   > | [what it does] | [noun_verb] | core / sticky / support | [one-line reason] |
+   >
+   > Reply with any corrections, or 'looks good' to proceed."
+
+   Do not write any `feature_used` calls until the developer has confirmed. If the developer corrects a type or name, update your list and confirm before proceeding.
+
+### Phase 1 — Instrument feature events
+Write one `track()` call per confirmed feature action. Follow the EVENT SCHEMA exactly.
+
+### Phase 2 — Verify then summarise
+Run through the VERIFICATION CHECKLIST. Fix anything missing. Output the summary table.
+After the summary is printed, proceed to Phase 3. Do not make any further code edits.
+
+### Phase 3 — Live verification
+Prompt the developer to verify events are flowing. See PHASE 3 section.
+
+---
+
+**REQUIRED OUTPUT FORMAT — strictly follow this, no exceptions.**
+Do NOT write a narrative summary. Do NOT describe what you did in prose.
+After instrumentation is complete, output the table below inline in the chat, then immediately proceed to Phase 3 — do not stop after the table.
+
+```
+ThriveStack Instrumentation Summary — Step 3: Feature Events
+X features instrumented
+
+| Feature Name | Type | Status | File |
+|-------------|------|--------|------|
+| [feature_name] | core/sticky/support | ✅/⚠️/❌ | file |
+| ... | | | |
+
+User ID: [field] in [file]
+Group ID: [field] in [file]
+EU compliance: active / N/A
+Missing from this repo: [or "None"]
+Unresolved: [or "None"]
+```
+
+---
+
+## EU COMPLIANCE MODE
+
+Activate when the developer confirms they have European customers. Apply globally.
+
+Strip from every `track()` call:
+- `user_email` — remove
+- `user_name` — remove
+
+Keep: `user_id`, `group_id`, `feature_name`, `feature_type`, `user_role` — not personal data.
+
+---
+
+## EVENT SCHEMA
+
+### feature_used
+
+When: User performs a core product action.
+
+Rules:
+- `event_name` is ALWAYS the literal string `"feature_used"` — never a custom verb
+- `feature_name` is always `[noun]_[verb]` snake_case (e.g. `report_exported`, `pipeline_created`, `document_published`)
+- `feature_type` must be confirmed with the developer — never assumed
+
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.track([{
+  "event_name": "feature_used",
+  "user_id": userId,
+  "properties": {
+    "user_email": user.email,      // omit in EU mode
+    "user_name": user.name,        // omit in EU mode
+    "feature_name": "report_exported",
+    "feature_type": "core",        // "core" | "sticky" | "support"
+    "user_role": user.role         // omit if unavailable
+  },
+  "context": { "group_id": groupId },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+Where to place it:
+- Inside the action handler, after the action succeeds
+- If the action is async (API call), fire inside `.then()` or after `await`
+- Never on render, never on page load, never on hover
+
+---
+
+## VERIFICATION CHECKLIST
+
+Before delivering the summary, verify all points. Fix anything missing first.
+
+- [ ] Script tag still present in root layout — confirm not removed during this session
+- [ ] Every `feature_used` call uses the literal string `"feature_used"` as `event_name` — never a custom verb
+- [ ] Every `feature_name` is `[noun]_[verb]` snake_case — no verbs as event_name, no generic names
+- [ ] Every `feature_type` matches what the developer confirmed — never assumed
+- [ ] `context.group_id` present on every call
+- [ ] Events fire after the action succeeds — not on render, not on page load
+- [ ] EU mode: if active, confirm `user_email` and `user_name` are absent from every call
+
+---
+
+## PHASE 3 — VERIFY EVENTS ARE FLOWING
+
+This phase is mandatory. Do not skip it. Do not print a completion message before running this phase.
+
+Determine whether you have the capability to open a browser and inspect network requests. Then **STOP** and ask the developer, exactly:
+> "Instrumentation is complete. How would you like to verify that feature events are reaching ThriveStack?
+> - **(a) Manual Testing** — Run your app, open the browser Network tab, filter for `thrivestack`, use each instrumented feature, and confirm a POST request fires for each at `api.app.thrivestack.ai/api/track`
+> - **(b) AI Enabled Testing** — Open your app and I will use each feature and validate the events for you"
+
+Only include option **(b)** if you have the capability to open a browser and inspect network requests.
+Do not proceed until the developer has answered.
+
+**If (a) — Manual Testing:**
+1. Start the app and open it in a browser
+2. Open DevTools → Network tab → filter by `thrivestack`
+3. Use each instrumented feature one by one
+4. Confirm a POST fires for each at `api.app.thrivestack.ai/api/track`
+5. Verify payload contains `event_name: "feature_used"`, correct `feature_name`, `feature_type`, `user_id`, and `context.group_id`
+
+If anything is missing: ask for the failing request details, cross-reference against this guide, fix, and re-verify.
+
+**If (b) — AI Enabled Testing:**
+1. Ask for the local dev URL
+2. Open the app and exercise each instrumented feature
+3. Confirm correct payloads fire for each
+4. Fix any issues and re-verify
+
+After verification is complete, print the following:
+
+```
+Step 3 complete. All three instrumentation steps are done.
+
+Your product telemetry is now fully instrumented with ThriveStack.
+
+Next steps:
+- View your events: https://app.thrivestack.ai/analyze/events
+- Explore analytics: https://app.thrivestack.ai/analyze/home
+- Check setup progress: https://app.thrivestack.ai/analyze/onboarding/product-analytics/telemetry
+- Run diagnostics: https://app.thrivestack.ai/analyze/diagnostics-report
+```
+
+---
+
+## HARD RULES
+
+1. Script src must be exactly `https://cdn.app.thrivestack.ai/latest/script.js` — verify it is still present and unchanged
+2. Global object: `thriveStack` — never `ThriveStack` or `thrivestack`
+3. Every method takes an array: `track([{...}])`
+4. Guard every call: `if (typeof thriveStack === 'undefined') return`
+5. timestamp: `new Date().toISOString()` on every call
+6. `context.group_id` required on every `track()` call
+7. `event_name` is always the literal string `"feature_used"` — never a custom verb
+8. `feature_type` confirmed with developer — always propose a recommendation with reasoning, never demand the developer classify from scratch. Never write a `feature_used` call until the developer has confirmed the full list.
+9. `feature_name` is always `[noun]_[verb]` snake_case
+10. userId and groupId from auth context only — never hardcode, never generate
+11. Fire-and-forget — never `await` thriveStack calls
+12. Fire after action succeeds — inside `.then()` or after `await`, never on render
+13. Do not reinstall the script tag — it was added in Step 1
+14. Stop after the summary — do not fix bugs, refactor, or make any changes outside of ThriveStack instrumentation
+15. EU compliance is global — when active, strip `user_email` and `user_name` from every call without exception
+
+---
+
+## CRITICAL MISTAKES
+
+WRONG — custom event_name instead of feature_used:
+```javascript
+thriveStack.track([{ "event_name": "report_exported" }])
+```
+RIGHT:
+```javascript
+thriveStack.track([{ "event_name": "feature_used", "properties": { "feature_name": "report_exported", "feature_type": "core" } }])
+```
+
+WRONG — feature_type assumed without asking:
+```javascript
+thriveStack.track([{ "event_name": "feature_used", "properties": { "feature_name": "sso_configured", "feature_type": "core" } }])
+```
+RIGHT — always confirm with developer first:
+```javascript
+// Developer confirmed feature_type: "support"
+thriveStack.track([{ "event_name": "feature_used", "properties": { "feature_name": "sso_configured", "feature_type": "support" } }])
+```
+
+WRONG — firing on render:
+```javascript
+useEffect(() => {
+  thriveStack.track([{ "event_name": "feature_used", "properties": { "feature_name": "dashboard_viewed" } }])
+}, [])
+```
+RIGHT — fire on the action, not the render:
+```javascript
+function handleExportReport() {
+  exportReport()
+  thriveStack.track([{ "event_name": "feature_used", "properties": { "feature_name": "report_exported", "feature_type": "core" } }])
+}
+```

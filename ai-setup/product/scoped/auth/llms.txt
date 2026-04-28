@@ -1,0 +1,950 @@
+# ThriveStack Product Telemetry — Step 1 of 3: User & Account Events
+# Version: 1.0
+# Hosted at: https://docs.thrivestack.ai/ai-setup/product/scoped/auth/llms.txt
+
+---
+
+## PURPOSE
+
+This file gives AI coding assistants complete, executable instructions for instrumenting
+user and account lifecycle events with ThriveStack. This is Step 1 of 3.
+
+Events covered in this step:
+  identify, group, signed_up, signed_in, signed_out,
+  account_created, account_added_user, invite_sent, abuse check (optional)
+
+Onboarding events and feature events are covered in Steps 2 and 3.
+All event schemas are non-exhaustive. Additional properties beyond those listed are always allowed.
+
+---
+
+## HOW TO USE THIS GUIDE
+
+Work through these phases in order. Do not write any code until Phase 0 is complete.
+
+### Phase 0 — Understand the codebase first
+
+1. Determine if the codebase is **frontend/full-stack** or **backend-only**:
+   - If it runs in a browser or has a frontend entry point (Next.js, React, Vue, Nuxt, Angular, Svelte, plain HTML), continue with this guide.
+   - If it is a **backend/server-side application with no browser context** (Node.js API server, Express, Fastify, Python/Django/FastAPI/Flask, Go service, Ruby on Rails API, etc.), **stop here** and use the backend guide instead:
+     → https://docs.thrivestack.ai/ai-setup/product/backend/llms.txt
+
+2. **STOP** and ask the developer all three questions in a single message. Do not ask them separately. Do not proceed until all three are answered.
+   > "Before I start, I have three quick questions:
+   >
+   > **1.** Does your app have **accounts or organizations** that multiple users can belong to (B2B), or is each user their own independent account with no shared org/account entity (B2C)?
+   >
+   > **2.** Do you have **European customers**? If yes, I'll instrument in EU compliance mode — user PII (email, name) will be excluded from all events globally, and group/account data will still be sent.
+   >
+   > **3.** During signup, do you want to check for abusive or disposable email addresses?
+   > - **(a) Block** — prevent the signup and show an error message
+   > - **(b) Flag** — allow signup but mark the user for manual review
+   > - **(c) Skip** — do not implement abuse checking"
+
+   Apply answers as follows:
+   - B2B → proceed with full group hierarchy search (STEP 2)
+   - B2C → skip hierarchy search, use B2C fallback directly (see STEP 2)
+   - EU customers yes → activate EU compliance mode (see EU COMPLIANCE MODE section)
+   - EU customers no → send all fields as documented
+   - Abuse (c) → omit `checkAbuseEmail` entirely and mark row 9 as N/A in the summary
+
+4. Search the codebase for auth handlers: signup/registration, login, logout, and invite flows.
+   Then apply the following rule:
+   - **None found**: STOP. Tell the developer exactly:
+     > "I couldn't find signup, login, or logout handlers in this repository. Your auth code may live in a different repo. Run this same prompt in the repo where those handlers are, then return here if the main app also reads userId or groupId."
+   - **Some but not all found**: Instrument what is present. For each flow not found, note in the summary: "not in this repo — run prompt there."
+   - **All found**: proceed.
+
+5. Identify the tech stack, auth library, and state management.
+6. Find `userId` — see STEP 2 for search patterns and rules.
+7. Find `groupId` — only if B2B; see STEP 2 for hierarchy, search patterns, and fallbacks.
+
+### Phase 1 — Install the script tag
+Add once to the root layout. Follow STEP 1 exactly for the detected framework.
+
+### Phase 2 — Instrument lifecycle events
+Follow the FIRING ORDER section exactly for each flow found.
+
+### Phase 3 — Verify then summarise
+Run through the VERIFICATION CHECKLIST. Fix anything missing. Then output the summary table.
+After the summary is printed, proceed to Phase 4. Do not make any further code edits.
+
+### Phase 4 — Live verification
+Prompt the developer to verify events are flowing. See PHASE 4 section for the exact prompt and steps.
+
+---
+
+**REQUIRED OUTPUT FORMAT — strictly follow this, no exceptions.**
+Do NOT write a narrative summary. Do NOT output a "Summary of Changes" section. Do NOT describe what you did in prose.
+After instrumentation is complete, output the table below inline in the chat, then immediately proceed to Phase 4 — do not stop after the table.
+
+```
+ThriveStack Instrumentation Summary — Step 1: User & Account Events
+X/11 implemented
+
+| # | Event | Status | Notes |
+|---|-------|--------|-------|
+| 0  | script tag | ✅/⚠️/❌ | Exact src used |
+| 1  | identify | ✅/⚠️/❌ | Field used, file |
+| 2  | group | ✅/⚠️/❌ | Entity levels, billing root, file |
+| 3  | signed_up | ✅/⚠️/❌ | Handler, file |
+| 4  | signed_in | ✅/⚠️/❌ | Handler, file |
+| 5  | signed_out | ✅/⚠️/❌ | Handler, file |
+| 6  | account_created | ✅/⚠️/❌ | Handler, file or N/A |
+| 7  | account_added_user | ✅/⚠️/❌ | Entry points covered |
+| 8  | invite_sent | ✅/⚠️/❌ | Handler, file or N/A |
+| 9  | abuse_check | ✅/⚠️/❌ | block / flag / N/A |
+| 10 | EU compliance | ✅ active / ➖ N/A | PII stripped / hash applied / not applicable |
+
+User ID: [field] in [file]
+Group hierarchy: [e.g. Organization → Account (billing root) → Workspace] or [B2C fallback]
+Missing from this repo: [list events not found with reason, or "None"]
+Unresolved: [anything skipped and why, or "None"]
+```
+
+---
+
+## STEP 1 — INSTALL THE SCRIPT TAG
+
+This is the ONLY initialization method. There is no npm package. There is no init() call.
+
+Add once to the root layout file. Never inside a component or page.
+
+### Next.js App Router (app/layout.tsx)
+```tsx
+import Script from 'next/script'
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <head>
+        <Script
+          src="https://cdn.app.thrivestack.ai/latest/script.js"
+          strategy="afterInteractive"
+          api-key={process.env.NEXT_PUBLIC_THRIVESTACK_API_KEY}
+          data-source="product"
+        />
+      </head>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+### React (public/index.html)
+```html
+<script
+  src="https://cdn.app.thrivestack.ai/latest/script.js"
+  api-key="%REACT_APP_THRIVESTACK_API_KEY%"
+  source="product">
+</script>
+```
+
+### Vue / Nuxt / Plain HTML
+```html
+<script
+  src="https://cdn.app.thrivestack.ai/latest/script.js"
+  api-key="YOUR_ENV_VAR_HERE"
+  source="product">
+</script>
+```
+
+Rules:
+- Write the API key to the environment variable file appropriate for this stack (.env, .env.local, application.yml, etc.) — never in source code
+- `api-key` must reference that environment variable — never hardcoded
+- `source="product"` — always this exact string, never change it
+- Global object after load: `thriveStack` — camelCase, lowercase 's'
+- Place in root layout ONCE only
+
+---
+
+## STEP 2 — FIND userId AND groupId
+
+### userId
+Must be a stable unique identifier that does not change across sessions.
+May be a UUID, integer, or any format the auth provider uses.
+Prefer a stable unique ID over email. Email is acceptable as `user_id` if it is the only stable identifier available — use it without blocking.
+
+Search patterns:
+```javascript
+const { user } = useAuth()               → user.id
+const session = useSession()             → session.user.id
+useContext(AuthContext)                  → context.user.id
+const { userId } = auth()               → userId  (Clerk)
+store.auth.user.id                       → (Redux/Zustand)
+claims.sub, claims.user_id              → (JWT)
+```
+
+If no stable identifier found — stop and ask:
+> "What field uniquely identifies a user in your database — their ID, not their email?"
+
+---
+
+### groupId — Entity Hierarchy
+
+Account is always mandatory — it is the billing/contractual root entity.
+All other levels are additional and each gets its own `group()` call.
+
+Default hierarchy:
+```
+Organization   (brand/company umbrella)
+  └── Account  ← MANDATORY — billing root
+        └── Tenant
+              └── Workspace
+                    └── Team
+```
+
+This is a default — if the developer confirms a different entity is their billing root,
+treat that as Account regardless of what it is called in code.
+
+Search patterns:
+```
+AUTH CONTEXT:
+  user.accountId / user.account.id
+  user.orgId / user.organizationId / user.organization.id
+  user.tenantId / user.workspaceId / user.companyId
+  session.organization.id / session.account.id
+
+JWT CUSTOM CLAIMS:
+  claims.org_id / claims.account_id / claims.tenant_id
+  claims['https://yourapp.com/org_id']   ← Auth0 pattern
+
+STORE (Redux/Zustand/Pinia):
+  store.currentOrg.id / store.activeWorkspace.id
+  useOrganization().organization.id
+
+POST-LOGIN API RESPONSE:
+  loginResponse.organization.id / meResponse.current_organization.id
+
+URL PARAMS:
+  /app/:accountId / /org/:orgId / /workspace/:workspaceId
+  Note: if only in URL params, ask developer if always available
+```
+
+B2C / no-org fallback:
+In B2C there is no account entity — each user is their own "account". There is no `account_created` event.
+`group()` fires in the same handler as `signed_up`, registering the user themselves as the group.
+
+```javascript
+group_id       = user.id         // same as userId
+account_name   = user.name       // user's full name
+account_domain = user.email      // full email address — not just the domain part
+// omit plan_id and plan_name entirely
+```
+`group()` fires once at first registration — never again.
+
+Stop and ask if:
+- No org-like field found after exhaustive search
+- Multiple top-level entities exist and billing root is unclear
+- groupId only in URL params and may not always be available
+
+Never proceed without groupId. Never generate a fake ID.
+
+### Storing groupId for use across handlers
+
+Once you identify where `groupId` (the Account-level ID) comes from, store it in a variable that is accessible from all auth handlers — not just the signup handler.
+
+Common patterns:
+```javascript
+// Module-level variable updated after login/signup
+let groupId = null
+
+async function handleSignup() {
+  const { user, org } = await auth.signUp(...)
+  groupId = org.id   // ← store here
+  // ... thriveStack calls use groupId
+}
+
+async function handleLogin() {
+  const { user, org } = await auth.signIn(...)
+  groupId = org.id   // ← update here
+  // ... thriveStack.track([{ ..., "context": { "group_id": groupId } }])
+}
+
+async function handleLogout() {
+  // groupId is still in scope — use it before clearing
+  thriveStack.track([{ "event_name": "signed_out", ..., "context": { "group_id": groupId } }])
+  groupId = null
+}
+```
+
+If `groupId` comes from a React context, Redux store, or session object, read it from there in every handler — do not assume it flows automatically. Confirm it resolves to a non-null value before firing any `track()` call.
+
+### Context switching
+When user switches active workspace/tenant/org:
+- Do NOT re-fire `group()`
+- Update `context.group_id` to the new entity's ID for all subsequent `track()` calls
+
+---
+
+## STEP 3 — identify()
+
+`identify()` registers the user's identity with ThriveStack. It is the user equivalent of `group()` — it tells ThriveStack who this user is.
+
+Fire it:
+- **On signup** — when the user is first created
+- **On login** — to re-establish the user's identity for the session
+
+That is all that is required. Profile updates are optional: if more user information becomes available later (e.g. the user completes their profile), you may fire `identify()` again to update their traits in ThriveStack. But this is not required — its absence must never cause a warning or ⚠️ in the summary.
+
+`user_id` is always mandatory. Send whatever traits are known at the time.
+
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.identify([{
+  "user_id": userId,
+  "traits": {
+    "user_email": user.email,    // omit in EU mode
+    "user_name": user.name       // omit in EU mode
+  },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+## STEP 4 — group()
+
+`group()` registers the identity of a group entity with ThriveStack. It is the group equivalent of `identify()` for users.
+
+Fire it wherever a new group entity is **created** in the codebase — not on login, not on context switch, not on invite acceptance.
+
+- **Account** is mandatory — ThriveStack reports and metrics run at Account level. If you find no other entity levels, at minimum instrument the Account.
+- **All other levels** (Organization, Tenant, Workspace, Team, BU, etc.) are optional. Instrument any you find, each with its own `group()` call and the appropriate `group_type`.
+- One `group()` call per entity level found. Each gets its own `group_type`.
+
+### Account (mandatory)
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.group([{
+  "user_id": userId,
+  "group_id": account.id,
+  "traits": {
+    "group_type": "Account",
+    "account_domain": account.domain,
+    "account_name": account.name,
+    "plan_id": account.plan?.id,      // omit if unavailable
+    "plan_name": account.plan?.name   // omit if unavailable
+  },
+  "context": {
+    "group_id": account.id,           // must match group_id exactly
+    "group_type": "Account"
+  },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+### Additional levels (same signature, change group_type and ID)
+```javascript
+thriveStack.group([{
+  "user_id": userId,
+  "group_id": org.id,
+  "traits": {
+    "group_type": "Organization",     // "Organization"|"Tenant"|"Workspace"|"Team"|"BU" etc.
+    "account_domain": org.domain,
+    "account_name": org.name
+  },
+  "context": { "group_id": org.id, "group_type": "Organization" },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+`"Account"` is reserved for the billing root only.
+
+---
+
+## STEP 5 — TRACK EVENTS
+
+### Base signature
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.track([{
+  "event_name": "event_name_here",
+  "user_id": userId,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name
+  },
+  "context": { "group_id": groupId },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+## EVENT SCHEMAS
+
+### signed_up
+When: New user registration completes.
+Context: Include if groupId available. Omit if account doesn't exist yet.
+
+```javascript
+thriveStack.track([{
+  "event_name": "signed_up",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "utm_source": getUTMParam('utm_source'),
+    "utm_medium": getUTMParam('utm_medium'),
+    "utm_campaign": getUTMParam('utm_campaign'),
+    "utm_term": getUTMParam('utm_term')
+  },
+  "context": { "group_id": user.orgId },   // omit if not yet available
+  "timestamp": new Date().toISOString()
+}])
+
+function getUTMParam(param) {
+  return new URLSearchParams(window.location.search).get(param)
+    || sessionStorage.getItem(param)
+    || null
+}
+```
+
+---
+
+### signed_in
+When: Existing user logs in successfully.
+No UTM params. `context` is mandatory — groupId is always available at login.
+
+```javascript
+thriveStack.track([{
+  "event_name": "signed_in",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "user_role": user.role    // omit if unavailable
+  },
+  "context": { "group_id": groupId },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### signed_out
+When: Existing user logs out.
+`context` is mandatory — groupId is available at logout.
+
+```javascript
+thriveStack.track([{
+  "event_name": "signed_out",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "user_role": user.role    // omit if unavailable
+  },
+  "context": { "group_id": groupId },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### account_created
+When: A new account is first created in the app. Do not fire if a user is joining an existing account.
+
+`account_created` is the lifecycle event — it tells ThriveStack *when* this happened.
+`group()` is the identity call — it tells ThriveStack *who* this account is.
+
+When you find where `account_created` fires, also call `group()` in the same handler before it — because this is where the account entity comes into existence and ThriveStack needs to learn its identity at that same moment.
+
+```javascript
+if (typeof thriveStack === 'undefined') return
+const now = Date.now()
+
+// Register the account's identity with ThriveStack
+thriveStack.group([{
+  "user_id": userId,
+  "group_id": org.id,
+  "traits": {
+    "group_type": "Account",
+    "account_domain": org.domain,
+    "account_name": org.name,
+    "plan_id": org.plan?.id,      // omit if unavailable
+    "plan_name": org.plan?.name   // omit if unavailable
+  },
+  "context": { "group_id": org.id, "group_type": "Account" },
+  "timestamp": new Date(now).toISOString()
+}])
+
+// Track the account creation event
+thriveStack.track([{
+  "event_name": "account_created",
+  "user_id": user.id,
+  "properties": {
+    "account_id": org.id,
+    "account_name": org.name,
+    "account_domain": org.domain,
+    "user_email": user.email,     // omit in EU mode
+    "user_name": user.name,       // omit in EU mode
+    "plan_name": org.plan?.name   // omit if unavailable
+  },
+  "context": { "group_id": org.id },
+  "timestamp": new Date(now + 1).toISOString()
+}])
+
+// The creator is automatically the first member — always fire account_added_user here
+thriveStack.track([{
+  "event_name": "account_added_user",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,     // omit in EU mode
+    "user_name": user.name,       // omit in EU mode
+    "account_id": org.id,
+    "account_name": org.name,
+    "account_domain": org.domain,
+    "role": user.role,
+    "join_method": "signup",
+    "is_first_user": true
+  },
+  "context": { "group_id": org.id },
+  "timestamp": new Date(now + 2).toISOString()
+}])
+```
+
+---
+
+### account_added_user
+When: A user joins an account for the first time, by any method.
+
+This event is independent of `signed_up` — there is no fixed order between them:
+- **New account created during signup**: the creator is automatically the first member. Fire `account_added_user` in the same handler as `account_created`, immediately after it. This is the mandatory minimum — if `account_created` is instrumented, `account_added_user` must be there too.
+- In enterprise B2B: an admin may add a user to an account before that user has ever signed up — `account_added_user` fires first, `signed_up` fires later when the user activates
+- In SSO/SCIM: the user may be provisioned with no `signed_up` event at all
+
+This event can live in the frontend, backend, or both depending on how the app handles membership. It may also live in a different repo from the signup/login code. Search broadly:
+- Frontend: post-signup flows, invite acceptance handlers, onboarding completion
+- Backend: user provisioning endpoints, SCIM handlers, admin APIs, webhook handlers for SSO
+
+Do NOT fire if the user is already a member of the account.
+
+`join_method` values:
+- `"signup"` — user created the account themselves
+- `"invite"` — user accepted an invitation
+- `"sso"` — provisioned via SSO
+- `"scim"` — provisioned via SCIM
+- `"admin"` — added directly by an admin
+
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.track([{
+  "event_name": "account_added_user",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "user_name": user.name,
+    "account_id": org.id,
+    "account_name": org.name,
+    "account_domain": org.domain,
+    "role": user.role,
+    "join_method": "signup",      // "signup"|"invite"|"sso"|"scim"|"admin"
+    "is_first_user": true         // true only if this user is the account's first member
+  },
+  "context": { "group_id": org.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+If `account_added_user` handlers exist in a different repo, note it in the summary and tell the developer to run this prompt there.
+
+---
+
+### invite_sent
+This event is optional — not all products have an invite flow. If no invite functionality is found in this repo, mark row 8 as N/A.
+
+It may also live in a different repo (e.g. a separate team management service). If that's the case, note it in the summary.
+
+When: A user sends a team invitation to another person.
+Search for: `inviteUser` `sendInvite` `inviteTeamMember` — forms or handlers with email + role fields.
+All properties beyond `user_email` and `invitee_email` are send-if-available.
+
+```javascript
+thriveStack.track([{
+  "event_name": "invite_sent",
+  "user_id": user.id,
+  "properties": {
+    "user_email": user.email,
+    "invitee_email": invitee.email,
+    "invitee_role": invitee.role,
+    "invitee_role_id": invitee.roleId,
+    "invitee_user_id": invitee.userId,
+    "invitee_team_id": invitee.teamId,
+    "invitee_team": invitee.teamName,
+    "source_url": window.location.href
+  },
+  "context": { "group_id": org.id },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+---
+
+### checkAbuseEmail — Abuse Prevention
+When: Before signup form submission completes.
+Prerequisites: ThriveStack SDK script tag installed (STEP 1).
+
+Use the answer from Phase 0 step 3 (block / flag / skip). If skip was chosen, omit this section entirely.
+
+Place after the email input field and just before signup submission:
+
+```javascript
+if (typeof thriveStack === 'undefined') return
+const checkAbuse = await thriveStack.checkAbuseEmail(userEmail)
+if (checkAbuse.success && checkAbuse.data.isAbuse === 1) {
+  // BLOCK path — prevent form submission and show error
+  showError(checkAbuse.message)
+
+  // FLAG path — allow signup but mark for review (use instead of block above)
+  // flagUserForReview(userEmail, checkAbuse.data.reasonForAbuse)
+}
+```
+
+Note: `await` is intentional here — this is a data check that gates the flow, not a fire-and-forget event.
+
+`reasonForAbuse` fields: `isDisposable` (throwaway email provider), `domainExists` (false = domain not found), `isDuplicate` (email already seen in system).
+
+---
+
+## EU COMPLIANCE MODE
+
+Activate this mode when the developer confirms they have European customers. Apply globally — do not attempt per-user detection.
+
+### What to strip from every call
+
+| Field | Action |
+|---|---|
+| `user_email` | Remove from all `identify()`, `track()`, and `group()` calls |
+| `user_name` | Remove from all `identify()`, `track()`, and `group()` calls |
+| `invitee_email` | Remove from `invite_sent` |
+| `account_name`, `account_id` | Keep — business data, not personal |
+| `account_domain` | **Keep in B2B** — it is the company's business domain (e.g. `"acme.com"`), not personal data. **Strip in B2C** — in B2C mode `account_domain = user.email`, which is personal data; remove it in that case |
+| `user_role`, `join_method`, UTM params | Keep — not personal data |
+| `source_url` | Leave as developer's responsibility |
+
+### user_id when it is an email address
+
+If the only stable identifier available is the user's email (B2C fallback or no ID field found), hash it with SHA-256 before using it as `user_id`. The hash is consistent — same email always produces the same hash — so ThriveStack can track the same user across sessions without storing the raw email.
+
+Add this helper once, near your auth utilities:
+
+```javascript
+async function anonymiseUserId(email) {
+  const encoded = new TextEncoder().encode(email.toLowerCase().trim())
+  const hashBuffer = await crypto.subtle.digest('SHA-256', encoded)
+  return Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('')
+}
+```
+
+Compute the hash once where you first obtain the user object, store it in a variable, then use that variable in all `thriveStack` calls. Do not call `anonymiseUserId` inline inside each thriveStack call.
+
+```javascript
+// Compute once at login/signup
+const userId = await anonymiseUserId(user.email)
+
+// Then use userId everywhere — no raw email in any thriveStack call
+thriveStack.identify([{ "user_id": userId, "traits": {}, "timestamp": new Date().toISOString() }])
+```
+
+If the user_id is a UUID, integer, or any non-email stable ID — it is not PII. Send it as-is, no hashing needed.
+
+### EU mode summary row
+
+Add a row to the summary table output:
+
+```
+| EU | compliance mode | ✅ active / ➖ not applicable | PII stripped / hash applied if email-based ID |
+```
+
+---
+
+## FIRING ORDER
+
+`signed_up` and `account_added_user` are independent events — instrument each where it happens in the code. There is no fixed order between them. In enterprise B2B, `account_added_user` can precede `signed_up` (admin provisions the user first; user activates later). Do not force an order that doesn't match the codebase.
+
+### Self-service signup — new account created
+```
+identify → group(Account) → [group(other levels if found)] → account_created → account_added_user
+signed_up fires in the same signup handler, at the point registration completes
+```
+
+### Self-service signup — B2C (no account entity)
+```
+identify → group(userId as group_id) → signed_up
+```
+
+### Login
+```
+identify → signed_in
+```
+
+### Logout
+```
+signed_out
+```
+
+### User invited — accepts invite and signs up for the first time
+```
+identify → signed_up → account_added_user
+(account_added_user fires at invite acceptance, not at invite send)
+```
+
+### User invited — already has an account, joins a new one
+```
+identify → signed_in → account_added_user
+```
+
+### User invited — already a member of this account
+```
+No events.
+```
+
+### Admin adds user / SSO / SCIM provisioning
+```
+account_added_user
+(signed_up may fire later when the user activates — instrument it where activation happens)
+```
+
+---
+
+## VERIFICATION CHECKLIST
+
+Before delivering the summary, verify all 10 points. Fix anything missing first.
+
+- [ ] 0. script tag — src is exactly `https://cdn.app.thrivestack.ai/latest/script.js` — no variation, no substitution. Known wrong URLs to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
+- [ ] 1. identify — fires on signup and login. Profile update calls are optional — do not mark ⚠️ if no profile update handler exists.
+- [ ] 2. group — open the file where the account entity is created and confirm `thriveStack.group()` with `group_type: "Account"` is physically present there. Do not mark ✅ based on reasoning — verify the call exists in the file. If absent, add it. Also confirm any additional entity levels (Org, Workspace, etc.) found have their own `group()` calls.
+- [ ] 3. signed_up — correct flow, UTM captured
+- [ ] 4. signed_in — fires on every login, context block present
+- [ ] 5. signed_out — fires on logout, context block present
+- [ ] 6. account_created — only when new account actually created
+- [ ] 7. account_added_user — if account_created is instrumented, open that same handler and confirm account_added_user fires immediately after it with join_method: "signup" and is_first_user: true. This is the mandatory minimum. Other entry points (invite, SSO, admin) are additional — note their absence but do not fail the row if only the signup case is missing from other repos.
+- [ ] 8. invite_sent — all invite handlers found
+- [ ] 9. abuse_check — if chosen: checkAbuseEmail called before signup submission, block or flag implemented; if skipped: mark N/A
+- [ ] 10. EU compliance — if active: scan every thriveStack call in the codebase and confirm no `user_email` or `user_name` field is present anywhere. Confirm `invitee_email` is absent from invite_sent. If user_id was email-based, confirm `anonymiseUserId` is applied. If B2C mode is active, also confirm `account_domain` is absent from all calls (it equals user.email in B2C and is PII). If B2B mode is active, `account_domain` should be present — confirm it was not accidentally stripped. If not active: mark ➖ N/A.
+
+---
+
+## PHASE 4 — VERIFY EVENTS ARE FLOWING
+
+This phase is mandatory. Do not skip it. Do not print a completion message before running this phase.
+
+Determine whether you have the capability to open a browser and inspect network requests. Then **STOP** and ask the developer, exactly:
+> "Instrumentation is complete. How would you like to verify that events are reaching ThriveStack?
+> - **(a) Manual Testing** — Run your app, open the browser Network tab, filter for `thrivestack`, and look for POST requests to `api.app.thrivestack.ai` — you should see `identify`, `group`, and `track` calls with your user data
+> - **(b) AI Enabled Testing** — Open your app and I will validate the events are firing for you"
+
+Only include option **(b)** if you have the capability to open a browser and inspect network requests. If you cannot, present only **(a)**.
+Do not proceed until the developer has answered.
+
+**If (a) — Manual Testing:**
+Walk the developer through step by step:
+1. Start the app and open it in a browser
+2. Open DevTools → Network tab → filter by `thrivestack`
+3. Perform a signup, then a login
+4. Confirm POST requests appear for `identify` and `track` at `api.app.thrivestack.ai/api/`
+5. Click each request and verify the payload contains `event_name`, `user_id`, and `context.group_id`
+
+If any requests are missing or the developer reports errors: ask them to share the failing request's URL, status code, and payload. Cross-reference against this entire guide — event schemas, firing order, hard rules, and verification checklist, identify the issue, fix the instrumentation, and ask the developer to verify again.
+
+**If (b) — AI Enabled Testing:**
+1. Ask for the local dev URL (e.g. `http://localhost:3000`)
+2. Open the app using your browser capability
+3. Walk through the signup and login flows
+4. Confirm network requests to `api.app.thrivestack.ai/api/identify` and `api.app.thrivestack.ai/api/track` fire with correct payloads
+5. If any requests are missing or returning errors, inspect the payload, cross-reference against this entire guide, fix the instrumentation, and re-verify
+6. Report which events fired and which did not
+
+After verification is complete, print the following:
+
+```
+Step 1 verified. Your user and account events are now flowing into ThriveStack.
+
+Next steps:
+- View your events: https://app.thrivestack.ai/analyze/events
+- Check setup progress: https://app.thrivestack.ai/analyze/onboarding/product-analytics/telemetry
+- Run diagnostics: https://app.thrivestack.ai/analyze/diagnostics-report
+
+When ready, continue with Step 2 — Onboarding Events:
+→ https://docs.thrivestack.ai/public/product/setup/advanced-ai-instrumentation.html
+```
+
+---
+
+## HARD RULES
+
+1. Script src must be exactly `https://cdn.app.thrivestack.ai/latest/script.js` — never alter the URL. Known wrong substitutions to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
+2. Global object: `thriveStack` — never `ThriveStack` or `thrivestack`
+3. Every method takes an array: `identify([{...}])` `group([{...}])` `track([{...}])`
+4. Guard every call: `if (typeof thriveStack === 'undefined') return`
+5. timestamp: `new Date().toISOString()` on every call — when multiple events fire in the same handler, use `const now = Date.now()` once and offset each by 1ms: `new Date(now).toISOString()`, `new Date(now + 1).toISOString()`, etc.
+6. `group_type: "Account"` reserved for billing root only
+7. `context.group_id` must equal `group_id` on group() — same variable always
+8. `context` required on every `track()` — except `signed_up` when groupId not yet available
+9. userId and groupId from auth context only — never hardcode, never generate
+10. `api-key` from environment variable only — never in source code
+11. Fire-and-forget — never `await` thriveStack calls (exception: `checkAbuseEmail` which intentionally uses await)
+12. Fire after action succeeds — inside `.then()` or after `await`
+13. `group()` fires where a new entity is created — never on login, never on context switch, never on invite acceptance
+14. `account_added_user` fires in all entry points — signup, invite, SSO/SCIM/admin
+15. Do not fire `account_added_user` if user is already a member
+16. `user_added_to_account` does not exist — use `account_added_user`
+17. Additional properties beyond documented ones are always permitted
+18. Stop after the summary is output — do not fix bugs, refactor code, clean up existing logic, or make any other changes outside of ThriveStack instrumentation. Your only permitted modifications are the ThriveStack calls added in this guide.
+19. Never remove the ThriveStack script tag — once added, it must remain in `<head>` permanently. Any subsequent edit must preserve it. After every edit, verify the script tag is still present; if it was removed, restore it immediately before continuing.
+20. EU compliance is global — when active, strip `user_email` and `user_name` from every single thriveStack call without exception. Do not apply it selectively per event or per user.
+21. Never hash user_id unless it is confirmed to be an email address — do not hash UUIDs, integers, or opaque IDs.
+
+---
+
+## CRITICAL MISTAKES
+
+WRONG — missing array:
+```javascript
+thriveStack.track({ "event_name": "signed_up" })
+```
+RIGHT:
+```javascript
+thriveStack.track([{ "event_name": "signed_up" }])
+```
+
+WRONG — no guard:
+```javascript
+thriveStack.identify([{ "user_id": user.id }])
+```
+RIGHT:
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.identify([{ "user_id": user.id }])
+```
+
+WRONG — group() on login:
+```javascript
+async function handleLogin() {
+  const { user, org } = await auth.signIn(...)
+  thriveStack.group([{ "group_id": org.id }])
+}
+```
+RIGHT:
+```javascript
+async function handleLogin() {
+  const { user, org } = await auth.signIn(...)
+  thriveStack.identify([{ "user_id": user.id, ... }])
+  thriveStack.track([{ "event_name": "signed_in", ... }])
+}
+```
+
+WRONG — account_created without account_added_user (first user membership never recorded):
+```javascript
+async function handleSignup() {
+  const { user, org } = await auth.signUp(...)
+  thriveStack.group([{ ... }])
+  thriveStack.track([{ "event_name": "account_created", ... }])
+  // account_added_user missing — the first user is never recorded as a member
+}
+```
+RIGHT — all three fire together when a new account is created:
+```javascript
+async function handleSignup() {
+  const { user, org } = await auth.signUp(...)
+  const now = Date.now()
+  thriveStack.group([{ ..., "timestamp": new Date(now).toISOString() }])
+  thriveStack.track([{ "event_name": "account_created", ..., "timestamp": new Date(now + 1).toISOString() }])
+  thriveStack.track([{ "event_name": "account_added_user", "properties": { "join_method": "signup", "is_first_user": true, ... }, "timestamp": new Date(now + 2).toISOString() }])
+}
+```
+
+WRONG — account_created without group() (account identity never registered with ThriveStack):
+```javascript
+async function handleSignup() {
+  const { user, org } = await auth.signUp(...)
+  thriveStack.track([{ "event_name": "account_created", ... }])
+}
+```
+RIGHT — group() registers the account identity; account_created records the event. Both belong where the account is created:
+```javascript
+async function handleSignup() {
+  const { user, org } = await auth.signUp(...)
+  const now = Date.now()
+  thriveStack.group([{ "group_id": org.id, "traits": { "group_type": "Account", ... }, "context": { "group_id": org.id, "group_type": "Account" }, "timestamp": new Date(now).toISOString() }])
+  thriveStack.track([{ "event_name": "account_created", ..., "timestamp": new Date(now + 1).toISOString() }])
+}
+```
+
+WRONG — generating groupId:
+```javascript
+thriveStack.group([{ "group_id": uuidv4() }])
+```
+RIGHT:
+```javascript
+thriveStack.group([{ "group_id": user.orgId }])
+```
+
+WRONG — context.group_id mismatch:
+```javascript
+thriveStack.group([{
+  "group_id": org.id,
+  "context": { "group_id": uuidv4() }
+}])
+```
+RIGHT:
+```javascript
+thriveStack.group([{
+  "group_id": org.id,
+  "context": { "group_id": org.id }
+}])
+```
+
+WRONG — missing context.group_id on track() calls (groupId not carried into handler):
+```javascript
+async function handleLogin() {
+  const { user } = await auth.signIn(...)
+  thriveStack.identify([{ "user_id": user.id, ... }])
+  thriveStack.track([{ "event_name": "signed_in", "user_id": user.id, "properties": { ... } }])
+  // context block missing — ThriveStack cannot associate this event with an account
+}
+```
+RIGHT — read groupId from wherever the login response exposes it and include context:
+```javascript
+async function handleLogin() {
+  const { user, org } = await auth.signIn(...)
+  const groupId = org.id   // read from login response, session, store, or auth context
+  thriveStack.identify([{ "user_id": user.id, ... }])
+  thriveStack.track([{
+    "event_name": "signed_in",
+    "user_id": user.id,
+    "properties": { ... },
+    "context": { "group_id": groupId },
+    "timestamp": new Date().toISOString()
+  }])
+}
+```
+
+WRONG — EU mode B2C: account_domain is user.email, treated as business data:
+```javascript
+// B2C + EU mode — account_domain holds user.email, must be stripped
+thriveStack.group([{
+  "group_id": user.id,
+  "traits": {
+    "group_type": "Account",
+    "account_domain": user.email,   // ← PII in B2C, must be removed in EU mode
+    "account_name": user.name
+  }
+}])
+```
+RIGHT — in B2C + EU mode, strip account_domain entirely:
+```javascript
+thriveStack.group([{
+  "group_id": user.id,
+  "traits": {
+    "group_type": "Account"
+    // account_domain omitted — it equals user.email in B2C and is PII
+    // account_name also omitted — it equals user.name and is PII
+  },
+  "context": { "group_id": user.id, "group_type": "Account" },
+  "timestamp": new Date().toISOString()
+}])
+```

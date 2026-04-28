@@ -1,0 +1,255 @@
+# ThriveStack Product Telemetry — Step 2 of 3: Onboarding Events
+# Version: 1.0
+# Hosted at: https://docs.thrivestack.ai/ai-setup/product/scoped/onboarding/llms.txt
+
+---
+
+## PURPOSE
+
+This file gives AI coding assistants complete, executable instructions for instrumenting
+onboarding flow events with ThriveStack. This is Step 2 of 3.
+
+Events covered in this step:
+  onboarding_[step_name]_completed — one event per discrete onboarding step found
+
+User/account lifecycle events are covered in Step 1.
+Feature events are covered in Step 3.
+All event schemas are non-exhaustive. Additional properties beyond those listed are always allowed.
+
+---
+
+## HOW TO USE THIS GUIDE
+
+Work through these phases in order. Do not write any code until Phase 0 is complete.
+
+### Phase 0 — Understand the codebase first
+
+1. **Verify Step 1 is complete.** Check that the ThriveStack script tag is present in the root layout.
+   - If not found: STOP. Tell the developer:
+     > "The ThriveStack script tag is missing from the root layout. Complete Step 1 first before running this prompt."
+   - If found: proceed.
+
+2. Locate `userId` and `groupId` — they were found in Step 1 but this is a new session. Identify them again quickly using the same search patterns as Step 1 (auth context, session, store). Do not ask the developer unless genuinely not found.
+
+3. **STOP** and ask the developer one question before proceeding:
+   > "Do you have **European customers**? If yes, I'll instrument in EU compliance mode — user PII (email, name) will be excluded from all events globally."
+
+   Apply answer:
+   - EU yes → activate EU compliance mode (see EU COMPLIANCE MODE section)
+   - EU no → send all fields as documented
+
+4. Search the codebase for onboarding/setup UI patterns — do not ask the developer first, search the code:
+   - Component names: `<Stepper>` `<Wizard>` `<OnboardingFlow>` `<SetupFlow>` `<ProgressSteps>` `<ChecklistFlow>`
+   - Handler names: `onStepComplete` `handleNext` `setCurrentStep` `markStepComplete` `completeStep` `nextStep`
+   - Route patterns: `/onboarding/step-*` `/setup/*` `/getting-started/*`
+   - State: `currentStep` `activeStep` `completedSteps` `onboardingProgress`
+
+   Then apply the following rule:
+   - **Found**: proceed to step 5.
+   - **Not found**: STOP. Tell the developer:
+     > "I couldn't find an onboarding or setup flow in this repository. If it lives in a different repo, run this same prompt there. If it exists here under a different name or pattern, share the file or component and I'll instrument it."
+
+5. List every discrete step found. Derive a descriptive `step_name` for each from its label, heading, or route. Snake_case only. Never use generic names like `step_1` or `step_completed`.
+
+   Examples of good step names:
+   - `connected_data_source` (from "Connect your data source")
+   - `invited_team_member` (from "Invite your team")
+   - `installed_sdk` (from "Install the SDK")
+   - `configured_workspace` (from "Configure your workspace")
+   - `completed_profile` (from "Complete your profile")
+
+6. **STOP** and confirm step names with the developer before writing any code. Ask exactly:
+   > "I found [N] onboarding steps. Here are the event names I'll use — please confirm or correct any:
+   > [list each: step label → proposed event name]
+   > Reply with any corrections, or 'looks good' to proceed."
+
+   Do not write any `onboarding_*_completed` calls until the developer has confirmed.
+
+### Phase 1 — Instrument onboarding events
+Write one `track()` call per confirmed step. Follow the EVENT SCHEMA exactly.
+
+### Phase 2 — Verify then summarise
+Run through the VERIFICATION CHECKLIST. Fix anything missing. Output the summary table.
+After the summary is printed, proceed to Phase 3. Do not make any further code edits.
+
+### Phase 3 — Live verification
+Prompt the developer to verify events are flowing. See PHASE 3 section.
+
+---
+
+**REQUIRED OUTPUT FORMAT — strictly follow this, no exceptions.**
+Do NOT write a narrative summary. Do NOT describe what you did in prose.
+After instrumentation is complete, output the table below inline in the chat, then immediately proceed to Phase 3 — do not stop after the table.
+
+```
+ThriveStack Instrumentation Summary — Step 2: Onboarding Events
+X steps instrumented
+
+| Step | Event Name | Status | File |
+|------|-----------|--------|------|
+| [label] | onboarding_[step_name]_completed | ✅/⚠️/❌ | file |
+| ... | | | |
+
+User ID: [field] in [file]
+Group ID: [field] in [file]
+EU compliance: active / N/A
+Missing from this repo: [or "None"]
+Unresolved: [or "None"]
+```
+
+---
+
+## EU COMPLIANCE MODE
+
+Activate when the developer confirms they have European customers. Apply globally.
+
+Strip from every `track()` call:
+- `user_email` — remove
+- `user_name` — remove
+
+Keep: `user_id`, `group_id`, `step_index`, `total_steps` — these are not personal data.
+
+---
+
+## EVENT SCHEMA
+
+### onboarding_[step_name]_completed
+
+When: User completes a discrete onboarding step.
+One `track()` call per step. Event name encodes the step — never use a generic name.
+
+```javascript
+if (typeof thriveStack === 'undefined') return
+thriveStack.track([{
+  "event_name": "onboarding_[step_name]_completed",
+  "user_id": userId,
+  "properties": {
+    "user_email": user.email,    // omit in EU mode
+    "user_name": user.name,      // omit in EU mode
+    "step_index": stepIndex,     // 0-based integer
+    "total_steps": totalSteps    // total number of steps in the flow
+  },
+  "context": { "group_id": groupId },
+  "timestamp": new Date().toISOString()
+}])
+```
+
+Where to place it:
+- Inside the `onStepComplete` / `handleNext` / `completeStep` handler, after the step action succeeds
+- Fire after the step completes — not before, not on render
+- If the step has an async action (API call, file upload), fire inside `.then()` or after `await`
+
+---
+
+## VERIFICATION CHECKLIST
+
+Before delivering the summary, verify all points. Fix anything missing first.
+
+- [ ] Script tag still present in root layout — confirm it was not removed during this session
+- [ ] Each confirmed step has exactly one `track()` call with the correct `onboarding_[step_name]_completed` event name
+- [ ] No generic step names (`step_1`, `step_completed`, `onboarding_step`) — every event name must be descriptive
+- [ ] `step_index` is 0-based and correct for each step
+- [ ] `total_steps` is consistent across all steps in the same flow
+- [ ] `context.group_id` present on every call
+- [ ] EU mode: if active, confirm `user_email` and `user_name` are absent from every call
+- [ ] Events fire after step completion — not on render or navigation
+
+---
+
+## PHASE 3 — VERIFY EVENTS ARE FLOWING
+
+This phase is mandatory. Do not skip it. Do not print a completion message before running this phase.
+
+Determine whether you have the capability to open a browser and inspect network requests. Then **STOP** and ask the developer, exactly:
+> "Instrumentation is complete. How would you like to verify that onboarding events are reaching ThriveStack?
+> - **(a) Manual Testing** — Run your app, open the browser Network tab, filter for `thrivestack`, walk through each onboarding step, and confirm a POST request fires for each step at `api.app.thrivestack.ai/api/track`
+> - **(b) AI Enabled Testing** — Open your app and I will walk through the onboarding flow and validate the events for you"
+
+Only include option **(b)** if you have the capability to open a browser and inspect network requests.
+Do not proceed until the developer has answered.
+
+**If (a) — Manual Testing:**
+1. Start the app and open it in a browser
+2. Open DevTools → Network tab → filter by `thrivestack`
+3. Walk through each onboarding step one by one
+4. Confirm a POST request fires for each step at `api.app.thrivestack.ai/api/track`
+5. Click each request and verify: correct `event_name`, `user_id`, `context.group_id`, and `step_index`
+
+If any steps are missing or errors are reported: ask for the failing request's URL, status code, and payload. Cross-reference against this guide, fix the issue, and ask the developer to verify again.
+
+**If (b) — AI Enabled Testing:**
+1. Ask for the local dev URL
+2. Open the app and walk through the onboarding flow
+3. Confirm each step fires a network request with the correct payload
+4. Fix any issues and re-verify
+
+After verification is complete, print the following:
+
+```
+Step 2 verified. Your onboarding events are now flowing into ThriveStack.
+
+Now go build your activation flows in ThriveStack:
+→ https://docs.thrivestack.ai/public/product/setup/advanced-ai-instrumentation.html
+
+Next steps:
+- View your events: https://app.thrivestack.ai/analyze/events
+- Run diagnostics: https://app.thrivestack.ai/analyze/diagnostics-report
+
+When ready, continue with Step 3 — Feature Events:
+→ https://docs.thrivestack.ai/ai-setup/product/scoped/features/llms.txt
+```
+
+---
+
+## HARD RULES
+
+1. Script src must be exactly `https://cdn.app.thrivestack.ai/latest/script.js` — verify it is still present and unchanged after this session
+2. Global object: `thriveStack` — never `ThriveStack` or `thrivestack`
+3. Every method takes an array: `track([{...}])`
+4. Guard every call: `if (typeof thriveStack === 'undefined') return`
+5. timestamp: `new Date().toISOString()` on every call
+6. `context.group_id` required on every `track()` call
+7. userId and groupId from auth context only — never hardcode, never generate
+8. Fire-and-forget — never `await` thriveStack calls
+9. Fire after step action succeeds — inside `.then()` or after `await`, never on render
+10. Event name must encode the step: `onboarding_[step_name]_completed` — never a generic name
+11. One `track()` call per step — never combine multiple steps into one event
+12. Do not reinstall the script tag — it was added in Step 1. If missing, restore it, then continue
+13. Stop after the summary — do not fix bugs, refactor, or make any changes outside of ThriveStack instrumentation
+14. EU compliance is global — when active, strip `user_email` and `user_name` from every call without exception
+
+---
+
+## CRITICAL MISTAKES
+
+WRONG — generic event name:
+```javascript
+thriveStack.track([{ "event_name": "onboarding_step_completed", "properties": { "step": 1 } }])
+```
+RIGHT — descriptive name derived from the step label:
+```javascript
+thriveStack.track([{ "event_name": "onboarding_invited_team_member_completed", ... }])
+```
+
+WRONG — firing on render:
+```javascript
+useEffect(() => {
+  thriveStack.track([{ "event_name": "onboarding_connected_data_source_completed", ... }])
+}, [])
+```
+RIGHT — firing after the step action succeeds:
+```javascript
+async function handleConnectDataSource() {
+  await connectDataSource()
+  thriveStack.track([{ "event_name": "onboarding_connected_data_source_completed", ... }])
+}
+```
+
+WRONG — missing context:
+```javascript
+thriveStack.track([{ "event_name": "onboarding_installed_sdk_completed", "user_id": userId }])
+```
+RIGHT:
+```javascript
+thriveStack.track([{ "event_name": "onboarding_installed_sdk_completed", "user_id": userId, "context": { "group_id": groupId }, ... }])
+```
