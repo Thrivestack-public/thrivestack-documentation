@@ -239,6 +239,15 @@ Stop and ask if:
 
 Never proceed without groupId. Never generate a fake ID.
 
+**What is NOT a valid groupId:**
+- A company name string (`user.company`, `"Acme Corp"`) — this is a name, not an ID
+- An email domain (`user.email.split('@')[1]`, `"acme.com"`) — this is a domain, not an ID
+- `account_domain`, `account_name`, or any human-readable string
+- A generated UUID (`uuidv4()`) — IDs must come from the auth context
+
+If the only org-related field available is a name or domain string (e.g. the app stores `{ firstName, lastName, email, company, role }` with no org ID), **stop and ask**:
+> "I found a `company` field but it appears to be a name, not a unique ID. What field in your database uniquely identifies an account or organization — their ID, not their name?"
+
 ### Storing groupId for use across handlers
 
 Once you identify where `groupId` (the Account-level ID) comes from, store it in a variable that is accessible from all auth handlers — not just the signup handler.
@@ -721,7 +730,7 @@ Before delivering the summary, verify all 10 points. Fix anything missing first.
 - [ ] 4. signed_in — fires on every login, context block present
 - [ ] 5. signed_out — fires on logout, context block present
 - [ ] 6. account_created — only when new account actually created
-- [ ] 7. account_added_user — if account_created is instrumented, open that same handler and confirm account_added_user fires immediately after it with join_method: "signup" and is_first_user: true. This is the mandatory minimum. Other entry points (invite, SSO, admin) are additional — note their absence but do not fail the row if only the signup case is missing from other repos.
+- [ ] 7. account_added_user — if account_created is instrumented, open that same handler and confirm account_added_user fires immediately after it with join_method: "signup" and is_first_user: true. If it is present, mark ✅ — do not add any caveat or "missing" note about SSO/SCIM/admin provisioning unless this repo actually contains SSO/SCIM/admin provisioning code. Only note other entry points if they exist in this repo and were not instrumented.
 - [ ] 8. invite_sent — all invite handlers found
 - [ ] 9. abuse_check — if chosen: checkAbuseEmail called before signup submission, block or flag implemented; if skipped: mark N/A
 - [ ] 10. EU compliance — if active: scan every thriveStack call in the codebase and confirm no `user_email` or `user_name` field is present anywhere. Confirm `invitee_email` is absent from invite_sent. If user_id was email-based, confirm `anonymiseUserId` is applied. If B2C mode is active, also confirm `account_domain` is absent from all calls (it equals user.email in B2C and is PII). If B2B mode is active, `account_domain` should be present — confirm it was not accidentally stripped. If not active: mark ➖ N/A.
@@ -873,6 +882,15 @@ async function handleSignup() {
   thriveStack.track([{ "event_name": "account_created", ..., "timestamp": new Date(now + 1).toISOString() }])
 }
 ```
+
+WRONG — using a name or domain string as group_id:
+```javascript
+thriveStack.group([{ "group_id": user.company }])          // "Acme Corp" — a name, not an ID
+thriveStack.group([{ "group_id": user.email.split('@')[1] }]) // "acme.com" — a domain, not an ID
+thriveStack.group([{ "group_id": account.account_domain }])   // domain field, not an ID
+```
+RIGHT — stop and ask the developer:
+> "I found a `company` field but it appears to be a name, not a unique ID. What field in your database uniquely identifies an account or organization — their ID, not their name?"
 
 WRONG — generating groupId:
 ```javascript
