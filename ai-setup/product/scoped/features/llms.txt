@@ -232,7 +232,6 @@ Next steps:
 8. `feature_type` confirmed with developer — always propose a recommendation with reasoning, never demand the developer classify from scratch. Never write a `feature_used` call until the developer has confirmed the full list.
 9. `feature_name` is always `[noun]_[verb]` snake_case
 10. userId and groupId from auth context only — never hardcode, never generate
-11. Fire-and-forget — never `await` thriveStack calls
 12. Fire after action succeeds — inside `.then()` or after `await`, never on render
 13. Do not reinstall the script tag — it was added in Step 1
 14. Stop after the summary — do not fix bugs, refactor, or make any changes outside of ThriveStack instrumentation

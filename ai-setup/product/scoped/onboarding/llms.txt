@@ -224,7 +224,6 @@ When ready, continue with Step 3 — Feature Events:
 5. timestamp: `new Date().toISOString()` on every call
 6. `context.group_id` required on every `track()` call
 7. userId and groupId from auth context only — never hardcode, never generate
-8. Fire-and-forget — never `await` thriveStack calls
 9. Fire after step action succeeds — inside `.then()` or after `await`, never on render
 10. Event name must encode the step: `onboarding_[step_name]_completed` — never a generic name
 11. One `track()` call per step — never combine multiple steps into one event
