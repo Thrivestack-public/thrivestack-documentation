@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stripe Integration - ThriveStack Revenue Intelligence">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Stripe Integration - ThriveStack Revenue Intelligence</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../../index.html" class="logo">
+                <img src="../../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../../index.html">Get Started</a>
+                <a href="../../../setup-overview.html" class="active">Setup (Unify)</a>
+                <a href="../../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../../take-action.html">Take Action</a>
+                <a href="../../../api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                    <li><a href="../../../data-collection.html" class="nav-item"><span>Data Collection</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="../../product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="../../marketing/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="../../marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../marketing/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="../../product/setup/environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="../../product/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="../../product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="../../product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="../../product/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="../../product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
+                    <li><a href="../../product/setup/environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
+                    <li><a href="../../product/setup/advanced-ai-instrumentation.html" class="nav-item"><span>Advanced AI Instrumentation</span><span class="time-badge" style="background:rgba(99,102,241,0.15);color:#818cf8;">Beta</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="chargebee-integration.html" class="nav-item"><span>Chargebee Integration</span></a></li>
+                    <li><a href="stripe-integration.html" class="nav-item active"><span>Stripe Integration</span></a></li>
+                    <li><a href="why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
+                    <li><a href="exceptional-use-cases.html" class="nav-item"><span>Exceptional Use Cases</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="../../crm-sync/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="../../crm-sync/hubspot.html" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="../../customer-success/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="../../customer-success/setup-health-scores.html" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="stripe-integration" class="content-section">
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Revenue Intelligence · Setup Guide</span>
+                            <h1 class="doc-page-title">Stripe Integration</h1>
+                            <p class="doc-page-description">
+                                Follow these steps to configure your Stripe integration with ThriveStack Revenue Intelligence.
+                            </p>
+                        </header>
+
+                        <hr />
+
+                        <article class="doc-page-body">
+
+                            <!-- ── PREREQUISITES ──────────────────────────────── -->
+                            <div style="padding: 10px 0 18px; border-bottom: 1px solid var(--border-color, #1e293b); margin-bottom: 28px;">
+                                <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted, #64748b); margin: 0 0 10px;">Before you begin</p>
+                                <p style="font-weight: 600; font-size: 14px; margin: 0 0 10px; color: var(--text-primary, #fff);">Prerequisites</p>
+                                <div style="display: flex; flex-direction: column; gap: 7px;">
+                                    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-secondary, #94a3b8);">
+                                        <span style="display: inline-block; font-size: 11px; font-weight: 600; border: 1px solid var(--border-color, #444); border-radius: 4px; padding: 2px 8px; color: var(--text-muted, #64748b); white-space: nowrap;">Required</span>
+                                        Access to the Stripe account
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-secondary, #94a3b8);">
+                                        <span style="display: inline-block; font-size: 11px; font-weight: 600; border: 1px solid var(--border-color, #444); border-radius: 4px; padding: 2px 8px; color: var(--text-muted, #64748b); white-space: nowrap;">Required</span>
+                                        Stripe Account ID
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ── STEP 1: SET UP CONNECTOR ────────────────────── -->
+                            <div style="margin-bottom: 36px;">
+                                <h2 id="set-up-connector" style="display: flex; align-items: center; gap: 12px;">
+                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #111827; color: #fff; font-weight: 700; font-size: 14px; flex-shrink: 0;">1</span>
+                                    Set up the Stripe connector
+                                </h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; line-height: 1.6; margin-bottom: 16px; padding-left: 42px;">
+                                    Open the ThriveStack Revenue setup page and complete the connector configuration:
+                                </p>
+
+                                <div style="padding-left: 42px; display: flex; flex-direction: column; gap: 0;">
+                                    <div style="display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border-color, #1e293b);">
+                                        <span style="font-size: 13px; font-weight: 700; color: var(--text-muted, #64748b); width: 16px; flex-shrink: 0; padding-top: 1px;">1</span>
+                                        <div>
+                                            <p style="font-weight: 600; font-size: 14px; margin: 0 0 3px;">Map Environments</p>
+                                            <p style="color: var(--text-secondary, #94a3b8); font-size: 13px; margin: 0;">Map your Stripe environment to your Application environment in ThriveStack.</p>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border-color, #1e293b);">
+                                        <span style="font-size: 13px; font-weight: 700; color: var(--text-muted, #64748b); width: 16px; flex-shrink: 0; padding-top: 1px;">2</span>
+                                        <div>
+                                            <p style="font-weight: 600; font-size: 14px; margin: 0 0 3px;">Basic Configuration</p>
+                                            <p style="color: var(--text-secondary, #94a3b8); font-size: 13px; margin: 0;">Add account details and Stripe key required to sync your Stripe data.</p>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border-color, #1e293b);">
+                                        <span style="font-size: 13px; font-weight: 700; color: var(--text-muted, #64748b); width: 16px; flex-shrink: 0; padding-top: 1px;">3</span>
+                                        <div>
+                                            <p style="font-weight: 600; font-size: 14px; margin: 0 0 3px;">Test your Stripe Connection</p>
+                                            <p style="color: var(--text-secondary, #94a3b8); font-size: 13px; margin: 0;">Test the configuration that you have set up.</p>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border-color, #1e293b);">
+                                        <span style="font-size: 13px; font-weight: 700; color: var(--text-muted, #64748b); width: 16px; flex-shrink: 0; padding-top: 1px;">4</span>
+                                        <div>
+                                            <p style="font-weight: 600; font-size: 14px; margin: 0 0 3px;">Start Ingestion</p>
+                                            <p style="color: var(--text-secondary, #94a3b8); font-size: 13px; margin: 0;">Trigger the data sync from your Stripe account to your app environment in ThriveStack.</p>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; gap: 14px; padding: 12px 0;">
+                                        <span style="font-size: 13px; font-weight: 700; color: var(--text-muted, #64748b); width: 16px; flex-shrink: 0; padding-top: 1px;">5</span>
+                                        <div>
+                                            <p style="font-weight: 600; font-size: 14px; margin: 0 0 3px;">Test and save</p>
+                                            <p style="color: var(--text-secondary, #94a3b8); font-size: 13px; margin: 0;">Save and validate the connection.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="padding-left: 42px; margin-top: 16px;">
+                                    <a href="https://app.thrivestack.ai/analyze/onboarding/revenue-analytics?step=1" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 8px; border: 1px solid #3b82f6; background: rgba(59,130,246,0.12); color: #60a5fa; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.15s;">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Stripe Connector
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- ── STEP 2: GET CREDENTIALS ─────────────────────── -->
+                            <div style="margin-bottom: 36px;">
+                                <h2 id="get-credentials" style="display: flex; align-items: center; gap: 12px;">
+                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #111827; color: #fff; font-weight: 700; font-size: 14px; flex-shrink: 0;">2</span>
+                                    Get Account ID &amp; Secret Key
+                                </h2>
+
+                                <div style="padding-left: 42px; display: flex; flex-direction: column; gap: 24px; margin-top: 4px;">
+
+                                    <!-- 2.1 Account ID -->
+                                    <div style="display: flex; gap: 14px;">
+                                        <span style="font-size: 13px; font-weight: 700; color: var(--text-muted, #64748b); width: 16px; flex-shrink: 0; padding-top: 2px;">1</span>
+                                        <div>
+                                            <p style="font-weight: 600; font-size: 14px; margin: 0 0 4px;">Get Account ID from URL</p>
+                                            <p style="color: var(--text-secondary, #94a3b8); font-size: 13px; margin: 0; line-height: 1.6;">In the Stripe dashboard, copy your Account ID from the URL (begins with <code>acct_...</code>).<br>Example: <code>https://dashboard.stripe.com/acct_1A2b3C4d5EfGhIjKlMn0pQrS</code></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- 2.2 Restricted Secret Key -->
+                                    <div style="display: flex; gap: 14px;">
+                                        <span style="font-size: 13px; font-weight: 700; color: var(--text-muted, #64748b); width: 16px; flex-shrink: 0; padding-top: 2px;">2</span>
+                                        <div style="flex: 1; min-width: 0;">
+                                            <p style="font-weight: 600; font-size: 14px; margin: 0 0 4px;">Create Restricted Secret Key</p>
+                                            <p style="color: var(--text-secondary, #94a3b8); font-size: 13px; margin: 0 0 10px; line-height: 1.6;">Create a new Restricted Secret Key with custom permissions.</p>
+                                            <a href="https://dashboard.stripe.com/apikeys" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; margin-bottom: 12px; padding: 7px 14px; border-radius: 6px; border: 1px solid var(--border-color, #333); background: transparent; color: var(--text-secondary, #94a3b8); font-size: 13px; font-weight: 500; text-decoration: none; transition: border-color 0.15s, color 0.15s;">
+                                                <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i> Open Stripe API Keys
+                                            </a>
+                                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color, #333); border-radius: 8px; padding: 14px 16px;">
+                                                <p style="font-weight: 600; font-size: 13px; margin: 0 0 10px;">How to create a Restricted Secret Key (Read-only):</p>
+                                                <ol style="color: var(--text-secondary, #94a3b8); font-size: 13px; line-height: 1.9; margin: 0 0 12px; padding-left: 18px;">
+                                                    <li>In the Stripe Dashboard, open <strong>Developers</strong> from the left sidebar, then go to <strong>API keys</strong>.</li>
+                                                    <li>Click <strong>+ Create restricted key</strong>.</li>
+                                                    <li>Add the key name and URL: <strong>https://app.thrivestack.ai</strong>.</li>
+                                                    <li>Set <strong>Read</strong> access for the following resources:</li>
+                                                </ol>
+                                                <div style="margin: 0 0 12px 18px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color, #333); border-radius: 6px; padding: 10px 14px;">
+                                                    <p style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted, #64748b); margin: 0 0 8px;">Required Read permissions</p>
+                                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px;">
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>customers</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>invoices</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>invoice_items</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>invoice_line_items</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>plans</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>prices</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>products</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>subscriptions</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>subscriptions_items</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>balance_transactions</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>transactions</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>charges</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>disputes</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>refunds</span>
+                                                        <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 11px; margin-right: 6px;"></i>payment_intent</span>
+                                                    </div>
+                                                </div>
+                                                <ol start="5" style="color: var(--text-secondary, #94a3b8); font-size: 13px; line-height: 1.9; margin: 0 0 10px; padding-left: 18px;">
+                                                    <li>Click <strong>Create restricted key</strong>.</li>
+                                                    <li>Copy the generated token for the newly created key from the Restricted Keys list.</li>
+                                                </ol>
+                                                <p style="color: var(--text-muted, #64748b); font-size: 12px; font-style: italic; margin: 0 0 12px;">See the video below for a visual reference on creating the restricted key.</p>
+                                                <img src="../../../StripeGuide.gif" alt="How to create a Stripe restricted key" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color, #333);">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <!-- ── NEXT STEPS ──────────────────────────────────── -->
+                            <h2 id="next-steps">Next steps</h2>
+                            <p style="color: var(--text-secondary, #cbd5e1); font-size: 15px; line-height: 1.6; margin-bottom: 16px;">
+                                Once your Stripe connection is active, instrument your billing code so ThriveStack can link revenue to product usage.
+                            </p>
+                            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                                <a href="setup-with-ai.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 8px; border: 1px solid #3b82f6; background: rgba(59,130,246,0.12); color: #60a5fa; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.15s;">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Continue with AI setup
+                                </a>
+                                <a href="setup-manually.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 8px; border: 1px solid var(--border-color, #333); background: transparent; color: var(--text-secondary, #cbd5e1); font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.15s;">
+                                    <i class="fa-solid fa-code"></i> Continue with manual setup
+                                </a>
+                            </div>
+
+                        </article>
+
+                        <footer class="content-footer">
+                            <p>Was this page helpful?</p>
+                            <div class="feedback-btns">
+                                <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                                <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                            </div>
+                            <div class="footer-links">
+                                <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                                <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="stripe-integration.html">Last updated: April 28, 2026</a>
+                            </div>
+                        </footer>
+                    </section>
+                </section>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#stripe-integration" class="toc-link active">Stripe Integration</a>
+                    <a href="#set-up-connector" class="toc-link">1. Set up the connector</a>
+                    <a href="#get-credentials" class="toc-link">2. Get Account ID &amp; Secret Key</a>
+                    <a href="#next-steps" class="toc-link">Next steps</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../../../script.js"></script>
+</body>
+
+</html>
