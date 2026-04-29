@@ -726,7 +726,12 @@ account_added_user
 
 ## VERIFICATION CHECKLIST
 
-Before delivering the summary, verify all 10 points. Fix anything missing first.
+Before delivering the summary, do two things in order:
+
+**Step A — Self-validate against hard rules and critical mistakes:**
+Go back through every ThriveStack call you wrote in this session. Check each one against the HARD RULES and CRITICAL MISTAKES sections in this file. Fix any violations before moving on. Do not proceed to Step B until all calls are clean.
+
+**Step B — Verify all 10 points. Fix anything missing first.**
 
 - [ ] 0. script tag — src is exactly `https://cdn.app.thrivestack.ai/latest/script.js` — no variation, no substitution. Known wrong URLs to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
 - [ ] 1. identify — fires on signup and login. Profile update calls are optional — do not mark ⚠️ if no profile update handler exists.
