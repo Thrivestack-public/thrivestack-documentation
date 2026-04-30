@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Google Ads - Marketing Intelligence - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Google Ads - Marketing Intelligence - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../../index.html" class="logo"><img src="../../../logo.png" alt="ThriveStack" class="logo-img"><span class="logo-text"></span></a>
+            <div class="search-bar"><i class="fa-solid fa-search"></i><input type="text" placeholder="Search documentation... (Ctrl+K)"></div>
+        </div>
+        <div class="nav-center"><div class="nav-links"><a href="../../../index.html">Get Started</a><a href="../../../setup-overview.html" class="active">Setup (Unify)</a><a href="#">Analyze Signals</a><a href="#">Take Action</a></div></div>
+        <div class="nav-right"><button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme"><i class="fa-solid fa-sun" id="theme-icon"></i></button><a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a><button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button></div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section"><h3>Overview</h3><ul>
+                <li><a href="../../../setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                <li><a href="../../../data-collection.html" class="nav-item"><span>Data Collection</span></a></li>
+            </ul></div>
+            <div class="sidebar-section"><h3>ThriveStack MCP</h3><ul>
+                <li><a href="../../product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+            </ul></div>
+
+            <div class="sidebar-section"><h3>Marketing Intelligence</h3><ul>
+                <li><a href="introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                <li><a href="setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                <li><a href="setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                <li><a href="../../product/setup/environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
+                <li><a href="google-ads.html" class="nav-item active"><span>Google Ads</span></a></li>
+            </ul></div>
+
+            <div class="sidebar-section"><h3>Product Intelligence</h3><ul>
+                <li><a href="../../product/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                <li><a href="../../product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                <li><a href="../../product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                <li><a href="../../product/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                <li><a href="../../product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                <li><a href="../../revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
+                <li><a href="../../product/setup/environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
+                <li><a href="../../product/setup/advanced-ai-instrumentation.html" class="nav-item"><span>Advanced AI Instrumentation</span><span class="time-badge" style="background:rgba(99,102,241,0.15);color:#818cf8;">Beta</span></a></li>
+            </ul></div>
+
+            <div class="sidebar-section"><h3>Revenue Intelligence</h3><ul>
+                <li><a href="../../revenue/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                <li><a href="../../revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                <li><a href="../../revenue/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                <li><a href="../../revenue/setup/chargebee-integration.html" class="nav-item"><span>Chargebee Integration</span></a></li>
+                <li><a href="../../revenue/setup/stripe-integration.html" class="nav-item"><span>Stripe Integration</span></a></li>
+                <li><a href="../../revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
+                <li><a href="../../revenue/setup/exceptional-use-cases.html" class="nav-item"><span>Exceptional Use Cases</span></a></li>
+            </ul></div>
+
+            <div class="sidebar-section"><h3>CRM Sync</h3><ul>
+                <li><a href="../../crm-sync/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                <li><a href="../../crm-sync/hubspot.html" class="nav-item"><span>HubSpot</span></a></li>
+            </ul></div>
+            <div class="sidebar-section"><h3>Customer Success</h3><ul>
+                <li><a href="../../customer-success/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                <li><a href="../../customer-success/setup-health-scores.html" class="nav-item"><span>Setup Health Scores</span></a></li>
+            </ul></div>
+        </aside>
+
+        <div class="resizer" id="sidebar-resizer"></div>
+        <main class="main-content"><div class="content-wrapper"><section class="content-section"><section class="doc-page">
+            <header class="doc-page-header">
+                <span class="doc-page-header-eyebrow">Marketing Intelligence</span>
+                <h1 class="doc-page-title">Google Ads</h1>
+                <p class="doc-page-description">Close the loop between ad spend and revenue. ThriveStack connects Google Ads click data with real signups and payments — then feeds that signal back to Google to optimize your campaigns automatically.</p>
+            </header>
+            <article class="doc-page-body">
+
+                <!-- ─── Three Entities ─────────────────────────────────────── -->
+                <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-bottom:36px;">
+
+                    <!-- Google Ads -->
+                    <div style="border:1px solid rgba(66,133,244,0.35); border-radius:12px; padding:20px; background:rgba(66,133,244,0.05);">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                            <div style="width:36px;height:36px;border-radius:8px;background:white;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.15);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div style="font-weight:600;font-size:14px;color:var(--text-primary);">Google Ads</div>
+                                <div style="font-size:11px;color:#4285F4;font-weight:500;">Ad Platform</div>
+                            </div>
+                        </div>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.55;margin:0;">Runs AcmeLab's paid campaigns. Records every ad click with a unique <code style="font-size:11px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">gclid</code>. Receives conversion signals to optimize bidding and targeting.</p>
+                    </div>
+
+                    <!-- AcmeLab -->
+                    <div style="border:1px solid rgba(16,185,129,0.35); border-radius:12px; padding:20px; background:rgba(16,185,129,0.05);">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                            <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#10B981,#059669);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <i class="fa-solid fa-building" style="color:white;font-size:16px;"></i>
+                            </div>
+                            <div>
+                                <div style="font-weight:600;font-size:14px;color:var(--text-primary);">AcmeLab</div>
+                                <div style="font-size:11px;color:#10B981;font-weight:500;">Your Company (B2B SaaS)</div>
+                            </div>
+                        </div>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.55;margin:0;">A B2B SaaS product using ThriveStack. Runs Google Ads campaigns to attract new users and wants to know which campaigns drive real paying customers — not just clicks.</p>
+                    </div>
+
+                    <!-- ThriveStack -->
+                    <div style="border:1px solid rgba(99,102,241,0.35); border-radius:12px; padding:20px; background:rgba(99,102,241,0.05);">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                            <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#6366F1,#4F46E5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <img src="../../../logo.png" style="width:22px;height:22px;object-fit:contain;filter:brightness(0) invert(1);" alt="ThriveStack"/>
+                            </div>
+                            <div>
+                                <div style="font-weight:600;font-size:14px;color:var(--text-primary);">ThriveStack</div>
+                                <div style="font-size:11px;color:#818cf8;font-weight:500;">Intelligence Layer</div>
+                            </div>
+                        </div>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.55;margin:0;">Installed on AcmeLab's marketing site and product. Captures visitor journeys, links signups and payments back to the original ad click, enriches with company-level data, and closes the loop.</p>
+                    </div>
+
+                </div>
+
+                <!-- ─── Big-picture diagram ────────────────────────────────── -->
+                <h2 id="how-it-works" style="margin-bottom:8px;">How it works</h2>
+                <p style="color:var(--text-secondary);font-size:15px;line-height:1.6;margin-bottom:24px;">ThriveStack creates a <strong style="color:var(--text-primary);">closed-loop optimization cycle</strong> between AcmeLab's ad campaigns and real revenue outcomes. Here's the full journey.</p>
+
+                <!-- ── U-shaped cycle diagram ── -->
+                <div style="border:1px solid var(--border-color);border-radius:16px;background:var(--card-bg);overflow:hidden;margin-bottom:36px;">
+
+                    <!-- Label -->
+                    <div style="text-align:center;padding:18px 24px 0;">
+                        <span style="font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-muted);">The Closed-Loop Optimization Cycle</span>
+                    </div>
+
+                    <!-- ── ROW 1: AcmeLab → Google Ads → Visitor (outbound) ── -->
+                    <div style="display:flex;align-items:center;padding:20px 28px 0;gap:0;min-width:0;">
+
+                        <!-- Node: AcmeLab -->
+                        <div style="flex:1;text-align:center;min-width:72px;">
+                            <div style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#10B981,#059669);display:inline-flex;align-items:center;justify-content:center;margin-bottom:7px;box-shadow:0 4px 14px rgba(16,185,129,0.32);">
+                                <i class="fa-solid fa-building" style="color:white;font-size:21px;"></i>
+                            </div>
+                            <div style="font-weight:700;font-size:12px;color:var(--text-primary);">AcmeLab</div>
+                            <div style="font-size:10px;color:var(--text-muted);line-height:1.4;margin-top:2px;">Creates ad<br>campaigns</div>
+                        </div>
+
+                        <!-- Arrow → Google Ads -->
+                        <div style="flex:0.8;display:flex;flex-direction:column;align-items:center;gap:3px;padding-bottom:26px;">
+                            <div style="font-size:9px;font-weight:700;color:var(--text-muted);white-space:nowrap;letter-spacing:.03em;">SETS UP IN</div>
+                            <div style="display:flex;align-items:center;width:100%;">
+                                <div style="flex:1;height:2px;background:linear-gradient(90deg,#10B981,#4285F4);border-radius:2px;"></div>
+                                <div style="width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid #4285F4;flex-shrink:0;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Node: Google Ads -->
+                        <div style="flex:1;text-align:center;min-width:72px;">
+                            <div style="width:54px;height:54px;border-radius:50%;background:white;display:inline-flex;align-items:center;justify-content:center;margin-bottom:7px;box-shadow:0 0 0 2px rgba(66,133,244,0.3),0 4px 14px rgba(66,133,244,0.2);">
+                                <svg width="29" height="29" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                                </svg>
+                            </div>
+                            <div style="font-weight:700;font-size:12px;color:var(--text-primary);">Google Ads</div>
+                            <div style="font-size:10px;color:var(--text-muted);line-height:1.4;margin-top:2px;">Serves ads to<br>target audience</div>
+                        </div>
+
+                        <!-- Arrow → Visitor -->
+                        <div style="flex:0.8;display:flex;flex-direction:column;align-items:center;gap:3px;padding-bottom:26px;">
+                            <div style="font-size:9px;font-weight:700;color:var(--text-muted);white-space:nowrap;letter-spacing:.03em;">SHOWS AD TO</div>
+                            <div style="display:flex;align-items:center;width:100%;">
+                                <div style="flex:1;height:2px;background:linear-gradient(90deg,#4285F4,#F59E0B);border-radius:2px;"></div>
+                                <div style="width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid #F59E0B;flex-shrink:0;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Node: Visitor -->
+                        <div style="flex:1;text-align:center;min-width:72px;position:relative;">
+                            <div style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#F59E0B,#EF4444);display:inline-flex;align-items:center;justify-content:center;margin-bottom:7px;box-shadow:0 4px 14px rgba(245,158,11,0.32);">
+                                <i class="fa-solid fa-user" style="color:white;font-size:21px;"></i>
+                            </div>
+                            <div style="font-weight:700;font-size:12px;color:var(--text-primary);">Visitor</div>
+                            <div style="font-size:10px;color:var(--text-muted);line-height:1.4;margin-top:2px;">Sees &amp; clicks<br>the ad</div>
+                        </div>
+
+                    </div>
+
+                    <!-- ── BEND: vertical connector on the right ── -->
+                    <div style="display:flex;align-items:stretch;padding:0 28px;height:52px;">
+                        <!-- Left 2 nodes + arrows spacer (flex:1 + flex:0.8 + flex:1 + flex:0.8) -->
+                        <div style="flex:3.6;display:flex;align-items:center;justify-content:center;">
+                            <div style="font-size:11px;color:var(--text-muted);font-style:italic;padding:0 8px;text-align:center;">Visitor clicks the ad, lands on AcmeLab's website</div>
+                        </div>
+                        <!-- Visitor column: right-side vertical line going down -->
+                        <div style="flex:1;display:flex;justify-content:center;align-items:stretch;">
+                            <div style="width:2px;background:linear-gradient(180deg,#F59E0B,#10B981);border-radius:2px;position:relative;">
+                                <div style="position:absolute;bottom:-1px;left:-4px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid #10B981;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── ROW 2: Google Ads ← ThriveStack ← AcmeLab (return flow, reversed) ── -->
+                    <div style="display:flex;align-items:center;padding:0 28px 20px;gap:0;flex-direction:row-reverse;min-width:0;">
+
+                        <!-- Node: AcmeLab (visitor signs up & pays) — rightmost visually -->
+                        <div style="flex:1;text-align:center;min-width:72px;">
+                            <div style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#10B981,#059669);display:inline-flex;align-items:center;justify-content:center;margin-bottom:7px;box-shadow:0 4px 14px rgba(16,185,129,0.32);">
+                                <i class="fa-solid fa-building" style="color:white;font-size:21px;"></i>
+                            </div>
+                            <div style="font-weight:700;font-size:12px;color:var(--text-primary);">AcmeLab</div>
+                            <div style="font-size:10px;color:var(--text-muted);line-height:1.4;margin-top:2px;">Visitor signs up<br>&amp; pays</div>
+                        </div>
+
+                        <!-- Arrow ← ThriveStack -->
+                        <div style="flex:0.8;display:flex;flex-direction:column;align-items:center;gap:3px;padding-bottom:26px;">
+                            <div style="font-size:9px;font-weight:700;color:var(--text-muted);white-space:nowrap;letter-spacing:.03em;">CAPTURED BY</div>
+                            <div style="display:flex;align-items:center;width:100%;">
+                                <div style="width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-right:8px solid #6366F1;flex-shrink:0;"></div>
+                                <div style="flex:1;height:2px;background:linear-gradient(90deg,#6366F1,#10B981);border-radius:2px;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Node: ThriveStack -->
+                        <div style="flex:1;text-align:center;min-width:72px;">
+                            <div style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#6366F1,#4F46E5);display:inline-flex;align-items:center;justify-content:center;margin-bottom:7px;box-shadow:0 4px 14px rgba(99,102,241,0.32);">
+                                <img src="../../../logo.png" style="width:30px;height:30px;object-fit:contain;filter:brightness(0) invert(1);" alt="ThriveStack"/>
+                            </div>
+                            <div style="font-weight:700;font-size:12px;color:var(--text-primary);">ThriveStack</div>
+                            <div style="font-size:10px;color:var(--text-muted);line-height:1.4;margin-top:2px;">Enriches with user<br>&amp; company data</div>
+                        </div>
+
+                        <!-- Arrow ← Google Ads -->
+                        <div style="flex:0.8;display:flex;flex-direction:column;align-items:center;gap:3px;padding-bottom:26px;">
+                            <div style="font-size:9px;font-weight:700;color:var(--text-muted);white-space:nowrap;letter-spacing:.03em;">SENDS DATA TO</div>
+                            <div style="display:flex;align-items:center;width:100%;">
+                                <div style="width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-right:8px solid #4285F4;flex-shrink:0;"></div>
+                                <div style="flex:1;height:2px;background:linear-gradient(90deg,#4285F4,#6366F1);border-radius:2px;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Node: Google Ads (optimizes) — leftmost visually -->
+                        <div style="flex:1;text-align:center;min-width:72px;">
+                            <div style="width:54px;height:54px;border-radius:50%;background:white;display:inline-flex;align-items:center;justify-content:center;margin-bottom:7px;box-shadow:0 0 0 2px rgba(66,133,244,0.3),0 4px 14px rgba(66,133,244,0.2);">
+                                <svg width="29" height="29" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                                </svg>
+                            </div>
+                            <div style="font-weight:700;font-size:12px;color:var(--text-primary);">Google Ads</div>
+                            <div style="font-size:10px;color:var(--text-muted);line-height:1.4;margin-top:2px;">Optimizes future<br>campaigns</div>
+                        </div>
+
+                    </div>
+
+                    <!-- ── Result footer ── -->
+                    <div style="border-top:1px solid var(--border-color);padding:13px 22px;background:rgba(52,168,83,0.06);display:flex;align-items:center;gap:12px;">
+                        <div style="width:26px;height:26px;border-radius:50%;background:#34A853;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <i class="fa-solid fa-rotate" style="color:white;font-size:11px;"></i>
+                        </div>
+                        <span style="font-size:13px;color:var(--text-secondary);line-height:1.5;"><strong style="color:var(--text-primary);">The loop closes:</strong> Google Ads uses real signup and payment data — enriched with company profiles — to automatically improve AcmeLab's bidding, targeting, and lookalike audiences. Every conversion makes the next campaign smarter.</span>
+                    </div>
+
+                </div>
+
+                <!-- ─── Step-by-step breakdown ──────────────────────────────── -->
+                <h2 id="step-by-step" style="margin-bottom:8px;">Step-by-step breakdown</h2>
+                <p style="color:var(--text-secondary);font-size:15px;line-height:1.6;margin-bottom:28px;">Each step in the cycle — who does what, and what data moves.</p>
+
+                <!-- Step 1 -->
+                <div style="display:flex;gap:0;margin-bottom:0;">
+                    <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:rgba(66,133,244,0.15);border:2px solid #4285F4;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#4285F4;flex-shrink:0;">1</div>
+                        <div style="width:2px;flex:1;background:linear-gradient(180deg,#4285F4 0%,rgba(66,133,244,0.2) 100%);min-height:32px;margin-top:4px;"></div>
+                    </div>
+                    <div style="flex:1;padding:0 0 28px 16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                            <span style="font-size:11px;font-weight:600;background:rgba(66,133,244,0.12);color:#4285F4;padding:2px 8px;border-radius:20px;">Google Ads</span>
+                            <span style="font-size:11px;font-weight:600;background:rgba(16,185,129,0.12);color:#10B981;padding:2px 8px;border-radius:20px;">AcmeLab</span>
+                        </div>
+                        <div style="font-weight:600;font-size:15px;color:var(--text-primary);margin-bottom:5px;">AcmeLab launches a Google Ads campaign</div>
+                        <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">AcmeLab's marketing team creates campaigns in Google Ads targeting specific keywords, audiences, or industries. Each ad has a destination URL on AcmeLab's marketing website.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div style="display:flex;gap:0;margin-bottom:0;">
+                    <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:rgba(245,158,11,0.15);border:2px solid #F59E0B;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#F59E0B;flex-shrink:0;">2</div>
+                        <div style="width:2px;flex:1;background:linear-gradient(180deg,#F59E0B 0%,rgba(245,158,11,0.2) 100%);min-height:32px;margin-top:4px;"></div>
+                    </div>
+                    <div style="flex:1;padding:0 0 28px 16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                            <span style="font-size:11px;font-weight:600;background:rgba(245,158,11,0.12);color:#F59E0B;padding:2px 8px;border-radius:20px;">Visitor</span>
+                            <span style="font-size:11px;font-weight:600;background:rgba(66,133,244,0.12);color:#4285F4;padding:2px 8px;border-radius:20px;">Google Ads</span>
+                        </div>
+                        <div style="font-weight:600;font-size:15px;color:var(--text-primary);margin-bottom:5px;">A visitor sees the ad and clicks it</div>
+                        <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">Google Ads serves the ad to a relevant user. When the user clicks, Google appends a unique <code style="font-size:13px;background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:4px;">gclid</code> (Google Click ID) parameter to the landing page URL. This ID is the fingerprint that ties the entire journey back to the original ad click.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div style="display:flex;gap:0;margin-bottom:0;">
+                    <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:rgba(99,102,241,0.15);border:2px solid #6366F1;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#6366F1;flex-shrink:0;">3</div>
+                        <div style="width:2px;flex:1;background:linear-gradient(180deg,#6366F1 0%,rgba(99,102,241,0.2) 100%);min-height:32px;margin-top:4px;"></div>
+                    </div>
+                    <div style="flex:1;padding:0 0 28px 16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                            <span style="font-size:11px;font-weight:600;background:rgba(99,102,241,0.12);color:#818cf8;padding:2px 8px;border-radius:20px;">ThriveStack</span>
+                        </div>
+                        <div style="font-weight:600;font-size:15px;color:var(--text-primary);margin-bottom:5px;">ThriveStack captures the click and visitor identity</div>
+                        <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">ThriveStack's script (already installed on AcmeLab's marketing site) reads the <code style="font-size:13px;background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:4px;">gclid</code> and UTM parameters from the URL. It creates an anonymous visitor profile and stores the ad attribution data, even before the visitor creates an account.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div style="display:flex;gap:0;margin-bottom:0;">
+                    <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:rgba(16,185,129,0.15);border:2px solid #10B981;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#10B981;flex-shrink:0;">4</div>
+                        <div style="width:2px;flex:1;background:linear-gradient(180deg,#10B981 0%,rgba(16,185,129,0.2) 100%);min-height:32px;margin-top:4px;"></div>
+                    </div>
+                    <div style="flex:1;padding:0 0 28px 16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                            <span style="font-size:11px;font-weight:600;background:rgba(245,158,11,0.12);color:#F59E0B;padding:2px 8px;border-radius:20px;">Visitor</span>
+                            <span style="font-size:11px;font-weight:600;background:rgba(16,185,129,0.12);color:#10B981;padding:2px 8px;border-radius:20px;">AcmeLab</span>
+                        </div>
+                        <div style="font-weight:600;font-size:15px;color:var(--text-primary);margin-bottom:5px;">Visitor signs up for AcmeLab</div>
+                        <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">The visitor navigates to AcmeLab's product, creates an account, and begins a trial. At the moment of signup, ThriveStack links the new user identity to the original anonymous visitor profile — completing the first attribution match: <em>this user came from that specific ad click</em>.</p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div style="display:flex;gap:0;margin-bottom:0;">
+                    <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:rgba(16,185,129,0.15);border:2px solid #10B981;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#10B981;flex-shrink:0;">5</div>
+                        <div style="width:2px;flex:1;background:linear-gradient(180deg,#10B981 0%,rgba(16,185,129,0.2) 100%);min-height:32px;margin-top:4px;"></div>
+                    </div>
+                    <div style="flex:1;padding:0 0 28px 16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                            <span style="font-size:11px;font-weight:600;background:rgba(245,158,11,0.12);color:#F59E0B;padding:2px 8px;border-radius:20px;">Visitor</span>
+                            <span style="font-size:11px;font-weight:600;background:rgba(16,185,129,0.12);color:#10B981;padding:2px 8px;border-radius:20px;">AcmeLab</span>
+                        </div>
+                        <div style="font-weight:600;font-size:15px;color:var(--text-primary);margin-bottom:5px;">Visitor converts to a paid customer</div>
+                        <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">The user upgrades to a paid pricing plan on AcmeLab. ThriveStack captures the payment event — including the plan name, MRR value, and billing currency — and ties it to the same attribution chain that started with the Google Ads click.</p>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div style="display:flex;gap:0;margin-bottom:0;">
+                    <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:rgba(99,102,241,0.15);border:2px solid #6366F1;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#6366F1;flex-shrink:0;">6</div>
+                        <div style="width:2px;flex:1;background:linear-gradient(180deg,#6366F1 0%,rgba(99,102,241,0.2) 100%);min-height:32px;margin-top:4px;"></div>
+                    </div>
+                    <div style="flex:1;padding:0 0 28px 16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                            <span style="font-size:11px;font-weight:600;background:rgba(99,102,241,0.12);color:#818cf8;padding:2px 8px;border-radius:20px;">ThriveStack</span>
+                        </div>
+                        <div style="font-weight:600;font-size:15px;color:var(--text-primary);margin-bottom:5px;">ThriveStack enriches with user &amp; company-level data</div>
+                        <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">ThriveStack enriches the conversion record with both user-level and company-level information — job title, company name, industry, employee count, revenue range, and product usage signals. This context transforms a raw click into a rich conversion profile.</p>
+
+                        <!-- Data table -->
+                        <div style="margin-top:14px;border:1px solid var(--border-color);border-radius:10px;overflow:hidden;">
+                            <table style="width:100%;border-collapse:collapse;font-size:13px;">
+                                <thead>
+                                    <tr style="background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border-color);">
+                                        <th style="padding:10px 14px;text-align:left;font-weight:600;color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em;width:40%;">Data point</th>
+                                        <th style="padding:10px 14px;text-align:left;font-weight:600;color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em;">Example value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom:1px solid var(--border-color);">
+                                        <td style="padding:9px 14px;color:var(--text-secondary);">User email</td>
+                                        <td style="padding:9px 14px;color:var(--text-primary);font-family:monospace;font-size:12px;">alice@acmelab.io</td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid var(--border-color);">
+                                        <td style="padding:9px 14px;color:var(--text-secondary);">Job title</td>
+                                        <td style="padding:9px 14px;color:var(--text-primary);font-family:monospace;font-size:12px;">Head of Growth</td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid var(--border-color);">
+                                        <td style="padding:9px 14px;color:var(--text-secondary);">Company name</td>
+                                        <td style="padding:9px 14px;color:var(--text-primary);font-family:monospace;font-size:12px;">Acme Corp</td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid var(--border-color);">
+                                        <td style="padding:9px 14px;color:var(--text-secondary);">Company size</td>
+                                        <td style="padding:9px 14px;color:var(--text-primary);font-family:monospace;font-size:12px;">51–200 employees</td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid var(--border-color);">
+                                        <td style="padding:9px 14px;color:var(--text-secondary);">Pricing plan</td>
+                                        <td style="padding:9px 14px;color:var(--text-primary);font-family:monospace;font-size:12px;">Growth — $299/mo</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:9px 14px;color:var(--text-secondary);">Original gclid</td>
+                                        <td style="padding:9px 14px;color:var(--text-primary);font-family:monospace;font-size:12px;">EAIaIQobChMI...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 7 -->
+                <div style="display:flex;gap:0;margin-bottom:0;">
+                    <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:rgba(99,102,241,0.15);border:2px solid #6366F1;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#6366F1;flex-shrink:0;">7</div>
+                        <div style="width:2px;flex:1;background:linear-gradient(180deg,#6366F1 0%,rgba(99,102,241,0.2) 100%);min-height:32px;margin-top:4px;"></div>
+                    </div>
+                    <div style="flex:1;padding:0 0 28px 16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                            <span style="font-size:11px;font-weight:600;background:rgba(99,102,241,0.12);color:#818cf8;padding:2px 8px;border-radius:20px;">ThriveStack</span>
+                            <span style="font-size:11px;font-weight:600;background:rgba(66,133,244,0.12);color:#4285F4;padding:2px 8px;border-radius:20px;">Google Ads</span>
+                        </div>
+                        <div style="font-weight:600;font-size:15px;color:var(--text-primary);margin-bottom:5px;">ThriveStack sends the enriched conversion back to Google Ads</div>
+                        <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">Using the Google Ads Offline Conversions API, ThriveStack sends the full enriched record — matched via the original <code style="font-size:13px;background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:4px;">gclid</code> — back to Google Ads. This includes both the conversion event (signup, paid) and the company-level context that gives Google the signal quality it needs to optimize effectively.</p>
+                    </div>
+                </div>
+
+                <!-- Step 8 -->
+                <div style="display:flex;gap:0;margin-bottom:0;">
+                    <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:rgba(52,168,83,0.15);border:2px solid #34A853;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#34A853;flex-shrink:0;">8</div>
+                    </div>
+                    <div style="flex:1;padding:0 0 28px 16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                            <span style="font-size:11px;font-weight:600;background:rgba(66,133,244,0.12);color:#4285F4;padding:2px 8px;border-radius:20px;">Google Ads</span>
+                            <span style="font-size:11px;font-weight:600;background:rgba(16,185,129,0.12);color:#10B981;padding:2px 8px;border-radius:20px;">AcmeLab</span>
+                        </div>
+                        <div style="font-weight:600;font-size:15px;color:var(--text-primary);margin-bottom:5px;">Google Ads optimizes future campaigns for AcmeLab</div>
+                        <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">With real conversion data in place, Google's Smart Bidding can now optimize for the outcomes that actually matter to AcmeLab — paid signups, not just clicks or form fills. It builds lookalike audiences from the company profiles, raises bids for high-intent segments, and reduces spend on clicks that never convert.</p>
+                    </div>
+                </div>
+
+                <!-- ─── What you unlock ─────────────────────────────────────── -->
+                <h2 id="what-you-unlock" style="margin-top:8px;margin-bottom:8px;">What AcmeLab unlocks</h2>
+                <p style="color:var(--text-secondary);font-size:15px;line-height:1.6;margin-bottom:20px;">Once the integration is live, AcmeLab gets capabilities that no standard Google Ads setup can provide.</p>
+
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:36px;">
+
+                    <div style="border:1px solid var(--border-color);border-radius:10px;padding:18px;background:var(--card-bg);">
+                        <div style="width:32px;height:32px;border-radius:8px;background:rgba(66,133,244,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:10px;">
+                            <i class="fa-solid fa-bullseye" style="color:#4285F4;font-size:14px;"></i>
+                        </div>
+                        <div style="font-weight:600;font-size:14px;color:var(--text-primary);margin-bottom:5px;">Revenue-based bidding</div>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;margin:0;">Google's Smart Bidding optimizes for actual paid conversions instead of clicks or form submissions.</p>
+                    </div>
+
+                    <div style="border:1px solid var(--border-color);border-radius:10px;padding:18px;background:var(--card-bg);">
+                        <div style="width:32px;height:32px;border-radius:8px;background:rgba(16,185,129,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:10px;">
+                            <i class="fa-solid fa-users" style="color:#10B981;font-size:14px;"></i>
+                        </div>
+                        <div style="font-weight:600;font-size:14px;color:var(--text-primary);margin-bottom:5px;">Company-level lookalikes</div>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;margin:0;">Google builds lookalike audiences from real paying customers — including company size, industry, and role.</p>
+                    </div>
+
+                    <div style="border:1px solid var(--border-color);border-radius:10px;padding:18px;background:var(--card-bg);">
+                        <div style="width:32px;height:32px;border-radius:8px;background:rgba(99,102,241,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:10px;">
+                            <i class="fa-solid fa-magnifying-glass-chart" style="color:#818cf8;font-size:14px;"></i>
+                        </div>
+                        <div style="font-weight:600;font-size:14px;color:var(--text-primary);margin-bottom:5px;">True ROI visibility</div>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;margin:0;">See exactly which campaigns, ad groups, and keywords drove MRR — not just which ones drove traffic.</p>
+                    </div>
+
+                    <div style="border:1px solid var(--border-color);border-radius:10px;padding:18px;background:var(--card-bg);">
+                        <div style="width:32px;height:32px;border-radius:8px;background:rgba(245,158,11,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:10px;">
+                            <i class="fa-solid fa-rotate" style="color:#F59E0B;font-size:14px;"></i>
+                        </div>
+                        <div style="font-weight:600;font-size:14px;color:var(--text-primary);margin-bottom:5px;">Self-improving campaigns</div>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;margin:0;">Every new conversion makes the next campaign smarter. The feedback loop compounds over time without manual tuning.</p>
+                    </div>
+
+                    <div style="border:1px solid var(--border-color);border-radius:10px;padding:18px;background:var(--card-bg);">
+                        <div style="width:32px;height:32px;border-radius:8px;background:rgba(239,68,68,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:10px;">
+                            <i class="fa-solid fa-filter" style="color:#EF4444;font-size:14px;"></i>
+                        </div>
+                        <div style="font-weight:600;font-size:14px;color:var(--text-primary);margin-bottom:5px;">Wasted spend elimination</div>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;margin:0;">Suppress ads for audiences that never convert. Stop paying for clicks from companies that are too small, too large, or wrong industry.</p>
+                    </div>
+
+                    <div style="border:1px solid var(--border-color);border-radius:10px;padding:18px;background:var(--card-bg);">
+                        <div style="width:32px;height:32px;border-radius:8px;background:rgba(52,168,83,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:10px;">
+                            <i class="fa-solid fa-link" style="color:#34A853;font-size:14px;"></i>
+                        </div>
+                        <div style="font-weight:600;font-size:14px;color:var(--text-primary);margin-bottom:5px;">Full-journey attribution</div>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;margin:0;">Track the complete path from first ad impression → signup → trial → paid conversion in a single attribution chain.</p>
+                    </div>
+
+                </div>
+
+            </article>
+        </section></section></div></main>
+    </div>
+
+    <script src="../../../script.js"></script>
+</body>
+</html>
