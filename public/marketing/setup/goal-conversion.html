@@ -52,9 +52,117 @@
             border: 1px solid var(--border-color);
         }
 
+        .gc-img-bookdemo {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .gc-img-link {
+            display: block;
+            position: relative;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .gc-img-link .gc-open-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: rgba(255, 255, 255, 0.9);
+            opacity: 0;
+            transform: translateY(-2px);
+            transition: opacity 120ms ease, transform 120ms ease;
+            pointer-events: none;
+        }
+
+        .gc-img-link:hover .gc-open-icon,
+        .gc-img-link:focus-visible .gc-open-icon {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gc-img-link:hover .gc-img,
+        .gc-img-link:focus-visible .gc-img {
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+        }
+
+        .gc-lightbox {
+            position: fixed;
+            top: var(--gc-topnav-h, 0px);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            display: none;
+        }
+
+        .gc-lightbox.is-open {
+            display: grid;
+            place-items: center;
+        }
+
+        .gc-lightbox-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .gc-lightbox-dialog {
+            position: relative;
+            width: min(1100px, calc(100vw - 40px));
+            max-height: calc(100vh - var(--gc-topnav-h, 0px) - 40px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(17, 17, 23, 0.65);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+        }
+
+        .gc-lightbox-media {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: calc(100vh - var(--gc-topnav-h, 0px) - 90px);
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .gc-lightbox-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(0, 0, 0, 0.55);
+            color: rgba(255, 255, 255, 0.92);
+            cursor: pointer;
+        }
+
+        .gc-lightbox-close:focus-visible {
+            outline: 2px solid rgba(99, 102, 241, 0.5);
+            outline-offset: 2px;
+        }
+
+        body.gc-lightbox-open {
+            overflow: hidden;
+        }
+
         .gc-img-fixed {
-            height: 260px;
-            object-fit: cover;
+            height: auto;
+            object-fit: unset;
             object-position: top;
         }
 
@@ -243,60 +351,109 @@
 
                         <article class="doc-page-body">
 
-                            <h2 id="scenario">Step 1: You want to track how many visitors "Book a Demo" from your website so we'll create a goal.</h2>
-
-                            <h2 id="create-goal">Step 2: Open Goal Conversions and click Create Goal</h2>
+                            <h2 id="scenario">Intent: </h2>
+                                <p>Track how many visitors book a demo from your website so we'll create a goal.</p>
+                        
+                            <h2 id="create-goal">Step 1: Open Goal Conversions and click Create Goal</h2>
                             <p>Navigate to the <strong>Goal Conversions</strong> page in ThriveStack. Click <strong>+ Create Goal</strong> in the top-right corner. A modal opens with fields for goal name, owner, target date, event filters, and a numeric completion target.</p>
                             <div class="gc-img-row cols-1">
                                 <div class="gc-img-wrap">
-                                    <img src="images/goal-conversion/step-01.png"
-                                        alt="Goal Conversions page with Create New Goal modal open"
-                                        class="gc-img" loading="lazy" />
+                                    <a class="gc-img-link" href="images/goal-conversion/step-01.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/step-01.png"
+                                            alt="Goal Conversions page with Create New Goal modal open"
+                                            class="gc-img" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
                                     <span class="gc-img-cap">Goal Conversions page — click "+ Create Goal" to open the modal</span>
                                 </div>
                             </div>
 
-                            <h2 id="fill-details">Step 3: Fill in goal details and choose an event</h2>
+                            <h2 id="fill-details">Step 2: Fill in goal details and choose an event</h2>
                             <p>Give the goal a name (e.g. <em>Demo Booked from Doc's Website</em>), assign an owner, and pick a target date. Under <strong>Event Filters</strong>, type the event name you want to track (e.g. <code>ts-demo-booked</code>). If it doesn't exist yet, select <strong>+ Create "ts-demo-booked" event</strong> from the dropdown. Set a numeric goal target and click <strong>Create Goal</strong>.</p>
                             <div class="gc-img-row cols-1">
                                 <div class="gc-img-wrap">
-                                    <img src="images/goal-conversion/step-02.png"
-                                        alt="Filled-in goal form with event filter selected"
-                                        class="gc-img" loading="lazy" />
+                                    <a class="gc-img-link" href="images/goal-conversion/step-02.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/step-02.png"
+                                            alt="Filled-in goal form with event filter selected"
+                                            class="gc-img" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
                                     <span class="gc-img-cap">Filled form — event filter dropdown with create option</span>
                                 </div>
                             </div>
 
-                            <h2 id="implement-tracking">Step 4: Add the tracking attribute to your button</h2>
+                            <h2 id="implement-tracking">Step 3: Add the tracking attribute to your "Book a Demo" button</h2>
                             <p>ThriveStack shows step-by-step <strong>Event Tracking Implementation</strong> instructions. Choose your platform — <strong>Manual Code</strong>, Webflow, or WordPress. For code-based sites, add a custom class and a <code>thrivestack-event</code> attribute to the button. The ThriveStack script fires the event automatically on click — no extra JavaScript required.</p>
-                            <div class="gc-img-row cols-2">
+                            <div class="gc-img-row cols-1">
                                 <div class="gc-img-wrap">
-                                    <img src="images/goal-conversion/step-03.png"
-                                        alt="Event tracking implementation — select platform and HTML structure"
-                                        class="gc-img gc-img-fixed" loading="lazy" />
+                                    <a class="gc-img-link" href="images/goal-conversion/step-03.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/step-03.png"
+                                            alt="Event tracking implementation — select platform and HTML structure"
+                                            class="gc-img gc-img-fixed" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
                                     <span class="gc-img-cap">Add class &amp; attribute to your button</span>
-                                </div>
-                                <div class="gc-img-wrap">
-                                    <img src="images/goal-conversion/step-05.png"
-                                        alt="Verification step — click Start Verification to confirm"
-                                        class="gc-img gc-img-fixed" loading="lazy" />
-                                    <span class="gc-img-cap">Click "Start Verification" to confirm</span>
                                 </div>
                             </div>
                             <div class="gc-img-row cols-2" style="margin-top: 10px;">
                                 <div class="gc-img-wrap">
                                     <p class="gc-ba-label">Before</p>
-                                    <img src="images/goal-conversion/Before.png"
-                                        alt="Before — button without thrivestack-event attribute"
-                                        class="gc-img gc-img-code gc-img-tall" loading="lazy" />
+                                    <a class="gc-img-link" href="images/goal-conversion/Before.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/Before.png"
+                                            alt="Before — button without thrivestack-event attribute"
+                                            class="gc-img gc-img-code gc-img-tall" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
                                     <span class="gc-img-cap">Before — no tracking attribute on the button</span>
                                 </div>
                                 <div class="gc-img-wrap">
                                     <p class="gc-ba-label">After</p>
-                                    <img src="images/goal-conversion/After.png"
-                                        alt="After — thrivestack-event attribute added to button"
-                                        class="gc-img gc-img-code gc-img-tall" loading="lazy" />
+                                    <a class="gc-img-link" href="images/goal-conversion/After.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/After.png"
+                                            alt="After — thrivestack-event attribute added to button"
+                                            class="gc-img gc-img-code gc-img-tall" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
                                     <span class="gc-img-cap">After — <code>thrivestack-event:ts-demo-booked</code> added to the class</span>
+                                </div>
+                            </div>
+
+                            <h2 id="deploy-changes">Step 4: Deploy your changes so ThriveStack can detect the event in production</h2>
+                            <p>Once the button update is live on your website, go back to ThriveStack and click <strong>Start Verification</strong>. Then open your production site and click the tracked button once — ThriveStack will detect the event and mark verification as complete.</p>
+                            <div class="gc-img-row cols-1">
+                                <div class="gc-img-wrap">
+                                    <a class="gc-img-link" href="images/goal-conversion/BookDemo.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/BookDemo.png"
+                                            alt="Book a demo button click"
+                                            class="gc-img gc-img-bookdemo" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
+                                    <span class="gc-img-cap">After deploying, click your "Book a demo" button on production to trigger the event</span>
+                                </div>
+                            </div>
+                            <div class="gc-img-row cols-1">
+                                <div class="gc-img-wrap">
+                                    <a class="gc-img-link" href="images/goal-conversion/step-05.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/step-05.png"
+                                            alt="Verification step — click Start Verification to confirm"
+                                            class="gc-img" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
+                                    <span class="gc-img-cap">Click "Start Verification" to confirm</span>
                                 </div>
                             </div>
 
@@ -304,15 +461,25 @@
                             <p>ThriveStack listens for the event to fire. Once detected it shows <strong>Verification Complete</strong> — the event is confirmed and ready to track. Click <strong>Proceed</strong> to return to the goal form, then <strong>Create Goal</strong> to save. The goal immediately appears in the Goal Conversions list and starts collecting data.</p>
                             <div class="gc-img-row cols-2">
                                 <div class="gc-img-wrap">
-                                    <img src="images/goal-conversion/step-06.png"
-                                        alt="Verifying events in progress"
-                                        class="gc-img" loading="lazy" />
+                                    <a class="gc-img-link" href="images/goal-conversion/step-06.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/step-06.png"
+                                            alt="Verifying events in progress"
+                                            class="gc-img" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
                                     <span class="gc-img-cap">Listening for events — verifying detection</span>
                                 </div>
                                 <div class="gc-img-wrap">
-                                    <img src="images/goal-conversion/step-08.png"
-                                        alt="Verification Complete — event confirmed, click Proceed"
-                                        class="gc-img" loading="lazy" />
+                                    <a class="gc-img-link" href="images/goal-conversion/step-08.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/step-08.png"
+                                            alt="Verification Complete — event confirmed, click Proceed"
+                                            class="gc-img" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
                                     <span class="gc-img-cap">Verification complete — click "Proceed" then "Create Goal"</span>
                                 </div>
                             </div>
@@ -321,9 +488,14 @@
                             <p>Your new goal appears in the list showing <strong>Unique Visitors</strong>, <strong>Repeat Visitors</strong>, <strong>Goal Completions</strong>, conversion rate, status, and progress toward the target. Click the goal row to open its detailed chart view with daily, 7d, 30d, 60d, and 90d breakdowns.</p>
                             <div class="gc-img-row cols-1">
                                 <div class="gc-img-wrap">
-                                    <img src="images/goal-conversion/step-10.png"
-                                        alt="Goal Conversions list showing the newly created Demo Booked goal"
-                                        class="gc-img" loading="lazy" />
+                                    <a class="gc-img-link" href="images/goal-conversion/step-10.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/step-10.png"
+                                            alt="Goal Conversions list showing the newly created Demo Booked goal"
+                                            class="gc-img" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
                                     <span class="gc-img-cap">Goal appears in the list — click to open the detailed chart view</span>
                                 </div>
                             </div>
@@ -332,15 +504,25 @@
                             <p>Hover over the goal card to reveal the action icons. Click the <strong>pin icon</strong> ("Pin to Dashboard") to surface it in the <strong>Pinned Goals</strong> section of your Unified Dashboard. Pinned goals show a live chart of Unique Visitors, Goal Completions, and Target at a glance.</p>
                             <div class="gc-img-row cols-2">
                                 <div class="gc-img-wrap">
-                                    <img src="images/goal-conversion/step-11.png"
-                                        alt="Pin to Dashboard tooltip on goal card"
-                                        class="gc-img gc-img-fixed" loading="lazy" />
+                                    <a class="gc-img-link" href="images/goal-conversion/step-11.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/step-11.png"
+                                            alt="Pin to Dashboard tooltip on goal card"
+                                            class="gc-img gc-img-fixed" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
                                     <span class="gc-img-cap">Hover the goal card — click the pin icon</span>
                                 </div>
                                 <div class="gc-img-wrap">
-                                    <img src="images/goal-conversion/step-12.png"
-                                        alt="Pinned Goals section on the Unified Dashboard"
-                                        class="gc-img gc-img-fixed" loading="lazy" />
+                                    <a class="gc-img-link" href="images/goal-conversion/step-12.png"
+                                        aria-label="Open image">
+                                        <img src="images/goal-conversion/step-12.png"
+                                            alt="Pinned Goals section on the Unified Dashboard"
+                                            class="gc-img gc-img-fixed" loading="lazy" />
+                                        <span class="gc-open-icon" aria-hidden="true"><i
+                                                class="fa-solid fa-up-right-from-square"></i></span>
+                                    </a>
                                     <span class="gc-img-cap">Unified Dashboard — Pinned Goals with live charts</span>
                                 </div>
                             </div>
@@ -373,10 +555,11 @@
             <div class="toc-container sticky-top">
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
-                    <a href="#scenario" class="toc-link">1. What you're building</a>
-                    <a href="#create-goal" class="toc-link">2. Open Goal Conversions</a>
-                    <a href="#fill-details" class="toc-link">3. Fill in goal details</a>
-                    <a href="#implement-tracking" class="toc-link">4. Add tracking attribute</a>
+                    <a href="#scenario" class="toc-link">Intent</a>
+                    <a href="#create-goal" class="toc-link">1. Open Goal Conversions</a>
+                    <a href="#fill-details" class="toc-link">2. Fill in goal details</a>
+                    <a href="#implement-tracking" class="toc-link">3. Add tracking attribute</a>
+                    <a href="#deploy-changes" class="toc-link">4. Deploy changes</a>
                     <a href="#verify-tracking" class="toc-link">5. Verify the event</a>
                     <a href="#view-goal" class="toc-link">6. View on Goal Conversions</a>
                     <a href="#pin-dashboard" class="toc-link">7. Pin to Dashboard</a>
@@ -386,7 +569,85 @@
         </aside>
     </div>
 
+    <div class="gc-lightbox" id="gc-lightbox" aria-hidden="true">
+        <div class="gc-lightbox-backdrop" data-gc-lightbox-close></div>
+        <div class="gc-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Image preview">
+            <button type="button" class="gc-lightbox-close" data-gc-lightbox-close aria-label="Close preview">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img class="gc-lightbox-media" id="gc-lightbox-img" alt="" />
+        </div>
+    </div>
+
     <script src="../../../script.js"></script>
+    <script>
+        (function () {
+            var lightbox = document.getElementById('gc-lightbox');
+            var lightboxImg = document.getElementById('gc-lightbox-img');
+            if (!lightbox || !lightboxImg) return;
+
+            var lastActive = null;
+            var topNav = document.querySelector('.top-nav');
+
+            function syncTopNavHeight() {
+                if (!topNav) {
+                    document.documentElement.style.setProperty('--gc-topnav-h', '0px');
+                    return;
+                }
+                var h = Math.ceil(topNav.getBoundingClientRect().height || 0);
+                document.documentElement.style.setProperty('--gc-topnav-h', h + 'px');
+            }
+
+            function openLightbox(imgEl, href) {
+                syncTopNavHeight();
+                lastActive = document.activeElement;
+                lightboxImg.src = href || imgEl.currentSrc || imgEl.src;
+                lightboxImg.alt = imgEl.alt || 'Image preview';
+                lightbox.classList.add('is-open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('gc-lightbox-open');
+                var closeBtn = lightbox.querySelector('[data-gc-lightbox-close]');
+                if (closeBtn) closeBtn.focus();
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('is-open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('gc-lightbox-open');
+                lightboxImg.removeAttribute('src');
+                if (lastActive && typeof lastActive.focus === 'function') lastActive.focus();
+                lastActive = null;
+            }
+
+            document.addEventListener('click', function (e) {
+                var link = e.target && e.target.closest ? e.target.closest('a.gc-img-link') : null;
+                if (link) {
+                    var img = link.querySelector('img');
+                    if (!img) return;
+                    e.preventDefault();
+                    openLightbox(img, link.getAttribute('href'));
+                    return;
+                }
+
+                var closeEl = e.target && e.target.closest ? e.target.closest('[data-gc-lightbox-close]') : null;
+                if (closeEl) closeLightbox();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && lightbox.classList.contains('is-open')) {
+                    closeLightbox();
+                }
+            });
+
+            window.addEventListener('resize', function () {
+                if (lightbox.classList.contains('is-open')) syncTopNavHeight();
+            });
+
+            lightbox.addEventListener('click', function (e) {
+                if (e.target === lightbox) closeLightbox();
+            });
+        })();
+    </script>
 </body>
 
 </html>
