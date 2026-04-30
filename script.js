@@ -419,3 +419,118 @@ class ReadyToScalePromo extends HTMLElement {
     }
 }
 customElements.define('ready-to-scale-promo', ReadyToScalePromo);
+
+class SetupSidebar extends HTMLElement {
+    connectedCallback() {
+        const prefix = this.getAttribute('base-path') || '';
+        this.innerHTML = `
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="${prefix}setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
+                    <li><a href="${prefix}data-collection.html" class="nav-item"><span>Data Collection</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ThriveStack MCP</h3>
+                <ul>
+                    <li><a href="${prefix}public/product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Marketing Intelligence</h3>
+                <ul>
+                    <li><a href="${prefix}public/marketing/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="#" class="nav-item"><span>Setup Manually</span><span class="time-badge">10 mins</span></a></li>
+                    <li><a href="${prefix}public/marketing/setup/implement-with-prompt-marketing.html" class="nav-item"><span>Implement with Prompt</span></a></li>
+                    <li><a href="${prefix}public/marketing/setup/goal-conversion.html" class="nav-item"><span>Goal Conversion</span></a></li>
+                    <li><a href="${prefix}public/marketing/setup/google-ads.html" class="nav-item"><span>Google Ads</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Product Intelligence</h3>
+                <ul>
+                    <li><a href="${prefix}public/product/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="${prefix}public/product/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="${prefix}public/product/setup/multi-repo-setup.html" class="nav-item"><span>Multi-Repo &amp; Split Flows</span></a></li>
+                    <li><a href="${prefix}public/product/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="${prefix}public/product/setup/saas-growth-events.html" class="nav-item"><span>Understand Events Telemetry</span></a></li>
+                    <li><a href="${prefix}public/revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
+                    <li><a href="${prefix}public/product/setup/environment-correlation.html" class="nav-item"><span>Environments and API Keys</span></a></li>
+                    <li><a href="${prefix}public/product/setup/advanced-ai-instrumentation.html" class="nav-item"><span>Advanced AI Instrumentation</span><span class="time-badge" style="background:rgba(99,102,241,0.15);color:#818cf8;">Beta</span></a></li>
+                    <li><a href="${prefix}public/product/setup/api-cli-instrumentation.html" class="nav-item"><span>Track API, CLI &amp; Agent Usage</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="${prefix}public/revenue/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="${prefix}public/revenue/setup/setup-with-ai.html" class="nav-item"><span>Setup with AI (LLM)</span><span class="time-badge">2 mins</span></a></li>
+                    <li><a href="${prefix}public/revenue/setup/setup-manually.html" class="nav-item"><span>Setup Manually</span><span class="time-badge">~1hr</span></a></li>
+                    <li><a href="${prefix}public/revenue/setup/chargebee-integration.html" class="nav-item"><span>Chargebee Integration</span></a></li>
+                    <li><a href="${prefix}public/revenue/setup/stripe-integration.html" class="nav-item"><span>Stripe Integration</span></a></li>
+                    <li><a href="${prefix}public/revenue/setup/why-correlation.html" class="nav-item"><span>Why Correlation Matters</span></a></li>
+                    <li><a href="${prefix}public/revenue/setup/exceptional-use-cases.html" class="nav-item"><span>Exceptional Use Cases</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>CRM Sync</h3>
+                <ul>
+                    <li><a href="${prefix}public/crm-sync/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="${prefix}public/crm-sync/hubspot.html" class="nav-item"><span>HubSpot</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Customer Success</h3>
+                <ul>
+                    <li><a href="${prefix}public/customer-success/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="${prefix}public/customer-success/setup-health-scores.html" class="nav-item"><span>Setup Health Scores</span></a></li>
+                </ul>
+            </div>
+        `;
+        
+        // Handle Active State
+        let currentPath = window.location.pathname;
+        if (currentPath.endsWith('/')) {
+            currentPath += 'index.html';
+        }
+        
+        const links = this.querySelectorAll('a.nav-item');
+        const currentFile = currentPath.split('/').pop();
+        const isMarketing = currentPath.includes('marketing');
+        const isProduct = currentPath.includes('product');
+        const isRevenue = currentPath.includes('revenue');
+        const isCRM = currentPath.includes('crm-sync');
+        const isCS = currentPath.includes('customer-success');
+
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href !== '#') {
+                const hrefPath = href.split('/').pop();
+                
+                if (hrefPath === currentFile) {
+                    if (hrefPath === 'setup-with-ai.html' || hrefPath === 'setup-manually.html') {
+                        if (isMarketing && href.includes('marketing')) link.classList.add('active');
+                        else if (isProduct && href.includes('product')) link.classList.add('active');
+                        else if (isRevenue && href.includes('revenue')) link.classList.add('active');
+                    } else if (hrefPath === 'introduction.html') {
+                        if (isProduct && href.includes('product')) link.classList.add('active');
+                        else if (isRevenue && href.includes('revenue')) link.classList.add('active');
+                        else if (isCRM && href.includes('crm-sync')) link.classList.add('active');
+                        else if (isCS && href.includes('customer-success')) link.classList.add('active');
+                    } else {
+                        link.classList.add('active');
+                    }
+                }
+            }
+        });
+    }
+}
+customElements.define('setup-sidebar', SetupSidebar);
+
