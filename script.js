@@ -194,6 +194,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'Exceptional Use Cases',
                 url: 'public/revenue/setup/exceptional-use-cases.html#exceptional-use-cases',
                 terms: 'exceptional use cases chargebee stripe payment gateway marketplace platform fee revenue billing connect transactions api'
+            },
+            {
+                title: 'Goal Conversion',
+                url: 'public/marketing/setup/goal-conversion.html#create-goal',
+                terms: 'goal conversion create goal event tracking pin dashboard goal completions unique visitors repeat visitors target date event filter ts-demo-booked verification pinned goals unified dashboard conversion rate signup demo request page visits'
             }
         ];
 
@@ -408,7 +413,7 @@ class ReadyToScalePromo extends HTMLElement {
                 <div class="promo-icon"><i class="fa-solid fa-rocket gradient-text"></i></div>
                 <h5>Ready to scale?</h5>
                 <p>Book a demo with our growth team today.</p>
-                <a href="https://cal.com/thrivestack/strategy?duration=45&overlayCalendar=true" class="btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">Get Started</a>
+                <a href="https://cal.com/thrivestack/strategy?duration=45&overlayCalendar=true" class="btn-secondary btn-sm thrivestack-event:ts-demo-booked" target="_blank" rel="noopener noreferrer">Get Started</a>
             </div>
         `;
     }
