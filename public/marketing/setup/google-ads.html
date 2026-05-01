@@ -481,6 +481,317 @@
 
                 </div>
 
+                <!-- ─── FAQ ──────────────────────────────────────────────── -->
+                <h2 id="faq" style="margin-top:48px;margin-bottom:8px;">Frequently Asked Questions</h2>
+                <p style="color:var(--text-secondary);font-size:15px;line-height:1.6;margin-bottom:24px;">Common questions about the ThriveStack ↔ Google Ads integration.</p>
+
+                <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:36px;">
+
+                    <!-- Q1 -->
+                    <details style="border:1px solid var(--border-color);border-radius:10px;overflow:hidden;background:var(--card-bg);">
+                        <summary style="cursor:pointer;padding:18px 20px;font-weight:600;font-size:14px;color:var(--text-primary);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                            <span>What data does ThriveStack collect from my Google Ads campaigns?</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:12px;color:var(--text-secondary);flex-shrink:0;transition:transform 0.2s;"></i>
+                        </summary>
+                        <div style="padding:0 20px 18px;border-top:1px solid var(--border-color);">
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:16px 0 14px;">There are two distinct sources — data pulled <em>from</em> Google Ads, and data ThriveStack collects <em>about visitors who arrived via</em> a Google ad click. These are different things.</p>
+
+                            <div style="font-weight:600;font-size:13px;color:#4285F4;margin-bottom:8px;display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-arrow-down-to-bracket"></i> Data pulled from Google Ads (synced daily via Airbyte)</div>
+                            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px;">
+                                <div style="padding:12px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+                                    <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:3px 7px;border-radius:4px;color:var(--text-primary);white-space:nowrap;">click_view</code>
+                                    <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Your GCLID source — every ad click with its unique identifier, click timestamp, and campaign association. This is the join key that links a landing-page visit to a conversion event in Phase 2. <strong style="color:#EA4335;">Critical stream.</strong></span>
+                                </div>
+                                <div style="padding:12px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+                                    <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:3px 7px;border-radius:4px;color:var(--text-primary);white-space:nowrap;">campaign_budget</code>
+                                    <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Budget allocated per campaign. Combined with conversion value, this is what makes ROAS (return on ad spend) calculable in ThriveStack reports.</span>
+                                </div>
+                                <div style="padding:12px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+                                    <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:3px 7px;border-radius:4px;color:var(--text-primary);white-space:nowrap;">customer</code>
+                                    <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Google Ads account metadata — account ID, name, currency, timezone. Needed to scope API calls correctly during OAuth setup and for multi-account support.</span>
+                                </div>
+                                <div style="padding:12px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+                                    <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:3px 7px;border-radius:4px;color:var(--text-primary);white-space:nowrap;">geographic_view<br>_with_metrics</code>
+                                    <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Cost, clicks, and impressions broken down by geography. Powers spend and performance reporting by region — useful for geo-targeting decisions.</span>
+                                </div>
+                            </div>
+
+                            <div style="font-weight:600;font-size:13px;color:#10B981;margin-bottom:8px;display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-user-check"></i> Data ThriveStack collects when a visitor arrives from a Google ad</div>
+                            <ul style="font-size:14px;color:var(--text-secondary);line-height:1.8;margin:0 0 14px;padding-left:20px;">
+                                <li><strong style="color:var(--text-primary);">GCLID from the landing page URL</strong> — Google's auto-tagging appends <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">?gclid=…</code> to your ad destination URL. ThriveStack's script reads and stores it in <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">localStorage</code> and a cookie on the visitor's first page load.</li>
+                                <li><strong style="color:var(--text-primary);">User identity at signup</strong> — when the anonymous visitor later signs up, ThriveStack links their email and account ID to the stored GCLID. This is your own data from your product's signup flow — not data from Google.</li>
+                                <li><strong style="color:var(--text-primary);">Lifecycle events</strong> — demo booked, trial started, first payment — captured from your product and linked to the GCLID. These are your product events, not Google Ads data.</li>
+                            </ul>
+
+                            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0;padding:12px;background:rgba(66,133,244,0.07);border-radius:8px;border-left:3px solid rgba(66,133,244,0.4);">ThriveStack does not collect browsing history, ad creative content, bid data, or any Google account information. The only data read from Google Ads itself is campaign metadata and click-level GCLID mappings from your own account.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q2 -->
+                    <details style="border:1px solid var(--border-color);border-radius:10px;overflow:hidden;background:var(--card-bg);">
+                        <summary style="cursor:pointer;padding:18px 20px;font-weight:600;font-size:14px;color:var(--text-primary);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                            <span>What data does ThriveStack push back to Google Ads for feedback loops?</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:12px;color:var(--text-secondary);flex-shrink:0;transition:transform 0.2s;"></i>
+                        </summary>
+                        <div style="padding:0 20px 18px;border-top:1px solid var(--border-color);">
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:16px 0 18px;">Two streams flow back to Google Ads — audience lists synced daily, and account-level conversion signals sent per event.</p>
+
+                            <!-- Stream 1: Audience Lists -->
+                            <div style="margin-bottom:18px;">
+                                <div style="font-weight:600;font-size:13px;color:#10B981;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+                                    <i class="fa-solid fa-users"></i> Customer Match — Audience Lists (daily sync)
+                                </div>
+                                <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0 0 10px;">Three lifecycle-based segments are pushed to Google Ads Audience Manager every day. Email addresses are SHA-256 hashed before sending — plain emails are never transmitted.</p>
+                                <div style="display:flex;flex-direction:column;gap:8px;">
+                                    <div style="padding:11px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:160px 1fr;gap:12px;align-items:start;">
+                                        <code style="font-size:12px;background:rgba(16,185,129,0.1);color:#10B981;padding:3px 7px;border-radius:4px;white-space:nowrap;">paying_customers</code>
+                                        <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">All active paying accounts. Used to <strong style="color:var(--text-primary);">exclude</strong> from acquisition campaigns — stop spending on people already paying.</span>
+                                    </div>
+                                    <div style="padding:11px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:160px 1fr;gap:12px;align-items:start;">
+                                        <code style="font-size:12px;background:rgba(245,158,11,0.1);color:#F59E0B;padding:3px 7px;border-radius:4px;white-space:nowrap;">free_trial</code>
+                                        <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Accounts in trial, not yet paying. Used to <strong style="color:var(--text-primary);">target</strong> with conversion-focused ads to push them over the line.</span>
+                                    </div>
+                                    <div style="padding:11px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:160px 1fr;gap:12px;align-items:start;">
+                                        <code style="font-size:12px;background:rgba(239,68,68,0.1);color:#EF4444;padding:3px 7px;border-radius:4px;white-space:nowrap;">churned</code>
+                                        <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Accounts that were paying and have since gone inactive. Used to <strong style="color:var(--text-primary);">target</strong> with win-back campaigns.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Stream 2: Offline Conversion Signals -->
+                            <div>
+                                <div style="font-weight:600;font-size:13px;color:#4285F4;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+                                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Offline Conversion Signals — per account event
+                                </div>
+                                <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0 0 10px;">When a tracked account reaches a lifecycle milestone, ThriveStack sends a conversion record to Google Ads. Each record contains:</p>
+                                <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+                                    <div style="padding:10px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+                                        <span style="font-size:13px;font-weight:600;color:var(--text-primary);">GCLID</span>
+                                        <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">The original click identifier captured when this account first landed from a Google ad. Google uses it to match the conversion back to the exact click and campaign.</span>
+                                    </div>
+                                    <div style="padding:10px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+                                        <span style="font-size:13px;font-weight:600;color:var(--text-primary);">Conversion timestamp</span>
+                                        <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Exact time the lifecycle event occurred. Must be within 90 days of the original click or Google will reject the import.</span>
+                                    </div>
+                                    <div style="padding:10px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+                                        <span style="font-size:13px;font-weight:600;color:var(--text-primary);">Payment status</span>
+                                        <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Whether the account has made a first payment. Lets Google's Smart Bidding distinguish a paying conversion from a free signup.</span>
+                                    </div>
+                                    <div style="padding:10px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+                                        <span style="font-size:13px;font-weight:600;color:var(--text-primary);">Activation status</span>
+                                        <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Whether the account has completed activation (onboarded, set up, first meaningful action). A leading signal before payment that helps Google optimise earlier in the funnel.</span>
+                                    </div>
+                                    <div style="padding:10px 14px;border:1px solid var(--border-color);border-radius:8px;display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+                                        <span style="font-size:13px;font-weight:600;color:var(--text-primary);">Enriched account info</span>
+                                        <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Account name and firmographic data — company size, industry, geography. Enables Google to build lookalike audiences from the profile of accounts that actually converted, not just from email hashes.</span>
+                                    </div>
+                                </div>
+                                <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0;padding:12px;background:rgba(66,133,244,0.07);border-radius:8px;border-left:3px solid rgba(66,133,244,0.4);">Google matches the GCLID to the original ad click and credits the campaign. With enriched firmographic signals, Smart Bidding can optimise for the <em>type</em> of account that converts — not just the volume of conversions.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Q2b: Correlation -->
+                    <details style="border:1px solid var(--border-color);border-radius:10px;overflow:hidden;background:var(--card-bg);">
+                        <summary style="cursor:pointer;padding:18px 20px;font-weight:600;font-size:14px;color:var(--text-primary);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                            <span>How does ThriveStack correlate a Google Ads click to a paying customer?</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:12px;color:var(--text-secondary);flex-shrink:0;transition:transform 0.2s;"></i>
+                        </summary>
+                        <div style="padding:0 20px 18px;border-top:1px solid var(--border-color);">
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:16px 0 18px;">The GCLID is the thread that ties every step together. ThriveStack keeps it attached to the visitor record from first click all the way through to payment — then hands it back to Google so the campaign gets credited.</p>
+
+                            <!-- Step-by-step flow -->
+                            <div style="display:flex;flex-direction:column;gap:0;margin-bottom:18px;">
+
+                                <!-- Step 1 -->
+                                <div style="display:grid;grid-template-columns:32px 1fr;gap:0 14px;align-items:start;">
+                                    <div style="display:flex;flex-direction:column;align-items:center;">
+                                        <div style="width:32px;height:32px;border-radius:50%;background:rgba(66,133,244,0.15);border:2px solid rgba(66,133,244,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                            <span style="font-size:12px;font-weight:700;color:#4285F4;">1</span>
+                                        </div>
+                                        <div style="width:2px;flex:1;min-height:20px;background:rgba(66,133,244,0.2);margin:4px 0;"></div>
+                                    </div>
+                                    <div style="padding-bottom:16px;">
+                                        <div style="font-weight:600;font-size:13px;color:var(--text-primary);margin-bottom:4px;">Sarah clicks a Google Ad</div>
+                                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0 0 6px;">Google's auto-tagging appends a unique GCLID to the destination URL:</p>
+                                        <code style="display:block;font-size:12px;background:rgba(255,255,255,0.05);padding:8px 12px;border-radius:6px;color:#4285F4;">fivex.com/?gclid=ABC999</code>
+                                    </div>
+                                </div>
+
+                                <!-- Step 2 -->
+                                <div style="display:grid;grid-template-columns:32px 1fr;gap:0 14px;align-items:start;">
+                                    <div style="display:flex;flex-direction:column;align-items:center;">
+                                        <div style="width:32px;height:32px;border-radius:50%;background:rgba(66,133,244,0.15);border:2px solid rgba(66,133,244,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                            <span style="font-size:12px;font-weight:700;color:#4285F4;">2</span>
+                                        </div>
+                                        <div style="width:2px;flex:1;min-height:20px;background:rgba(66,133,244,0.2);margin:4px 0;"></div>
+                                    </div>
+                                    <div style="padding-bottom:16px;">
+                                        <div style="font-weight:600;font-size:13px;color:var(--text-primary);margin-bottom:4px;">ThriveStack captures the GCLID on landing</div>
+                                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0 0 6px;">The tracking script reads <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">gclid=ABC999</code> from the URL on the very first page load and stores it against an anonymous visitor ID:</p>
+                                        <div style="font-size:12px;background:rgba(255,255,255,0.05);padding:8px 12px;border-radius:6px;font-family:monospace;color:var(--text-secondary);line-height:1.8;">
+                                            visitor_id: <span style="color:#10B981;">V123</span><br>
+                                            gclid: <span style="color:#4285F4;">ABC999</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3 -->
+                                <div style="display:grid;grid-template-columns:32px 1fr;gap:0 14px;align-items:start;">
+                                    <div style="display:flex;flex-direction:column;align-items:center;">
+                                        <div style="width:32px;height:32px;border-radius:50%;background:rgba(66,133,244,0.15);border:2px solid rgba(66,133,244,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                            <span style="font-size:12px;font-weight:700;color:#4285F4;">3</span>
+                                        </div>
+                                        <div style="width:2px;flex:1;min-height:20px;background:rgba(66,133,244,0.2);margin:4px 0;"></div>
+                                    </div>
+                                    <div style="padding-bottom:16px;">
+                                        <div style="font-weight:600;font-size:13px;color:var(--text-primary);margin-bottom:4px;">Sarah signs up — GCLID transfers to her identity</div>
+                                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0 0 6px;">When Sarah creates an account, ThriveStack merges the anonymous session into the identified user record. The GCLID travels with it:</p>
+                                        <div style="font-size:12px;background:rgba(255,255,255,0.05);padding:8px 12px;border-radius:6px;font-family:monospace;color:var(--text-secondary);line-height:1.8;">
+                                            user_id: <span style="color:#10B981;">U456</span>  ← linked to V123<br>
+                                            email: <span style="color:#10B981;">sarah@company.com</span><br>
+                                            gclid: <span style="color:#4285F4;">ABC999</span>  ← still attached
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Step 4 -->
+                                <div style="display:grid;grid-template-columns:32px 1fr;gap:0 14px;align-items:start;">
+                                    <div style="display:flex;flex-direction:column;align-items:center;">
+                                        <div style="width:32px;height:32px;border-radius:50%;background:rgba(66,133,244,0.15);border:2px solid rgba(66,133,244,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                            <span style="font-size:12px;font-weight:700;color:#4285F4;">4</span>
+                                        </div>
+                                        <div style="width:2px;flex:1;min-height:20px;background:rgba(66,133,244,0.2);margin:4px 0;"></div>
+                                    </div>
+                                    <div style="padding-bottom:16px;">
+                                        <div style="font-weight:600;font-size:13px;color:var(--text-primary);margin-bottom:4px;">Sarah pays — ThriveStack fires a conversion event</div>
+                                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0 0 6px;">A <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">first_payment</code> event is recorded. ThriveStack looks up U456, finds the attached GCLID, and sends the conversion to Google's Offline Conversions API:</p>
+                                        <div style="font-size:12px;background:rgba(255,255,255,0.05);padding:8px 12px;border-radius:6px;font-family:monospace;color:var(--text-secondary);line-height:1.8;">
+                                            gclid: <span style="color:#4285F4;">ABC999</span><br>
+                                            conversion: <span style="color:#F59E0B;">first_payment</span><br>
+                                            timestamp: <span style="color:#10B981;">2026-04-28T14:32:00Z</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Step 5 -->
+                                <div style="display:grid;grid-template-columns:32px 1fr;gap:0 14px;align-items:start;">
+                                    <div style="display:flex;flex-direction:column;align-items:center;">
+                                        <div style="width:32px;height:32px;border-radius:50%;background:rgba(52,168,83,0.15);border:2px solid rgba(52,168,83,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                            <span style="font-size:12px;font-weight:700;color:#34A853;">5</span>
+                                        </div>
+                                    </div>
+                                    <div style="padding-bottom:4px;">
+                                        <div style="font-weight:600;font-size:13px;color:var(--text-primary);margin-bottom:4px;">Google closes the loop</div>
+                                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0;">Google matches <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">ABC999</code> back to the original Spring Campaign click. The campaign is credited with the conversion. Smart Bidding now knows this campaign drives paying customers and adjusts bids accordingly.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0;padding:12px;background:rgba(52,168,83,0.07);border-radius:8px;border-left:3px solid rgba(52,168,83,0.35);">The GCLID is the only shared key between Google Ads and ThriveStack. Without it — for example if auto-tagging is off, or the GCLID was not captured before a redirect — the conversion cannot be attributed back to the campaign.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q3 -->
+                    <details style="border:1px solid var(--border-color);border-radius:10px;overflow:hidden;background:var(--card-bg);">
+                        <summary style="cursor:pointer;padding:18px 20px;font-weight:600;font-size:14px;color:var(--text-primary);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                            <span>How long before Google starts optimizing bids based on ThriveStack conversion data?</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:12px;color:var(--text-secondary);flex-shrink:0;transition:transform 0.2s;"></i>
+                        </summary>
+                        <div style="padding:0 20px 18px;border-top:1px solid var(--border-color);">
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:16px 0 10px;">Google's Smart Bidding algorithms need at least <strong style="color:var(--text-primary);">30–50 conversions per month per campaign</strong> to exit "learning mode" and start making meaningful bid adjustments.</p>
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:0 0 10px;">In practice, expect two phases after go-live:</p>
+                            <ul style="font-size:14px;color:var(--text-secondary);line-height:1.8;margin:0 0 14px;padding-left:20px;">
+                                <li><strong style="color:var(--text-primary);">Weeks 1–4:</strong> Google collects conversion data but makes few bid changes. You'll see conversions appearing in Google Ads reports — verify the counts match ThriveStack.</li>
+                                <li><strong style="color:var(--text-primary);">Weeks 4–8:</strong> Once enough conversions accumulate, Smart Bidding begins shifting budget toward higher-converting segments. Campaigns with lower volume take longer.</li>
+                            </ul>
+                            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0;padding:12px;background:rgba(245,158,11,0.07);border-radius:8px;border-left:3px solid rgba(245,158,11,0.4);">For B2B SaaS with longer sales cycles, prioritize sending <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">demo_booked</code> as a leading indicator — it occurs more frequently than <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">first_payment</code> and gives Google faster signal to learn from.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q4 -->
+                    <details style="border:1px solid var(--border-color);border-radius:10px;overflow:hidden;background:var(--card-bg);">
+                        <summary style="cursor:pointer;padding:18px 20px;font-weight:600;font-size:14px;color:var(--text-primary);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                            <span>What happens if a user clicks an ad on mobile but converts on desktop?</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:12px;color:var(--text-secondary);flex-shrink:0;transition:transform 0.2s;"></i>
+                        </summary>
+                        <div style="padding:0 20px 18px;border-top:1px solid var(--border-color);">
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:16px 0 10px;">This is a known limitation of all offline conversion systems — not specific to ThriveStack. Here's how ThriveStack handles it:</p>
+                            <ul style="font-size:14px;color:var(--text-secondary);line-height:1.8;margin:0 0 14px;padding-left:20px;">
+                                <li><strong style="color:var(--text-primary);">Same email on both devices (identity merge):</strong> When the user signs up on desktop with the same email they used on mobile, ThriveStack merges the two sessions. The GCLID from the mobile session is carried over to the identified user record — the conversion is sent to Google correctly.</li>
+                                <li><strong style="color:var(--text-primary);">Devices never linked:</strong> If the user never logs in on the mobile device, the two sessions cannot be merged. The conversion is recorded in ThriveStack but sent to Google without a GCLID — it won't appear in Google Ads attribution.</li>
+                            </ul>
+                            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0;padding:12px;background:rgba(99,102,241,0.07);border-radius:8px;border-left:3px solid rgba(99,102,241,0.4);">In ThriveStack's reports, you can see total conversions vs. attributed conversions to understand the cross-device gap for your audience.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q5 -->
+                    <details style="border:1px solid var(--border-color);border-radius:10px;overflow:hidden;background:var(--card-bg);">
+                        <summary style="cursor:pointer;padding:18px 20px;font-weight:600;font-size:14px;color:var(--text-primary);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                            <span>Will Customer Match lists work if we have fewer than 1,000 customers?</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:12px;color:var(--text-secondary);flex-shrink:0;transition:transform 0.2s;"></i>
+                        </summary>
+                        <div style="padding:0 20px 18px;border-top:1px solid var(--border-color);">
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:16px 0 10px;">Google requires a Customer Match list to have at least <strong style="color:var(--text-primary);">1,000 matched users</strong> before the audience becomes usable in campaigns. If your list is below this threshold:</p>
+                            <ul style="font-size:14px;color:var(--text-secondary);line-height:1.8;margin:0 0 14px;padding-left:20px;">
+                                <li>Google will accept the upload without error</li>
+                                <li>The audience will show as <em>"Too small to use"</em> or display <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">&lt;1000</code> in Google Ads Audience Manager</li>
+                                <li>Raynor cannot target or exclude this audience in campaigns until the threshold is met</li>
+                            </ul>
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:0 0 10px;"><strong style="color:var(--text-primary);">Recommended approach for early-stage accounts:</strong></p>
+                            <ul style="font-size:14px;color:var(--text-secondary);line-height:1.8;margin:0 0 0;padding-left:20px;">
+                                <li>Start with the <strong>free trial segment</strong> — it's typically larger and more likely to clear 1,000 users first</li>
+                                <li>Add the paying customers exclusion list once you have enough volume</li>
+                                <li>ThriveStack logs a warning when uploading lists under 500 users so you're never surprised</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- Q6 -->
+                    <details style="border:1px solid var(--border-color);border-radius:10px;overflow:hidden;background:var(--card-bg);">
+                        <summary style="cursor:pointer;padding:18px 20px;font-weight:600;font-size:14px;color:var(--text-primary);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                            <span>Do we need to change our existing UTM setup?</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:12px;color:var(--text-secondary);flex-shrink:0;transition:transform 0.2s;"></i>
+                        </summary>
+                        <div style="padding:0 20px 18px;border-top:1px solid var(--border-color);">
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:16px 0 10px;">You don't need to remove existing UTMs, but two changes will improve data quality:</p>
+                            <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
+                                <div style="padding:12px 14px;border:1px solid var(--border-color);border-radius:8px;">
+                                    <div style="font-weight:600;font-size:13px;color:var(--text-primary);margin-bottom:5px;">1. Switch campaign IDs to campaign names</div>
+                                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0 0 8px;">If you're currently passing numeric IDs in <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">utm_campaign</code> (e.g. <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">18492837</code>), switch to readable names:</p>
+                                    <code style="display:block;font-size:12px;background:rgba(255,255,255,0.05);padding:8px 12px;border-radius:6px;color:var(--text-primary);">utm_campaign=q2_linkedin_awareness_april</code>
+                                    <p style="font-size:12px;color:var(--text-secondary);line-height:1.5;margin:8px 0 0;">ThriveStack displays this string as-is in all reports — numeric IDs make attribution reports unreadable.</p>
+                                </div>
+                                <div style="padding:12px 14px;border:1px solid var(--border-color);border-radius:8px;">
+                                    <div style="font-weight:600;font-size:13px;color:var(--text-primary);margin-bottom:5px;">2. Keep auto-tagging ON for Google Ads</div>
+                                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0;">GCLIDs (added automatically by Google auto-tagging) are required for offline conversion import. UTMs on Google Ads links are optional — useful as a readable label in ThriveStack reports but not a substitute for GCLID. For all non-Google channels (LinkedIn, email, newsletters), UTMs are your only attribution mechanism and must be set.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Q7 -->
+                    <details style="border:1px solid var(--border-color);border-radius:10px;overflow:hidden;background:var(--card-bg);">
+                        <summary style="cursor:pointer;padding:18px 20px;font-weight:600;font-size:14px;color:var(--text-primary);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                            <span>What happens to conversion data if there's a long gap between an ad click and the actual conversion?</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:12px;color:var(--text-secondary);flex-shrink:0;transition:transform 0.2s;"></i>
+                        </summary>
+                        <div style="padding:0 20px 18px;border-top:1px solid var(--border-color);">
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:16px 0 10px;">Google enforces a hard <strong style="color:var(--text-primary);">90-day window</strong>: conversion events must be sent within 90 days of the original ad click. After that, Google will reject the import for that GCLID.</p>
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:0 0 10px;">How ThriveStack handles this:</p>
+                            <ul style="font-size:14px;color:var(--text-secondary);line-height:1.8;margin:0 0 14px;padding-left:20px;">
+                                <li>Every queued conversion event is stamped with the original GCLID capture timestamp</li>
+                                <li>Events where <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">now − gclid_captured_at &gt; 88 days</code> are discarded rather than sent (to avoid confusing Google API errors)</li>
+                                <li>An alert fires when events are dropped this way — so your team knows attribution was lost</li>
+                                <li>The conversion still appears in ThriveStack's own reports regardless of GCLID expiry</li>
+                            </ul>
+                            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0;padding:12px;background:rgba(239,68,68,0.07);border-radius:8px;border-left:3px solid rgba(239,68,68,0.35);">For enterprise B2B deals with sales cycles longer than 3 months, consider using <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">demo_booked</code> as your primary Google Ads conversion — it occurs well within the 90-day window while <code style="font-size:12px;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:4px;">first_payment</code> may not.</p>
+                        </div>
+                    </details>
+
+                </div>
+
             </article>
         </section></section></div></main>
     </div>
