@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GetUsers - ThriveStack Growth Intelligence API. Paginated, filtered user lists with acquisition, engagement, and demographics.">
+    <script>
+        (function() {
+            try { var saved = localStorage.getItem('theme') || 'dark'; document.documentElement.setAttribute('data-theme', saved); }
+            catch (e) { document.documentElement.setAttribute('data-theme', 'dark'); }
+        })();
+    </script>
+    <title>GetUsers - ThriveStack API Reference</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <script
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
+        api-key="i1rPJo38lB6hR2qZC5iNNz0xcGRuBYIKRVYfTBdpJyY="
+        source="marketing">
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../index.html">Get Started</a>
+                <a href="../../setup-overview.html">Setup (Unify)</a>
+                <a href="../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../take-action.html">Take Action</a>
+                <a href="../../api-reference.html" class="active">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme"><i class="fa-solid fa-sun" id="theme-icon"></i></button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../api-reference.html" class="nav-item"><span>API Reference</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Telemetry</h3>
+                <ul>
+                    <li><a href="../../public/api/identify.html" class="nav-item"><span>Identify</span></a></li>
+                    <li><a href="../../public/api/group.html" class="nav-item"><span>Group</span></a></li>
+                    <li><a href="../../public/api/track.html" class="nav-item"><span>Track</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../revenue/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="../../public/api/subscriptions.html" class="nav-item"><span>Subscriptions</span></a></li>
+                    <li><a href="../../public/api/subscription-items.html" class="nav-item"><span>Subscription Items</span></a></li>
+                    <li><a href="../../public/api/invoices.html" class="nav-item"><span>Invoices</span></a></li>
+                    <li><a href="../../public/api/transactions.html" class="nav-item"><span>Transactions</span></a></li>
+                    <li><a href="../revenue/setup/exceptional-use-cases.html" class="nav-item"><span>Exceptional Use Cases</span></a></li>
+                    <li><a href="../revenue/setup/chargebee-integration.html" class="nav-item"><span>Chargebee Integration</span></a></li>
+                    <li><a href="../revenue/setup/stripe-integration.html" class="nav-item"><span>Stripe Integration</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Growth Intelligence</h3>
+                <ul>
+                    <li><a href="../../public/api/get-accounts.html" class="nav-item"><span>GetAccounts</span></a></li>
+                    <li><a href="../../public/api/get-account-by-id.html" class="nav-item"><span>GetAccountById</span></a></li>
+                    <li><a href="../../public/api/get-users.html" class="nav-item active"><span>GetUsers</span></a></li>
+                    <li><a href="../../public/api/get-user-by-id.html" class="nav-item"><span>GetUserById</span></a></li>
+                    <li><a href="../../public/api/get-account-enrichment.html" class="nav-item"><span>GetAccountEnrichment</span></a></li>
+                    <li><a href="../../public/api/get-user-enrichment.html" class="nav-item"><span>GetUserEnrichment</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="get-users" class="content-section">
+                    <div class="breadcrumbs">
+                        <a href="../../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                        <a href="../../api-reference.html">API Reference</a> <i class="fa-solid fa-chevron-right"></i>
+                        <span>GetUsers</span>
+                    </div>
+                    <header class="doc-page-header">
+                        <span class="doc-page-header-eyebrow">GraphQL · Growth Intelligence</span>
+                        <h1 class="doc-page-title">GetUsers</h1>
+                        <p class="doc-page-description">
+                            Fetch a paginated, filtered, and sorted list of users enriched with acquisition, engagement, and demographic data.
+                            Use this endpoint to segment your user base, build cohort analysis, and power user-level personalization.
+                            <code>filters[].key</code> and <code>sort.key</code> must use paths recognized by the growth-intelligence user list registry
+                            (<code>userFieldByGraphQLKey</code> in the public-api-events service). Invalid keys produce a GraphQL error.
+                        </p>
+                    </header>
+
+                    <article class="doc-page-body">
+
+                        <section id="api-details" class="content-section">
+                            <h2>API details</h2>
+                            <table class="params-table">
+                                <thead><tr><th>Property</th><th>Value</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Endpoint</td><td><code>POST /growth-intelligence</code></td></tr>
+                                    <tr><td>Protocol</td><td>GraphQL over HTTP</td></tr>
+                                    <tr><td>Authentication</td><td><code>x-api-key</code> header</td></tr>
+                                    <tr><td>Content-Type</td><td><code>application/json</code></td></tr>
+                                    <tr><td>Operation</td><td><code>query GetUsers</code></td></tr>
+                                    <tr><td>Response format</td><td>JSON</td></tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                        <section id="user-fields" class="content-section">
+                            <h2>User fields</h2>
+                            <p>Use this reference when choosing <code>filters[].key</code> and <code>sort.key</code>. It lists paths on <code>User</code> (and nested objects) and whether filtering or sorting is allowed.
+                            <code>account.*</code> is returned in query results but is not in that registry yet for filter/sort.</p>
+                            <h5>Basic</h5>
+                            <table class="params-table">
+                                <thead><tr><th>Path</th><th>Label</th><th>Filter</th><th>Sort</th><th>Type</th><th>Description</th><th>Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>id</code></td><td>User ID</td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Unique user identifier</td><td><code>"usr_abc123"</code></td></tr>
+                                    <tr><td><code>name</code></td><td>Name (user)</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>User display name</td><td><code>"Alice Johnson"</code></td></tr>
+                                    <tr><td><code>email</code></td><td>Email</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>User email address</td><td><code>"alice@acme.com"</code></td></tr>
+                                </tbody>
+                            </table>
+                            <h5>Account</h5>
+                            <table class="params-table">
+                                <thead><tr><th>Path</th><th>Label</th><th>Filter</th><th>Sort</th><th>Type</th><th>Description</th><th>Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>account</code></td><td>Accounts</td><td>No</td><td>No</td><td><code>[UserAccount!]</code></td><td>CRM accounts linked to the user (empty array or null when none). Matches repeated account rows from the accounts service.</td><td><code>[]</code></td></tr>
+                                    <tr><td><code>account.id</code></td><td>Account ID</td><td>No</td><td>No</td><td><code>String!</code></td><td>Id on each element of account[] (not a separate filter path; use User fields table for filter keys).</td><td><code>"acc_xyz789"</code></td></tr>
+                                    <tr><td><code>account.name</code></td><td>Account name</td><td>No</td><td>No</td><td><code>String!</code></td><td>Display name on each account[] element.</td><td><code>"Acme Corp"</code></td></tr>
+                                    <tr><td><code>account.source</code></td><td>Account source</td><td>No</td><td>No</td><td><code>String!</code></td><td>Source stream on each account[] element.</td><td><code>"ThriveStack"</code></td></tr>
+                                    <tr><td><code>account.timestamp</code></td><td>Account timestamp</td><td>No</td><td>No</td><td><code>String!</code></td><td>Association timestamp on each account[] element.</td><td><code>"2024-01-10T09:00:00Z"</code></td></tr>
+                                </tbody>
+                            </table>
+                            <h5>Status</h5>
+                            <table class="params-table">
+                                <thead><tr><th>Path</th><th>Label</th><th>Filter</th><th>Sort</th><th>Type</th><th>Description</th><th>Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>enriched</code></td><td>Enriched</td><td>Yes</td><td>Yes</td><td><code>Boolean!</code></td><td>Whether enrichment data is available</td><td><code>true</code></td></tr>
+                                    <tr><td><code>softDeleted</code></td><td>Soft deleted</td><td>Yes</td><td>Yes</td><td><code>Boolean!</code></td><td>Whether the user is soft-deleted</td><td><code>false</code></td></tr>
+                                    <tr><td><code>source</code></td><td>Source</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>User data source stream</td><td><code>"ThriveStack"</code></td></tr>
+                                    <tr><td><code>timeToHardDelete</code></td><td>Time to hard delete</td><td>Yes</td><td>Yes</td><td><code>Float!</code></td><td>Days remaining until permanent deletion</td><td><code>25.5</code></td></tr>
+                                    <tr><td><code>tracked</code></td><td>Tracked</td><td>Yes</td><td>Yes</td><td><code>Boolean!</code></td><td>Whether a creation event was received</td><td><code>true</code></td></tr>
+                                </tbody>
+                            </table>
+                            <h5>Acquisition</h5>
+                            <table class="params-table">
+                                <thead><tr><th>Path</th><th>Label</th><th>Filter</th><th>Sort</th><th>Type</th><th>Description</th><th>Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>acquisition.abuseRuleResult</code></td><td>Abuse rule result</td><td>No</td><td>No</td><td><code>[AbuseRuleResult!]!</code></td><td>Per-rule abuse evaluation (query only)</td><td><code>[{ "passed": true, "ruleId": "r1" }]</code></td></tr>
+                                    <tr><td><code>acquisition.abuseStatus</code></td><td>Abuse status</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Abuse classification</td><td><code>"clean"</code></td></tr>
+                                    <tr><td><code>acquisition.initialUtmCampaign</code></td><td>Initial UTM campaign</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>UTM campaign from first touch</td><td><code>"spring-launch"</code></td></tr>
+                                    <tr><td><code>acquisition.initialUtmContent</code></td><td>Initial UTM content</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>UTM content from first touch</td><td><code>"hero"</code></td></tr>
+                                    <tr><td><code>acquisition.initialUtmMedium</code></td><td>Initial UTM medium</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>UTM medium from first touch</td><td><code>"cpc"</code></td></tr>
+                                    <tr><td><code>acquisition.initialUtmSource</code></td><td>Initial UTM source</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>UTM source from first touch</td><td><code>"google"</code></td></tr>
+                                    <tr><td><code>acquisition.initialUtmTerm</code></td><td>Initial UTM term</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>UTM term from first touch</td><td><code>"product"</code></td></tr>
+                                    <tr><td><code>acquisition.isInvited</code></td><td>Is invited</td><td>Yes</td><td>Yes</td><td><code>Boolean!</code></td><td>Whether user was invited by another user</td><td><code>true</code></td></tr>
+                                    <tr><td><code>acquisition.signedUpOn</code></td><td>Signed up on</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Signup date (ISO)</td><td><code>"2024-01-10T09:00:00Z"</code></td></tr>
+                                    <tr><td><code>acquisition.timeToSignupDays</code></td><td>Time to signup (days)</td><td>Yes</td><td>Yes</td><td><code>Float!</code></td><td>Days from first touch to signup</td><td><code>4.5</code></td></tr>
+                                    <tr><td><code>acquisition.touchpointsToSignup</code></td><td>Touchpoints to signup</td><td>Yes</td><td>Yes</td><td><code>Int!</code></td><td>Marketing touchpoints before signup</td><td><code>3</code></td></tr>
+                                </tbody>
+                            </table>
+                            <h5>Engagement</h5>
+                            <table class="params-table">
+                                <thead><tr><th>Path</th><th>Label</th><th>Filter</th><th>Sort</th><th>Type</th><th>Description</th><th>Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>engagement.isActive</code></td><td>Is active</td><td>Yes</td><td>Yes</td><td><code>Boolean!</code></td><td>Active in last 30 days</td><td><code>true</code></td></tr>
+                                    <tr><td><code>engagement.lastActiveAt</code></td><td>Last active at</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Last activity timestamp</td><td><code>"2024-01-22T11:30:00Z"</code></td></tr>
+                                    <tr><td><code>engagement.latestSigninTimestamp</code></td><td>Latest sign-in</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Most recent sign-in timestamp</td><td><code>"2024-01-22T08:45:00Z"</code></td></tr>
+                                    <tr><td><code>engagement.totalSignIns</code></td><td>Total sign-ins</td><td>Yes</td><td>Yes</td><td><code>Int!</code></td><td>Cumulative sign-in count</td><td><code>47</code></td></tr>
+                                </tbody>
+                            </table>
+                            <h5>Demographics</h5>
+                            <table class="params-table">
+                                <thead><tr><th>Path</th><th>Label</th><th>Filter</th><th>Sort</th><th>Type</th><th>Description</th><th>Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>demographics.avatar</code></td><td>Avatar</td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Avatar URL</td><td><code>"https://cdn.example.com/a.png"</code></td></tr>
+                                    <tr><td><code>demographics.city</code></td><td>City</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>City</td><td><code>"San Francisco"</code></td></tr>
+                                    <tr><td><code>demographics.country</code></td><td>Country</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Country</td><td><code>"United States"</code></td></tr>
+                                    <tr><td><code>demographics.countryCode</code></td><td>Country code</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>ISO country code</td><td><code>"US"</code></td></tr>
+                                    <tr><td><code>demographics.emailProvider</code></td><td>Email provider</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Email provider domain</td><td><code>"gmail.com"</code></td></tr>
+                                    <tr><td><code>demographics.employmentDomain</code></td><td>Employment domain</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Employer company domain</td><td><code>"acme.com"</code></td></tr>
+                                    <tr><td><code>demographics.employmentName</code></td><td>Employment name</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Company the user works at</td><td><code>"Acme Corp"</code></td></tr>
+                                    <tr><td><code>demographics.employmentRole</code></td><td>Employment role</td><td>No</td><td>No</td><td><code>String!</code></td><td>Broad job role / function</td><td><code>"product"</code></td></tr>
+                                    <tr><td><code>demographics.employmentSeniority</code></td><td>Employment seniority</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Seniority level</td><td><code>"senior"</code></td></tr>
+                                    <tr><td><code>demographics.employmentSubRole</code></td><td>Employment sub-role</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Granular job sub-role</td><td><code>"pm"</code></td></tr>
+                                    <tr><td><code>demographics.employmentTitle</code></td><td>Employment title</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Job title</td><td><code>"Head of Product"</code></td></tr>
+                                    <tr><td><code>demographics.facebookHandle</code></td><td>Facebook handle</td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Facebook handle</td><td><code>"alice.j"</code></td></tr>
+                                    <tr><td><code>demographics.firstName</code></td><td>First name</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>First name (enriched)</td><td><code>"Alice"</code></td></tr>
+                                    <tr><td><code>demographics.fullName</code></td><td>Full name</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Full name from enrichment</td><td><code>"Alice Johnson"</code></td></tr>
+                                    <tr><td><code>demographics.githubHandle</code></td><td>GitHub handle</td><td>Yes</td><td>No</td><td><code>String!</code></td><td>GitHub username</td><td><code>"alice"</code></td></tr>
+                                    <tr><td><code>demographics.lastName</code></td><td>Last name</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Last name (enriched)</td><td><code>"Johnson"</code></td></tr>
+                                    <tr><td><code>demographics.linkedinHandle</code></td><td>LinkedIn handle</td><td>Yes</td><td>No</td><td><code>String!</code></td><td>LinkedIn profile handle</td><td><code>"in/alice"</code></td></tr>
+                                    <tr><td><code>demographics.location</code></td><td>Location</td><td>No</td><td>No</td><td><code>String!</code></td><td>Full location string</td><td><code>"San Francisco, CA"</code></td></tr>
+                                    <tr><td><code>demographics.phone</code></td><td>Phone</td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Phone number(s)</td><td><code>"+1-415-555-0199"</code></td></tr>
+                                    <tr><td><code>demographics.state</code></td><td>State</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>State / province</td><td><code>"California"</code></td></tr>
+                                    <tr><td><code>demographics.stateCode</code></td><td>State code</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>State code</td><td><code>"CA"</code></td></tr>
+                                    <tr><td><code>demographics.timeZone</code></td><td>Time zone</td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>IANA time zone</td><td><code>"America/Los_Angeles"</code></td></tr>
+                                    <tr><td><code>demographics.twitterHandle</code></td><td>Twitter handle</td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Twitter/X handle</td><td><code>"@alice"</code></td></tr>
+                                </tbody>
+                            </table>
+
+                        </section>
+
+                        <section id="input" class="content-section">
+                            <h2>Input: <code>GetUsersRequest</code></h2>
+                            <p>All three input fields are optional — omit them to retrieve the first page of all users. Combine <code>filters</code>, <code>sort</code>, and <code>pagination</code> to build segments.</p>
+
+                            <h3 id="filters"><code>filters</code> · optional · array</h3>
+                            <p>An array of filter objects. All filters are <strong>ANDed</strong>: a user must satisfy every filter. Each object has:</p>
+                            <pre><code>{
+  "key": "<dot-notation field path>",
+  "operator": "equals | not_equals | greater_than | less_than | greater_than_or_equal | less_than_or_equal",
+  "value": "<string value>"
+}</code></pre>
+                            <p><code>value</code> is always a string and is coerced server-side.</p>
+
+                            <h4 id="filter-operators">Operators</h4>
+                            <table class="params-table">
+                                <thead><tr><th>Operator</th><th>Symbol</th><th>Description</th><th>Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>equals</code></td><td>=</td><td>Exact match</td><td><code>key: "acquisition.abuseStatus"</code>, <code>value: "clean"</code></td></tr>
+                                    <tr><td><code>not_equals</code></td><td>≠</td><td>Excludes the given value</td><td><code>key: "engagement.isActive"</code>, <code>value: "false"</code></td></tr>
+                                    <tr><td><code>greater_than</code></td><td>&gt;</td><td>Numeric or date comparison (exclusive)</td><td><code>key: "engagement.totalSignIns"</code>, <code>value: "10"</code></td></tr>
+                                    <tr><td><code>less_than</code></td><td>&lt;</td><td>Numeric or date comparison (exclusive)</td><td><code>key: "engagement.totalSignIns"</code>, <code>value: "3"</code></td></tr>
+                                    <tr><td><code>greater_than_or_equal</code></td><td>≥</td><td>Numeric or date comparison (inclusive)</td><td><code>key: "engagement.totalSignIns"</code>, <code>value: "5"</code></td></tr>
+                                    <tr><td><code>less_than_or_equal</code></td><td>≤</td><td>Numeric or date comparison (inclusive)</td><td><code>key: "engagement.totalSignIns"</code>, <code>value: "100"</code></td></tr>
+                                </tbody>
+                            </table>
+
+                            <h3 id="sort"><code>sort</code> · optional · object</h3>
+                            <p>Sort by exactly one field per request. <code>sort.key</code> must be a path whose <strong>Sort</strong> column is <strong>Yes</strong> in the User fields table above.</p>
+                            <pre><code>{
+  "key": "<dot-notation path — Sort = Yes in User fields table>",
+  "direction": "asc" | "desc"
+}</code></pre>
+                            <p><strong>Tip:</strong> Sort by <code>engagement.totalSignIns</code> <code>desc</code> for most active users, <code>acquisition.signedUpOn</code> <code>desc</code> for newest signups, or <code>demographics.employmentSeniority</code> <code>asc</code> by seniority.</p>
+
+                            <h3 id="pagination"><code>pagination</code> · optional · object</h3>
+                            <p>Page-based pagination. Defaults to page <code>1</code>, size <code>10</code> if omitted. <code>size</code> max 100.</p>
+                            <pre><code>{
+  "number": 1,
+  "size": 25
+}</code></pre>
+                            <p>Increment <code>number</code> until the returned <code>user</code> array is empty.</p>
+                        </section>
+
+                        <section id="example-request" class="content-section">
+                            <h2>Example request</h2>
+                            <p>Active users with more than 5 sign-ins and clean abuse status, ordered by sign-in count descending.</p>
+                            <h3>GraphQL query</h3>
+                            <pre><code>query GetUsers($input: GetUsersRequest!) {
+  getUsers(input: $input) {
+    message
+    user {
+      id
+      name
+      email
+      account {
+        id
+        name
+        source
+        timestamp
+      }
+      source
+      tracked
+      enriched
+      softDeleted
+      timeToHardDelete
+      acquisition {
+        signedUpOn
+        isInvited
+        abuseStatus
+        touchpointsToSignup
+        timeToSignupDays
+        initialUtmSource
+        initialUtmMedium
+        initialUtmCampaign
+        initialUtmTerm
+        initialUtmContent
+      }
+      engagement {
+        isActive
+        lastActiveAt
+        totalSignIns
+        latestSigninTimestamp
+      }
+      demographics {
+        firstName
+        lastName
+        employmentTitle
+        employmentRole
+        employmentSeniority
+        city
+        country
+        timeZone
+      }
+    }
+  }
+}</code></pre>
+                            <h3>Variables (JSON)</h3>
+                            <pre><code>{
+  "input": {
+    "filters": [
+      { "key": "engagement.isActive", "operator": "equals", "value": "true" },
+      { "key": "engagement.totalSignIns", "operator": "greater_than", "value": "5" },
+      { "key": "acquisition.abuseStatus", "operator": "equals", "value": "clean" }
+    ],
+    "sort": { "key": "engagement.totalSignIns", "direction": "desc" },
+    "pagination": { "number": 1, "size": 25 }
+  }
+}</code></pre>
+                        </section>
+
+                        <section id="curl-example" class="content-section">
+                            <h2>cURL</h2>
+                            <pre><code>curl --location 'https://api.app.thrivestack.ai/growth-intelligence' \\
+--header 'content-type: application/json' \\
+--header 'x-api-key: YOUR_API_KEY' \\
+--data '{
+  "query": "query GetUsers($input: GetUsersRequest!) { getUsers(input: $input) { message user { id name email } } }",
+  "variables": {
+    "input": {
+      "filters": [
+        { "key": "engagement.isActive", "operator": "equals", "value": "true" },
+        { "key": "engagement.totalSignIns", "operator": "greater_than", "value": "5" },
+        { "key": "acquisition.abuseStatus", "operator": "equals", "value": "clean" }
+      ],
+      "sort": { "key": "engagement.totalSignIns", "direction": "desc" },
+      "pagination": { "number": 1, "size": 25 }
+    }
+  }
+}'</code></pre>
+                        </section>
+
+                        <section id="example-response" class="content-section">
+                            <h2>Example response</h2>
+                            <p>Matching users are under <code>data.getUsers.user</code> (array). <code>message</code> may be <code>"success"</code> or omitted depending on the server.</p>
+                            <pre><code>{
+  "data": {
+    "getUsers": {
+      "message": "success",
+      "user": [
+        {
+          "id": "usr_abc123",
+          "name": "Alice Johnson",
+          "email": "alice@acme.com",
+          "account": [
+            { "id": "acc_xyz789", "name": "Acme Corp", "source": "ThriveStack", "timestamp": "2024-01-10T09:00:00Z" }
+          ],
+          "source": "ThriveStack",
+          "tracked": true,
+          "enriched": true,
+          "softDeleted": false,
+          "timeToHardDelete": 0,
+          "acquisition": {
+            "signedUpOn": "2024-01-10T09:00:00Z",
+            "isInvited": true,
+            "abuseStatus": "clean",
+            "touchpointsToSignup": 3,
+            "timeToSignupDays": 4.5,
+            "initialUtmSource": "google",
+            "initialUtmMedium": "cpc",
+            "initialUtmCampaign": "spring-launch"
+          },
+          "engagement": {
+            "isActive": true,
+            "lastActiveAt": "2024-01-22T11:30:00Z",
+            "totalSignIns": 47,
+            "latestSigninTimestamp": "2024-01-22T08:45:00Z"
+          },
+          "demographics": {
+            "firstName": "Alice",
+            "lastName": "Johnson",
+            "employmentTitle": "Head of Product",
+            "employmentRole": "product",
+            "employmentSeniority": "senior",
+            "city": "San Francisco",
+            "country": "United States",
+            "timeZone": "America/Los_Angeles"
+          }
+        }
+      ]
+    }
+  }
+}</code></pre>
+                        </section>
+
+                        <section id="tips" class="content-section">
+                            <h2>Tips and best practices</h2>
+                            <ul>
+                                <li><strong>Filter values are always strings</strong> — use <code>"true"</code> / <code>"false"</code> for booleans and numeric strings for numbers; the server coerces them.</li>
+                                <li><strong>All filters are ANDed.</strong> Use separate filter objects for each condition (e.g. active and 10+ sign-ins).</li>
+                                <li><strong>Account on the user record:</strong> query <code>account { id name source timestamp }</code> as a list of <code>UserAccount</code>. <code>account.*</code> is not filterable/sortable in the current user-list registry; prefer <code>email</code>, <code>demographics.employmentDomain</code>, or other fields, then narrow client-side if needed.</li>
+                                <li><strong>Organic power users:</strong> e.g. <code>acquisition.isInvited</code> <code>equals</code> <code>"false"</code> with high <code>engagement.totalSignIns</code>.</li>
+                                <li><strong>Paginate</strong> by incrementing <code>pagination.number</code> until <code>user</code> is empty.</li>
+                            </ul>
+                        </section>
+
+                    </article>
+                </section>
+
+                <div class="page-nav">
+                    <a href="../../public/api/get-account-by-id.html" class="nav-card prev-card">
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">GetAccountById</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <a href="../../public/api/get-user-by-id.html" class="nav-card next-card">
+                        <span class="nav-label">Next</span>
+                        <span class="nav-title">GetUserById</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="get-users.html">Last updated: February 2, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#api-details" class="toc-link active">API details</a>
+                    <a href="#user-fields" class="toc-link">User fields</a>
+                    <a href="#input" class="toc-link">Input</a>
+                    <a href="#filters" class="toc-link">Filters</a>
+                    <a href="#filter-operators" class="toc-link">Operators</a>
+                    <a href="#sort" class="toc-link">Sort</a>
+                    <a href="#pagination" class="toc-link">Pagination</a>
+                    <a href="#example-request" class="toc-link">Example request</a>
+                    <a href="#curl-example" class="toc-link">cURL</a>
+                    <a href="#example-response" class="toc-link">Example response</a>
+                    <a href="#tips" class="toc-link">Tips</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../../script.js"></script>
+</body>
+</html>

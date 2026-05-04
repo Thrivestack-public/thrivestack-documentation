@@ -156,9 +156,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 terms: 'track event signed_up account_created feature_used invite_sent page_visit onboarding event_name properties'
             },
             {
+                title: 'GetAccounts',
+                url: 'public/api/get-accounts.html#get-accounts',
+                terms: 'get accounts list graphql growth intelligence filters sort pagination segmentation acquisition activation monetization engagement expansion firmographics mrr arr dau mau churn healthy at risk account fields accountFieldByGraphQLKey public-api-events abuseRuleResult registry filterable sortable'
+            },
+            {
                 title: 'GetAccountById',
                 url: 'public/api/get-account-by-id.html#get-account-by-id',
-                terms: 'get account by id graphql growth intelligence acquisition activation monetization engagement firmographics mrr arr dau mau'
+                terms: 'get account by id graphql growth intelligence acquisition activation monetization engagement firmographics mrr arr dau mau single account profile'
+            },
+            {
+                title: 'GetUsers',
+                url: 'public/api/get-users.html#get-users',
+                terms: 'get users list graphql growth intelligence filters sort pagination user segment cohort acquisition engagement demographics sign ins abuse status utm'
             },
             {
                 title: 'GetUserById',
