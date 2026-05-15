@@ -12,6 +12,8 @@ onboarding flow events with ThriveStack. This is Step 2 of 3.
 Events covered in this step:
   onboarding_[step_name]_completed — one event per discrete onboarding step found
 
+This guide runs in one of two modes: **discovery** (AI finds onboarding steps in code) or **provided-list** (developer supplies the event names and AI locates each one). The mode is auto-detected from the developer's prompt — see Phase 0.
+
 User/account lifecycle events are covered in Step 1.
 Feature events are covered in Step 3.
 All event schemas are non-exhaustive. Additional properties beyond those listed are always allowed.
@@ -38,7 +40,13 @@ Work through these phases in order. Do not write any code until Phase 0 is compl
    - If not present → create the HTTP helper and env var entry following that file, then proceed. Do not stop.
    - Throughout this guide: replace every `thriveStack.*([...])` SDK call with the `thrivestack('endpoint', [...])` helper pattern, remove all `if (typeof thriveStack === 'undefined') return` guards, and add `"source": "product"` to every `context` block. Everything else applies unchanged.
 
-2. Locate `userId` and `groupId` — they were found in Step 1 but this is a new session. Identify them again quickly using the same search patterns as Step 1 (auth context, session, store). Do not ask the developer unless genuinely not found.
+2. **Locate `userId` and `groupId`** — they were found in Step 1 but this is a new session. Identify them again using the same search patterns as Step 1 (auth context, session, store, hooks like `useAuth` / `useUser`, server session).
+
+   - **Both found** → proceed.
+   - **Either one not found** → **STOP**. Do not write any code, do not hardcode or generate a value (HARD RULE 7), do not continue to step 3. Ask the developer exactly:
+     > "I couldn't locate the [`userId` / `groupId` / both] in this codebase. ThriveStack onboarding events require a real user ID and the account/group ID on every call. Where do they live — which auth context, hook, session field, or store holds the signed-in user and their account/workspace ID?"
+
+     Resume only after the developer points you to the source. Never substitute a placeholder, hardcoded, or generated value to get past this step.
 
 3. **STOP** and ask the developer one question before proceeding:
    > "Do you have **European customers**? If yes, I'll instrument in EU compliance mode — user PII (email, name) will be excluded from all events globally."
@@ -47,18 +55,29 @@ Work through these phases in order. Do not write any code until Phase 0 is compl
    - EU yes → activate EU compliance mode (see EU COMPLIANCE MODE section)
    - EU no → send all fields as documented
 
-4. Search the codebase for onboarding/setup UI patterns — do not ask the developer first, search the code:
+4. Determine discovery mode based on the developer's prompt:
+
+   - **PROVIDED-LIST MODE** — if the prompt includes an `Events to instrument:` block with a list of event names, use this mode. Skip codebase pattern search. For each event name in the list:
+     a. Parse the step identifier out of the name (e.g. `onboarding_invited_team_member_completed` → `invited_team_member`).
+     b. Locate the matching step in the codebase by searching for that identifier against: UI labels and headings, route segments, handler names (`handleInviteTeamMember`, `completeInviteStep`, etc.), and step state keys.
+     c. If a provided event cannot be confidently mapped to a step, do NOT invent a location — record it for the "Unresolved" row in the summary.
+
+     Then skip steps 5–6 (the names are already provided) and go straight to step 7 for developer confirmation.
+
+   - **DISCOVERY MODE** — if no `Events to instrument:` block is present, run the existing search for stepper/wizard patterns — continue with steps 5–6 below, then step 7.
+
+5. Search the codebase for onboarding/setup UI patterns — do not ask the developer first, search the code:
    - Component names: `<Stepper>` `<Wizard>` `<OnboardingFlow>` `<SetupFlow>` `<ProgressSteps>` `<ChecklistFlow>`
    - Handler names: `onStepComplete` `handleNext` `setCurrentStep` `markStepComplete` `completeStep` `nextStep`
    - Route patterns: `/onboarding/step-*` `/setup/*` `/getting-started/*`
    - State: `currentStep` `activeStep` `completedSteps` `onboardingProgress`
 
    Then apply the following rule:
-   - **Found**: proceed to step 5.
+   - **Found**: proceed to step 6.
    - **Not found**: STOP. Tell the developer:
      > "I couldn't find an onboarding or setup flow in this repository. If it lives in a different repo, run this same prompt there. If it exists here under a different name or pattern, share the file or component and I'll instrument it."
 
-5. List every discrete step found. Derive a descriptive `step_name` for each from its label, heading, or route. Snake_case only. Never use generic names like `step_1` or `step_completed`.
+6. List every discrete step found. Derive a descriptive `step_name` for each from its label, heading, or route. Snake_case only. Never use generic names like `step_1` or `step_completed`.
 
    Examples of good step names:
    - `connected_data_source` (from "Connect your data source")
@@ -67,12 +86,20 @@ Work through these phases in order. Do not write any code until Phase 0 is compl
    - `configured_workspace` (from "Configure your workspace")
    - `completed_profile` (from "Complete your profile")
 
-6. **STOP** and confirm step names with the developer before writing any code. Ask exactly:
-   > "I found [N] onboarding steps. Here are the event names I'll use — please confirm or correct any:
-   > [list each: step label → proposed event name]
-   > Reply with any corrections, or 'looks good' to proceed."
+7. **STOP** and confirm with the developer before writing any code.
 
-   Do not write any `onboarding_*_completed` calls until the developer has confirmed.
+   - **Discovery mode** — ask exactly:
+     > "I found [N] onboarding steps. Here are the event names I'll use — please confirm or correct any:
+     > [list each: step label → proposed event name]
+     > Reply with any corrections, or 'looks good' to proceed."
+
+   - **Provided-list mode** — ask exactly:
+     > "I'll instrument the [N] events you provided. I mapped [X] to code locations:
+     > [list each: event name → file:line of the handler]
+     > [Y] could not be mapped: [list unresolved event names]
+     > Reply 'looks good' to proceed, or tell me where the unresolved ones live."
+
+   Do not write any `onboarding_*_completed` calls until the developer has confirmed — in either mode.
 
 ### Phase 1 — Instrument onboarding events
 Write one `track()` call per confirmed step. Follow the EVENT SCHEMA exactly.
@@ -89,10 +116,13 @@ Prompt the developer to verify events are flowing. See PHASE 3 section.
 **REQUIRED OUTPUT FORMAT — strictly follow this, no exceptions.**
 Do NOT write a narrative summary. Do NOT describe what you did in prose.
 After instrumentation is complete, output the table below inline in the chat, then immediately proceed to Phase 3 — do not stop after the table.
+In provided-list mode, every event name from the developer's list that could not be located must appear on the `Unresolved:` line — never silently dropped, never invented.
 
 ```
 ThriveStack Instrumentation Summary — Step 2: Onboarding Events
 X steps instrumented
+
+Mode: discovery / provided-list
 
 | Step | Event Name | Status | File |
 |------|-----------|--------|------|
@@ -160,6 +190,7 @@ Go back through every ThriveStack call you wrote in this session. Check each one
 **Step B — Verify all points. Fix anything missing first.**
 
 - [ ] Script tag still present in root layout — confirm it was not removed during this session
+- [ ] `userId` and `groupId` resolve to a real auth/session source — not a placeholder, hardcoded, or generated value
 - [ ] Each confirmed step has exactly one `track()` call with the correct `onboarding_[step_name]_completed` event name
 - [ ] No generic step names (`step_1`, `step_completed`, `onboarding_step`) — every event name must be descriptive
 - [ ] `step_index` is 0-based and correct for each step
@@ -265,4 +296,17 @@ thriveStack.track([{ "event_name": "onboarding_installed_sdk_completed", "user_i
 RIGHT:
 ```javascript
 thriveStack.track([{ "event_name": "onboarding_installed_sdk_completed", "user_id": userId, "context": { "group_id": groupId }, ... }])
+```
+
+WRONG — inventing a location for an unmappable provided event:
+```javascript
+// Developer asked for onboarding_verified_email_completed but no email
+// verification step exists in this repo. AI added a track() call to a random
+// signup handler.
+```
+RIGHT — flag it as unresolved instead:
+```
+The developer's list included onboarding_verified_email_completed but no
+matching step was found in this repo. Reported under "Unresolved" in the
+summary; no code written for this event.
 ```
