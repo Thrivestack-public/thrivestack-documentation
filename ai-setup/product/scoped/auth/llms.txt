@@ -235,7 +235,7 @@ account_name   = user.name       // user's full name
 account_domain = user.email      // full email address — not just the domain part
 // omit plan_id and plan_name entirely
 ```
-`group()` fires once at first registration — never again.
+`group()` fires at first registration (in the `signed_up` handler) and again on every login — mirroring `identify()`. Never on context switch.
 
 Stop and ask if:
 - No org-like field found after exhaustive search
@@ -318,9 +318,13 @@ thriveStack.identify([{
 
 ## STEP 4 — group()
 
-`group()` registers the identity of a group entity with ThriveStack. It is the group equivalent of `identify()` for users.
+`group()` registers the identity of a group entity with ThriveStack. It is the group equivalent of `identify()` for users — and like `identify()`, it fires both when the entity is first created and again on every login to keep the group's identity and traits fresh.
 
-Fire it wherever a new group entity is **created** in the codebase — not on login, not on context switch, not on invite acceptance.
+Fire it in two places:
+- **On entity creation** — wherever a new group entity is created in the codebase. This is the mandatory minimum for every entity level found.
+- **On login** — in the login handler, alongside `identify()`, re-register the Account (and any other entity levels resolvable at login). Read the account/org object and its traits from the login response, session, or auth context. `group_id` and `group_type: "Account"` are always required; other traits (`account_name`, `account_domain`, `plan_id`, `plan_name`) are send-if-available — omit any the login response does not expose. Do not block or fabricate: if only `group_id` is available at login, fire `group()` with `group_id` and `group_type` and omit the rest.
+
+Still **never** fire `group()` on context switch or invite acceptance.
 
 - **Account** is mandatory — ThriveStack reports and metrics run at Account level. If you find no other entity levels, at minimum instrument the Account.
 - **All other levels** (Organization, Tenant, Workspace, Team, BU, etc.) are optional. Instrument any you find, each with its own `group()` call and the appropriate `group_type`.
@@ -692,7 +696,7 @@ identify → group(userId as group_id) → signed_up
 
 ### Login
 ```
-identify → signed_in
+identify → group(Account) → [group(other levels if resolvable at login)] → signed_in
 ```
 
 ### Logout
@@ -708,7 +712,7 @@ identify → signed_up → account_added_user
 
 ### User invited — already has an account, joins a new one
 ```
-identify → signed_in → account_added_user
+identify → group(Account) → signed_in → account_added_user
 ```
 
 ### User invited — already a member of this account
@@ -735,7 +739,7 @@ Go back through every ThriveStack call you wrote in this session. Check each one
 
 - [ ] 0. script tag — src is exactly `https://cdn.app.thrivestack.ai/latest/script.js` — no variation, no substitution. Known wrong URLs to reject: any `cloudfront.net` URL, any `/v1/te.js` path, any URL that is not this exact string
 - [ ] 1. identify — fires on signup and login. Profile update calls are optional — do not mark ⚠️ if no profile update handler exists.
-- [ ] 2. group — open the file where the account entity is created and confirm `thriveStack.group()` with `group_type: "Account"` is physically present there. Do not mark ✅ based on reasoning — verify the call exists in the file. If absent, add it. Also confirm any additional entity levels (Org, Workspace, etc.) found have their own `group()` calls.
+- [ ] 2. group — open the file where the account entity is created and confirm `thriveStack.group()` with `group_type: "Account"` is physically present there. Then open the login handler and confirm `group()` also fires there, alongside `identify()`. Do not mark ✅ based on reasoning — verify both calls exist in the files. If either is absent, add it. Also confirm any additional entity levels (Org, Workspace, etc.) found have their own `group()` calls.
 - [ ] 3. signed_up — correct flow, UTM captured
 - [ ] 4. signed_in — fires on every login, context block present
 - [ ] 5. signed_out — fires on logout, context block present
@@ -806,7 +810,7 @@ When ready, continue with Step 2 — Onboarding Events:
 9. userId and groupId from auth context only — never hardcode, never generate
 10. `api-key` from environment variable only — never in source code
 12. Fire after action succeeds — inside `.then()` or after `await`
-13. `group()` fires where a new entity is created — never on login, never on context switch, never on invite acceptance
+13. `group()` fires where a new entity is created **and** on every login to refresh group identity — never on context switch, never on invite acceptance
 14. `account_added_user` fires in all entry points — signup, invite, SSO/SCIM/admin
 15. Do not fire `account_added_user` if user is already a member
 16. `user_added_to_account` does not exist — use `account_added_user`
@@ -839,19 +843,29 @@ if (typeof thriveStack === 'undefined') return
 thriveStack.identify([{ "user_id": user.id }])
 ```
 
-WRONG — group() on login:
-```javascript
-async function handleLogin() {
-  const { user, org } = await auth.signIn(...)
-  thriveStack.group([{ "group_id": org.id }])
-}
-```
-RIGHT:
+WRONG — group() fired only at signup, never re-fired on login (group identity goes stale):
 ```javascript
 async function handleLogin() {
   const { user, org } = await auth.signIn(...)
   thriveStack.identify([{ "user_id": user.id, ... }])
   thriveStack.track([{ "event_name": "signed_in", ... }])
+  // group() missing — account traits (plan, name) never refreshed after signup
+}
+```
+RIGHT — re-fire group() on login alongside identify(), then signed_in:
+```javascript
+async function handleLogin() {
+  const { user, org } = await auth.signIn(...)
+  const now = Date.now()
+  thriveStack.identify([{ "user_id": user.id, ..., "timestamp": new Date(now).toISOString() }])
+  thriveStack.group([{
+    "user_id": user.id,
+    "group_id": org.id,
+    "traits": { "group_type": "Account", "account_name": org.name, "account_domain": org.domain },
+    "context": { "group_id": org.id, "group_type": "Account" },
+    "timestamp": new Date(now + 1).toISOString()
+  }])
+  thriveStack.track([{ "event_name": "signed_in", ..., "context": { "group_id": org.id }, "timestamp": new Date(now + 2).toISOString() }])
 }
 ```
 
