@@ -491,8 +491,9 @@ class SetupSidebar extends HTMLElement {
             <div class="sidebar-section">
                 <h3>CRM Sync</h3>
                 <ul>
-                    <li><a href="${prefix}public/crm-sync/introduction.html" class="nav-item"><span>Introduction</span></a></li>
-                    <li><a href="${prefix}public/crm-sync/hubspot.html" class="nav-item"><span>HubSpot</span></a></li>
+                    <li><a href="${prefix}public/crm-sync/introduction.html" class="nav-item"><span>HubSpot Overview</span></a></li>
+                    <li><a href="${prefix}public/crm-sync/hubspot-inbound.html" class="nav-item"><span>HubSpot → ThriveStack</span></a></li>
+                    <li><a href="${prefix}public/crm-sync/hubspot-outbound.html" class="nav-item"><span>ThriveStack → HubSpot</span></a></li>
                 </ul>
             </div>
 
