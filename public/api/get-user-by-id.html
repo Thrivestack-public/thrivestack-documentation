@@ -84,7 +84,9 @@
             <div class="sidebar-section">
                 <h3>Growth Intelligence</h3>
                 <ul>
+                    <li><a href="../../public/api/get-accounts.html" class="nav-item"><span>GetAccounts</span></a></li>
                     <li><a href="../../public/api/get-account-by-id.html" class="nav-item"><span>GetAccountById</span></a></li>
+                    <li><a href="../../public/api/get-users.html" class="nav-item"><span>GetUsers</span></a></li>
                     <li><a href="../../public/api/get-user-by-id.html" class="nav-item active"><span>GetUserById</span></a></li>
                     <li><a href="../../public/api/get-account-enrichment.html" class="nav-item"><span>GetAccountEnrichment</span></a></li>
                     <li><a href="../../public/api/get-user-enrichment.html" class="nav-item"><span>GetUserEnrichment</span></a></li>
@@ -106,6 +108,7 @@
                         <h1 class="doc-page-title">GetUserById</h1>
                         <p class="doc-page-description">
                             Fetch a complete user profile by their unique ID. Returns acquisition signals, engagement metrics, and demographic information — the full picture ThriveStack has on a single user.
+                            For a <strong>paginated, filterable list of users</strong>, use <a href="../../public/api/get-users.html">GetUsers</a>.
                         </p>
                     </header>
 
@@ -299,9 +302,9 @@ console.log(data.data.getUserById.user);</code></pre>
                 </section>
 
                 <div class="page-nav">
-                    <a href="../../public/api/get-account-by-id.html" class="nav-card prev-card">
+                    <a href="../../public/api/get-users.html" class="nav-card prev-card">
                         <span class="nav-label">Previous</span>
-                        <span class="nav-title">GetAccountById</span>
+                        <span class="nav-title">GetUsers</span>
                         <i class="fa-solid fa-arrow-left"></i>
                     </a>
                     <a href="../../public/api/get-account-enrichment.html" class="nav-card next-card">

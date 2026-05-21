@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="GetAccounts - ThriveStack Growth Intelligence API. Paginated, filtered, sorted account lists with acquisition, activation, monetization, engagement, expansion, and firmographic data.">
+    <script>
+        (function () {
+            try { var saved = localStorage.getItem('theme') || 'dark'; document.documentElement.setAttribute('data-theme', saved); }
+            catch (e) { document.documentElement.setAttribute('data-theme', 'dark'); }
+        })();
+    </script>
+    <title>GetAccounts - ThriveStack API Reference</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="https://cdn.app.thrivestack.ai/latest/script.js" api-key="i1rPJo38lB6hR2qZC5iNNz0xcGRuBYIKRVYfTBdpJyY="
+        source="marketing">
+        </script>
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../index.html">Get Started</a>
+                <a href="../../setup-overview.html">Setup (Unify)</a>
+                <a href="../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../take-action.html">Take Action</a>
+                <a href="../../api-reference.html" class="active">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme"><i class="fa-solid fa-sun"
+                    id="theme-icon"></i></button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../api-reference.html" class="nav-item"><span>API Reference</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Telemetry</h3>
+                <ul>
+                    <li><a href="../../public/api/identify.html" class="nav-item"><span>Identify</span></a></li>
+                    <li><a href="../../public/api/group.html" class="nav-item"><span>Group</span></a></li>
+                    <li><a href="../../public/api/track.html" class="nav-item"><span>Track</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Revenue Intelligence</h3>
+                <ul>
+                    <li><a href="../revenue/setup/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="../../public/api/subscriptions.html" class="nav-item"><span>Subscriptions</span></a>
+                    </li>
+                    <li><a href="../../public/api/subscription-items.html" class="nav-item"><span>Subscription
+                                Items</span></a></li>
+                    <li><a href="../../public/api/invoices.html" class="nav-item"><span>Invoices</span></a></li>
+                    <li><a href="../../public/api/transactions.html" class="nav-item"><span>Transactions</span></a></li>
+                    <li><a href="../revenue/setup/exceptional-use-cases.html" class="nav-item"><span>Exceptional Use
+                                Cases</span></a></li>
+                    <li><a href="../revenue/setup/chargebee-integration.html" class="nav-item"><span>Chargebee
+                                Integration</span></a></li>
+                    <li><a href="../revenue/setup/stripe-integration.html" class="nav-item"><span>Stripe
+                                Integration</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Growth Intelligence</h3>
+                <ul>
+                    <li><a href="../../public/api/get-accounts.html"
+                            class="nav-item active"><span>GetAccounts</span></a></li>
+                    <li><a href="../../public/api/get-account-by-id.html" class="nav-item"><span>GetAccountById</span></a></li>
+                    <li><a href="../../public/api/get-users.html" class="nav-item"><span>GetUsers</span></a></li>
+                    <li><a href="../../public/api/get-user-by-id.html" class="nav-item"><span>GetUserById</span></a></li>
+                    <li><a href="../../public/api/get-account-enrichment.html"
+                            class="nav-item"><span>GetAccountEnrichment</span></a></li>
+                    <li><a href="../../public/api/get-user-enrichment.html"
+                            class="nav-item"><span>GetUserEnrichment</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="get-accounts" class="content-section">
+                    <div class="breadcrumbs">
+                        <a href="../../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                        <a href="../../api-reference.html">API Reference</a> <i class="fa-solid fa-chevron-right"></i>
+                        <span>GetAccounts</span>
+                    </div>
+                    <header class="doc-page-header">
+                        <span class="doc-page-header-eyebrow">GraphQL · Growth Intelligence</span>
+                        <h1 class="doc-page-title">GetAccounts</h1>
+                        <p class="doc-page-description">
+                            Fetch a paginated, filtered, and sorted list of accounts enriched with acquisition,
+                            activation, monetization, engagement, expansion, and firmographic data. Use this endpoint to
+                            power customer health dashboards, segment-based automations, and CRM exports.
+                            <code>filters[].key</code> and <code>sort.key</code> must use paths recognized by the
+                            growth-intelligence account list registry (see <code>accountFieldByGraphQLKey</code> in
+                            <code>public-api-events</code>).
+                        </p>
+                    </header>
+
+                    <article class="doc-page-body">
+
+                        <section id="api-details" class="content-section">
+                            <h2>API details</h2>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Property</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Endpoint</td>
+                                        <td><code>POST /growth-intelligence</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Protocol</td>
+                                        <td>GraphQL over HTTP</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Authentication</td>
+                                        <td><code>x-api-key</code> header</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Content-Type</td>
+                                        <td><code>application/json</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Operation</td>
+                                        <td><code>query GetAccounts</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Response format</td>
+                                        <td>JSON</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                        <section id="account-fields" class="content-section">
+                            <h2>Account fields</h2>
+                            <p class="doc-muted-label">Filter &amp; sort reference</p>
+                            <p>Use this table when choosing <code>filters[].key</code> and <code>sort.key</code>. It lists every path on <code>Account</code> (and nested objects) and whether the growth-intelligence account list allows it for filtering or sorting (see <code>accountFieldByGraphQLKey</code> in <code>public-api-events</code>). Paths with <strong>Filter</strong> or <strong>Sort</strong> set to <strong>No</strong> are still valid in GraphQL selections (for example <code>acquisition.abuseRuleResult</code>, <code>activation.*</code>) but cannot be used as <code>filters[].key</code> or <code>sort.key</code> until the registry exposes them. Invalid keys produce a GraphQL error.</p>
+                            <div class="doc-table-xscroll">
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Path</th>
+                                        <th>Filter</th>
+                                        <th>Sort</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Basic</td><td><code>createdAt</code><br><span class="doc-subtle">Created At</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>ISO timestamp of account creation</td><td><code>&quot;2024-01-15T10:30:00Z&quot;</code></td></tr>
+                                    <tr><td>Basic</td><td><code>domain</code><br><span class="doc-subtle">Domain</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Primary domain</td><td><code>&quot;acme.com&quot;</code></td></tr>
+                                    <tr><td>Basic</td><td><code>id</code><br><span class="doc-subtle">ID</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Unique account identifier</td><td><code>&quot;acc_1234abcd&quot;</code></td></tr>
+                                    <tr><td>Basic</td><td><code>name</code><br><span class="doc-subtle">Name</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Account display name</td><td><code>&quot;Acme Corp&quot;</code></td></tr>
+                                    <tr><td>Basic</td><td><code>source</code><br><span class="doc-subtle">Source</span></td><td>No</td><td>No</td><td><code>[String!]!</code></td><td>Data sources the account was ingested from (e.g. hubspot, stripe)</td><td><code>[&quot;hubspot&quot;, &quot;stripe&quot;]</code></td></tr>
+                                    <tr><td>Acquisition</td><td><code>acquisition.abuseRuleResult</code><br><span class="doc-subtle">Abuse Rule Result</span></td><td>No</td><td>No</td><td><code>[AbuseRuleResult!]!</code></td><td>Per-rule abuse check results</td><td><code>[{ &quot;passed&quot;: true, &quot;ruleId&quot;: &quot;r1&quot;, &quot;ruleName&quot;: &quot;Domain check&quot;, &quot;description&quot;: &quot;...&quot; }]</code></td></tr>
+                                    <tr><td>Acquisition</td><td><code>acquisition.abuseStatus</code><br><span class="doc-subtle">Abuse Status</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Abuse classification result (clean, suspicious, blocked)</td><td><code>&quot;clean&quot;</code></td></tr>
+                                    <tr><td>Acquisition</td><td><code>acquisition.initialUtmCampaign</code><br><span class="doc-subtle">Initial UTM Campaign</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>First recorded UTM campaign</td><td><code>&quot;brand_q1&quot;</code></td></tr>
+                                    <tr><td>Acquisition</td><td><code>acquisition.initialUtmContent</code><br><span class="doc-subtle">Initial UTM Content</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>First recorded UTM content variant</td><td><code>&quot;hero-cta&quot;</code></td></tr>
+                                    <tr><td>Acquisition</td><td><code>acquisition.initialUtmMedium</code><br><span class="doc-subtle">Initial UTM Medium</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>First recorded UTM medium</td><td><code>&quot;cpc&quot;</code></td></tr>
+                                    <tr><td>Acquisition</td><td><code>acquisition.initialUtmSource</code><br><span class="doc-subtle">Initial UTM Source</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>First recorded UTM source</td><td><code>&quot;google&quot;</code></td></tr>
+                                    <tr><td>Acquisition</td><td><code>acquisition.initialUtmTerm</code><br><span class="doc-subtle">Initial UTM Term</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>First recorded UTM keyword term</td><td><code>&quot;product analytics&quot;</code></td></tr>
+                                    <tr><td>Acquisition</td><td><code>acquisition.timeToSignupDays</code><br><span class="doc-subtle">Time to Signup (Days)</span></td><td>Yes</td><td>Yes</td><td><code>Int!</code></td><td>Days from first touch to signup</td><td><code>7</code></td></tr>
+                                    <tr><td>Acquisition</td><td><code>acquisition.touchpointsToSignup</code><br><span class="doc-subtle">Touchpoints to Signup</span></td><td>Yes</td><td>Yes</td><td><code>Int!</code></td><td>Marketing touchpoints before signup</td><td><code>5</code></td></tr>
+                                    <tr><td>Activation</td><td><code>activation.activatedOn</code><br><span class="doc-subtle">Activated On</span></td><td>No</td><td>No</td><td><code>String</code></td><td>ISO timestamp of activation</td><td><code>&quot;2024-02-01T08:00:00Z&quot;</code></td></tr>
+                                    <tr><td>Activation</td><td><code>activation.championUser</code><br><span class="doc-subtle">Champion User</span></td><td>No</td><td>No</td><td><code>String</code></td><td>Email of the account champion</td><td><code>&quot;alice@acme.com&quot;</code></td></tr>
+                                    <tr><td>Activation</td><td><code>activation.completionPercentage</code><br><span class="doc-subtle">Completion %</span></td><td>No</td><td>No</td><td><code>Float!</code></td><td>Percentage of journey steps completed</td><td><code>85.0</code></td></tr>
+                                    <tr><td>Activation</td><td><code>activation.currentStep</code><br><span class="doc-subtle">Current Step</span></td><td>No</td><td>No</td><td><code>String!</code></td><td>Name of the current journey step</td><td><code>&quot;invite_team&quot;</code></td></tr>
+                                    <tr><td>Activation</td><td><code>activation.isDefault</code><br><span class="doc-subtle">Is Default</span></td><td>No</td><td>No</td><td><code>Boolean!</code></td><td>Whether this is the default journey</td><td><code>true</code></td></tr>
+                                    <tr><td>Activation</td><td><code>activation.journeyName</code><br><span class="doc-subtle">Journey Name</span></td><td>No</td><td>No</td><td><code>String!</code></td><td>Name of the activation journey</td><td><code>&quot;Core Onboarding&quot;</code></td></tr>
+                                    <tr><td>Activation</td><td><code>activation.lastUpdated</code><br><span class="doc-subtle">Last Updated</span></td><td>No</td><td>No</td><td><code>String!</code></td><td>ISO timestamp of last activation update</td><td><code>&quot;2024-02-05T12:00:00Z&quot;</code></td></tr>
+                                    <tr><td>Activation</td><td><code>activation.status</code><br><span class="doc-subtle">Status</span></td><td>No</td><td>No</td><td><code>String!</code></td><td>completed | in_progress | not_started</td><td><code>&quot;completed&quot;</code></td></tr>
+                                    <tr><td>Activation</td><td><code>activation.timeSpent</code><br><span class="doc-subtle">Time Spent</span></td><td>No</td><td>No</td><td><code>Float</code></td><td>Time spent on the activation journey (days)</td><td><code>10.5</code></td></tr>
+                                    <tr><td>Activation</td><td><code>activation.ttv</code><br><span class="doc-subtle">Time to Value</span></td><td>No</td><td>No</td><td><code>Float</code></td><td>Days from signup to first value milestone</td><td><code>14.0</code></td></tr>
+                                    <tr><td>Monetization</td><td><code>monetization.arr</code><br><span class="doc-subtle">ARR</span></td><td>Yes</td><td>Yes</td><td><code>Float!</code></td><td>Annual recurring revenue</td><td><code>3588.0</code></td></tr>
+                                    <tr><td>Monetization</td><td><code>monetization.billingStatus</code><br><span class="doc-subtle">Billing Status</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>active | past_due | cancelled | trialing</td><td><code>&quot;active&quot;</code></td></tr>
+                                    <tr><td>Monetization</td><td><code>monetization.currency</code><br><span class="doc-subtle">Currency</span></td><td>No</td><td>No</td><td><code>String!</code></td><td>Billing currency code (display only)</td><td><code>&quot;USD&quot;</code></td></tr>
+                                    <tr><td>Monetization</td><td><code>monetization.mrr</code><br><span class="doc-subtle">MRR</span></td><td>Yes</td><td>Yes</td><td><code>Float!</code></td><td>Monthly recurring revenue</td><td><code>299.0</code></td></tr>
+                                    <tr><td>Monetization</td><td><code>monetization.nextDueDate</code><br><span class="doc-subtle">Next Due Date</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Next billing due date (ISO timestamp)</td><td><code>&quot;2024-03-01T00:00:00Z&quot;</code></td></tr>
+                                    <tr><td>Monetization</td><td><code>monetization.plan</code><br><span class="doc-subtle">Plan</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Current subscription plan name</td><td><code>&quot;pro&quot;</code></td></tr>
+                                    <tr><td>Engagement</td><td><code>engagement.activityCount</code><br><span class="doc-subtle">Activity Count</span></td><td>Yes</td><td>Yes</td><td><code>Int!</code></td><td>Total events in the current period</td><td><code>1430</code></td></tr>
+                                    <tr><td>Engagement</td><td><code>engagement.activityTrend</code><br><span class="doc-subtle">Activity Trend</span></td><td>Yes</td><td>Yes</td><td><code>Float!</code></td><td>Ratio of current vs prior period activity. &gt;1 = growth</td><td><code>1.46</code></td></tr>
+                                    <tr><td>Engagement</td><td><code>engagement.dailyActiveUsers</code><br><span class="doc-subtle">Daily Active Users</span></td><td>Yes</td><td>Yes</td><td><code>Int!</code></td><td>Average DAU over the last 30 days</td><td><code>5</code></td></tr>
+                                    <tr><td>Engagement</td><td><code>engagement.isActive</code><br><span class="doc-subtle">Is Active</span></td><td>Yes</td><td>Yes</td><td><code>Boolean!</code></td><td>Whether account had activity in the last 30 days</td><td><code>true</code></td></tr>
+                                    <tr><td>Engagement</td><td><code>engagement.lastActiveAt</code><br><span class="doc-subtle">Last Active At</span></td><td>No</td><td>No</td><td><code>String!</code></td><td>ISO timestamp of last recorded activity</td><td><code>&quot;2024-01-20T15:45:00Z&quot;</code></td></tr>
+                                    <tr><td>Engagement</td><td><code>engagement.monthlyActiveUsers</code><br><span class="doc-subtle">Monthly Active Users</span></td><td>Yes</td><td>Yes</td><td><code>Int!</code></td><td>MAU for the current month</td><td><code>20</code></td></tr>
+                                    <tr><td>Engagement</td><td><code>engagement.previousActivityCount</code><br><span class="doc-subtle">Previous Activity Count</span></td><td>No</td><td>No</td><td><code>Int!</code></td><td>Total events in the prior period</td><td><code>980</code></td></tr>
+                                    <tr><td>Engagement</td><td><code>engagement.status</code><br><span class="doc-subtle">Status</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Computed tier: Healthy | At Risk | Critical | New | Inactive</td><td><code>&quot;Healthy&quot;</code></td></tr>
+                                    <tr><td>Engagement</td><td><code>engagement.stickinessMonthly</code><br><span class="doc-subtle">Monthly Stickiness</span></td><td>Yes</td><td>Yes</td><td><code>Float!</code></td><td>DAU/MAU ratio (0–1)</td><td><code>0.55</code></td></tr>
+                                    <tr><td>Engagement</td><td><code>engagement.stickinessWeekly</code><br><span class="doc-subtle">Weekly Stickiness</span></td><td>Yes</td><td>Yes</td><td><code>Float!</code></td><td>DAU/WAU ratio (0–1). Higher = more habitual usage</td><td><code>0.72</code></td></tr>
+                                    <tr><td>Engagement</td><td><code>engagement.weeklyActiveUsers</code><br><span class="doc-subtle">Weekly Active Users</span></td><td>Yes</td><td>Yes</td><td><code>Int!</code></td><td>WAU for the current week</td><td><code>12</code></td></tr>
+                                    <tr><td>Expansion</td><td><code>expansion.contractionMrrMovement</code><br><span class="doc-subtle">Contraction MRR Movement</span></td><td>Yes</td><td>Yes</td><td><code>Float!</code></td><td>Projected MRR loss from contraction signals</td><td><code>-50.0</code></td></tr>
+                                    <tr><td>Expansion</td><td><code>expansion.contractionSignalCount</code><br><span class="doc-subtle">Contraction Signal Count</span></td><td>Yes</td><td>Yes</td><td><code>Int!</code></td><td>Number of negative contraction signals detected</td><td><code>1</code></td></tr>
+                                    <tr><td>Expansion</td><td><code>expansion.contractionTypes</code><br><span class="doc-subtle">Contraction Types</span></td><td>Yes</td><td>No</td><td><code>[String!]!</code></td><td>Signal types indicating churn risk (e.g. usage_drop)</td><td><code>[&quot;usage_drop&quot;, &quot;support_spike&quot;]</code></td></tr>
+                                    <tr><td>Expansion</td><td><code>expansion.expansionMrrMovement</code><br><span class="doc-subtle">Expansion MRR Movement</span></td><td>Yes</td><td>Yes</td><td><code>Float!</code></td><td>Projected MRR increase from expansion signals</td><td><code>150.0</code></td></tr>
+                                    <tr><td>Expansion</td><td><code>expansion.expansionSignalCount</code><br><span class="doc-subtle">Expansion Signal Count</span></td><td>Yes</td><td>Yes</td><td><code>Int!</code></td><td>Number of positive expansion signals detected</td><td><code>3</code></td></tr>
+                                    <tr><td>Expansion</td><td><code>expansion.expansionTypes</code><br><span class="doc-subtle">Expansion Types</span></td><td>Yes</td><td>No</td><td><code>[String!]!</code></td><td>Signal types driving expansion (e.g. seat_growth, usage_spike)</td><td><code>[&quot;seat_growth&quot;, &quot;feature_adoption&quot;]</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.annualRevenue</code><br><span class="doc-subtle">Annual Revenue</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Estimated annual revenue</td><td><code>&quot;5000000&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.city</code><br><span class="doc-subtle">City</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>City</td><td><code>&quot;San Francisco&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.country</code><br><span class="doc-subtle">Country</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Country name</td><td><code>&quot;United States&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.countryCode</code><br><span class="doc-subtle">Country Code</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>ISO 2-letter country code</td><td><code>&quot;US&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.crunchbaseHandle</code><br><span class="doc-subtle">Crunchbase Handle</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Crunchbase profile handle</td><td><code>&quot;acme-corp&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.description</code><br><span class="doc-subtle">Description</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Short company description</td><td><code>&quot;Cloud-native analytics platform&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.domain</code><br><span class="doc-subtle">Domain (Enriched)</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Enrichment-resolved primary domain</td><td><code>&quot;acme.com&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.domainAliases</code><br><span class="doc-subtle">Domain Aliases</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Known domain aliases (comma-separated)</td><td><code>&quot;acme.co,acme.io&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.emailAddresses</code><br><span class="doc-subtle">Email Addresses</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Known company email addresses</td><td><code>&quot;hello@acme.com&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.emailProvider</code><br><span class="doc-subtle">Email Provider</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Company email provider</td><td><code>&quot;google&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.employeeCount</code><br><span class="doc-subtle">Employee Count</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Headcount (numeric string)</td><td><code>&quot;150&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.employeeCountRange</code><br><span class="doc-subtle">Employee Count Range</span></td><td>No</td><td>No</td><td><code>String!</code></td><td>Headcount range bucket (display only)</td><td><code>&quot;101-250&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.facebookHandle</code><br><span class="doc-subtle">Facebook Handle</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Facebook page handle</td><td><code>&quot;acmecorp&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.founderYear</code><br><span class="doc-subtle">Founding Year</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Year company was founded</td><td><code>&quot;2015&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.industry</code><br><span class="doc-subtle">Industry</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Industry classification</td><td><code>&quot;Technology&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.industryGroup</code><br><span class="doc-subtle">Industry Group</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Industry group</td><td><code>&quot;Technology&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.legalName</code><br><span class="doc-subtle">Legal Name</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Legal entity name</td><td><code>&quot;Acme Corporation LLC&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.linkedinHandle</code><br><span class="doc-subtle">LinkedIn Handle</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>LinkedIn company handle</td><td><code>&quot;acme-corp&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.location</code><br><span class="doc-subtle">Location</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Full location string</td><td><code>&quot;San Francisco, CA, US&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.logo</code><br><span class="doc-subtle">Logo</span></td><td>No</td><td>No</td><td><code>String!</code></td><td>Company logo URL</td><td><code>&quot;https://logo.clearbit.com/acme.com&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.marketCap</code><br><span class="doc-subtle">Market Cap</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Market capitalization</td><td><code>&quot;1000000000&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.name</code><br><span class="doc-subtle">Name (Enriched)</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Company name from enrichment data</td><td><code>&quot;Acme Corporation&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.phone</code><br><span class="doc-subtle">Phone</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Company phone number</td><td><code>&quot;+1-415-555-0100&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.phoneNumbers</code><br><span class="doc-subtle">Phone Numbers</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>All known company phone numbers</td><td><code>&quot;+1-415-555-0100,+1-800-555-0100&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.postalCode</code><br><span class="doc-subtle">Postal Code</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Postal / ZIP code</td><td><code>&quot;94105&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.raised</code><br><span class="doc-subtle">Funding Raised</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Total funding raised</td><td><code>&quot;10000000&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.sector</code><br><span class="doc-subtle">Sector</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Business sector</td><td><code>&quot;Software&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.state</code><br><span class="doc-subtle">State</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>State / province</td><td><code>&quot;California&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.stateCode</code><br><span class="doc-subtle">State Code</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>State / province abbreviation</td><td><code>&quot;CA&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.streetAddress</code><br><span class="doc-subtle">Street Address</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Full street address</td><td><code>&quot;123 Main St&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.streetName</code><br><span class="doc-subtle">Street Name</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Street name</td><td><code>&quot;Main St&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.streetNumber</code><br><span class="doc-subtle">Street Number</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Street number</td><td><code>&quot;123&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.subIndustry</code><br><span class="doc-subtle">Sub-Industry</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Sub-industry classification</td><td><code>&quot;SaaS&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.tags</code><br><span class="doc-subtle">Tags</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Comma-separated company tags</td><td><code>&quot;b2b,saas,analytics&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.tech</code><br><span class="doc-subtle">Tech Stack</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Technology stack (comma-separated)</td><td><code>&quot;React,Node.js,Postgres&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.techCategories</code><br><span class="doc-subtle">Tech Categories</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Technology category tags</td><td><code>&quot;frontend,database,cloud&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.timeZone</code><br><span class="doc-subtle">Time Zone</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Company IANA time zone</td><td><code>&quot;America/Los_Angeles&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.trafficRank</code><br><span class="doc-subtle">Traffic Rank</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>Alexa/similar web traffic rank</td><td><code>&quot;45210&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.twitterHandle</code><br><span class="doc-subtle">Twitter Handle</span></td><td>Yes</td><td>No</td><td><code>String!</code></td><td>Twitter/X handle</td><td><code>&quot;@acmecorp&quot;</code></td></tr>
+                                    <tr><td>Firmographics</td><td><code>firmographics.type</code><br><span class="doc-subtle">Company Type</span></td><td>Yes</td><td>Yes</td><td><code>String!</code></td><td>private | public | nonprofit | government</td><td><code>&quot;private&quot;</code></td></tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </section>
+                        <section id="input" class="content-section">
+                            <h2>Input: <code>GetAccountsRequest</code></h2>
+                            <p>All three input fields are optional — omit them to retrieve the first page of all
+                                accounts. Combine <code>filters</code>, <code>sort</code>, and <code>pagination</code>
+                                to build segmentation queries.</p>
+
+                            <h3 id="filters"><code>filters</code> · optional · array</h3>
+                            <p>An array of filter objects. All filters are <strong>ANDed</strong> together: an account
+                                must satisfy every filter to appear in results. Each filter has three fields:</p>
+                            <pre><code>{
+  "key": "&lt;dot-notation field path&gt;",
+  "operator": "equals | not_equals | greater_than | less_than | greater_than_or_equal | less_than_or_equal",
+  "value": "&lt;string value&gt;"
+}</code></pre>
+                            <p>The <code>value</code> is always a string; it is coerced server-side. Use keys from the
+                                <a href="#account-fields">Account fields</a> table where <strong>Filter</strong> is
+                                Yes. Paths with Filter No are still queryable in GraphQL but cannot be used as
+                                <code>filters[].key</code>.</p>
+
+                            <h4 id="filter-operators">Operators</h4>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Operator</th>
+                                        <th>Symbol</th>
+                                        <th>Description</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>equals</code></td>
+                                        <td>=</td>
+                                        <td>Exact match</td>
+                                        <td><code>key: "monetization.plan"</code>, <code>value: "pro"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>not_equals</code></td>
+                                        <td>≠</td>
+                                        <td>Excludes the given value</td>
+                                        <td><code>key: "engagement.status"</code>, <code>value: "Churned"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>greater_than</code></td>
+                                        <td>&gt;</td>
+                                        <td>Numeric or date comparison (exclusive)</td>
+                                        <td><code>key: "monetization.mrr"</code>, <code>value: "500"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>less_than</code></td>
+                                        <td>&lt;</td>
+                                        <td>Numeric or date comparison (exclusive)</td>
+                                        <td><code>key: "monetization.mrr"</code>, <code>value: "100"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>greater_than_or_equal</code></td>
+                                        <td>≥</td>
+                                        <td>Numeric or date comparison (inclusive)</td>
+                                        <td><code>key: "monetization.arr"</code>, <code>value: "1200"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>less_than_or_equal</code></td>
+                                        <td>≤</td>
+                                        <td>Numeric or date comparison (inclusive)</td>
+                                        <td><code>key: "engagement.monthlyActiveUsers"</code>, <code>value: "50"</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3 id="sort"><code>sort</code> · optional · object</h3>
+                            <p>Sort by exactly one field per request. <code>sort.key</code> must be a path whose
+                                <strong>Sort</strong> column is <strong>Yes</strong> in the <a href="#account-fields">Account fields</a>
+                                table (same rules as <code>accountFieldByGraphQLKey</code>).</p>
+                            <pre><code>{
+  "key": "&lt;dot-notation path — Sort = Yes in Account fields table&gt;",
+  "direction": "asc" | "desc"
+}</code></pre>
+                            <p><strong>Tip:</strong> Sort by <code>monetization.mrr</code> <code>desc</code> to see
+                                highest-revenue accounts first, or <code>engagement.activityTrend</code>
+                                <code>asc</code> to surface accounts with declining activity. Only paths with
+                                <strong>Sort = Yes</strong> in the Account fields table are valid sort keys.</p>
+
+                            <h3 id="pagination"><code>pagination</code> · optional · object</h3>
+                            <p>Cursor-free page-based pagination. Defaults to page <code>1</code>, size <code>10</code>
+                                if omitted.</p>
+                            <pre><code>{
+  "number": 1,
+  "size": 10
+}</code></pre>
+                            <ul>
+                                <li><code>number</code> — page number, starts at 1</li>
+                                <li><code>size</code> — records per page, max 100</li>
+                            </ul>
+                            <p>To iterate all results, increment <code>number</code> until the returned
+                                <code>account</code> array is empty.</p>
+                        </section>
+                        <section id="example-request" class="content-section">
+                            <h2>Example request</h2>
+                            <p>This example fetches Pro accounts with MRR above $200, ordered by highest MRR first,
+                                excluding accounts with a Churned engagement status.</p>
+
+                            <h3>GraphQL query</h3>
+                            <pre><code>query GetAccounts($input: GetAccountsRequest!) {
+  getAccounts(input: $input) {
+    message
+    account {
+      id
+      name
+      domain
+      source
+      createdAt
+      acquisition {
+        abuseStatus
+        touchpointsToSignup
+        timeToSignupDays
+        initialUtmSource
+        abuseRuleResult {
+          passed
+          ruleId
+          ruleName
+          description
+        }
+      }
+      monetization {
+        plan
+        billingStatus
+        mrr
+        currency
+      }
+      engagement {
+        status
+        isActive
+        monthlyActiveUsers
+        activityTrend
+      }
+      expansion {
+        expansionSignalCount
+        contractionSignalCount
+      }
+    }
+  }
+}</code></pre>
+
+                            <h3>Variables (JSON)</h3>
+                            <pre><code>{
+  "input": {
+    "filters": [
+      {
+        "key": "monetization.plan",
+        "operator": "equals",
+        "value": "pro"
+      },
+      {
+        "key": "engagement.status",
+        "operator": "not_equals",
+        "value": "Churned"
+      },
+      {
+        "key": "monetization.mrr",
+        "operator": "greater_than",
+        "value": "200"
+      }
+    ],
+    "sort": {
+      "key": "monetization.mrr",
+      "direction": "desc"
+    },
+    "pagination": {
+      "number": 1,
+      "size": 25
+    }
+  }
+}</code></pre>
+                        </section>
+                        <section id="curl-example" class="content-section">
+                            <h2>cURL</h2>
+                            <p>Run this from your terminal to test the API (replace <code>YOUR_API_KEY</code> as needed).</p>
+                            <pre><code>curl --location 'https://api.app.thrivestack.ai/growth-intelligence' \
+--header 'content-type: application/json' \
+--header 'x-api-key: YOUR_API_KEY' \
+--data '
+{
+  "query": "query GetAccounts($input: GetAccountsRequest!) { getAccounts(input: $input) { message account { id name domain source createdAt acquisition { abuseStatus touchpointsToSignup timeToSignupDays initialUtmSource abuseRuleResult { passed ruleId ruleName description } } monetization { plan billingStatus mrr currency } engagement { status isActive monthlyActiveUsers activityTrend } expansion { expansionSignalCount contractionSignalCount } } } }",
+  "variables": {
+    "input": {
+      "filters": [
+        {
+          "key": "monetization.plan",
+          "operator": "equals",
+          "value": "pro"
+        },
+        {
+          "key": "engagement.status",
+          "operator": "not_equals",
+          "value": "Churned"
+        },
+        {
+          "key": "monetization.mrr",
+          "operator": "greater_than",
+          "value": "200"
+        }
+      ],
+      "sort": {
+        "key": "monetization.mrr",
+        "direction": "desc"
+      },
+      "pagination": {
+        "number": 1,
+        "size": 25
+      }
+    }
+  }
+}
+'</code></pre>
+                        </section>
+                        <section id="example-response" class="content-section">
+                            <h2>Example response</h2>
+                            <p>The response wraps matching accounts in <code>data.getAccounts.account[]</code>.
+                                The <code>message</code> field is optional in the schema and may be <code>"success"</code>
+                                or omitted depending on the server response.</p>
+                            <pre><code>{
+  "data": {
+    "getAccounts": {
+      "message": "success",
+      "account": [
+        {
+          "id": "acc_abc123",
+          "name": "Acme Corp",
+          "domain": "acme.com",
+          "source": ["hubspot", "stripe"],
+          "createdAt": "2024-01-15T10:30:00Z",
+          "acquisition": {
+            "abuseStatus": "clean",
+            "touchpointsToSignup": 4,
+            "timeToSignupDays": 2,
+            "initialUtmSource": "google",
+            "abuseRuleResult": [
+              { "passed": true, "ruleId": "r_domain", "ruleName": "Domain check", "description": "Domain allowed" }
+            ]
+          },
+          "monetization": {
+            "plan": "pro",
+            "billingStatus": "active",
+            "mrr": 299.0,
+            "currency": "USD"
+          },
+          "engagement": {
+            "status": "Healthy",
+            "isActive": true,
+            "monthlyActiveUsers": 22,
+            "activityTrend": 1.32
+          },
+          "expansion": {
+            "expansionSignalCount": 2,
+            "contractionSignalCount": 0
+          }
+        },
+        {
+          "id": "acc_def456",
+          "name": "Globex Inc",
+          "domain": "globex.io",
+          "source": ["stripe"],
+          "createdAt": "2024-02-01T14:00:00Z",
+          "acquisition": {
+            "abuseStatus": "clean",
+            "touchpointsToSignup": 2,
+            "timeToSignupDays": 0,
+            "initialUtmSource": "direct",
+            "abuseRuleResult": []
+          },
+          "monetization": {
+            "plan": "pro",
+            "billingStatus": "active",
+            "mrr": 249.0,
+            "currency": "EUR"
+          },
+          "engagement": {
+            "status": "At Risk",
+            "isActive": true,
+            "monthlyActiveUsers": 4,
+            "activityTrend": 0.61
+          },
+          "expansion": {
+            "expansionSignalCount": 0,
+            "contractionSignalCount": 1
+          }
+        }
+      ]
+    }
+  }
+}</code></pre>
+                        </section>
+                        <section id="tips" class="content-section">
+                            <h2>Tips &amp; best practices</h2>
+                            <blockquote class="note-callout">
+                            <ul>
+                                <li><strong>Filter values are always strings</strong> — the server coerces them to the
+                                    correct type. Pass <code>"true"</code> for booleans, <code>"299.0"</code> for
+                                    numbers.</li>
+                                <li><strong>All filters are ANDed.</strong> To segment Pro accounts that are also
+                                    healthy, add two separate filter objects rather than combining values.</li>
+                                <li><strong>Registry vs GraphQL.</strong> The Account fields table mirrors
+                                    <code>accountFieldByGraphQLKey</code> for list filters/sort. You can still query
+                                    response-only paths (for example <code>activation</code>,
+                                    <code>acquisition.abuseRuleResult</code>) in GraphQL when you need them on the wire.</li>
+                                <li><strong>Request only the fields you need.</strong> Omitting heavy objects like
+                                    <code>firmographics</code> or <code>acquisition.abuseRuleResult</code> meaningfully
+                                    reduces response size.</li>
+                                <li><strong>Use <code>engagement.status</code> for at-risk detection.</strong> Values are
+                                    Healthy, At Risk, Critical, New, and Inactive.</li>
+                                <li><strong>Expansion signals are additive.</strong> Filter on
+                                    <code>expansion.expansionSignalCount</code> <code>greater_than</code>
+                                    <code>"0"</code> for upsell candidates, and
+                                    <code>expansion.contractionSignalCount</code> <code>greater_than</code>
+                                    <code>"0"</code> for churn risk.</li>
+                            </ul>
+                            </blockquote>
+                        </section>
+                    </article>
+                </section>
+
+                <div class="page-nav">
+                    <a href="../../public/api/track.html" class="nav-card prev-card">
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">Track</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <a href="../../public/api/get-account-by-id.html" class="nav-card next-card">
+                        <span class="nav-label">Next</span>
+                        <span class="nav-title">GetAccountById</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank"
+                            rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true"
+                            data-file="get-accounts.html">Last updated: May 1, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#api-details" class="toc-link active">API details</a>
+                    <a href="#account-fields" class="toc-link">Account fields</a>
+                    <a href="#input" class="toc-link">Input</a>
+                    <a href="#filters" class="toc-link">Filters</a>
+                    <a href="#filter-operators" class="toc-link">Operators</a>
+                    <a href="#sort" class="toc-link">Sort</a>
+                    <a href="#pagination" class="toc-link">Pagination</a>
+                    <a href="#example-request" class="toc-link">Example request</a>
+                    <a href="#curl-example" class="toc-link">cURL</a>
+                    <a href="#example-response" class="toc-link">Example response</a>
+                    <a href="#tips" class="toc-link">Tips</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../../script.js"></script>
+</body>
+
+</html>

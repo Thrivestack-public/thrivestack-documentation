@@ -611,6 +611,27 @@ a:hover { color: var(--brand-primary-hover); }
     }
 }
 
+.doc-page-body .doc-table-xscroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1rem 0;
+}
+.doc-page-body .doc-muted-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+}
+.doc-page-body .doc-subtle {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 0.2rem;
+}
+
 /* Markdown-style documentation body */
 .markdown-body {
     font-size: 0.98rem;
