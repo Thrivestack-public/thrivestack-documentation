@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Import HubSpot data into ThriveStack - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>HubSpot → ThriveStack - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="https://cdn.app.thrivestack.ai/latest/script.js" api-key="i1rPJo38lB6hR2qZC5iNNz0xcGRuBYIKRVYfTBdpJyY="
+        source="marketing">
+        </script>
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="logo"><img src="../../logo.png" alt="ThriveStack" class="logo-img"><span
+                    class="logo-text"></span></a>
+            <div class="search-bar"><i class="fa-solid fa-search"></i><input type="text"
+                    placeholder="Search documentation... (Ctrl+K)"></div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links"><a href="../../index.html">Get Started</a><a href="../../setup-overview.html"
+                    class="active">Setup (Unify)</a><a href="#">Analyze Signals</a><a href="#">Take Action</a></div>
+        </div>
+        <div class="nav-right"><button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme"><i
+                    class="fa-solid fa-sun" id="theme-icon"></i></button><a
+                href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a><button class="mobile-menu-btn"><i
+                    class="fa-solid fa-bars"></i></button></div>
+    </nav>
+
+    <div class="layout-container">
+        <setup-sidebar id="sidebar" class="left-sidebar" base-path="../../"></setup-sidebar>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="content-section">
+                    <section class="doc-page">
+
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">CRM Sync · HubSpot</span>
+                            <h1 class="doc-page-title">HubSpot → ThriveStack</h1>
+                            <p class="doc-page-description">Import companies, contacts, deals, tickets and engagement
+                                history from HubSpot. Every account in ThriveStack shows its CRM context alongside
+                                product usage.</p>
+                        </header>
+
+                        <article class="doc-page-body">
+
+                            <!-- prereqs -->
+                            <div style="padding: 8px 0 10px;">
+                                <p
+                                    style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted, #64748b); margin: 0 0 8px;">
+                                    What you need</p>
+                                <div style="display: flex; flex-direction: column; gap: 5px;">
+                                    <span
+                                        style="display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-secondary, #94a3b8);"><i
+                                            class="fa-solid fa-building"
+                                            style="color: var(--text-muted, #64748b); font-size: 11px; width: 12px;"></i>A
+                                        HubSpot account with at least one company or contact record</span>
+                                    <span
+                                        style="display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-secondary, #94a3b8);"><i
+                                            class="fa-solid fa-key"
+                                            style="color: var(--text-muted, #64748b); font-size: 11px; width: 12px;"></i>Admin-level
+                                        HubSpot access to authorize the OAuth connection</span>
+                                    <span
+                                        style="display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-secondary, #94a3b8);"><i
+                                            class="fa-solid fa-ticket"
+                                            style="color: var(--text-muted, #64748b); font-size: 11px; width: 12px;"></i>Sales
+                                        Hub for deals · Service Hub for tickets (any paid tier)</span>
+                                </div>
+                            </div>
+
+                            <!-- demo -->
+                            <h2 id="demo">Interactive demo</h2>
+                            <p>Watch the full setup flow in under 2 minutes.</p>
+                            <div style="margin-bottom: 28px;">
+                                <script async src="https://js.storylane.io/js/v2/storylane.js"
+                                    data-verify-origin=""></script>
+                                <div class="sl-embed"
+                                    style="position:relative;padding-bottom:calc(50.35% + 25px);width:100%;height:0;transform:scale(1)">
+                                    <iframe loading="lazy" class="sl-demo"
+                                        src="https://app.storylane.io/demo/0fpwku4xuniw?embed=inline" name="sl-embed"
+                                        allow="fullscreen" allowfullscreen
+                                        style="position:absolute;top:0;left:0;width:100%!important;height:100%!important;border:1px solid rgba(63,95,172,0.35);box-shadow: 0px 0px 18px rgba(26, 19, 72, 0.15);border-radius:10px;box-sizing:border-box;"></iframe>
+                                </div>
+                            </div>
+
+                            <!-- what gets imported -->
+                            <h2 id="objects">What gets imported</h2>
+                            <p>The following objects are synced from HubSpot into ThriveStack on an incremental daily
+                                schedule. All standard properties are imported — plus any custom properties you've
+                                created in your portal.</p>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Object</th>
+                                        <th>Default</th>
+                                        <th>What's included</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Companies</strong></td>
+                                        <td>On</td>
+                                        <td>Domain, name, industry, revenue, employee count, lifecycle stage, owner, all
+                                            custom properties</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Contacts</strong></td>
+                                        <td>On</td>
+                                        <td>Name, email, job title, lifecycle stage, all custom properties</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Deals</strong></td>
+                                        <td>On</td>
+                                        <td>Name, amount, stage, pipeline, close date, owner. Requires company
+                                            association to be set in HubSpot.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tickets</strong></td>
+                                        <td>On</td>
+                                        <td>Subject, priority, status, source type (email/chat/form/phone). Requires
+                                            company association.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Calls</strong></td>
+                                        <td>On</td>
+                                        <td>Title, notes, duration, direction (inbound/outbound)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Meetings</strong></td>
+                                        <td>On</td>
+                                        <td>Title, notes, start time</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Notes</strong></td>
+                                        <td>On</td>
+                                        <td>Note body</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tasks</strong></td>
+                                        <td>On</td>
+                                        <td>Subject, status, priority, due date</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Emails</strong></td>
+                                        <td><strong>Off</strong></td>
+                                        <td>One-to-one sales email logs. Off by default — large portals can have
+                                            millions of records. Enable only if your team specifically needs email
+                                            history.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- setup steps -->
+                            <h2 id="setup">How to set up</h2>
+
+                            <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px;">
+                                <div style="display: flex; gap: 14px;">
+                                    <div
+                                        style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #93c5fd; margin-top: 1px;">
+                                        1</div>
+                                    <div>
+                                        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                                            <strong style="font-size: 14px;">Open the CRM sync wizard</strong>
+                                            <a href="https://app.thrivestack.ai/analyze/onboarding/crm" target="_blank"
+                                                rel="noopener noreferrer"
+                                                style="font-size: 13px; font-weight: 500; color: var(--brand-primary); text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                                                /analyze/onboarding/crm
+                                                <i class="fa-solid fa-arrow-up-right-from-square"
+                                                    style="font-size: 11px;"></i>
+                                            </a>
+                                        </div>
+                                        <p
+                                            style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">
+                                            Go to <strong style="color: var(--text-secondary);">Analyze → Onboarding →
+                                                CRM</strong> and click <strong style="color: var(--text-secondary);">Add
+                                                Connection</strong>.</p>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 14px;">
+                                    <div
+                                        style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #93c5fd; margin-top: 1px;">
+                                        2</div>
+                                    <div>
+                                        <strong style="font-size: 14px;">Select "Inbound" direction</strong>
+                                        <p
+                                            style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">
+                                            On the direction step choose <strong
+                                                style="color: var(--text-secondary);">HubSpot → ThriveStack</strong>.
+                                        </p>
+                                        <div
+                                            style="margin-top: 12px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color, #333);">
+                                            <img src="hubspot-inbound-step-2.png"
+                                                alt="Select Inbound direction in CRM sync wizard"
+                                                style="width: 100%; display: block;" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 14px;">
+                                    <div
+                                        style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #93c5fd; margin-top: 1px;">
+                                        3</div>
+                                    <div>
+                                        <strong style="font-size: 14px;">Authorize with HubSpot</strong>
+                                        <p
+                                            style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">
+                                            Click the <strong style="color: var(--text-secondary);">HubSpot</strong>
+                                            tile then <strong style="color: var(--text-secondary);">Authorize with
+                                                HubSpot</strong>. You'll be redirected to HubSpot's OAuth consent page —
+                                            sign in with an account that has <em>Super Admin</em> or <em>CRM Admin</em>
+                                            access and click <strong style="color: var(--text-secondary);">Connect
+                                                app</strong>. You'll be returned to ThriveStack automatically.</p>
+                                        <div
+                                            style="margin-top: 12px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color, #333);">
+                                            <img src="hubspot-inbound-step-3.png"
+                                                alt="Authorize HubSpot OAuth in CRM sync wizard"
+                                                style="width: 100%; display: block;" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 14px;">
+                                    <div
+                                        style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #93c5fd; margin-top: 1px;">
+                                        4</div>
+                                    <div>
+                                        <strong style="font-size: 14px;">Choose which objects to import</strong>
+                                        <p
+                                            style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">
+                                            Toggle on the objects you want. All objects except Emails are on by default.
+                                            Enable Emails only if your team specifically needs one-to-one sales email
+                                            history — large portals can have millions of records.</p>
+                                        <div
+                                            style="margin-top: 12px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color, #333);">
+                                            <img src="hubspot-inbound-step-4.png"
+                                                alt="Choose objects to import in CRM sync wizard"
+                                                style="width: 100%; display: block;" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 14px;">
+                                    <div
+                                        style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #93c5fd; margin-top: 1px;">
+                                        5</div>
+                                    <div>
+                                        <strong style="font-size: 14px;">Review and activate</strong>
+                                        <p
+                                            style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">
+                                            Review the summary and click <strong
+                                                style="color: var(--text-secondary);">Create Connection</strong>. The
+                                            first full sync typically finishes in 5–30 minutes. All subsequent syncs are
+                                            incremental.</p>
+                                        <div
+                                            style="margin-top: 12px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color, #333);">
+                                            <img src="hubspot-inbound-step-5.png"
+                                                alt="Review and activate inbound CRM connection"
+                                                style="width: 100%; display: block;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- where to find data -->
+                            <h2 id="where">Where to find imported data</h2>
+                            <p>Go to <strong>Analyze → Accounts</strong>, open any account, and look for the HubSpot
+                                panel. ThriveStack matches accounts to HubSpot companies by domain. You'll see four
+                                tabs:</p>
+                            <ul>
+                                <li><strong>Properties</strong> — All HubSpot company properties including custom
+                                    fields.</li>
+                                <li><strong>Deals</strong> — Open and closed deals with stage, amount, close date and
+                                    owner. Shows open pipeline total and closed-won total at a glance.</li>
+                                <li><strong>Tickets</strong> — Support tickets with priority, stage and source channel.
+                                </li>
+                                <li><strong>Engagements</strong> — Full activity timeline — calls, meetings, notes and
+                                    tasks sorted by most recent. Filter by type.</li>
+                            </ul>
+
+                            <!-- sync schedule -->
+                            <h2 id="schedule">Sync schedule</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Run</th>
+                                        <th>Mode</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Daily at 02:00 UTC</strong></td>
+                                        <td>Incremental</td>
+                                        <td>Only records modified since the last run are fetched. New records are
+                                            appended; updated records overwrite the previous version.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Manual trigger</strong></td>
+                                        <td>Incremental</td>
+                                        <td>Click <strong>⋯ → Trigger Sync</strong> on your connection card to run an
+                                            immediate sync without waiting for the daily schedule.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>First sync</strong></td>
+                                        <td>Full refresh</td>
+                                        <td>The first run after connecting imports all historical records. Takes 5 min
+                                            (small portal) to several hours (100k+ records). All subsequent runs are
+                                            incremental.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- upgrading -->
+                            <h2 id="upgrading">Refreshing an existing connection</h2>
+                            <p>If you connected HubSpot before deals and engagements were supported, a banner will
+                                appear on the CRM page. Two scenarios:</p>
+                            <ul>
+                                <li><strong>Re-authorize</strong> — Your OAuth token is missing required permissions.
+                                    Click the button, approve on HubSpot, and your connection upgrades automatically
+                                    with all new data streams in one step. No data is lost.</li>
+                                <li><strong>Enable now</strong> — Your token already has the right permissions but the
+                                    sync pipeline is missing the new streams. One click, no redirect, done in seconds.
+                                </li>
+                            </ul>
+
+                            <!-- troubleshooting -->
+                            <h2 id="troubleshooting">Troubleshooting</h2>
+
+                            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+                                <details
+                                    style="border: 1px solid var(--border-color, #333); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.02);">
+                                    <summary
+                                        style="cursor: pointer; padding: 18px 20px; font-weight: 600; font-size: 14px; color: var(--text-primary, #fff); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                                        <span>Deals or tickets not showing in account view</span>
+                                        <i class="fa-solid fa-chevron-down"
+                                            style="font-size: 12px; color: var(--text-secondary, #94a3b8); flex-shrink: 0;"></i>
+                                    </summary>
+                                    <div style="padding: 0 20px 18px; border-top: 1px solid var(--border-color, #333);">
+                                        <p
+                                            style="font-size: 14px; color: var(--text-secondary, #cbd5e1); line-height: 1.7; margin: 16px 0 0;">
+                                            Each deal or ticket must be associated with a company record in HubSpot for
+                                            it to appear on the correct account in ThriveStack. Go to your HubSpot records
+                                            and verify the <strong>Company</strong> association is populated.</p>
+                                    </div>
+                                </details>
+
+                                <details
+                                    style="border: 1px solid var(--border-color, #333); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.02);">
+                                    <summary
+                                        style="cursor: pointer; padding: 18px 20px; font-weight: 600; font-size: 14px; color: var(--text-primary, #fff); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                                        <span>No data after 30 minutes</span>
+                                        <i class="fa-solid fa-chevron-down"
+                                            style="font-size: 12px; color: var(--text-secondary, #94a3b8); flex-shrink: 0;"></i>
+                                    </summary>
+                                    <div style="padding: 0 20px 18px; border-top: 1px solid var(--border-color, #333);">
+                                        <p
+                                            style="font-size: 14px; color: var(--text-secondary, #cbd5e1); line-height: 1.7; margin: 16px 0 0;">
+                                            The first sync can take longer for large portals. Check the <em>Last
+                                                synced</em> timestamp on your connection card. If it shows an error use
+                                            <strong>⋯ → Trigger Sync</strong> to retry.</p>
+                                    </div>
+                                </details>
+
+                                <details
+                                    style="border: 1px solid var(--border-color, #333); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.02);">
+                                    <summary
+                                        style="cursor: pointer; padding: 18px 20px; font-weight: 600; font-size: 14px; color: var(--text-primary, #fff); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                                        <span>Authorization failed: redirect URL doesn't match</span>
+                                        <i class="fa-solid fa-chevron-down"
+                                            style="font-size: 12px; color: var(--text-secondary, #94a3b8); flex-shrink: 0;"></i>
+                                    </summary>
+                                    <div style="padding: 0 20px 18px; border-top: 1px solid var(--border-color, #333);">
+                                        <p
+                                            style="font-size: 14px; color: var(--text-secondary, #cbd5e1); line-height: 1.7; margin: 16px 0 0;">
+                                            Ensure <code>https://app.thrivestack.ai/analyze/onboarding/crm</code> is
+                                            listed in the <strong>Redirect URLs</strong> in your HubSpot app settings.
+                                            Changes can take 2–5 minutes to propagate.</p>
+                                    </div>
+                                </details>
+
+                                <details
+                                    style="border: 1px solid var(--border-color, #333); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.02);">
+                                    <summary
+                                        style="cursor: pointer; padding: 18px 20px; font-weight: 600; font-size: 14px; color: var(--text-primary, #fff); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                                        <span>HubSpot properties show raw IDs instead of names</span>
+                                        <i class="fa-solid fa-chevron-down"
+                                            style="font-size: 12px; color: var(--text-secondary, #94a3b8); flex-shrink: 0;"></i>
+                                    </summary>
+                                    <div style="padding: 0 20px 18px; border-top: 1px solid var(--border-color, #333);">
+                                        <p
+                                            style="font-size: 14px; color: var(--text-secondary, #cbd5e1); line-height: 1.7; margin: 16px 0 0;">
+                                            Deal stages, owner names and pipeline IDs are stored as raw identifiers in
+                                            HubSpot's API (e.g. <code>closedwon</code>, <code>12345678</code>).
+                                            Human-readable label resolution is on the roadmap.</p>
+                                    </div>
+                                </details>
+                            </div>
+
+                            <p
+                                style="font-size: 14px; color: var(--text-secondary, #cbd5e1); line-height: 1.6; margin-bottom: 28px;">
+                                If this doesn't resolve your issue or you're running into a problem we haven't covered,
+                                email us at <a href="mailto:support@thrivestack.ai"
+                                    style="color: var(--brand-primary); font-weight: 500;">support@thrivestack.ai</a>
+                                and we'll help you.</p>
+
+                            <hr />
+                            <p>Also see: <a href="hubspot-outbound.html">ThriveStack → HubSpot (Export)</a> to push
+                                product signals back into your CRM.</p>
+
+                        </article>
+                    </section>
+                </section>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#" class="toc-link active">HubSpot → ThriveStack</a>
+                    <a href="#demo" class="toc-link">Interactive demo</a>
+                    <a href="#objects" class="toc-link">What gets imported</a>
+                    <a href="#setup" class="toc-link">How to set up</a>
+                    <a href="#where" class="toc-link">Where to find imported data</a>
+                    <a href="#schedule" class="toc-link">Sync schedule</a>
+                    <a href="#upgrading" class="toc-link">Refreshing an existing connection</a>
+                    <a href="#troubleshooting" class="toc-link">Troubleshooting</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+    <script src="../../script.js"></script>
+</body>
+
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CRM Sync Introduction - ThriveStack Documentation">
+    <meta name="description" content="HubSpot CRM Sync Introduction - ThriveStack Documentation">
     <script>
         (function () {
             try {
@@ -14,7 +14,7 @@
             }
         })();
     </script>
-    <title>CRM Sync Introduction - ThriveStack</title>
+    <title>HubSpot CRM Sync - ThriveStack</title>
     <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,40 +23,82 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../styles.css">
     <style>
-        .intro-card-grid {
+        .crm-card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 16px;
-            margin-top: 8px;
+            margin-top: 12px;
+            margin-bottom: 32px;
         }
-        .intro-option-card {
+        .crm-card {
             display: block;
             border: 1px solid var(--border-color);
             border-radius: 10px;
             background: var(--card-bg);
-            padding: 16px;
+            padding: 20px;
             text-decoration: none;
             color: inherit;
-            transition: border-color .2s ease, transform .2s ease, background .2s ease;
+            transition: border-color .2s, transform .15s, background .2s;
         }
-        .intro-option-card:hover {
+        .crm-card:hover {
             border-color: var(--brand-primary);
             background: var(--card-hover-bg);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
-        .intro-option-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--brand-primary);
-            margin-bottom: 6px;
+        .crm-card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            font-size: 15px;
+            margin-bottom: 12px;
         }
-        .intro-option-desc {
+        .crm-card-in  { background: rgba(59,130,246,0.12); color: #93c5fd; }
+        .crm-card-out { background: rgba(34,197,94,0.10);  color: #86efac; }
+        .crm-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 6px;
+        }
+        .crm-card-direction {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin: 0 0 8px;
+        }
+        .crm-card-direction-in  { color: #93c5fd; }
+        .crm-card-direction-out { color: #86efac; }
+        .crm-card-desc {
+            font-size: 13px;
             color: var(--text-secondary);
-            font-size: 0.92rem;
-            margin: 0;
+            margin: 0 0 14px;
+            line-height: 1.55;
+        }
+        .crm-card-items {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .crm-card-item {
+            font-size: 12px;
+            color: var(--text-muted, #888);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .crm-card-item i { font-size: 10px; width: 12px; }
+        .crm-card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--brand-primary);
         }
     </style>
     <script
@@ -77,29 +119,68 @@
 
     <div class="layout-container">
         <setup-sidebar id="sidebar" class="left-sidebar" base-path="../../"></setup-sidebar>
-
         <div class="resizer" id="sidebar-resizer"></div>
+
         <main class="main-content"><div class="content-wrapper"><section class="content-section"><section class="doc-page">
             <header class="doc-page-header">
                 <span class="doc-page-header-eyebrow">CRM Sync</span>
-                <h1 class="doc-page-title">Introduction</h1>
-                <p class="doc-page-description">Start here to connect CRM workflows and synced account signals.</p>
+                <h1 class="doc-page-title">HubSpot</h1>
+                <p class="doc-page-description">Connect ThriveStack with HubSpot to unify your product usage data and CRM records in one place.</p>
             </header>
+
             <article class="doc-page-body">
-                <div class="intro-card-grid">
-                    <a href="hubspot.html" class="intro-option-card">
-                        <p class="intro-option-title"><i class="fa-solid fa-wand-magic-sparkles"></i>Setup with AI</p>
-                        <p class="intro-option-desc">Use the AI-guided path to get started quickly.</p>
+
+                <p>ThriveStack's HubSpot integration runs in two independent directions. Enable one or both depending on what your team needs — they are configured separately and can be active at the same time.</p>
+
+                <div class="crm-card-grid">
+
+                    <a href="hubspot-inbound.html" class="crm-card">
+                        <div class="crm-card-icon crm-card-in">
+                            <i class="fa-solid fa-arrow-down-to-line"></i>
+                        </div>
+                        <p class="crm-card-direction crm-card-direction-in">HubSpot → ThriveStack</p>
+                        <p class="crm-card-title">Import CRM data</p>
+                        <p class="crm-card-desc">Pull your HubSpot records into ThriveStack so every account shows its deals, tickets and activity alongside product usage.</p>
+                        <div class="crm-card-items">
+                            <span class="crm-card-item"><i class="fa-solid fa-check"></i> Companies &amp; Contacts</span>
+                            <span class="crm-card-item"><i class="fa-solid fa-check"></i> Deals &amp; Tickets</span>
+                            <span class="crm-card-item"><i class="fa-solid fa-check"></i> Calls, Meetings, Notes &amp; Tasks</span>
+                        </div>
+                        <span class="crm-card-cta">Set up import <i class="fa-solid fa-arrow-right" style="font-size:11px;"></i></span>
                     </a>
-                    <a href="hubspot.html" class="intro-option-card">
-                        <p class="intro-option-title"><i class="fa-solid fa-book-open"></i>Setup Manually</p>
-                        <p class="intro-option-desc">Follow step-by-step manual documentation.</p>
+
+                    <a href="hubspot-outbound.html" class="crm-card">
+                        <div class="crm-card-icon crm-card-out">
+                            <i class="fa-solid fa-arrow-up-from-line"></i>
+                        </div>
+                        <p class="crm-card-direction crm-card-direction-out">ThriveStack → HubSpot</p>
+                        <p class="crm-card-title">Export product signals</p>
+                        <p class="crm-card-desc">Push MRR, activation status and engagement metrics back into HubSpot company properties so your sales team works with live product data.</p>
+                        <div class="crm-card-items">
+                            <span class="crm-card-item"><i class="fa-solid fa-check"></i> Revenue &amp; MRR</span>
+                            <span class="crm-card-item"><i class="fa-solid fa-check"></i> Activation status &amp; progress</span>
+                            <span class="crm-card-item"><i class="fa-solid fa-check"></i> DAU / WAU / MAU &amp; engagement trend</span>
+                        </div>
+                        <span class="crm-card-cta">Set up export <i class="fa-solid fa-arrow-right" style="font-size:11px;"></i></span>
                     </a>
+
                 </div>
+
+                <h2>Prerequisites</h2>
+                <ul>
+                    <li>A HubSpot account — Free tier or above</li>
+                    <li>Admin-level access to your HubSpot portal to authorize the OAuth connection</li>
+                    <li>A ThriveStack account — <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" target="_blank" rel="noopener noreferrer">sign up free</a></li>
+                    <li>For Deals: HubSpot Sales Hub (any paid tier). For Tickets: HubSpot Service Hub (any paid tier)</li>
+                </ul>
+
+                <h2>How the sync works</h2>
+                <p>Both directions use <strong>incremental sync</strong> — only records that changed since the last run are transferred. This keeps sync fast and your data fresh without re-importing everything every day.</p>
+                <p>Syncs run on a daily schedule automatically. You can also trigger an immediate sync at any time from the <strong>⋯</strong> menu on your connection card.</p>
+
             </article>
         </section></section></div></main>
     </div>
-
     <script src="../../script.js"></script>
 </body>
 </html>

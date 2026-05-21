@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Export ThriveStack signals to HubSpot - ThriveStack Documentation">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>ThriveStack → HubSpot - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <script
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
+        api-key="i1rPJo38lB6hR2qZC5iNNz0xcGRuBYIKRVYfTBdpJyY="
+        source="marketing">
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="logo"><img src="../../logo.png" alt="ThriveStack" class="logo-img"><span class="logo-text"></span></a>
+            <div class="search-bar"><i class="fa-solid fa-search"></i><input type="text" placeholder="Search documentation... (Ctrl+K)"></div>
+        </div>
+        <div class="nav-center"><div class="nav-links"><a href="../../index.html">Get Started</a><a href="../../setup-overview.html" class="active">Setup (Unify)</a><a href="#">Analyze Signals</a><a href="#">Take Action</a></div></div>
+        <div class="nav-right"><button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme"><i class="fa-solid fa-sun" id="theme-icon"></i></button><a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a><button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button></div>
+    </nav>
+
+    <div class="layout-container">
+        <setup-sidebar id="sidebar" class="left-sidebar" base-path="../../"></setup-sidebar>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content"><div class="content-wrapper"><section class="content-section"><section class="doc-page">
+
+            <header class="doc-page-header">
+                <span class="doc-page-header-eyebrow">CRM Sync · HubSpot</span>
+                <h1 class="doc-page-title">ThriveStack → HubSpot</h1>
+                <p class="doc-page-description">Push MRR, activation status and engagement signals from ThriveStack into HubSpot company properties — so your sales and CS teams always have live product data inside HubSpot.</p>
+            </header>
+
+            <article class="doc-page-body">
+
+                <!-- prereqs -->
+                <div style="padding: 8px 0 10px;">
+                    <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted, #64748b); margin: 0 0 8px;">What you need</p>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <span style="display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-building" style="color: var(--text-muted, #64748b); font-size: 11px; width: 12px;"></i>A HubSpot account — Free tier or above</span>
+                        <span style="display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-key" style="color: var(--text-muted, #64748b); font-size: 11px; width: 12px;"></i>Super Admin or CRM Admin access in HubSpot to authorize write permissions</span>
+                        <span style="display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-secondary, #94a3b8);"><i class="fa-solid fa-chart-line" style="color: var(--text-muted, #64748b); font-size: 11px; width: 12px;"></i>ThriveStack product telemetry set up so account-level signals are available</span>
+                    </div>
+                </div>
+
+                <!-- demo -->
+                <h2 id="demo">Interactive demo</h2>
+                <p>Watch the full outbound setup in under 2 minutes.</p>
+                <div style="margin-bottom: 28px;">
+                    <script async src="https://js.storylane.io/js/v2/storylane.js" data-verify-origin=""></script>
+                    <div class="sl-embed"
+                        style="position:relative;padding-bottom:calc(47.97% + 25px);width:100%;height:0;transform:scale(1)">
+                        <iframe loading="lazy" class="sl-demo"
+                            src="https://app.storylane.io/demo/8tssh3rlyg7g?embed=inline"
+                            name="sl-embed" allow="fullscreen" allowfullscreen
+                            style="position:absolute;top:0;left:0;width:100%!important;height:100%!important;border:1px solid rgba(63,95,172,0.35);box-shadow: 0px 0px 18px rgba(26, 19, 72, 0.15);border-radius:10px;box-sizing:border-box;"></iframe>
+                    </div>
+                </div>
+
+                <!-- what gets exported -->
+                <h2 id="properties">What gets exported</h2>
+                <p>ThriveStack writes to <strong>HubSpot Company properties</strong>. On the first sync it creates a <strong>ThriveStack</strong> property group in your portal — you'll see it appear under any company record and can use it in HubSpot workflows, lists and sequences.</p>
+
+                <table>
+                    <thead>
+                        <tr><th>Property group</th><th>Fields</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Revenue</strong></td>
+                            <td><code>ts_mrr</code>, <code>ts_arr</code>, <code>ts_revenue_currency</code>, <code>ts_last_transaction_date</code>, <code>ts_last_transaction_amount</code>, <code>ts_next_due_date</code>, <code>ts_invoice_count</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Activation</strong></td>
+                            <td><code>ts_activation_status</code>, <code>ts_activation_completion_pct</code>, <code>ts_activation_current_step</code>, <code>ts_activation_champion_user</code>, <code>ts_activation_ttv</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Engagement</strong></td>
+                            <td><code>ts_engagement_dau</code>, <code>ts_engagement_wau</code>, <code>ts_engagement_mau</code>, <code>ts_engagement_stickiness_weekly</code>, <code>ts_engagement_activity_trend</code>, <code>ts_engagement_last_activity</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Acquisition</strong></td>
+                            <td><code>ts_acquisition_utm_source</code>, <code>ts_acquisition_utm_medium</code>, <code>ts_acquisition_utm_campaign</code>, <code>ts_acquisition_time_to_signup_days</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Expansion signals</strong></td>
+                            <td><code>ts_expansion_types</code>, <code>ts_expansion_signal_count</code>, <code>ts_contraction_types</code>, <code>ts_contraction_signal_count</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Identity</strong></td>
+                            <td><code>ts_id</code> — stable ThriveStack account identifier used for deduplication on subsequent syncs</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <blockquote>
+                    <strong>Use in HubSpot workflows:</strong> Once properties are synced you can build automations — for example, enroll accounts into an upsell sequence when <code>ts_activation_status = complete</code> and <code>ts_mrr = 0</code>.
+                </blockquote>
+
+                <!-- setup steps -->
+                <h2 id="setup">How to set up</h2>
+
+                <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px;">
+                    <div style="display: flex; gap: 14px;">
+                        <div style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #86efac; margin-top: 1px;">1</div>
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                                <strong style="font-size: 14px;">Open the CRM sync wizard</strong>
+                                <a href="https://app.thrivestack.ai/analyze/onboarding/crm" target="_blank"
+                                    rel="noopener noreferrer"
+                                    style="font-size: 13px; font-weight: 500; color: var(--brand-primary); text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                                    /analyze/onboarding/crm
+                                    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i>
+                                </a>
+                            </div>
+                            <p style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">Go to <strong style="color: var(--text-secondary);">Analyze → Onboarding → CRM</strong> and click <strong style="color: var(--text-secondary);">Add Connection</strong>.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 14px;">
+                        <div style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #86efac; margin-top: 1px;">2</div>
+                        <div>
+                            <strong style="font-size: 14px;">Select "Outbound" direction</strong>
+                            <p style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">On the direction step choose <strong style="color: var(--text-secondary);">ThriveStack → HubSpot</strong>.</p>
+                            <div style="margin-top: 12px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color, #333);">
+                                <img src="hubspot-outbound-step-2.png" alt="Select Outbound direction in CRM sync wizard" style="width: 100%; display: block;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 14px;">
+                        <div style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #86efac; margin-top: 1px;">3</div>
+                        <div>
+                            <strong style="font-size: 14px;">Authorize with HubSpot</strong>
+                            <p style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">Click <strong style="color: var(--text-secondary);">HubSpot</strong> then <strong style="color: var(--text-secondary);">Authorize with HubSpot</strong>. Sign in with a <em>Super Admin</em> or <em>CRM Admin</em> account — write access is required to create the ThriveStack property group.</p>
+                            <div style="margin-top: 12px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color, #333);">
+                                <img src="hubspot-outbound-step-3.png" alt="Authorize HubSpot OAuth in CRM sync wizard" style="width: 100%; display: block;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 14px;">
+                        <div style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #86efac; margin-top: 1px;">4</div>
+                        <div>
+                            <strong style="font-size: 14px;">Map fields</strong>
+                            <p style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">Select which ThriveStack fields to push. You can push a subset — for example, just MRR and activation status if that's all your sales team needs. All selected fields map to standard <code>ts_</code>-prefixed company properties in HubSpot.</p>
+                            <div style="margin-top: 12px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color, #333);">
+                                <img src="hubspot-outbound-step-4.png" alt="Map ThriveStack fields to HubSpot properties" style="width: 100%; display: block;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 14px;">
+                        <div style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #86efac; margin-top: 1px;">5</div>
+                        <div>
+                            <strong style="font-size: 14px;">Set a first-sync filter (optional)</strong>
+                            <p style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">Use first-sync rules to control which accounts get pushed — for example, only accounts with <em>MRR &gt; 0</em> or <em>activation status = complete</em>. This prevents cluttering HubSpot with trial or empty accounts.</p>
+                            <div style="margin-top: 12px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color, #333);">
+                                <img src="hubspot-outbound-step-5.png" alt="Set first-sync filter rules for outbound sync" style="width: 100%; display: block;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 14px;">
+                        <div style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #86efac; margin-top: 1px;">6</div>
+                        <div>
+                            <strong style="font-size: 14px;">Review and activate</strong>
+                            <p style="margin: 5px 0 0; font-size: 13px; color: var(--text-muted, #888); line-height: 1.5;">Click <strong style="color: var(--text-secondary);">Create Connection</strong>. ThriveStack creates the property group in HubSpot and runs the first sync. Properties will appear under <em>ThriveStack</em> on each matched company record.</p>
+                            <div style="margin-top: 12px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color, #333);">
+                                <img src="hubspot-outbound-step-6.png" alt="Review and activate outbound CRM connection" style="width: 100%; display: block;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- account matching -->
+                <h2 id="matching">How accounts are matched</h2>
+                <p>ThriveStack matches your accounts to HubSpot companies using the <code>domain</code> field. On the first sync it writes a <code>ts_id</code> property to each matched company. All subsequent syncs use this stable identifier — so if a company's domain changes in HubSpot, the sync still works correctly.</p>
+                <p>If no match is found by domain, ThriveStack creates a new company record in HubSpot using your account's name and domain.</p>
+
+                <!-- sync schedule -->
+                <h2 id="schedule">Sync schedule</h2>
+                <table>
+                    <thead>
+                        <tr><th>Run</th><th>Mode</th><th>Notes</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Daily at 03:00 UTC</strong></td>
+                            <td>Incremental</td>
+                            <td>Runs 1 hour after inbound sync (if both directions are active) so the freshest ThriveStack data is pushed. Only accounts with changed values since the last run are updated in HubSpot.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Manual trigger</strong></td>
+                            <td>Incremental</td>
+                            <td>Click <strong>⋯ → Trigger Sync</strong> on your connection card to push the latest values immediately — useful after a large activation campaign or MRR update you want reflected in HubSpot right away.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- troubleshooting -->
+                <h2 id="troubleshooting">Troubleshooting</h2>
+
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+                    <details style="border: 1px solid var(--border-color, #333); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.02);">
+                        <summary style="cursor: pointer; padding: 18px 20px; font-weight: 600; font-size: 14px; color: var(--text-primary, #fff); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                            <span>ThriveStack properties not appearing in HubSpot</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: var(--text-secondary, #94a3b8); flex-shrink: 0;"></i>
+                        </summary>
+                        <div style="padding: 0 20px 18px; border-top: 1px solid var(--border-color, #333);">
+                            <p style="font-size: 14px; color: var(--text-secondary, #cbd5e1); line-height: 1.7; margin: 16px 0 0;">Properties are created on the first outbound sync. If you can't see them, go to <strong>HubSpot → Settings → Properties</strong> and filter by group <em>ThriveStack</em>. If the group doesn't exist, go back to ThriveStack and use <strong>⋯ → Trigger Sync</strong> to force a retry.</p>
+                        </div>
+                    </details>
+
+                    <details style="border: 1px solid var(--border-color, #333); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.02);">
+                        <summary style="cursor: pointer; padding: 18px 20px; font-weight: 600; font-size: 14px; color: var(--text-primary, #fff); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                            <span>Some accounts aren't being pushed</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: var(--text-secondary, #94a3b8); flex-shrink: 0;"></i>
+                        </summary>
+                        <div style="padding: 0 20px 18px; border-top: 1px solid var(--border-color, #333);">
+                            <p style="font-size: 14px; color: var(--text-secondary, #cbd5e1); line-height: 1.7; margin: 16px 0 0;">Check your first-sync filter rules — accounts that don't match the filter criteria are skipped. You can view and edit filters from <strong>⋯ → Edit</strong> on your connection card.</p>
+                        </div>
+                    </details>
+
+                    <details style="border: 1px solid var(--border-color, #333); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.02);">
+                        <summary style="cursor: pointer; padding: 18px 20px; font-weight: 600; font-size: 14px; color: var(--text-primary, #fff); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                            <span>Property values look stale in HubSpot</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: var(--text-secondary, #94a3b8); flex-shrink: 0;"></i>
+                        </summary>
+                        <div style="padding: 0 20px 18px; border-top: 1px solid var(--border-color, #333);">
+                            <p style="font-size: 14px; color: var(--text-secondary, #cbd5e1); line-height: 1.7; margin: 16px 0 0;">The outbound sync runs once daily. For the most current values use <strong>⋯ → Trigger Sync</strong> to push immediately. If values are still wrong after a manual trigger, verify that ThriveStack is receiving telemetry events — go to <strong>Analyze → Accounts</strong> and check the account's engagement and revenue data directly.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <p style="font-size: 14px; color: var(--text-secondary, #cbd5e1); line-height: 1.6; margin-bottom: 28px;">
+                    If this doesn't resolve your issue or you're running into a problem we haven't covered, email us at
+                    <a href="mailto:support@thrivestack.ai" style="color: var(--brand-primary); font-weight: 500;">support@thrivestack.ai</a>
+                    and we'll help you.</p>
+
+                <hr />
+                <p>Also see: <a href="hubspot-inbound.html">HubSpot → ThriveStack (Import)</a> to pull deals, tickets and engagement history into ThriveStack.</p>
+
+            </article>
+        </section></section></div></main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#" class="toc-link active">ThriveStack → HubSpot</a>
+                    <a href="#demo" class="toc-link">Interactive demo</a>
+                    <a href="#properties" class="toc-link">What gets exported</a>
+                    <a href="#setup" class="toc-link">How to set up</a>
+                    <a href="#matching" class="toc-link">How accounts are matched</a>
+                    <a href="#schedule" class="toc-link">Sync schedule</a>
+                    <a href="#troubleshooting" class="toc-link">Troubleshooting</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+    <script src="../../script.js"></script>
+</body>
+</html>
