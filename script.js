@@ -504,6 +504,13 @@ class SetupSidebar extends HTMLElement {
                     <li><a href="${prefix}public/customer-success/setup-health-scores.html" class="nav-item"><span>Setup Health Scores</span></a></li>
                 </ul>
             </div>
+
+            <div class="sidebar-section">
+                <h3>Billing</h3>
+                <ul>
+                    <li><a href="${prefix}startup-cohort-coupon.html" class="nav-item"><span>Startup Cohort Discount</span></a></li>
+                </ul>
+            </div>
         `;
         
         // Handle Active State
