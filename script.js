@@ -508,7 +508,7 @@ class SetupSidebar extends HTMLElement {
             <div class="sidebar-section">
                 <h3>Billing</h3>
                 <ul>
-                    <li><a href="${prefix}startup-cohort-coupon.html" class="nav-item"><span>Startup Cohort Discount</span></a></li>
+                    <li><a href="${prefix}startup-cohort-discount.html" class="nav-item"><span>Startup Cohort Discount</span></a></li>
                 </ul>
             </div>
         `;
