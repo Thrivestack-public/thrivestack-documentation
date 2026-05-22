@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="How to Pay - ThriveStack Subscription & Billing">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>How to Pay - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
+        api-key="i1rPJo38lB6hR2qZC5iNNz0xcGRuBYIKRVYfTBdpJyY="
+        source="marketing">
+    </script>
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="index.html">Get Started</a>
+                <a href="setup-overview.html">Setup (Unify)</a>
+                <a href="analyze-signals.html">Analyze Signals</a>
+                <a href="take-action.html">Take Action</a>
+                <a href="api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <setup-sidebar id="sidebar" class="left-sidebar" base-path=""></setup-sidebar>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="how-to-pay" class="content-section">
+                    <section class="doc-page">
+                        <header class="doc-page-header">
+                            <span class="doc-page-header-eyebrow">Billing &amp; Subscription</span>
+                            <h1 class="doc-page-title">How to Pay</h1>
+                            <p class="doc-page-description">
+                                Follow these steps to subscribe to a ThriveStack plan and complete your payment.
+                            </p>
+                        </header>
+
+                        <hr />
+
+                        <article class="doc-page-body">
+
+                            <!-- ── STEP 1 ──────────────────────────────────────── -->
+                            <div style="margin-bottom: 36px;">
+                                <h2 id="open-settings" style="display: flex; align-items: center; gap: 12px;">
+                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #111827; color: #fff; font-weight: 700; font-size: 14px; flex-shrink: 0;">1</span>
+                                    Go to Settings
+                                </h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; line-height: 1.6; margin-bottom: 16px; padding-left: 42px;">
+                                    Click <strong>Settings</strong> from the bottom of the left navigation panel.
+                                </p>
+                                <div style="padding-left: 42px;">
+                                    <img src="payment-step-1.png" alt="Click Settings from the left navigation" style="width: 100%; max-width: 720px; border-radius: 8px; border: 1px solid var(--border-color, #333);">
+                                </div>
+                            </div>
+
+                            <!-- ── STEP 2 ──────────────────────────────────────── -->
+                            <div style="margin-bottom: 36px;">
+                                <h2 id="manage-subscription" style="display: flex; align-items: center; gap: 12px;">
+                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #111827; color: #fff; font-weight: 700; font-size: 14px; flex-shrink: 0;">2</span>
+                                    Click "Manage Subscription"
+                                </h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; line-height: 1.6; margin-bottom: 16px; padding-left: 42px;">
+                                    On the <strong>Payments/Billing</strong> page, click <strong>Manage Subscription</strong> to view available plans.
+                                </p>
+                                <div style="padding-left: 42px;">
+                                    <img src="payment-step-2.png" alt="Click Manage Subscription on the Payments/Billing page" style="width: 100%; max-width: 720px; border-radius: 8px; border: 1px solid var(--border-color, #333);">
+                                </div>
+                            </div>
+
+                            <!-- ── STEP 3 ──────────────────────────────────────── -->
+                            <div style="margin-bottom: 36px;">
+                                <h2 id="select-plan" style="display: flex; align-items: center; gap: 12px;">
+                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #111827; color: #fff; font-weight: 700; font-size: 14px; flex-shrink: 0;">3</span>
+                                    Select the Growth Plan
+                                </h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; line-height: 1.6; margin-bottom: 16px; padding-left: 42px;">
+                                    Review the available plans and click <strong>Choose Growth</strong> to select the Growth plan.
+                                </p>
+                                <div style="padding-left: 42px;">
+                                    <img src="payment-step-3.png" alt="Select the Growth plan" style="width: 100%; max-width: 720px; border-radius: 8px; border: 1px solid var(--border-color, #333);">
+                                </div>
+                            </div>
+
+                            <!-- ── STEP 4 ──────────────────────────────────────── -->
+                            <div style="margin-bottom: 36px;">
+                                <h2 id="apply-coupon" style="display: flex; align-items: center; gap: 12px;">
+                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #111827; color: #fff; font-weight: 700; font-size: 14px; flex-shrink: 0;">4</span>
+                                    Apply a Coupon <span style="font-size: 13px; font-weight: 400; color: var(--text-muted, #64748b); margin-left: 6px;">(optional)</span>
+                                </h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; line-height: 1.6; margin-bottom: 16px; padding-left: 42px;">
+                                    On the <strong>Review Your Subscription</strong> page, enter your coupon code in the <strong>Have a coupon code?</strong> field and click <strong>Apply</strong>.
+                                </p>
+                                <div style="padding-left: 42px;">
+                                    <img src="payment-step-4.png" alt="Apply a coupon code" style="width: 100%; max-width: 720px; border-radius: 8px; border: 1px solid var(--border-color, #333);">
+                                </div>
+                            </div>
+
+                            <!-- ── STEP 5 ──────────────────────────────────────── -->
+                            <div style="margin-bottom: 36px;">
+                                <h2 id="checkout" style="display: flex; align-items: center; gap: 12px;">
+                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #111827; color: #fff; font-weight: 700; font-size: 14px; flex-shrink: 0;">5</span>
+                                    Continue to Checkout
+                                </h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; line-height: 1.6; margin-bottom: 16px; padding-left: 42px;">
+                                    Click <strong>Continue to Checkout</strong> and add your card details to complete the payment.
+                                </p>
+                                <div style="padding-left: 42px;">
+                                    <img src="payment-step-5.png" alt="Continue to Checkout" style="width: 100%; max-width: 720px; border-radius: 8px; border: 1px solid var(--border-color, #333);">
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <blockquote>
+                                <i class="fa-solid fa-circle-info" style="margin-right: 6px;"></i>
+                                Need help? Reach out to <a href="mailto:support@thrivestack.ai">support@thrivestack.ai</a> and we'll assist you with your subscription.
+                            </blockquote>
+
+                        </article>
+
+                        <div class="content-footer">
+                            <p>Was this page helpful?</p>
+                            <div class="feedback-buttons">
+                                <button class="feedback-btn" data-feedback="yes">
+                                    <i class="fa-regular fa-thumbs-up"></i> Yes
+                                </button>
+                                <button class="feedback-btn" data-feedback="no">
+                                    <i class="fa-regular fa-thumbs-down"></i> No
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
