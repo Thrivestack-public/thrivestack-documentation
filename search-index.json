@@ -1,0 +1,3830 @@
+{
+  "version": 2,
+  "generatedAt": "2026-05-27T12:18:26.425Z",
+  "source": "thrivestack-documentation",
+  "entries": [
+    {
+      "id": "accelerate-free-to-paid-ThriveStack-Documentation",
+      "title": "ThriveStack Documentation",
+      "url": "accelerate-free-to-paid.html",
+      "section": "Documentation",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "free_to_paid",
+        "free",
+        "to",
+        "paid",
+        "conversion",
+        "trial",
+        "upgrade",
+        "monetization",
+        "pricing"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "accelerate-free-to-paid-accelerate-free-to-paid-Accelerate-Free-to-Paid",
+      "title": "ThriveStack Documentation",
+      "url": "accelerate-free-to-paid.html#accelerate-free-to-paid",
+      "section": "Documentation",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "free_to_paid",
+        "free",
+        "to",
+        "paid",
+        "trial_conversion",
+        "trial",
+        "conversion",
+        "upgrade",
+        "paywall",
+        "expansion",
+        "revenue"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "analyze-correlated-signals-ThriveStack-Documentation",
+      "title": "ThriveStack Documentation",
+      "url": "analyze-correlated-signals.html",
+      "section": "Analyze",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "correlated_signals",
+        "correlated",
+        "signals",
+        "cross_channel",
+        "cross",
+        "channel",
+        "diagnostics",
+        "patterns",
+        "root_cause",
+        "root",
+        "cause"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "analyze-correlated-signals-analyze-correlated-signals-Analyze-Correlated-Signals",
+      "title": "ThriveStack Documentation",
+      "url": "analyze-correlated-signals.html#analyze-correlated-signals",
+      "section": "Analyze",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "correlation",
+        "signals",
+        "modules",
+        "marketing",
+        "product",
+        "revenue",
+        "diagnostics"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "analyze-signals-Analyze-Signals",
+      "title": "Analyze Signals",
+      "url": "analyze-signals.html",
+      "section": "Analyze",
+      "description": "Analyze Signals - ThriveStack Documentation",
+      "keywords": [
+        "analyze_signals",
+        "analyze",
+        "signals",
+        "growth_leaks",
+        "growth",
+        "leaks",
+        "activation",
+        "retention",
+        "churn",
+        "funnel",
+        "insights"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "analyze-signals-analyze-correlated-signals-Analyze-Correlated-Signals",
+      "title": "Analyze Signals",
+      "url": "analyze-signals.html#analyze-correlated-signals",
+      "section": "Analyze",
+      "description": "Analyze Correlated Signals",
+      "keywords": [
+        "correlated_signals",
+        "correlated",
+        "signals",
+        "cross_module",
+        "cross",
+        "module",
+        "patterns",
+        "root_cause",
+        "root",
+        "cause",
+        "diagnostics"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "analyze-signals-analyze-revenue-churn-Correlate-Signals-to-Revenue-Churn",
+      "title": "Analyze Signals",
+      "url": "analyze-signals.html#analyze-revenue-churn",
+      "section": "Analyze",
+      "description": "Correlate Signals to Revenue &amp; Churn",
+      "keywords": [
+        "revenue_churn",
+        "revenue",
+        "churn",
+        "mrr",
+        "correlation",
+        "billing",
+        "expansion",
+        "contraction"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "analyze-signals-identify-high-intent-signals-Detect-Growth-Leaks-Early",
+      "title": "Analyze Signals",
+      "url": "analyze-signals.html#identify-high-intent-signals",
+      "section": "Analyze",
+      "description": "Detect Growth Leaks Early",
+      "keywords": [
+        "growth_leaks",
+        "growth",
+        "leaks",
+        "leak_detection",
+        "leak",
+        "detection",
+        "activation",
+        "monetization",
+        "engagement",
+        "funnel"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "analyze-signals-spot-expansion-signals-Spot-Expansion-Signals-Early",
+      "title": "Analyze Signals",
+      "url": "analyze-signals.html#spot-expansion-signals",
+      "section": "Analyze",
+      "description": "Spot Expansion Signals Early",
+      "keywords": [
+        "expansion",
+        "upsell",
+        "seat_growth",
+        "seat",
+        "growth",
+        "usage_spike",
+        "usage",
+        "spike",
+        "expansion_revenue",
+        "revenue",
+        "accounts"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "api-reference-API-Reference",
+      "title": "API Reference",
+      "url": "api-reference.html",
+      "section": "API",
+      "description": "API Reference - ThriveStack Documentation",
+      "keywords": [
+        "api",
+        "reference",
+        "rest",
+        "json",
+        "telemetry",
+        "endpoints",
+        "public_api",
+        "public",
+        "instrumentation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "api-reference-authentication-Authentication",
+      "title": "API Reference",
+      "url": "api-reference.html#authentication",
+      "section": "API",
+      "description": "Authentication",
+      "keywords": [
+        "authentication",
+        "bearer",
+        "api_key",
+        "api",
+        "key",
+        "authorization",
+        "header",
+        "settings",
+        "rest"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "api-reference-base-url-Base-URL",
+      "title": "API Reference",
+      "url": "api-reference.html#base-url",
+      "section": "API",
+      "description": "Base URL",
+      "keywords": [
+        "base_url",
+        "base",
+        "url",
+        "api.app.thrivestack.ai",
+        "v1",
+        "endpoint",
+        "host",
+        "rest"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "api-reference-overview-Overview",
+      "title": "API Reference",
+      "url": "api-reference.html#overview",
+      "section": "API",
+      "description": "Overview",
+      "keywords": [
+        "rest",
+        "json",
+        "telemetry",
+        "instrumentation",
+        "identity",
+        "events",
+        "http",
+        "api"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "api-reference-revenue-intelligence-Revenue-Intelligence",
+      "title": "API Reference",
+      "url": "api-reference.html#revenue-intelligence",
+      "section": "API",
+      "description": "Revenue Intelligence",
+      "keywords": [
+        "revenue",
+        "billing",
+        "mrr",
+        "churn",
+        "expansion",
+        "subscriptions",
+        "invoices",
+        "transactions"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "connect-your-stack-ThriveStack-Documentation",
+      "title": "ThriveStack Documentation",
+      "url": "connect-your-stack.html",
+      "section": "Connect",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "connect",
+        "integrations",
+        "stack",
+        "crm",
+        "billing",
+        "product",
+        "marketing",
+        "data_sources",
+        "data",
+        "sources"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "connect-your-stack-connect-your-stack-Connect-Your-Stack",
+      "title": "ThriveStack Documentation",
+      "url": "connect-your-stack.html#connect-your-stack",
+      "section": "Connect",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "integrations",
+        "hubspot",
+        "salesforce",
+        "stripe",
+        "segment",
+        "warehouse",
+        "sync"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "data-collection-Data-Collection",
+      "title": "Data Collection",
+      "url": "data-collection.html",
+      "section": "Documentation",
+      "description": "Overview of compliance, defined terms, and data collection specifics across ThriveStack modules.",
+      "keywords": [
+        "data_collection",
+        "data",
+        "collection",
+        "privacy",
+        "compliance",
+        "gdpr",
+        "pii",
+        "telemetry",
+        "modules"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "data-collection-data-collected-Data-Collected-by-various-Modules",
+      "title": "Data Collection",
+      "url": "data-collection.html#data-collected",
+      "section": "Documentation",
+      "description": "Data Collected by various Modules",
+      "keywords": [
+        "data_collected",
+        "data",
+        "collected",
+        "marketing",
+        "product",
+        "revenue",
+        "modules",
+        "events",
+        "billing",
+        "crm"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "data-collection-data-collection-Compliance",
+      "title": "Data Collection",
+      "url": "data-collection.html#data-collection",
+      "section": "Documentation",
+      "description": "Overview of compliance, defined terms, and data collection specifics across ThriveStack modules.",
+      "keywords": [
+        "compliance",
+        "privacy",
+        "gdpr",
+        "ccpa",
+        "data_retention",
+        "data",
+        "retention",
+        "security",
+        "legal"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "data-collection-defined-terms-Defined-Terms",
+      "title": "Data Collection",
+      "url": "data-collection.html#defined-terms",
+      "section": "Documentation",
+      "description": "Defined Terms",
+      "keywords": [
+        "definitions",
+        "terms",
+        "pii",
+        "account",
+        "user",
+        "subscription",
+        "invoice",
+        "glossary"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "demo-Marketing-Analytics",
+      "title": "Marketing Analytics",
+      "url": "demo.html",
+      "section": "Documentation",
+      "description": "Marketing Analytics",
+      "keywords": [
+        "demo",
+        "sandbox",
+        "marketing_analytics",
+        "marketing",
+        "analytics",
+        "product_analytics",
+        "product",
+        "account_360",
+        "account",
+        "360",
+        "hubspot_sync",
+        "hubspot",
+        "sync",
+        "github"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "drive-revenue-playbooks-ThriveStack-Documentation",
+      "title": "ThriveStack Documentation",
+      "url": "drive-revenue-playbooks.html",
+      "section": "Documentation",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "revenue_playbooks",
+        "revenue",
+        "playbooks",
+        "gtm",
+        "sales",
+        "expansion",
+        "retention",
+        "automation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "drive-revenue-playbooks-drive-revenue-playbooks-Drive-Revenue-Playbooks",
+      "title": "ThriveStack Documentation",
+      "url": "drive-revenue-playbooks.html#drive-revenue-playbooks",
+      "section": "Documentation",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "playbooks",
+        "workflows",
+        "expansion",
+        "churn",
+        "upsell",
+        "sequences",
+        "automation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "guided-onboarding-Setup-with-ThriveStack-Team",
+      "title": "Setup with ThriveStack Team",
+      "url": "guided-onboarding.html",
+      "section": "Guides",
+      "description": "Our team sets up ThriveStack with you — live, in your codebase. Below is a guide on who to bring to each session so we can get you fully instrumented without back-and-forth.",
+      "keywords": [
+        "guided_onboarding",
+        "guided",
+        "onboarding",
+        "marketing",
+        "implementation",
+        "professional_services",
+        "professional",
+        "services"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "guided-onboarding-guided-onboarding-Marketing-Analytics",
+      "title": "Setup with ThriveStack Team",
+      "url": "guided-onboarding.html#guided-onboarding",
+      "section": "Guides",
+      "description": "Our team sets up ThriveStack with you — live, in your codebase. Below is a guide on who to bring to each session so we can get you fully instrumented without back-and-forth.",
+      "keywords": [
+        "marketing_analytics",
+        "marketing",
+        "analytics",
+        "guided",
+        "onboarding",
+        "team",
+        "implementation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "guided-setup-Overview",
+      "title": "Overview",
+      "url": "guided-setup.html",
+      "section": "Guides",
+      "description": "A high-level overview of how the guided setup with ThriveStack works — how many sessions each track takes, who to bring to each one, and what you'll have set up by the end.",
+      "keywords": [
+        "guided_setup",
+        "guided",
+        "setup",
+        "marketing",
+        "onboarding",
+        "implementation",
+        "thrivestack_team",
+        "thrivestack",
+        "team"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "guided-setup-guided-setup-Marketing-Analytics",
+      "title": "Overview",
+      "url": "guided-setup.html#guided-setup",
+      "section": "Guides",
+      "description": "A high-level overview of how the guided setup with ThriveStack works — how many sessions each track takes, who to bring to each one, and what you'll have set up by the end.",
+      "keywords": [
+        "marketing_analytics",
+        "marketing",
+        "analytics",
+        "guided",
+        "setup",
+        "implementation",
+        "services"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "implement-with-prompt-Implement-with-Prompt",
+      "title": "Implement with Prompt",
+      "url": "implement-with-prompt.html",
+      "section": "Documentation",
+      "description": "Use an AI coding assistant to instrument your codebase with ThriveStack telemetry in minutes.",
+      "keywords": [
+        "ai",
+        "prompt",
+        "instrumentation",
+        "cursor",
+        "copilot",
+        "api_key",
+        "api",
+        "key",
+        "setup",
+        "llm"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "implement-with-prompt-implement-with-prompt-Step-1-Get-your-API-key",
+      "title": "Implement with Prompt",
+      "url": "implement-with-prompt.html#implement-with-prompt",
+      "section": "Documentation",
+      "description": "Use an AI coding assistant to instrument your codebase with ThriveStack telemetry in minutes.",
+      "keywords": [
+        "api_key",
+        "api",
+        "key",
+        "settings",
+        "instrumentation",
+        "telemetry",
+        "sdk",
+        "snippet",
+        "wizard"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "index-Getting-Started-with-ThriveStack",
+      "title": "Getting Started with ThriveStack",
+      "url": "index.html",
+      "section": "Getting Started",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "getting_started",
+        "getting",
+        "started",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "gtm",
+        "signals",
+        "dashboard",
+        "onboarding"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "index-ai-powered-insights-AI-powered-insights",
+      "title": "Getting Started with ThriveStack",
+      "url": "index.html#ai-powered-insights",
+      "section": "Getting Started",
+      "description": "AI-powered insights",
+      "keywords": [
+        "ai_insights",
+        "ai",
+        "insights",
+        "recommendations",
+        "anomalies",
+        "playbooks",
+        "automation",
+        "alerts"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "index-growth-intelligence-Growth-Intelligence",
+      "title": "Getting Started with ThriveStack",
+      "url": "index.html#growth-intelligence",
+      "section": "Getting Started",
+      "description": "Growth Intelligence",
+      "keywords": [
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "gtm",
+        "unified",
+        "signals",
+        "marketing",
+        "product",
+        "revenue"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "index-overview-Overview",
+      "title": "Getting Started with ThriveStack",
+      "url": "index.html#overview",
+      "section": "Getting Started",
+      "description": "Overview",
+      "keywords": [
+        "platform_overview",
+        "platform",
+        "overview",
+        "correlation",
+        "marketing",
+        "sales",
+        "product",
+        "billing",
+        "customer_success",
+        "customer",
+        "success"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "index-signal-correlation-Signal-correlation",
+      "title": "Getting Started with ThriveStack",
+      "url": "index.html#signal-correlation",
+      "section": "Getting Started",
+      "description": "Signal correlation",
+      "keywords": [
+        "signal_correlation",
+        "signal",
+        "correlation",
+        "cross_channel",
+        "cross",
+        "channel",
+        "funnel",
+        "leaks",
+        "attribution",
+        "insights"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "index-unified-dashboard-Unified-dashboard",
+      "title": "Getting Started with ThriveStack",
+      "url": "index.html#unified-dashboard",
+      "section": "Getting Started",
+      "description": "Unified dashboard",
+      "keywords": [
+        "unified_dashboard",
+        "unified",
+        "dashboard",
+        "single_pane",
+        "single",
+        "pane",
+        "metrics",
+        "activation",
+        "retention",
+        "mrr"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "marketing-home-ThriveStack-The-AI-Growth-Platform-for-Vibe-Coders",
+      "title": "ThriveStack: The AI",
+      "url": "marketing_home.html",
+      "section": "Documentation",
+      "description": "The Growth Platform for the AI Era — transform Vibe projects into recurring revenue business with cross‑GTM intelligence.",
+      "keywords": [
+        "marketing",
+        "vibe_coders",
+        "vibe",
+        "coders",
+        "ai_growth",
+        "ai",
+        "growth",
+        "gtm",
+        "platform",
+        "recurring_revenue",
+        "recurring",
+        "revenue",
+        "cross_gtm",
+        "cross"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-endpoint-template-Endpoint-Name",
+      "title": "Endpoint Name",
+      "url": "public/api/endpoint-template.html",
+      "section": "API",
+      "description": "Short description of what this endpoint does.",
+      "keywords": [
+        "api",
+        "template",
+        "endpoint",
+        "reference",
+        "scaffold",
+        "openapi"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-endpoint-template-endpoint-name-Request",
+      "title": "Endpoint Name",
+      "url": "public/api/endpoint-template.html#endpoint-name",
+      "section": "API",
+      "description": "Request",
+      "keywords": [
+        "api",
+        "template",
+        "request",
+        "response",
+        "parameters"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-by-id-GetAccountById",
+      "title": "GetAccountById",
+      "url": "public/api/get-account-by-id.html",
+      "section": "API",
+      "description": "Fetch a complete account profile by its unique ID. Returns acquisition, activation, monetization, engagement, and firmographic data — everything ThriveStack has learned about the account.",
+      "keywords": [
+        "getaccountbyid",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "account",
+        "profile",
+        "mrr",
+        "arr",
+        "activation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-by-id-authentication-Authentication",
+      "title": "GetAccountById",
+      "url": "public/api/get-account-by-id.html#authentication",
+      "section": "API",
+      "description": "Authentication",
+      "keywords": [
+        "getaccountbyid",
+        "x-api-key",
+        "api_key",
+        "api",
+        "key",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "authentication"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-by-id-example-Example",
+      "title": "GetAccountById",
+      "url": "public/api/get-account-by-id.html#example",
+      "section": "API",
+      "description": "Example",
+      "keywords": [
+        "getaccountbyid",
+        "graphql",
+        "query",
+        "sample",
+        "account_id",
+        "account",
+        "id"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-by-id-example-response-Example-response",
+      "title": "GetAccountById",
+      "url": "public/api/get-account-by-id.html#example-response",
+      "section": "API",
+      "description": "Example response",
+      "keywords": [
+        "getaccountbyid",
+        "graphql",
+        "response",
+        "json",
+        "account",
+        "mrr",
+        "arr"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-by-id-get-account-by-id-Endpoint",
+      "title": "GetAccountById",
+      "url": "public/api/get-account-by-id.html#get-account-by-id",
+      "section": "API",
+      "description": "Fetch a complete account profile by its unique ID. Returns acquisition, activation, monetization, engagement, and firmographic data — everything ThriveStack has learned about the account.",
+      "keywords": [
+        "getaccountbyid",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "endpoint",
+        "x-api-key",
+        "account_id",
+        "account",
+        "id"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-by-id-graphql-query-GraphQL-query",
+      "title": "GetAccountById",
+      "url": "public/api/get-account-by-id.html#graphql-query",
+      "section": "API",
+      "description": "GraphQL query",
+      "keywords": [
+        "getaccountbyid",
+        "graphql",
+        "query",
+        "GetAccountById",
+        "account_id",
+        "account",
+        "id",
+        "fields"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-by-id-input-Input",
+      "title": "GetAccountById",
+      "url": "public/api/get-account-by-id.html#input",
+      "section": "API",
+      "description": "Input",
+      "keywords": [
+        "getaccountbyid",
+        "account_id",
+        "account",
+        "id",
+        "input",
+        "graphql",
+        "variables"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-by-id-response-fields-Response-fields",
+      "title": "GetAccountById",
+      "url": "public/api/get-account-by-id.html#response-fields",
+      "section": "API",
+      "description": "Response fields",
+      "keywords": [
+        "getaccountbyid",
+        "response",
+        "mrr",
+        "arr",
+        "activation",
+        "engagement",
+        "firmographics",
+        "fields"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-enrichment-GetAccountEnrichment",
+      "title": "GetAccountEnrichment",
+      "url": "public/api/get-account-enrichment.html",
+      "section": "API",
+      "description": "Enrich a company by domain. Returns firmographic data, technology stack, industry classification, social profiles, and business metrics — sourced from third-party enrichment providers. Use this to customize onboarding flows or personalize your product based on a customer's organization attributes.",
+      "keywords": [
+        "getaccountenrichment",
+        "graphql",
+        "enrichment",
+        "firmographics",
+        "domain",
+        "industry",
+        "linkedin"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-enrichment-authentication-Authentication",
+      "title": "GetAccountEnrichment",
+      "url": "public/api/get-account-enrichment.html#authentication",
+      "section": "API",
+      "description": "Authentication",
+      "keywords": [
+        "getaccountenrichment",
+        "x-api-key",
+        "api_key",
+        "api",
+        "key",
+        "graphql",
+        "authentication"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-enrichment-endpoint-Endpoint",
+      "title": "GetAccountEnrichment",
+      "url": "public/api/get-account-enrichment.html#endpoint",
+      "section": "API",
+      "description": "Endpoint",
+      "keywords": [
+        "getaccountenrichment",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "endpoint",
+        "x-api-key"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-enrichment-example-Example",
+      "title": "GetAccountEnrichment",
+      "url": "public/api/get-account-enrichment.html#example",
+      "section": "API",
+      "description": "Example",
+      "keywords": [
+        "getaccountenrichment",
+        "graphql",
+        "query",
+        "sample",
+        "domain"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-enrichment-example-response-Example-response",
+      "title": "GetAccountEnrichment",
+      "url": "public/api/get-account-enrichment.html#example-response",
+      "section": "API",
+      "description": "Example response",
+      "keywords": [
+        "getaccountenrichment",
+        "graphql",
+        "response",
+        "json",
+        "firmographics",
+        "linkedin"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-enrichment-get-account-enrichment-Success-rates",
+      "title": "GetAccountEnrichment",
+      "url": "public/api/get-account-enrichment.html#get-account-enrichment",
+      "section": "API",
+      "description": "Enrich a company by domain. Returns firmographic data, technology stack, industry classification, social profiles, and business metrics — sourced from third-party enrichment providers. Use this to customize onboarding flows or personalize your product based on a customer's organization attributes.",
+      "keywords": [
+        "getaccountenrichment",
+        "success_rates",
+        "success",
+        "rates",
+        "enrichment",
+        "match_rate",
+        "match",
+        "rate",
+        "domain"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-enrichment-graphql-query-GraphQL-query",
+      "title": "GetAccountEnrichment",
+      "url": "public/api/get-account-enrichment.html#graphql-query",
+      "section": "API",
+      "description": "GraphQL query",
+      "keywords": [
+        "getaccountenrichment",
+        "graphql",
+        "query",
+        "domain",
+        "enrichment",
+        "fields"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-enrichment-input-Input",
+      "title": "GetAccountEnrichment",
+      "url": "public/api/get-account-enrichment.html#input",
+      "section": "API",
+      "description": "Input",
+      "keywords": [
+        "getaccountenrichment",
+        "domain",
+        "input",
+        "graphql",
+        "variables"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-account-enrichment-response-fields-Response-fields",
+      "title": "GetAccountEnrichment",
+      "url": "public/api/get-account-enrichment.html#response-fields",
+      "section": "API",
+      "description": "Response fields",
+      "keywords": [
+        "getaccountenrichment",
+        "firmographics",
+        "industry",
+        "employees",
+        "revenue",
+        "technology",
+        "social"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-accounts-GetAccounts",
+      "title": "GetAccounts",
+      "url": "public/api/get-accounts.html",
+      "section": "API",
+      "description": "Fetch a paginated, filtered, and sorted list of accounts enriched with acquisition, activation, monetization, engagement, expansion, and firmographic data. Use this endpoint to power customer health dashboards, segment-based automations, and CRM exports. filters[].key and sort.key must use paths recognized by the growth-intelligence account list registry (see accountFieldByGraphQLKey in public-api-events ).",
+      "keywords": [
+        "getaccounts",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "accounts",
+        "filters",
+        "sort",
+        "pagination",
+        "mrr",
+        "arr"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-accounts-account-fields-Account-fields",
+      "title": "GetAccounts",
+      "url": "public/api/get-accounts.html#account-fields",
+      "section": "API",
+      "description": "Account fields",
+      "keywords": [
+        "getaccounts",
+        "account_fields",
+        "account",
+        "fields",
+        "filters",
+        "sort",
+        "mrr",
+        "arr",
+        "utm",
+        "activation",
+        "engagement",
+        "firmographics"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-accounts-curl-example-cURL",
+      "title": "GetAccounts",
+      "url": "public/api/get-accounts.html#curl-example",
+      "section": "API",
+      "description": "cURL",
+      "keywords": [
+        "getaccounts",
+        "curl",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "x-api-key",
+        "sample"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-accounts-example-request-Example-request",
+      "title": "GetAccounts",
+      "url": "public/api/get-accounts.html#example-request",
+      "section": "API",
+      "description": "Example request",
+      "keywords": [
+        "getaccounts",
+        "graphql",
+        "query",
+        "filters",
+        "sort",
+        "sample",
+        "request"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-accounts-example-response-Example-response",
+      "title": "GetAccounts",
+      "url": "public/api/get-accounts.html#example-response",
+      "section": "API",
+      "description": "Example response",
+      "keywords": [
+        "getaccounts",
+        "graphql",
+        "response",
+        "accounts",
+        "mrr",
+        "arr",
+        "pagination",
+        "json"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-accounts-get-accounts-API-details",
+      "title": "GetAccounts",
+      "url": "public/api/get-accounts.html#get-accounts",
+      "section": "API",
+      "description": "Fetch a paginated, filtered, and sorted list of accounts enriched with acquisition, activation, monetization, engagement, expansion, and firmographic data. Use this endpoint to power customer health dashboards, segment-based automations, and CRM exports. filters[].key and sort.key must use paths recognized by the growth-intelligence account list registry (see accountFieldByGraphQLKey in public-api-events ).",
+      "keywords": [
+        "getaccounts",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "post",
+        "endpoint",
+        "x-api-key",
+        "filters",
+        "sort"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-accounts-input-Input-GetAccountsRequest",
+      "title": "GetAccounts",
+      "url": "public/api/get-accounts.html#input",
+      "section": "API",
+      "description": "Input: GetAccountsRequest",
+      "keywords": [
+        "getaccounts",
+        "GetAccountsRequest",
+        "filters",
+        "sort",
+        "pagination",
+        "limit",
+        "offset",
+        "graphql"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-accounts-tips-Tips-best-practices",
+      "title": "GetAccounts",
+      "url": "public/api/get-accounts.html#tips",
+      "section": "API",
+      "description": "Tips &amp; best practices",
+      "keywords": [
+        "getaccounts",
+        "filters",
+        "sort",
+        "pagination",
+        "best_practices",
+        "best",
+        "practices",
+        "registry",
+        "accountFieldByGraphQLKey"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-by-id-GetUserById",
+      "title": "GetUserById",
+      "url": "public/api/get-user-by-id.html",
+      "section": "API",
+      "description": "Fetch a complete user profile by their unique ID. Returns acquisition signals, engagement metrics, and demographic information — the full picture ThriveStack has on a single user. For a paginated, filterable list of users , use GetUsers .",
+      "keywords": [
+        "getuserbyid",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "user",
+        "profile",
+        "signup",
+        "engagement"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-by-id-authentication-Authentication",
+      "title": "GetUserById",
+      "url": "public/api/get-user-by-id.html#authentication",
+      "section": "API",
+      "description": "Authentication",
+      "keywords": [
+        "getuserbyid",
+        "x-api-key",
+        "api_key",
+        "api",
+        "key",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "authentication"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-by-id-example-Example",
+      "title": "GetUserById",
+      "url": "public/api/get-user-by-id.html#example",
+      "section": "API",
+      "description": "Example",
+      "keywords": [
+        "getuserbyid",
+        "graphql",
+        "query",
+        "sample",
+        "user_id",
+        "user",
+        "id"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-by-id-example-response-Example-response",
+      "title": "GetUserById",
+      "url": "public/api/get-user-by-id.html#example-response",
+      "section": "API",
+      "description": "Example response",
+      "keywords": [
+        "getuserbyid",
+        "graphql",
+        "response",
+        "json",
+        "user"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-by-id-get-user-by-id-Endpoint",
+      "title": "GetUserById",
+      "url": "public/api/get-user-by-id.html#get-user-by-id",
+      "section": "API",
+      "description": "Fetch a complete user profile by their unique ID. Returns acquisition signals, engagement metrics, and demographic information — the full picture ThriveStack has on a single user. For a paginated, filterable list of users , use GetUsers .",
+      "keywords": [
+        "getuserbyid",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "endpoint",
+        "x-api-key",
+        "user_id",
+        "user",
+        "id"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-by-id-graphql-query-GraphQL-query",
+      "title": "GetUserById",
+      "url": "public/api/get-user-by-id.html#graphql-query",
+      "section": "API",
+      "description": "GraphQL query",
+      "keywords": [
+        "getuserbyid",
+        "graphql",
+        "query",
+        "GetUserById",
+        "user_id",
+        "user",
+        "id",
+        "fields"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-by-id-input-Input",
+      "title": "GetUserById",
+      "url": "public/api/get-user-by-id.html#input",
+      "section": "API",
+      "description": "Input",
+      "keywords": [
+        "getuserbyid",
+        "user_id",
+        "user",
+        "id",
+        "input",
+        "graphql",
+        "variables"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-by-id-response-fields-Response-fields",
+      "title": "GetUserById",
+      "url": "public/api/get-user-by-id.html#response-fields",
+      "section": "API",
+      "description": "Response fields",
+      "keywords": [
+        "getuserbyid",
+        "response",
+        "email",
+        "signup",
+        "engagement",
+        "demographics",
+        "fields"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-enrichment-GetUserEnrichment",
+      "title": "GetUserEnrichment",
+      "url": "public/api/get-user-enrichment.html",
+      "section": "API",
+      "description": "Enrich a person by email address. Returns professional title, role, seniority, company details, LinkedIn and social profiles, and location — sourced from third-party enrichment providers. Use this to implement personalized onboarding experiences based on a user's job function and seniority.",
+      "keywords": [
+        "getuserenrichment",
+        "graphql",
+        "enrichment",
+        "email",
+        "job_title",
+        "job",
+        "title",
+        "linkedin",
+        "seniority"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-enrichment-authentication-Authentication",
+      "title": "GetUserEnrichment",
+      "url": "public/api/get-user-enrichment.html#authentication",
+      "section": "API",
+      "description": "Authentication",
+      "keywords": [
+        "getuserenrichment",
+        "x-api-key",
+        "api_key",
+        "api",
+        "key",
+        "graphql",
+        "authentication"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-enrichment-endpoint-Endpoint",
+      "title": "GetUserEnrichment",
+      "url": "public/api/get-user-enrichment.html#endpoint",
+      "section": "API",
+      "description": "Endpoint",
+      "keywords": [
+        "getuserenrichment",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "endpoint",
+        "x-api-key"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-enrichment-example-Example",
+      "title": "GetUserEnrichment",
+      "url": "public/api/get-user-enrichment.html#example",
+      "section": "API",
+      "description": "Example",
+      "keywords": [
+        "getuserenrichment",
+        "graphql",
+        "query",
+        "sample",
+        "email"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-enrichment-example-response-Example-response",
+      "title": "GetUserEnrichment",
+      "url": "public/api/get-user-enrichment.html#example-response",
+      "section": "API",
+      "description": "Example response",
+      "keywords": [
+        "getuserenrichment",
+        "graphql",
+        "response",
+        "json",
+        "enrichment",
+        "linkedin"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-enrichment-get-user-enrichment-Success-rates",
+      "title": "GetUserEnrichment",
+      "url": "public/api/get-user-enrichment.html#get-user-enrichment",
+      "section": "API",
+      "description": "Enrich a person by email address. Returns professional title, role, seniority, company details, LinkedIn and social profiles, and location — sourced from third-party enrichment providers. Use this to implement personalized onboarding experiences based on a user's job function and seniority.",
+      "keywords": [
+        "getuserenrichment",
+        "success_rates",
+        "success",
+        "rates",
+        "enrichment",
+        "match_rate",
+        "match",
+        "rate",
+        "email"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-enrichment-graphql-query-GraphQL-query",
+      "title": "GetUserEnrichment",
+      "url": "public/api/get-user-enrichment.html#graphql-query",
+      "section": "API",
+      "description": "GraphQL query",
+      "keywords": [
+        "getuserenrichment",
+        "graphql",
+        "query",
+        "email",
+        "enrichment",
+        "fields"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-enrichment-input-Input",
+      "title": "GetUserEnrichment",
+      "url": "public/api/get-user-enrichment.html#input",
+      "section": "API",
+      "description": "Input",
+      "keywords": [
+        "getuserenrichment",
+        "email",
+        "input",
+        "graphql",
+        "variables"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-user-enrichment-response-fields-Response-fields",
+      "title": "GetUserEnrichment",
+      "url": "public/api/get-user-enrichment.html#response-fields",
+      "section": "API",
+      "description": "Response fields",
+      "keywords": [
+        "getuserenrichment",
+        "job_title",
+        "job",
+        "title",
+        "role",
+        "seniority",
+        "company",
+        "linkedin",
+        "location"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-users-GetUsers",
+      "title": "GetUsers",
+      "url": "public/api/get-users.html",
+      "section": "API",
+      "description": "Fetch a paginated, filtered, and sorted list of users enriched with acquisition, engagement, and demographic data. Use this endpoint to segment your user base, build cohort analysis, and power user-level personalization. filters[].key and sort.key must use paths recognized by the growth-intelligence user list registry ( userFieldByGraphQLKey in the public-api-events service). Invalid keys produce a GraphQL error.",
+      "keywords": [
+        "getusers",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "users",
+        "filters",
+        "sort",
+        "pagination",
+        "cohort",
+        "utm"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-users-curl-example-cURL",
+      "title": "GetUsers",
+      "url": "public/api/get-users.html#curl-example",
+      "section": "API",
+      "description": "cURL",
+      "keywords": [
+        "getusers",
+        "curl",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "x-api-key",
+        "sample"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-users-example-request-Example-request",
+      "title": "GetUsers",
+      "url": "public/api/get-users.html#example-request",
+      "section": "API",
+      "description": "Example request",
+      "keywords": [
+        "getusers",
+        "graphql",
+        "query",
+        "filters",
+        "sort",
+        "sample",
+        "request"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-users-example-response-Example-response",
+      "title": "GetUsers",
+      "url": "public/api/get-users.html#example-response",
+      "section": "API",
+      "description": "Example response",
+      "keywords": [
+        "getusers",
+        "graphql",
+        "response",
+        "users",
+        "pagination",
+        "json"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-users-get-users-API-details",
+      "title": "GetUsers",
+      "url": "public/api/get-users.html#get-users",
+      "section": "API",
+      "description": "Fetch a paginated, filtered, and sorted list of users enriched with acquisition, engagement, and demographic data. Use this endpoint to segment your user base, build cohort analysis, and power user-level personalization. filters[].key and sort.key must use paths recognized by the growth-intelligence user list registry ( userFieldByGraphQLKey in the public-api-events service). Invalid keys produce a GraphQL error.",
+      "keywords": [
+        "getusers",
+        "graphql",
+        "growth_intelligence",
+        "growth",
+        "intelligence",
+        "post",
+        "endpoint",
+        "x-api-key",
+        "filters",
+        "sort"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-users-input-Input-GetUsersRequest",
+      "title": "GetUsers",
+      "url": "public/api/get-users.html#input",
+      "section": "API",
+      "description": "Input: GetUsersRequest",
+      "keywords": [
+        "getusers",
+        "GetUsersRequest",
+        "filters",
+        "sort",
+        "pagination",
+        "limit",
+        "offset",
+        "graphql"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-users-tips-Tips-and-best-practices",
+      "title": "GetUsers",
+      "url": "public/api/get-users.html#tips",
+      "section": "API",
+      "description": "Tips and best practices",
+      "keywords": [
+        "getusers",
+        "filters",
+        "sort",
+        "pagination",
+        "best_practices",
+        "best",
+        "practices",
+        "segment",
+        "cohort"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-users-user-fields-User-fields",
+      "title": "GetUsers",
+      "url": "public/api/get-users.html#user-fields",
+      "section": "API",
+      "description": "User fields",
+      "keywords": [
+        "getusers",
+        "user_fields",
+        "user",
+        "fields",
+        "filters",
+        "sort",
+        "email",
+        "signup",
+        "engagement",
+        "demographics",
+        "abuse_status",
+        "abuse",
+        "status"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-group-Group",
+      "title": "Group",
+      "url": "public/api/group.html",
+      "section": "API",
+      "description": "The Group call associates a user with an account — a company, organization, workspace, or team. It lets you capture account-level traits and link user activity to account-level signals in ThriveStack.",
+      "keywords": [
+        "group",
+        "telemetry",
+        "account",
+        "group_id",
+        "id",
+        "account_name",
+        "name",
+        "account_domain",
+        "domain",
+        "traits",
+        "rest"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-group-authentication-Authentication",
+      "title": "Group",
+      "url": "public/api/group.html#authentication",
+      "section": "API",
+      "description": "Authentication",
+      "keywords": [
+        "group",
+        "x-api-key",
+        "api_key",
+        "api",
+        "key",
+        "authentication",
+        "header",
+        "json"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-group-endpoint-Endpoint",
+      "title": "Group",
+      "url": "public/api/group.html#endpoint",
+      "section": "API",
+      "description": "Endpoint",
+      "keywords": [
+        "group",
+        "post",
+        "rest",
+        "endpoint",
+        "api/group"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-group-example-Example",
+      "title": "Group",
+      "url": "public/api/group.html#example",
+      "section": "API",
+      "description": "Example",
+      "keywords": [
+        "group",
+        "curl",
+        "javascript",
+        "payload",
+        "sample",
+        "group_id",
+        "id",
+        "account_name",
+        "account",
+        "name"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-group-group-When-to-call",
+      "title": "Group",
+      "url": "public/api/group.html#group",
+      "section": "API",
+      "description": "The Group call associates a user with an account — a company, organization, workspace, or team. It lets you capture account-level traits and link user activity to account-level signals in ThriveStack.",
+      "keywords": [
+        "group",
+        "account_created",
+        "account",
+        "created",
+        "workspace",
+        "organization",
+        "group_id",
+        "id",
+        "account_traits",
+        "traits"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-group-request-body-Request-body",
+      "title": "Group",
+      "url": "public/api/group.html#request-body",
+      "section": "API",
+      "description": "Request body",
+      "keywords": [
+        "group",
+        "group_id",
+        "id",
+        "user_id",
+        "user",
+        "traits",
+        "group_type",
+        "type",
+        "account_name",
+        "account",
+        "name",
+        "account_domain",
+        "domain",
+        "timestamp"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-group-reserved-traits-Reserved-traits",
+      "title": "Group",
+      "url": "public/api/group.html#reserved-traits",
+      "section": "API",
+      "description": "Reserved traits",
+      "keywords": [
+        "group",
+        "account_name",
+        "account",
+        "name",
+        "account_domain",
+        "domain",
+        "account_id",
+        "id",
+        "plan",
+        "industry",
+        "traits"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-group-response-Response",
+      "title": "Group",
+      "url": "public/api/group.html#response",
+      "section": "API",
+      "description": "Response",
+      "keywords": [
+        "group",
+        "response",
+        "status",
+        "success",
+        "json"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-identify-Identify",
+      "title": "Identify",
+      "url": "public/api/identify.html",
+      "section": "API",
+      "description": "The Identify call lets you associate actions with a specific user and capture descriptive traits about them — such as their email, name, and account membership. It is the foundation of user-level analytics in ThriveStack.",
+      "keywords": [
+        "identify",
+        "telemetry",
+        "user_traits",
+        "user",
+        "traits",
+        "user_id",
+        "id",
+        "user_email",
+        "email",
+        "user_name",
+        "name",
+        "signup",
+        "login",
+        "rest"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-identify-authentication-Authentication",
+      "title": "Identify",
+      "url": "public/api/identify.html#authentication",
+      "section": "API",
+      "description": "Authentication",
+      "keywords": [
+        "identify",
+        "x-api-key",
+        "api_key",
+        "api",
+        "key",
+        "authentication",
+        "header",
+        "json"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-identify-endpoint-Endpoint",
+      "title": "Identify",
+      "url": "public/api/identify.html#endpoint",
+      "section": "API",
+      "description": "Endpoint",
+      "keywords": [
+        "identify",
+        "post",
+        "rest",
+        "endpoint",
+        "api/identify"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-identify-example-Example",
+      "title": "Identify",
+      "url": "public/api/identify.html#example",
+      "section": "API",
+      "description": "Example",
+      "keywords": [
+        "identify",
+        "curl",
+        "javascript",
+        "payload",
+        "sample",
+        "user_id",
+        "user",
+        "id",
+        "traits"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-identify-identify-When-to-call",
+      "title": "Identify",
+      "url": "public/api/identify.html#identify",
+      "section": "API",
+      "description": "The Identify call lets you associate actions with a specific user and capture descriptive traits about them — such as their email, name, and account membership. It is the foundation of user-level analytics in ThriveStack.",
+      "keywords": [
+        "identify",
+        "registration",
+        "signup",
+        "login",
+        "profile",
+        "user_id",
+        "user",
+        "id",
+        "uuid",
+        "traits"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-identify-request-body-Request-body",
+      "title": "Identify",
+      "url": "public/api/identify.html#request-body",
+      "section": "API",
+      "description": "Request body",
+      "keywords": [
+        "identify",
+        "user_id",
+        "user",
+        "id",
+        "traits",
+        "context",
+        "group_id",
+        "group",
+        "device_id",
+        "device",
+        "session_id",
+        "session",
+        "timestamp",
+        "source"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-identify-reserved-traits-Reserved-traits",
+      "title": "Identify",
+      "url": "public/api/identify.html#reserved-traits",
+      "section": "API",
+      "description": "Reserved traits",
+      "keywords": [
+        "identify",
+        "user_email",
+        "user",
+        "email",
+        "user_name",
+        "name",
+        "first_name",
+        "first",
+        "last_name",
+        "last",
+        "phone",
+        "avatar",
+        "plan",
+        "traits"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-identify-response-Response",
+      "title": "Identify",
+      "url": "public/api/identify.html#response",
+      "section": "API",
+      "description": "Response",
+      "keywords": [
+        "identify",
+        "response",
+        "status",
+        "success",
+        "json"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-invoices-Invoices",
+      "title": "Invoices",
+      "url": "public/api/invoices.html",
+      "section": "API",
+      "description": "The Invoices API lets you create, update, and delete billing invoices in ThriveStack. Invoices are linked to customers and can be associated with subscriptions and transactions for full revenue tracking.",
+      "keywords": [
+        "invoices",
+        "billing",
+        "invoice",
+        "line_items",
+        "line",
+        "items",
+        "due_date",
+        "due",
+        "date",
+        "draft",
+        "paid",
+        "void",
+        "revenue"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-invoices-delete-invoice-Delete-an-invoice",
+      "title": "Invoices",
+      "url": "public/api/invoices.html#delete-invoice",
+      "section": "API",
+      "description": "Delete an invoice",
+      "keywords": [
+        "invoices",
+        "delete",
+        "void",
+        "billing"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-invoices-error-codes-Error-codes",
+      "title": "Invoices",
+      "url": "public/api/invoices.html#error-codes",
+      "section": "API",
+      "description": "Error codes",
+      "keywords": [
+        "invoices",
+        "errors",
+        "status_codes",
+        "status",
+        "codes",
+        "billing",
+        "validation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-invoices-invoices-Create-an-invoice",
+      "title": "Invoices",
+      "url": "public/api/invoices.html#invoices",
+      "section": "API",
+      "description": "The Invoices API lets you create, update, and delete billing invoices in ThriveStack. Invoices are linked to customers and can be associated with subscriptions and transactions for full revenue tracking.",
+      "keywords": [
+        "invoices",
+        "invoice",
+        "billing",
+        "line_items",
+        "line",
+        "items",
+        "total",
+        "due_date",
+        "due",
+        "date",
+        "draft",
+        "open",
+        "paid"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-invoices-update-invoice-Update-an-invoice",
+      "title": "Invoices",
+      "url": "public/api/invoices.html#update-invoice",
+      "section": "API",
+      "description": "Update an invoice",
+      "keywords": [
+        "invoices",
+        "update",
+        "billing",
+        "status",
+        "due_date",
+        "due",
+        "date",
+        "line_items",
+        "line",
+        "items"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-subscription-items-Subscription-Items",
+      "title": "Subscription Items",
+      "url": "public/api/subscription-items.html",
+      "section": "API",
+      "description": "The Subscription Items API lets you create, update, and delete individual line items within a subscription in ThriveStack. Subscription items represent the specific plans and prices attached to a subscription, enabling granular MRR tracking across products, tiers, and billing intervals.",
+      "keywords": [
+        "subscription_items",
+        "subscription",
+        "items",
+        "billing",
+        "line_items",
+        "line",
+        "plan",
+        "quantity",
+        "recurring",
+        "revenue"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-subscription-items-delete-subscription-item-Delete-a-subscription-ite",
+      "title": "Subscription Items",
+      "url": "public/api/subscription-items.html#delete-subscription-item",
+      "section": "API",
+      "description": "Delete a subscription item",
+      "keywords": [
+        "subscription_items",
+        "subscription",
+        "items",
+        "delete",
+        "remove",
+        "billing"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-subscription-items-error-codes-Error-codes",
+      "title": "Subscription Items",
+      "url": "public/api/subscription-items.html#error-codes",
+      "section": "API",
+      "description": "Error codes",
+      "keywords": [
+        "subscription_items",
+        "subscription",
+        "items",
+        "errors",
+        "status_codes",
+        "status",
+        "codes",
+        "billing",
+        "validation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-subscription-items-subscription-items-Create-a-subscription-item",
+      "title": "Subscription Items",
+      "url": "public/api/subscription-items.html#subscription-items",
+      "section": "API",
+      "description": "The Subscription Items API lets you create, update, and delete individual line items within a subscription in ThriveStack. Subscription items represent the specific plans and prices attached to a subscription, enabling granular MRR tracking across products, tiers, and billing intervals.",
+      "keywords": [
+        "subscription_items",
+        "subscription",
+        "items",
+        "billing",
+        "line_item",
+        "line",
+        "item",
+        "plan",
+        "quantity",
+        "price"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-subscription-items-update-subscription-item-Update-a-subscription-ite",
+      "title": "Subscription Items",
+      "url": "public/api/subscription-items.html#update-subscription-item",
+      "section": "API",
+      "description": "Update a subscription item",
+      "keywords": [
+        "subscription_items",
+        "subscription",
+        "items",
+        "update",
+        "quantity",
+        "plan",
+        "billing"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-subscriptions-Subscriptions",
+      "title": "Subscriptions",
+      "url": "public/api/subscriptions.html",
+      "section": "API",
+      "description": "The Subscriptions API lets you create, update, and delete recurring billing subscriptions in ThriveStack. Subscriptions drive MRR tracking, churn detection, and renewal signals across your customer base.",
+      "keywords": [
+        "subscriptions",
+        "billing",
+        "recurring",
+        "mrr",
+        "plan",
+        "trial",
+        "cancel",
+        "revenue",
+        "rest"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-subscriptions-delete-subscription-Delete-a-subscription",
+      "title": "Subscriptions",
+      "url": "public/api/subscriptions.html#delete-subscription",
+      "section": "API",
+      "description": "Delete a subscription",
+      "keywords": [
+        "subscriptions",
+        "cancel",
+        "cancellation",
+        "churn",
+        "billing"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-subscriptions-error-codes-Error-codes",
+      "title": "Subscriptions",
+      "url": "public/api/subscriptions.html#error-codes",
+      "section": "API",
+      "description": "Error codes",
+      "keywords": [
+        "subscriptions",
+        "errors",
+        "status_codes",
+        "status",
+        "codes",
+        "billing",
+        "validation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-subscriptions-subscriptions-Create-a-subscription",
+      "title": "Subscriptions",
+      "url": "public/api/subscriptions.html#subscriptions",
+      "section": "API",
+      "description": "The Subscriptions API lets you create, update, and delete recurring billing subscriptions in ThriveStack. Subscriptions drive MRR tracking, churn detection, and renewal signals across your customer base.",
+      "keywords": [
+        "subscriptions",
+        "billing",
+        "recurring",
+        "plan",
+        "interval",
+        "trial",
+        "status",
+        "mrr"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-subscriptions-update-subscription-Update-a-subscription",
+      "title": "Subscriptions",
+      "url": "public/api/subscriptions.html#update-subscription",
+      "section": "API",
+      "description": "Update a subscription",
+      "keywords": [
+        "subscriptions",
+        "update",
+        "upgrade",
+        "downgrade",
+        "plan",
+        "billing",
+        "mrr"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-track-Track",
+      "title": "Track",
+      "url": "public/api/track.html",
+      "section": "API",
+      "description": "The Track call records actions users perform in your product. It is the primary mechanism for capturing behavioral data — from lifecycle events like sign-up and account creation, to feature engagement, onboarding steps, page visits, and viral actions.",
+      "keywords": [
+        "track",
+        "telemetry",
+        "events",
+        "event_name",
+        "event",
+        "name",
+        "properties",
+        "signed_up",
+        "signed",
+        "up",
+        "feature_used",
+        "feature",
+        "used",
+        "rest"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-track-authentication-Authentication",
+      "title": "Track",
+      "url": "public/api/track.html#authentication",
+      "section": "API",
+      "description": "Authentication",
+      "keywords": [
+        "track",
+        "x-api-key",
+        "api_key",
+        "api",
+        "key",
+        "authentication",
+        "header",
+        "json"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-track-endpoint-Endpoint",
+      "title": "Track",
+      "url": "public/api/track.html#endpoint",
+      "section": "API",
+      "description": "Endpoint",
+      "keywords": [
+        "track",
+        "post",
+        "rest",
+        "endpoint",
+        "api/track"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-track-event-naming-Event-naming-conventions",
+      "title": "Track",
+      "url": "public/api/track.html#event-naming",
+      "section": "API",
+      "description": "Event naming conventions",
+      "keywords": [
+        "track",
+        "event_name",
+        "event",
+        "name",
+        "signed_up",
+        "signed",
+        "up",
+        "account_created",
+        "account",
+        "created",
+        "feature_used",
+        "feature",
+        "used",
+        "invite_sent",
+        "invite",
+        "sent",
+        "naming",
+        "taxonomy"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-track-examples-Examples",
+      "title": "Track",
+      "url": "public/api/track.html#examples",
+      "section": "API",
+      "description": "Examples",
+      "keywords": [
+        "track",
+        "curl",
+        "javascript",
+        "payload",
+        "signed_up",
+        "signed",
+        "up",
+        "feature_used",
+        "feature",
+        "used",
+        "sample"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-track-request-body-Request-body",
+      "title": "Track",
+      "url": "public/api/track.html#request-body",
+      "section": "API",
+      "description": "Request body",
+      "keywords": [
+        "track",
+        "event_name",
+        "event",
+        "name",
+        "user_id",
+        "user",
+        "id",
+        "properties",
+        "group_id",
+        "group",
+        "device_id",
+        "device",
+        "session_id",
+        "session",
+        "timestamp",
+        "utm"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-track-reserved-properties-Reserved-properties",
+      "title": "Track",
+      "url": "public/api/track.html#reserved-properties",
+      "section": "API",
+      "description": "Reserved properties",
+      "keywords": [
+        "track",
+        "revenue",
+        "currency",
+        "mrr",
+        "feature_name",
+        "feature",
+        "name",
+        "page_url",
+        "page",
+        "url",
+        "utm_source",
+        "utm",
+        "source",
+        "utm_medium",
+        "medium",
+        "utm_campaign",
+        "campaign"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-track-response-Response",
+      "title": "Track",
+      "url": "public/api/track.html#response",
+      "section": "API",
+      "description": "Response",
+      "keywords": [
+        "track",
+        "response",
+        "status",
+        "success",
+        "json"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-track-standard-events-Standard-events",
+      "title": "Track",
+      "url": "public/api/track.html#standard-events",
+      "section": "API",
+      "description": "Standard events",
+      "keywords": [
+        "track",
+        "signed_up",
+        "signed",
+        "up",
+        "account_created",
+        "account",
+        "created",
+        "feature_used",
+        "feature",
+        "used",
+        "page_visit",
+        "page",
+        "visit",
+        "invite_sent",
+        "invite",
+        "sent",
+        "lifecycle",
+        "bow_tie",
+        "bow",
+        "tie"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-track-track-When-to-call",
+      "title": "Track",
+      "url": "public/api/track.html#track",
+      "section": "API",
+      "description": "The Track call records actions users perform in your product. It is the primary mechanism for capturing behavioral data — from lifecycle events like sign-up and account creation, to feature engagement, onboarding steps, page visits, and viral actions.",
+      "keywords": [
+        "track",
+        "lifecycle",
+        "signup",
+        "feature_engagement",
+        "feature",
+        "engagement",
+        "onboarding",
+        "viral",
+        "invite_sent",
+        "invite",
+        "sent",
+        "events"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-transactions-Transactions",
+      "title": "Transactions",
+      "url": "public/api/transactions.html",
+      "section": "API",
+      "description": "The Transactions API lets you create, update, and delete payment transaction records in ThriveStack. Transactions represent individual payment events — charges or refunds — tied to customers and invoices.",
+      "keywords": [
+        "transactions",
+        "billing",
+        "payment",
+        "charge",
+        "refund",
+        "credit",
+        "currency",
+        "revenue"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-transactions-delete-transaction-Delete-a-transaction",
+      "title": "Transactions",
+      "url": "public/api/transactions.html#delete-transaction",
+      "section": "API",
+      "description": "Delete a transaction",
+      "keywords": [
+        "transactions",
+        "delete",
+        "payment",
+        "billing"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-transactions-error-codes-Error-codes",
+      "title": "Transactions",
+      "url": "public/api/transactions.html#error-codes",
+      "section": "API",
+      "description": "Error codes",
+      "keywords": [
+        "transactions",
+        "errors",
+        "status_codes",
+        "status",
+        "codes",
+        "billing",
+        "validation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-transactions-transactions-Create-a-transaction",
+      "title": "Transactions",
+      "url": "public/api/transactions.html#transactions",
+      "section": "API",
+      "description": "The Transactions API lets you create, update, and delete payment transaction records in ThriveStack. Transactions represent individual payment events — charges or refunds — tied to customers and invoices.",
+      "keywords": [
+        "transactions",
+        "payment",
+        "charge",
+        "amount",
+        "currency",
+        "status",
+        "billing"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-transactions-update-transaction-Update-a-transaction",
+      "title": "Transactions",
+      "url": "public/api/transactions.html#update-transaction",
+      "section": "API",
+      "description": "Update a transaction",
+      "keywords": [
+        "transactions",
+        "update",
+        "payment",
+        "status",
+        "billing",
+        "refund"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-crm-sync-hubspot-inbound-HubSpot-ThriveStack",
+      "title": "HubSpot → ThriveStack",
+      "url": "public/crm-sync/hubspot-inbound.html",
+      "section": "CRM Sync",
+      "description": "Import companies, contacts, deals, tickets and engagement history from HubSpot. Every account in ThriveStack shows its CRM context alongside product usage.",
+      "keywords": [
+        "hubspot",
+        "inbound",
+        "import",
+        "crm",
+        "companies",
+        "contacts",
+        "deals",
+        "tickets",
+        "oauth"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-crm-sync-hubspot-outbound-ThriveStack-HubSpot",
+      "title": "ThriveStack → HubSpot",
+      "url": "public/crm-sync/hubspot-outbound.html",
+      "section": "CRM Sync",
+      "description": "Push MRR, activation status and engagement signals from ThriveStack into HubSpot company properties — so your sales and CS teams always have live product data inside HubSpot.",
+      "keywords": [
+        "hubspot",
+        "outbound",
+        "export",
+        "mrr",
+        "activation",
+        "engagement",
+        "properties",
+        "sync"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-crm-sync-introduction-HubSpot",
+      "title": "HubSpot",
+      "url": "public/crm-sync/introduction.html",
+      "section": "CRM Sync",
+      "description": "Connect ThriveStack with HubSpot to unify your product usage data and CRM records in one place.",
+      "keywords": [
+        "crm_sync",
+        "crm",
+        "sync",
+        "hubspot",
+        "integration",
+        "import",
+        "export",
+        "oauth",
+        "companies",
+        "contacts"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-customer-success-introduction-Introduction",
+      "title": "Introduction",
+      "url": "public/customer-success/introduction.html",
+      "section": "Customer Success",
+      "description": "Start here to configure customer health and success workflows.",
+      "keywords": [
+        "customer_success",
+        "customer",
+        "success",
+        "cs",
+        "health_scores",
+        "health",
+        "scores",
+        "onboarding",
+        "retention",
+        "churn",
+        "workflows"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-customer-success-setup-health-scores-Setup-Health-Scores",
+      "title": "Setup Health Scores",
+      "url": "public/customer-success/setup-health-scores.html",
+      "section": "Customer Success",
+      "description": "Customer success setup guides and health scoring docs.",
+      "keywords": [
+        "health_scores",
+        "health",
+        "scores",
+        "customer_health",
+        "customer",
+        "cs",
+        "risk_score",
+        "risk",
+        "score",
+        "engagement",
+        "success_metrics",
+        "success",
+        "metrics"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-marketing-setup-goal-conversion-Goal-Conversion",
+      "title": "Goal Conversion",
+      "url": "public/marketing/setup/goal-conversion.html",
+      "section": "Marketing",
+      "description": "Track how often key business goals — signups, demo requests, page visits — are achieved. Follow these steps to create a goal, wire up event tracking, and pin it to your Unified Dashboard.",
+      "keywords": [
+        "goal_conversion",
+        "goal",
+        "conversion",
+        "funnel",
+        "signup",
+        "trial",
+        "events",
+        "marketing"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-marketing-setup-google-ads-Google-Ads",
+      "title": "Google Ads",
+      "url": "public/marketing/setup/google-ads.html",
+      "section": "Marketing",
+      "description": "Close the loop between ad spend and revenue. ThriveStack connects Google Ads click data with real signups and payments — then feeds that signal back to Google to optimize your campaigns automatically.",
+      "keywords": [
+        "google_ads",
+        "google",
+        "ads",
+        "utm",
+        "gclid",
+        "campaigns",
+        "paid_search",
+        "paid",
+        "search",
+        "attribution",
+        "marketing"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-marketing-setup-implement-with-prompt-marketing-Implement-with-Prompt",
+      "title": "Implement with Prompt",
+      "url": "public/marketing/setup/implement-with-prompt-marketing.html",
+      "section": "Marketing",
+      "description": "Use an AI coding assistant to instrument your marketing site or docs with ThriveStack visitor tracking in minutes.",
+      "keywords": [
+        "marketing",
+        "prompt",
+        "ai",
+        "instrumentation",
+        "api_key",
+        "api",
+        "key",
+        "cursor",
+        "llm"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-marketing-setup-implement-with-prompt-marketing-implement-with-prompt-mar",
+      "title": "Implement with Prompt",
+      "url": "public/marketing/setup/implement-with-prompt-marketing.html#implement-with-prompt-marketing",
+      "section": "Marketing",
+      "description": "Use an AI coding assistant to instrument your marketing site or docs with ThriveStack visitor tracking in minutes.",
+      "keywords": [
+        "api_key",
+        "api",
+        "key",
+        "marketing",
+        "prompt",
+        "step_1",
+        "step",
+        "1",
+        "settings",
+        "telemetry",
+        "sdk"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-marketing-setup-introduction-Introduction",
+      "title": "Introduction",
+      "url": "public/marketing/setup/introduction.html",
+      "section": "Marketing",
+      "description": "Start here to set up marketing signal collection and attribution.",
+      "keywords": [
+        "marketing",
+        "introduction",
+        "utm",
+        "campaigns",
+        "attribution",
+        "setup",
+        "instrumentation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-marketing-setup-marketing-analytics-Marketing-Analytics",
+      "title": "Marketing Analytics",
+      "url": "public/marketing/setup/marketing-analytics.html",
+      "section": "Marketing",
+      "description": "This guide gives you the full picture of setting up Marketing Intelligence — so you can answer which channels drive signups, how leads convert, and how marketing touches correlate with product usage and revenue.",
+      "keywords": [
+        "marketing_analytics",
+        "marketing",
+        "analytics",
+        "utm",
+        "campaigns",
+        "attribution",
+        "funnel",
+        "channels",
+        "events"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-marketing-setup-setup-manually-Setup-Manually",
+      "title": "Setup Manually",
+      "url": "public/marketing/setup/setup-manually.html",
+      "section": "Marketing",
+      "description": "Add one script tag to your marketing site and ThriveStack immediately starts tracking all visitors, page views, and UTM campaigns — no events to define, no further instrumentation needed.",
+      "keywords": [
+        "marketing",
+        "manual_setup",
+        "manual",
+        "setup",
+        "script_tag",
+        "script",
+        "tag",
+        "snippet",
+        "telemetry",
+        "events"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-marketing-setup-setup-with-ai-Setup-with-AI-Coding-Assistants",
+      "title": "Setup with AI Coding Assistants",
+      "url": "public/marketing/setup/setup-with-ai.html",
+      "section": "Marketing",
+      "description": "Use an AI coding assistant to instrument your marketing site with ThriveStack in minutes — one script tag, and your site auto-tracks all visitors, page views, and UTM campaigns.",
+      "keywords": [
+        "marketing",
+        "ai_setup",
+        "ai",
+        "setup",
+        "cursor",
+        "copilot",
+        "prompt",
+        "instrumentation",
+        "llm"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-marketing-setup-setup-with-ai-implement-with-prompt-marketing-How-does-it",
+      "title": "Setup with AI Coding Assistants",
+      "url": "public/marketing/setup/setup-with-ai.html#implement-with-prompt-marketing",
+      "section": "Marketing",
+      "description": "How does it work?",
+      "keywords": [
+        "api_key",
+        "api",
+        "key",
+        "marketing",
+        "ai",
+        "prompt",
+        "instrumentation",
+        "wizard",
+        "telemetry"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-advanced-ai-instrumentation-Advanced-AI-Instrumentation",
+      "title": "Advanced AI Instrumentation",
+      "url": "public/product/setup/advanced-ai-instrumentation.html",
+      "section": "Product",
+      "description": "Instrument your product in three focused sessions instead of one large prompt. Each session is smaller, faster, and easier to verify before moving on.",
+      "keywords": [
+        "ai_instrumentation",
+        "ai",
+        "instrumentation",
+        "llm",
+        "agents",
+        "telemetry",
+        "advanced",
+        "events"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-advanced-ai-instrumentation-advanced-ai-instrumentation-Use",
+      "title": "Advanced AI Instrumentation",
+      "url": "public/product/setup/advanced-ai-instrumentation.html#advanced-ai-instrumentation",
+      "section": "Product",
+      "description": "Instrument your product in three focused sessions instead of one large prompt. Each session is smaller, faster, and easier to verify before moving on.",
+      "keywords": [
+        "user_events",
+        "user",
+        "events",
+        "account_events",
+        "account",
+        "identify",
+        "group",
+        "traits",
+        "telemetry"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-api-cli-instrumentation-Track-API-CLI-Agent-Usage",
+      "title": "Track API, CLI &amp; Agent Usage",
+      "url": "public/product/setup/api-cli-instrumentation.html",
+      "section": "Product",
+      "description": "Understand how customers engage with your API, CLI, and AI agents — not just whether they work, but how they're actually being used.",
+      "keywords": [
+        "api",
+        "cli",
+        "agents",
+        "instrumentation",
+        "usage",
+        "telemetry",
+        "rest"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-environment-correlation-Environments-and-API-Keys",
+      "title": "Environments and API Keys",
+      "url": "public/product/setup/environment-correlation.html",
+      "section": "Product",
+      "description": "You can create as many environments as you need — one per deployment stage. For correlation to work, your marketing site and product app must both use the API key from the same environment.",
+      "keywords": [
+        "environments",
+        "api_keys",
+        "api",
+        "keys",
+        "dev",
+        "staging",
+        "production",
+        "correlation",
+        "product"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-environment-correlation-environment-correlation-Your-enviro",
+      "title": "Environments and API Keys",
+      "url": "public/product/setup/environment-correlation.html#environment-correlation",
+      "section": "Product",
+      "description": "You can create as many environments as you need — one per deployment stage. For correlation to work, your marketing site and product app must both use the API key from the same environment.",
+      "keywords": [
+        "environment",
+        "api_key",
+        "api",
+        "key",
+        "dev",
+        "staging",
+        "prod",
+        "sandbox",
+        "correlation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-introduction-Introduction",
+      "title": "Introduction",
+      "url": "public/product/setup/introduction.html",
+      "section": "Product",
+      "description": "Start here to instrument product telemetry and growth events.",
+      "keywords": [
+        "product",
+        "introduction",
+        "telemetry",
+        "events",
+        "identify",
+        "track",
+        "setup"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-multi-repo-setup-Setup-Across-Multiple-Places",
+      "title": "Setup Across Multiple Places",
+      "url": "public/product/setup/multi-repo-setup.html",
+      "section": "Product",
+      "description": "User journeys span more than one file. Signup, invite, login, and feature usage each live in a different part of your codebase — here's how the prompt covers all of them.",
+      "keywords": [
+        "monorepo",
+        "multi_repo",
+        "multi",
+        "repo",
+        "microservices",
+        "events",
+        "instrumentation",
+        "codebase"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-multi-repo-setup-multi-repo-setup-Where-events-live-in-your",
+      "title": "Setup Across Multiple Places",
+      "url": "public/product/setup/multi-repo-setup.html#multi-repo-setup",
+      "section": "Product",
+      "description": "User journeys span more than one file. Signup, invite, login, and feature usage each live in a different part of your codebase — here's how the prompt covers all of them.",
+      "keywords": [
+        "monorepo",
+        "repository",
+        "frontend",
+        "backend",
+        "events",
+        "track",
+        "identify"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-product-analytics-Product-Analytics",
+      "title": "Product Analytics",
+      "url": "public/product/setup/product-analytics.html",
+      "section": "Product",
+      "description": "Product Analytics is set up across four sessions. Each session has a clear owner, a scheduled date, and a defined set of deliverables.",
+      "keywords": [
+        "product_analytics",
+        "product",
+        "analytics",
+        "events",
+        "telemetry",
+        "activation",
+        "retention",
+        "funnel",
+        "feature_usage",
+        "feature",
+        "usage"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-saas-growth-events-Events-Telemetry",
+      "title": "Events Telemetry",
+      "url": "public/product/setup/saas-growth-events.html",
+      "section": "Product",
+      "description": "Mapping of customer journey phases to telemetry events.",
+      "keywords": [
+        "saas_events",
+        "saas",
+        "events",
+        "telemetry",
+        "signup",
+        "activation",
+        "trial",
+        "subscription"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-saas-growth-events-saas-growth-events-Events-Telemetry",
+      "title": "Events Telemetry",
+      "url": "public/product/setup/saas-growth-events.html#saas-growth-events",
+      "section": "Product",
+      "description": "Mapping of customer journey phases to telemetry events.",
+      "keywords": [
+        "public",
+        "product",
+        "setup",
+        "saas-growth-events",
+        "html",
+        "events",
+        "telemetry"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-setup-manually-Setup-Manually",
+      "title": "Setup Manually",
+      "url": "public/product/setup/setup-manually.html",
+      "section": "Product",
+      "description": "Manual setup guide for Product Intelligence. This page is intentionally left empty for now.",
+      "keywords": [
+        "product",
+        "manual_setup",
+        "manual",
+        "setup",
+        "sdk",
+        "snippet",
+        "identify",
+        "track",
+        "telemetry"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-setup-manually-setup-manually-product-Setup-Manually",
+      "title": "Setup Manually",
+      "url": "public/product/setup/setup-manually.html#setup-manually-product",
+      "section": "Product",
+      "description": "Manual setup guide for Product Intelligence. This page is intentionally left empty for now.",
+      "keywords": [
+        "public",
+        "product",
+        "setup",
+        "setup-manually",
+        "html",
+        "manually",
+        "setup-manually-product"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-setup-with-ai-backend-Setup-with-AI-Coding-Assistants-Backe",
+      "title": "Setup with AI Coding Assistants (Backend)",
+      "url": "public/product/setup/setup-with-ai-backend.html",
+      "section": "Product",
+      "description": "Use an AI coding assistant to instrument your backend or API server with ThriveStack product telemetry via HTTP — no browser SDK required.",
+      "keywords": [
+        "backend",
+        "server",
+        "ai_setup",
+        "ai",
+        "setup",
+        "api",
+        "instrumentation",
+        "nodejs",
+        "python"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-setup-with-ai-backend-implement-with-prompt-backend-Step-1-",
+      "title": "Setup with AI Coding Assistants (Backend)",
+      "url": "public/product/setup/setup-with-ai-backend.html#implement-with-prompt-backend",
+      "section": "Product",
+      "description": "Step 1: Get your API key",
+      "keywords": [
+        "api_key",
+        "api",
+        "key",
+        "backend",
+        "server",
+        "prompt",
+        "rest",
+        "telemetry",
+        "instrumentation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-setup-with-ai-Setup-with-AI-Coding-Assistants",
+      "title": "Setup with AI Coding Assistants",
+      "url": "public/product/setup/setup-with-ai.html",
+      "section": "Product",
+      "description": "Use an AI coding assistant to instrument your app with ThriveStack product telemetry in minutes.",
+      "keywords": [
+        "product",
+        "ai_setup",
+        "ai",
+        "setup",
+        "cursor",
+        "copilot",
+        "prompt",
+        "instrumentation",
+        "llm"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-setup-with-ai-implement-with-prompt-product-How-does-it-wor",
+      "title": "Setup with AI Coding Assistants",
+      "url": "public/product/setup/setup-with-ai.html#implement-with-prompt-product",
+      "section": "Product",
+      "description": "How does it work?",
+      "keywords": [
+        "api_key",
+        "api",
+        "key",
+        "product",
+        "ai",
+        "prompt",
+        "instrumentation",
+        "wizard",
+        "telemetry"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-thrivestack-mcp-server-Configure-ThriveStack-MCP-Server",
+      "title": "Configure ThriveStack MCP Server",
+      "url": "public/product/setup/thrivestack-mcp-server.html",
+      "section": "Product",
+      "description": "Configure ThriveStack MCP Server - ThriveStack Documentation",
+      "keywords": [
+        "mcp",
+        "model_context_protocol",
+        "model",
+        "context",
+        "protocol",
+        "cursor",
+        "claude",
+        "server",
+        "instrumentation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-thrivestack-mcp-server-capabilities-Available-tools-and-cap",
+      "title": "Configure ThriveStack MCP Server",
+      "url": "public/product/setup/thrivestack-mcp-server.html#capabilities",
+      "section": "Product",
+      "description": "Available tools and capabilities",
+      "keywords": [
+        "mcp",
+        "tools",
+        "capabilities",
+        "identify",
+        "track",
+        "schema",
+        "cursor"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-thrivestack-mcp-server-implementation-Implementation-instru",
+      "title": "Configure ThriveStack MCP Server",
+      "url": "public/product/setup/thrivestack-mcp-server.html#implementation",
+      "section": "Product",
+      "description": "Implementation instructions",
+      "keywords": [
+        "mcp",
+        "install",
+        "config",
+        "cursor",
+        "claude_desktop",
+        "claude",
+        "desktop",
+        "stdio",
+        "server"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-thrivestack-mcp-server-overview-Configure-ThriveStack-MCP-Server",
+      "title": "Configure ThriveStack MCP Server",
+      "url": "public/product/setup/thrivestack-mcp-server.html#overview",
+      "section": "Product",
+      "description": "Configure ThriveStack MCP Server - ThriveStack Documentation",
+      "keywords": [
+        "public",
+        "product",
+        "setup",
+        "thrivestack-mcp-server",
+        "html",
+        "configure",
+        "mcp",
+        "server"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-thrivestack-mcp-server-plugins-Plugins-coming-soon-",
+      "title": "Configure ThriveStack MCP Server",
+      "url": "public/product/setup/thrivestack-mcp-server.html#plugins",
+      "section": "Product",
+      "description": "Plugins (coming soon)",
+      "keywords": [
+        "mcp",
+        "plugins",
+        "extensions",
+        "ide",
+        "cursor",
+        "roadmap"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-thrivestack-mcp-server-remote-server-Remote-server",
+      "title": "Configure ThriveStack MCP Server",
+      "url": "public/product/setup/thrivestack-mcp-server.html#remote-server",
+      "section": "Product",
+      "description": "Remote server",
+      "keywords": [
+        "mcp",
+        "remote",
+        "http",
+        "sse",
+        "hosted",
+        "server",
+        "connection"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-thrivestack-mcp-server-technical-specs-Technical-specificat",
+      "title": "Configure ThriveStack MCP Server",
+      "url": "public/product/setup/thrivestack-mcp-server.html#technical-specs",
+      "section": "Product",
+      "description": "Technical specifications",
+      "keywords": [
+        "mcp",
+        "protocol",
+        "json_rpc",
+        "json",
+        "rpc",
+        "tools",
+        "resources",
+        "spec",
+        "version"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-thrivestack-mcp-server-troubleshooting-Troubleshooting",
+      "title": "Configure ThriveStack MCP Server",
+      "url": "public/product/setup/thrivestack-mcp-server.html#troubleshooting",
+      "section": "Product",
+      "description": "Troubleshooting",
+      "keywords": [
+        "mcp",
+        "troubleshooting",
+        "connection",
+        "auth",
+        "api_key",
+        "api",
+        "key",
+        "errors",
+        "debug"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-vibe-analytics-Vibe-Analytics-AI-",
+      "title": "Vibe Analytics (AI)",
+      "url": "public/product/setup/vibe-analytics.html",
+      "section": "Product",
+      "description": "Self-contained technical specification for AI-driven telemetry instrumentation.",
+      "keywords": [
+        "vibe_analytics",
+        "vibe",
+        "analytics",
+        "ai",
+        "natural_language",
+        "natural",
+        "language",
+        "prompt",
+        "insights"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-product-setup-vibe-analytics-vibe-analytics-1-CORE-MISSION",
+      "title": "Vibe Analytics (AI)",
+      "url": "public/product/setup/vibe-analytics.html#vibe-analytics",
+      "section": "Product",
+      "description": "Self-contained technical specification for AI-driven telemetry instrumentation.",
+      "keywords": [
+        "vibe",
+        "ai_analytics",
+        "ai",
+        "analytics",
+        "nlq",
+        "insights",
+        "queries",
+        "dashboard"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-chargebee-integration-Chargebee-Integration",
+      "title": "Chargebee Integration",
+      "url": "public/revenue/setup/chargebee-integration.html",
+      "section": "Revenue",
+      "description": "Follow these steps to connect and configure your Chargebee account with ThriveStack Revenue Intelligence.",
+      "keywords": [
+        "chargebee",
+        "integration",
+        "connector",
+        "subscriptions",
+        "billing",
+        "revenue"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-chargebee-integration-chargebee-integration-1-Set-up-the-Ch",
+      "title": "Chargebee Integration",
+      "url": "public/revenue/setup/chargebee-integration.html#chargebee-integration",
+      "section": "Revenue",
+      "description": "Follow these steps to connect and configure your Chargebee account with ThriveStack Revenue Intelligence.",
+      "keywords": [
+        "chargebee",
+        "connector",
+        "api_key",
+        "api",
+        "key",
+        "site",
+        "sync",
+        "subscriptions",
+        "billing"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-exceptional-use-cases-Exceptional-Use-Cases",
+      "title": "Exceptional Use Cases",
+      "url": "public/revenue/setup/exceptional-use-cases.html",
+      "section": "Revenue",
+      "description": "Not every billing setup is straightforward. These are the common non-standard revenue flows and how ThriveStack handles each one.",
+      "keywords": [
+        "chargebee",
+        "stripe",
+        "hybrid",
+        "payment_gateway",
+        "payment",
+        "gateway",
+        "edge_cases",
+        "edge",
+        "cases",
+        "billing"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-exceptional-use-cases-exceptional-use-cases-Chargebee-subsc",
+      "title": "Exceptional Use Cases",
+      "url": "public/revenue/setup/exceptional-use-cases.html#exceptional-use-cases",
+      "section": "Revenue",
+      "description": "Not every billing setup is straightforward. These are the common non-standard revenue flows and how ThriveStack handles each one.",
+      "keywords": [
+        "chargebee",
+        "stripe",
+        "payment_gateway",
+        "payment",
+        "gateway",
+        "subscription",
+        "billing_hybrid",
+        "billing",
+        "hybrid"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-introduction-Introduction",
+      "title": "Introduction",
+      "url": "public/revenue/setup/introduction.html",
+      "section": "Revenue",
+      "description": "Start here to connect billing signals for revenue analytics.",
+      "keywords": [
+        "revenue",
+        "introduction",
+        "billing",
+        "mrr",
+        "subscriptions",
+        "stripe",
+        "chargebee"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-setup-manually-Setup-Manually",
+      "title": "Setup Manually",
+      "url": "public/revenue/setup/setup-manually.html",
+      "section": "Revenue",
+      "description": "Connect your billing data to ThriveStack Revenue Intelligence without an AI assistant — by adding a group_id to your billing provider or calling the ThriveStack Revenue APIs directly.",
+      "keywords": [
+        "revenue",
+        "manual_setup",
+        "manual",
+        "setup",
+        "billing",
+        "connector",
+        "stripe",
+        "chargebee"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-setup-manually-setup-revenue-manually-Choose-your-billing-s",
+      "title": "Setup Manually",
+      "url": "public/revenue/setup/setup-manually.html#setup-revenue-manually",
+      "section": "Revenue",
+      "description": "Choose your billing setup",
+      "keywords": [
+        "billing_setup",
+        "billing",
+        "setup",
+        "stripe",
+        "chargebee",
+        "connector",
+        "payment_gateway",
+        "payment",
+        "gateway",
+        "revenue"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-setup-with-ai-Setup-with-AI-Coding-Assistants",
+      "title": "Setup with AI Coding Assistants",
+      "url": "public/revenue/setup/setup-with-ai.html",
+      "section": "Revenue",
+      "description": "Use an AI coding assistant to connect your billing data with ThriveStack revenue intelligence in minutes — get MRR, ARR, churn, and expansion analytics at the account level.",
+      "keywords": [
+        "revenue",
+        "ai_setup",
+        "ai",
+        "setup",
+        "billing",
+        "prompt",
+        "stripe",
+        "chargebee",
+        "llm"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-setup-with-ai-implement-with-prompt-revenue-How-does-it-wor",
+      "title": "Setup with AI Coding Assistants",
+      "url": "public/revenue/setup/setup-with-ai.html#implement-with-prompt-revenue",
+      "section": "Revenue",
+      "description": "How does it work?",
+      "keywords": [
+        "api_key",
+        "api",
+        "key",
+        "revenue",
+        "billing",
+        "ai",
+        "prompt",
+        "connector",
+        "wizard"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-stripe-integration-Stripe-Integration",
+      "title": "Stripe Integration",
+      "url": "public/revenue/setup/stripe-integration.html",
+      "section": "Revenue",
+      "description": "Follow these steps to configure your Stripe integration with ThriveStack Revenue Intelligence.",
+      "keywords": [
+        "stripe",
+        "integration",
+        "connector",
+        "webhooks",
+        "subscriptions",
+        "billing",
+        "revenue"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-stripe-integration-stripe-integration-1-Set-up-the-Stripe-c",
+      "title": "Stripe Integration",
+      "url": "public/revenue/setup/stripe-integration.html#stripe-integration",
+      "section": "Revenue",
+      "description": "Follow these steps to configure your Stripe integration with ThriveStack Revenue Intelligence.",
+      "keywords": [
+        "stripe",
+        "connector",
+        "api_key",
+        "api",
+        "key",
+        "webhook",
+        "sync",
+        "customers",
+        "invoices"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-why-correlation-Why-Correlation-Matters",
+      "title": "Why Correlation Matters",
+      "url": "public/revenue/setup/why-correlation.html",
+      "section": "Revenue",
+      "description": "How a single shared key connects your product usage data with your billing data — unlocking churn signals, expansion signals, and the full bow-tie revenue model.",
+      "keywords": [
+        "correlation",
+        "revenue",
+        "product",
+        "billing",
+        "disconnected_data",
+        "disconnected",
+        "data",
+        "mrr",
+        "churn"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-revenue-setup-why-correlation-why-correlation-The-problem-with-disconnect",
+      "title": "Why Correlation Matters",
+      "url": "public/revenue/setup/why-correlation.html#why-correlation",
+      "section": "Revenue",
+      "description": "How a single shared key connects your product usage data with your billing data — unlocking churn signals, expansion signals, and the full bow-tie revenue model.",
+      "keywords": [
+        "correlation",
+        "silos",
+        "billing",
+        "product_events",
+        "product",
+        "events",
+        "revenue_intelligence",
+        "revenue",
+        "intelligence",
+        "mrr"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "setup-overview-Setup-Overview",
+      "title": "Setup Overview",
+      "url": "setup-overview.html",
+      "section": "Setup (Unify)",
+      "description": "Get started by connecting your Growth systems. All you need is your AI coding assistant tools.",
+      "keywords": [
+        "setup",
+        "unify",
+        "instrumentation",
+        "marketing",
+        "product",
+        "revenue",
+        "onboarding",
+        "telemetry"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "setup-overview-vibe-analytics-Setup-Overview",
+      "title": "Setup Overview",
+      "url": "setup-overview.html#vibe-analytics",
+      "section": "Setup (Unify)",
+      "description": "Get started by connecting your Growth systems. All you need is your AI coding assistant tools.",
+      "keywords": [
+        "setup-overview",
+        "html",
+        "setup",
+        "vibe-analytics",
+        "unify"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "setup-inproduct-activation-How-a-PM-sets-up-activation-in-ThriveStack",
+      "title": "How a PM sets up activation in ThriveStack",
+      "url": "setup/inproduct-activation.html",
+      "section": "Documentation",
+      "description": "How a PM sets up activation in ThriveStack",
+      "keywords": [
+        "in_product",
+        "in",
+        "product",
+        "activation",
+        "onboarding",
+        "widget",
+        "telemetry",
+        "sdk"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "setup-mcp-activation-From-never-heard-of-this-to-live-activation-journey-",
+      "title": "From \"never heard of this\" to \"live activation journey\"",
+      "url": "setup/mcp-activation.html",
+      "section": "Documentation",
+      "description": "From \"never heard of this\" to \"live activation journey\"",
+      "keywords": [
+        "mcp",
+        "activation",
+        "model_context_protocol",
+        "model",
+        "context",
+        "protocol",
+        "cursor",
+        "claude",
+        "instrumentation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "spot-expansion-signals-ThriveStack-Documentation",
+      "title": "ThriveStack Documentation",
+      "url": "spot-expansion-signals.html",
+      "section": "Documentation",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "expansion",
+        "upsell",
+        "expansion_signals",
+        "signals",
+        "usage",
+        "seats",
+        "revenue_growth",
+        "revenue",
+        "growth"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "spot-expansion-signals-spot-expansion-signals-Spot-Expansion-Signals-Early",
+      "title": "ThriveStack Documentation",
+      "url": "spot-expansion-signals.html#spot-expansion-signals",
+      "section": "Documentation",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "expansion",
+        "upsell",
+        "cross_sell",
+        "cross",
+        "sell",
+        "usage_spike",
+        "usage",
+        "spike",
+        "account_growth",
+        "account",
+        "growth",
+        "playbook"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "startup-cohort-discount-Startup-Cohort-Discount",
+      "title": "Startup Cohort Discount",
+      "url": "startup-cohort-discount.html",
+      "section": "Discounts",
+      "description": "Follow these steps to redeem your startup coupon and subscribe to ThriveStack.",
+      "keywords": [
+        "startup",
+        "discount",
+        "coupon",
+        "cohort",
+        "billing",
+        "subscription",
+        "growth_monthly",
+        "growth",
+        "monthly",
+        "arr"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "startup-cohort-discount-startup-cohort-coupon-1-Go-to-Settings",
+      "title": "Startup Cohort Discount",
+      "url": "startup-cohort-discount.html#startup-cohort-coupon",
+      "section": "Discounts",
+      "description": "1 Go to Settings",
+      "keywords": [
+        "coupon",
+        "redeem",
+        "settings",
+        "billing",
+        "checkout",
+        "growth_monthly",
+        "growth",
+        "monthly",
+        "subscription_id",
+        "subscription",
+        "id"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "stop-churn-early-ThriveStack-Documentation",
+      "title": "ThriveStack Documentation",
+      "url": "stop-churn-early.html",
+      "section": "Documentation",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "churn",
+        "retention",
+        "churn_risk",
+        "risk",
+        "early_warning",
+        "early",
+        "warning",
+        "cancellation",
+        "save_plays",
+        "save",
+        "plays"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "stop-churn-early-stop-churn-early-Stop-Churn-Before-It-Happens",
+      "title": "ThriveStack Documentation",
+      "url": "stop-churn-early.html#stop-churn-early",
+      "section": "Documentation",
+      "description": "ThriveStack Documentation - Growth Intelligence for your GTM stack",
+      "keywords": [
+        "churn_prevention",
+        "churn",
+        "prevention",
+        "at_risk",
+        "at",
+        "risk",
+        "health_score",
+        "health",
+        "score",
+        "engagement_drop",
+        "engagement",
+        "drop",
+        "billing_failure",
+        "billing",
+        "failure"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "take-action-Take-Action",
+      "title": "Take Action",
+      "url": "take-action.html",
+      "section": "Take Action",
+      "description": "Take Action - ThriveStack Documentation",
+      "keywords": [
+        "take_action",
+        "take",
+        "action",
+        "playbooks",
+        "automation",
+        "workflows",
+        "churn",
+        "expansion",
+        "conversion"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "take-action-accelerate-free-to-paid-Accelerate-Free-to-Paid",
+      "title": "Take Action",
+      "url": "take-action.html#accelerate-free-to-paid",
+      "section": "Take Action",
+      "description": "Accelerate Free-to-Paid",
+      "keywords": [
+        "free_to_paid",
+        "free",
+        "to",
+        "paid",
+        "conversion",
+        "trial",
+        "upgrade",
+        "monetization",
+        "nudges"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "take-action-automate-workflow-responses-Automate-Workflow-Responses",
+      "title": "Take Action",
+      "url": "take-action.html#automate-workflow-responses",
+      "section": "Take Action",
+      "description": "Automate Workflow Responses",
+      "keywords": [
+        "automation",
+        "workflows",
+        "alerts",
+        "slack",
+        "email",
+        "webhooks",
+        "responses"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "take-action-drive-revenue-playbooks-Drive-Revenue-Playbooks",
+      "title": "Take Action",
+      "url": "take-action.html#drive-revenue-playbooks",
+      "section": "Take Action",
+      "description": "Drive Revenue Playbooks",
+      "keywords": [
+        "revenue_playbooks",
+        "revenue",
+        "playbooks",
+        "gtm",
+        "sequences",
+        "expansion",
+        "sales_plays",
+        "sales",
+        "plays",
+        "automation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "take-action-stop-churn-early-Stop-Churn-Early",
+      "title": "Take Action",
+      "url": "take-action.html#stop-churn-early",
+      "section": "Take Action",
+      "description": "Stop Churn Early",
+      "keywords": [
+        "churn",
+        "retention",
+        "save_offers",
+        "save",
+        "offers",
+        "interventions",
+        "health_score",
+        "health",
+        "score",
+        "at_risk",
+        "at",
+        "risk"
+      ],
+      "deprecated": false
+    }
+  ]
+}
