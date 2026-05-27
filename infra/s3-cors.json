@@ -1,0 +1,9 @@
+[
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": ["GET", "HEAD"],
+    "AllowedOrigins": ["https://app.thrivestack.ai", "https://dev.app.thrivestack.ai"],
+    "ExposeHeaders": ["ETag"],
+    "MaxAgeSeconds": 300
+  }
+]
