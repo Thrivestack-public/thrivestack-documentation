@@ -221,6 +221,93 @@
                                 </div>
                             </div>
 
+                            <!-- ── STEP 3: ENABLE CORRELATION ──────────────────── -->
+                            <div style="margin-bottom: 36px;">
+                                <h2 id="enable-correlation" style="display: flex; align-items: center; gap: 12px;">
+                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #111827; color: #fff; font-weight: 700; font-size: 14px; flex-shrink: 0;">3</span>
+                                    Enable Correlation between Product and Revenue
+                                </h2>
+                                <p style="color: var(--text-secondary, #cbd5e1); font-size: 14px; line-height: 1.6; margin-bottom: 20px; padding-left: 42px;">
+                                    Add a <code>group_id</code> metadata field to each Stripe customer — this must match the <code>group_id</code> sent in your product telemetry so ThriveStack can link revenue to product usage.
+                                    <a href="https://app.thrivestack.ai/analyze/onboarding/product-analytics/telemetry?step=11" target="_blank" rel="noopener noreferrer" style="margin-left: 4px;">View product telemetry reference <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px;"></i></a>
+                                </p>
+
+                                <div style="padding-left: 42px;">
+                                    <div class="code-tabs">
+                                        <div class="tab-bar">
+                                            <button class="tab-btn active" data-tab="ai"><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px; font-size: 11px;"></i>Fix with AI</button>
+                                            <button class="tab-btn" data-tab="manual"><i class="fa-solid fa-terminal" style="margin-right: 6px; font-size: 11px;"></i>Fix Manually</button>
+                                        </div>
+
+                                        <!-- Fix with AI -->
+                                        <div class="tab-pane active" data-tab="ai">
+                                            <div style="padding: 20px;">
+                                                <p style="color: var(--text-secondary, #94a3b8); font-size: 13px; line-height: 1.6; margin: 0 0 16px;">Provide this prompt to an AI assistant with access to your codebase. The AI will review the ThriveStack Instrumentation Guide and automatically add the <code>group_id</code> metadata to your Stripe customers.</p>
+                                                <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;">
+                                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                                                        <img src="https://www.google.com/s2/favicons?domain=cursor.sh&sz=32" style="width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border-color, #333);">
+                                                        <span style="font-size: 11px; color: var(--text-muted, #64748b);">Cursor</span>
+                                                    </div>
+                                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                                                        <img src="https://www.google.com/s2/favicons?domain=github.com&sz=32" style="width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border-color, #333);">
+                                                        <span style="font-size: 11px; color: var(--text-muted, #64748b);">Copilot</span>
+                                                    </div>
+                                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                                                        <img src="https://www.google.com/s2/favicons?domain=anthropic.com&sz=32" style="width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border-color, #333);">
+                                                        <span style="font-size: 11px; color: var(--text-muted, #64748b);">Claude</span>
+                                                    </div>
+                                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                                                        <img src="https://www.google.com/s2/favicons?domain=codeium.com&sz=32" style="width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border-color, #333);">
+                                                        <span style="font-size: 11px; color: var(--text-muted, #64748b);">Windsurf</span>
+                                                    </div>
+                                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                                                        <img src="https://www.google.com/s2/favicons?domain=lovable.dev&sz=32" style="width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border-color, #333);">
+                                                        <span style="font-size: 11px; color: var(--text-muted, #64748b);">Lovable</span>
+                                                    </div>
+                                                </div>
+                                                <pre><code>You are a ThriveStack revenue intelligence installation wizard.
+Read https://docs.thrivestack.ai/ai-setup/revenue/llms.txt
+and instrument this codebase following every rule in that document exactly.
+The revenue source to instrument is Stripe.
+The account identifier key to use is "group_id".</code></pre>
+                                                <ol style="color: var(--text-secondary, #94a3b8); font-size: 13px; line-height: 1.9; margin: 16px 0 0; padding-left: 18px;">
+                                                    <li>Open your AI coding tool with your project</li>
+                                                    <li>Paste the prompt above into the chat</li>
+                                                    <li>Review suggested changes before applying</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+
+                                        <!-- Fix Manually -->
+                                        <div class="tab-pane" data-tab="manual">
+                                            <div style="padding: 20px;">
+                                                <p style="font-weight: 600; font-size: 13px; margin: 0 0 8px; color: var(--text-primary, #fff);">Creating new Stripe customers</p>
+                                                <pre><code>curl https://api.stripe.com/v1/customers \
+  -u sk_test_YOUR_SECRET_KEY: \
+  -d "email=customer@example.com" \
+  -d "metadata[group_id]=&lt;account_id_from_product_telemetry&gt;"</code></pre>
+
+                                                <p style="font-weight: 600; font-size: 13px; margin: 20px 0 8px; color: var(--text-primary, #fff);">Updating existing Stripe customers</p>
+                                                <pre><code>curl https://api.stripe.com/v1/customers/&lt;CUSTOMER_ID&gt; \
+  -u sk_test_YOUR_SECRET_KEY: \
+  -d "metadata[group_id]=&lt;account_id_from_product_telemetry&gt;"</code></pre>
+
+                                                <p style="font-size: 12px; color: var(--text-muted, #64748b); margin: 16px 0 0;">Reference: <a href="https://stripe.com/docs/api/customers" target="_blank" rel="noopener noreferrer">Stripe Customer API docs <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px;"></i></a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Verification -->
+                                <div style="padding-left: 42px; margin-top: 20px;">
+                                    <blockquote>
+                                        <i class="fa-solid fa-circle-info" style="margin-right: 6px;"></i>
+                                        <strong>Verify:</strong> Run the flow in your application where a customer is created in Stripe. Then open the customer record in the Stripe Dashboard — scroll to the <strong>Metadata</strong> panel on the right and confirm <code>group_id</code> is present.
+                                    </blockquote>
+                                    <img src="../../../stripe_metadata.png" alt="Stripe customer Metadata panel showing group_id" style="width: 100%; max-width: 720px; border-radius: 8px; border: 1px solid var(--border-color, #333); margin-top: 14px;">
+                                </div>
+                            </div>
+
                             <hr />
 
                             <!-- ── NEXT STEPS ──────────────────────────────────── -->
@@ -262,6 +349,7 @@
                     <a href="#stripe-integration" class="toc-link active">Stripe Integration</a>
                     <a href="#set-up-connector" class="toc-link">1. Set up the connector</a>
                     <a href="#get-credentials" class="toc-link">2. Get Account ID &amp; Secret Key</a>
+                    <a href="#enable-correlation" class="toc-link">3. Enable correlation</a>
                     <a href="#next-steps" class="toc-link">Next steps</a>
                 </nav>
                 <ready-to-scale-promo></ready-to-scale-promo>
