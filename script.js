@@ -91,6 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 terms: 'take action automate workflow responses act on signals automated workflow engine signal detected action triggered slack alert account owner'
             },
             {
+                title: 'Account Intelligence',
+                url: 'account-intelligence.html#account-intelligence',
+                terms: 'account intelligence take action playbooks signed up not activated activation struggling stalled journey activated not converted pql product qualified leads converted disengaging churn risk save play getaccounts getsegments brevo n8n openclaw automation drive action which accounts'
+            },
+            {
                 title: 'Connect Your Stack',
                 url: 'connect-your-stack.html#connect-your-stack',
                 terms: 'connect your stack integrations unify data plug and play low code'

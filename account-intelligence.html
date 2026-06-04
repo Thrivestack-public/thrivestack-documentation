@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Account Intelligence - ThriveStack Take Action. Turn account signals into action: find signed-up-but-not-activated, activation-struggling, activated-but-not-converted, and disengaging accounts with the Growth Intelligence API, then push them into Brevo, n8n, or OpenClaw.">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Account Intelligence - ThriveStack</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon"
+        href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
+        api-key="i1rPJo38lB6hR2qZC5iNNz0xcGRuBYIKRVYfTBdpJyY="
+        source="marketing">
+    </script>
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="index.html">Get Started</a>
+                <a href="setup-overview.html">Setup (Unify)</a>
+                <a href="analyze-signals.html">Analyze Signals</a>
+                <a href="take-action.html" class="active">Take Action</a>
+                <a href="api-reference.html">API Reference</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank"
+                rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Take Action</h3>
+                <ul>
+                    <li><a href="take-action.html" class="nav-item"><span>Overview</span></a></li>
+                    <li><a href="account-intelligence.html" class="nav-item active"><span>Account Intelligence</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Discounts</h3>
+                <ul>
+                    <li><a href="startup-cohort-discount.html" class="nav-item"><span>Startup Cohort Discount</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section id="account-intelligence" class="content-section">
+                    <div class="breadcrumbs">
+                        <a href="index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                        <a href="take-action.html">Take Action</a> <i class="fa-solid fa-chevron-right"></i>
+                        <span>Account Intelligence</span>
+                    </div>
+                    <header class="doc-page-header">
+                        <span class="doc-page-header-eyebrow">Take Action · Growth Intelligence</span>
+                        <h1 class="doc-page-title">Account Intelligence</h1>
+                        <p class="doc-page-description">
+                            Every lifecycle gap is a list of accounts waiting for an action. Find exactly the
+                            accounts behind each signal — then drive the play: nudge, nurture, upsell, or save.
+                        </p>
+                    </header>
+
+                    <hr />
+
+                    <article class="doc-page-body">
+
+                        <h2 id="the-pattern">The pattern: drive action → which accounts</h2>
+                        <p>
+                            Your accounts are always telling you something: a team signs up and goes quiet, a paying
+                            customer slowly stops logging in. Account Intelligence turns each signal into the exact
+                            list of accounts behind it — so you can act in the tools your team already uses. The four
+                            plays below are common examples; any signal in ThriveStack works the same way.
+                        </p>
+
+                        <h2 id="examples">Examples</h2>
+
+                        <h3 id="signed-up-not-activated">1 · Signed up but not activated</h3>
+                        <p>
+                            These accounts converted on your marketing promise, created a workspace — and then never
+                            started the activation journey. They are the warmest list you own: intent is proven, the
+                            product just hasn't landed yet. Between the "signed up" set and the "activated" set sits
+                            your target list.
+                        </p>
+
+                        <div class="acti-diagram">
+                            <div class="acti-flow">
+                                <div class="acti-stage">
+                                    <div class="acti-stage-label">The signal</div>
+                                    <div class="acti-sets">
+                                        <div class="acti-set acti-set-blue">
+                                            <div class="acti-set-icon"><i class="fa-solid fa-user-plus"></i></div>
+                                            <div class="acti-set-title">Signed up</div>
+                                            <div class="acti-set-count">1,240 accounts</div>
+                                            <div class="acti-dots">
+                                                <span class="acti-dot d-blue"></span><span class="acti-dot d-blue"></span><span class="acti-dot d-blue"></span><span class="acti-dot d-blue"></span><span class="acti-dot d-blue"></span><span class="acti-dot d-blue"></span><span class="acti-dot d-blue"></span><span class="acti-dot d-blue"></span>
+                                            </div>
+                                        </div>
+                                        <div class="acti-set-link">
+                                            <div class="acti-link-line"><span class="acti-packet"></span></div>
+                                            <div class="acti-link-head"></div>
+                                            <span class="acti-set-link-label">activation journey</span>
+                                        </div>
+                                        <div class="acti-set acti-set-green">
+                                            <div class="acti-set-icon"><i class="fa-solid fa-circle-check"></i></div>
+                                            <div class="acti-set-title">Activated</div>
+                                            <div class="acti-set-count">410 accounts</div>
+                                            <div class="acti-dots">
+                                                <span class="acti-dot d-green"></span><span class="acti-dot d-green"></span><span class="acti-dot d-green"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="acti-gap">
+                                        <div class="acti-gap-stem"></div>
+                                        <span class="acti-gap-badge"><i class="fa-solid fa-triangle-exclamation"></i> 830 accounts never started activation</span>
+                                    </div>
+                                </div>
+                                <div class="acti-link acti-link-down">
+                                    <div class="acti-link-line"><span class="acti-packet" style="animation-delay:0.5s;"></span></div>
+                                    <div class="acti-link-head"></div>
+                                    <span class="acti-link-label">GetAccounts</span>
+                                </div>
+                                <div class="acti-stage">
+                                    <div class="acti-stage-label">Which accounts</div>
+                                    <div class="acti-panel">
+                                        <div class="acti-panel-header">
+                                            <i class="fa-solid fa-layer-group"></i>
+                                            <span class="acti-panel-title">Not activated</span>
+                                            <span class="acti-panel-count">830 accounts</span>
+                                        </div>
+                                        <table class="acti-table">
+                                            <thead>
+                                                <tr><th>Account</th><th>Signed up</th><th>Activation</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td class="acti-acct">Initech</td><td>21d ago</td><td><span class="acti-pill amber">Not started</span></td></tr>
+                                                <tr><td class="acti-acct">Hooli</td><td>14d ago</td><td><span class="acti-pill amber">Not started</span></td></tr>
+                                                <tr><td class="acti-acct">Vandelay</td><td>9d ago</td><td><span class="acti-pill amber">Not started</span></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="acti-link acti-link-down">
+                                    <div class="acti-link-line acti-line-green"><span class="acti-packet acti-packet-green" style="animation-delay:1s;"></span></div>
+                                    <div class="acti-link-head acti-head-green"></div>
+                                    <span class="acti-link-label">take action</span>
+                                </div>
+                                <div class="acti-stage acti-stage-action">
+                                    <div class="acti-stage-label">Drive action</div>
+                                    <div class="acti-action-chip"><i class="fa-solid fa-envelope"></i> Enroll in onboarding nurture</div>
+                                    <div class="acti-action-chip"><i class="fa-brands fa-slack"></i> Alert the account owner</div>
+                                    <div class="acti-action-chip"><i class="fa-solid fa-hand-holding-heart"></i> Offer a guided setup call</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 id="activation-struggling">2 · Struggling through activation</h3>
+                        <p>
+                            Different problem, different play: these accounts <em>did</em> start the journey but
+                            stalled mid-way. They invited a teammate, created a project — then stopped. The journey
+                            telemetry tells you exactly <strong>which step</strong> they are stuck on, so the action
+                            can be surgical instead of a generic "need help?" blast.
+                        </p>
+
+                        <div class="acti-diagram">
+                            <div class="acti-flow">
+                                <div class="acti-stage">
+                                    <div class="acti-stage-label">The signal</div>
+                                    <div class="acti-journey">
+                                        <div class="acti-step done">
+                                            <div class="acti-step-node"><i class="fa-solid fa-check"></i></div>
+                                            <span class="acti-step-name">Signed up</span>
+                                        </div>
+                                        <div class="acti-step-bar done"></div>
+                                        <div class="acti-step done">
+                                            <div class="acti-step-node"><i class="fa-solid fa-check"></i></div>
+                                            <span class="acti-step-name">Invited team</span>
+                                        </div>
+                                        <div class="acti-step-bar done"></div>
+                                        <div class="acti-step stuck">
+                                            <div class="acti-step-node"><i class="fa-solid fa-pause"></i></div>
+                                            <span class="acti-step-name">Created project</span>
+                                            <span class="acti-step-sub">stuck 12 days</span>
+                                        </div>
+                                        <div class="acti-step-bar"></div>
+                                        <div class="acti-step todo">
+                                            <div class="acti-step-node"></div>
+                                            <span class="acti-step-name">Connected data</span>
+                                        </div>
+                                        <div class="acti-step-bar"></div>
+                                        <div class="acti-step todo">
+                                            <div class="acti-step-node"><i class="fa-solid fa-flag-checkered"></i></div>
+                                            <span class="acti-step-name">Activated</span>
+                                        </div>
+                                    </div>
+                                    <div class="acti-journey-meta">
+                                        Journey 40% complete · no progress in 12 days
+                                    </div>
+                                </div>
+                                <div class="acti-link acti-link-down">
+                                    <div class="acti-link-line"><span class="acti-packet" style="animation-delay:0.5s;"></span></div>
+                                    <div class="acti-link-head"></div>
+                                    <span class="acti-link-label">GetAccounts</span>
+                                </div>
+                                <div class="acti-stage">
+                                    <div class="acti-stage-label">Which accounts</div>
+                                    <div class="acti-panel">
+                                        <div class="acti-panel-header">
+                                            <i class="fa-solid fa-layer-group"></i>
+                                            <span class="acti-panel-title">Stalled in journey</span>
+                                            <span class="acti-panel-count">112 accounts</span>
+                                        </div>
+                                        <table class="acti-table">
+                                            <thead>
+                                                <tr><th>Account</th><th>Stuck on</th><th>Progress</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td class="acti-acct">Monday.com</td><td>Invite team</td><td><span class="acti-pill amber">40%</span></td></tr>
+                                                <tr><td class="acti-acct">Miro</td><td>Connect data</td><td><span class="acti-pill amber">60%</span></td></tr>
+                                                <tr><td class="acti-acct">Linear</td><td>Create project</td><td><span class="acti-pill amber">25%</span></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="acti-link acti-link-down">
+                                    <div class="acti-link-line acti-line-green"><span class="acti-packet acti-packet-green" style="animation-delay:1s;"></span></div>
+                                    <div class="acti-link-head acti-head-green"></div>
+                                    <span class="acti-link-label">take action</span>
+                                </div>
+                                <div class="acti-stage acti-stage-action">
+                                    <div class="acti-stage-label">Drive action</div>
+                                    <div class="acti-action-chip"><i class="fa-solid fa-wand-magic-sparkles"></i> Step-specific in-app guide</div>
+                                    <div class="acti-action-chip"><i class="fa-solid fa-headset"></i> CSM outreach to the champion</div>
+                                    <div class="acti-action-chip"><i class="fa-solid fa-envelope-open-text"></i> "Finish setting up" email with the exact next step</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 id="activated-not-converted">3 · Activated but not converted</h3>
+                        <p>
+                            These accounts reached value — journey complete, team active — but still pay you nothing.
+                            They are your product-qualified pipeline. The most active ones belong in front of sales
+                            this week, not in a quarterly review.
+                        </p>
+
+                        <div class="acti-diagram">
+                            <div class="acti-flow">
+                                <div class="acti-stage">
+                                    <div class="acti-stage-label">The signal</div>
+                                    <div class="acti-sets">
+                                        <div class="acti-set acti-set-green">
+                                            <div class="acti-set-icon"><i class="fa-solid fa-circle-check"></i></div>
+                                            <div class="acti-set-title">Activated</div>
+                                            <div class="acti-set-count">410 accounts</div>
+                                            <div class="acti-dots">
+                                                <span class="acti-dot d-green"></span><span class="acti-dot d-green"></span><span class="acti-dot d-green"></span><span class="acti-dot d-green"></span><span class="acti-dot d-green"></span><span class="acti-dot d-green"></span>
+                                            </div>
+                                        </div>
+                                        <div class="acti-set-link">
+                                            <div class="acti-link-line"><span class="acti-packet"></span></div>
+                                            <div class="acti-link-head"></div>
+                                            <span class="acti-set-link-label">upgrade</span>
+                                        </div>
+                                        <div class="acti-set acti-set-purple">
+                                            <div class="acti-set-icon"><i class="fa-solid fa-credit-card"></i></div>
+                                            <div class="acti-set-title">Paying</div>
+                                            <div class="acti-set-count">95 accounts</div>
+                                            <div class="acti-dots">
+                                                <span class="acti-dot d-purple"></span><span class="acti-dot d-purple"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="acti-gap">
+                                        <div class="acti-gap-stem"></div>
+                                        <span class="acti-gap-badge acti-gap-good"><i class="fa-solid fa-gem"></i> 315 activated accounts still on free — your PQL pipeline</span>
+                                    </div>
+                                </div>
+                                <div class="acti-link acti-link-down">
+                                    <div class="acti-link-line"><span class="acti-packet" style="animation-delay:0.5s;"></span></div>
+                                    <div class="acti-link-head"></div>
+                                    <span class="acti-link-label">GetAccounts</span>
+                                </div>
+                                <div class="acti-stage">
+                                    <div class="acti-stage-label">Which accounts</div>
+                                    <div class="acti-panel">
+                                        <div class="acti-panel-header">
+                                            <i class="fa-solid fa-layer-group"></i>
+                                            <span class="acti-panel-title">Product-qualified</span>
+                                            <span class="acti-panel-count">315 accounts</span>
+                                        </div>
+                                        <table class="acti-table">
+                                            <thead>
+                                                <tr><th>Account</th><th>MAU</th><th>MRR</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td class="acti-acct">Figma</td><td>38</td><td><span class="acti-pill purple">$0 · free</span></td></tr>
+                                                <tr><td class="acti-acct">Airtable</td><td>24</td><td><span class="acti-pill purple">$0 · free</span></td></tr>
+                                                <tr><td class="acti-acct">Notion</td><td>19</td><td><span class="acti-pill purple">$0 · free</span></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="acti-link acti-link-down">
+                                    <div class="acti-link-line acti-line-green"><span class="acti-packet acti-packet-green" style="animation-delay:1s;"></span></div>
+                                    <div class="acti-link-head acti-head-green"></div>
+                                    <span class="acti-link-label">take action</span>
+                                </div>
+                                <div class="acti-stage acti-stage-action">
+                                    <div class="acti-stage-label">Drive action</div>
+                                    <div class="acti-action-chip"><i class="fa-solid fa-arrow-trend-up"></i> Route top accounts to sales as PQLs</div>
+                                    <div class="acti-action-chip"><i class="fa-solid fa-tags"></i> Trigger an upgrade campaign</div>
+                                    <div class="acti-action-chip"><i class="fa-solid fa-gauge-high"></i> Show usage-limit upsell in-app</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 id="converted-disengaging">4 · Converted but disengaging</h3>
+                        <p>
+                            The most expensive list to ignore. These accounts pay you every month, but usage is
+                            trending down and contraction signals are firing. By the time the cancellation email
+                            arrives, this play is already lost — run it while the account is still paying.
+                        </p>
+
+                        <div class="acti-diagram">
+                            <div class="acti-flow">
+                                <div class="acti-stage">
+                                    <div class="acti-stage-label">The signal</div>
+                                    <div class="acti-decline">
+                                        <div class="acti-decline-head">
+                                            <span class="acti-decline-name">Acme Corp</span>
+                                            <span class="acti-pill purple">pro · $2,800 MRR</span>
+                                            <span class="acti-pill green">paying</span>
+                                        </div>
+                                        <div class="acti-bars">
+                                            <div class="acti-bar" style="height:86%;"></div>
+                                            <div class="acti-bar" style="height:74%;"></div>
+                                            <div class="acti-bar" style="height:62%;"></div>
+                                            <div class="acti-bar" style="height:48%;"></div>
+                                            <div class="acti-bar warn" style="height:36%;"></div>
+                                            <div class="acti-bar warn" style="height:24%;"></div>
+                                        </div>
+                                        <div class="acti-bars-axis"><span>6 weeks ago</span><span>this week</span></div>
+                                        <div class="acti-decline-meta">
+                                            <span class="acti-pill red"><i class="fa-solid fa-arrow-trend-down"></i> Usage down 54%</span>
+                                            <span class="acti-pill amber">Usage drop</span>
+                                            <span class="acti-pill amber">Support spike</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="acti-link acti-link-down">
+                                    <div class="acti-link-line"><span class="acti-packet" style="animation-delay:0.5s;"></span></div>
+                                    <div class="acti-link-head"></div>
+                                    <span class="acti-link-label">GetAccounts</span>
+                                </div>
+                                <div class="acti-stage">
+                                    <div class="acti-stage-label">Which accounts</div>
+                                    <div class="acti-panel">
+                                        <div class="acti-panel-header">
+                                            <i class="fa-solid fa-layer-group"></i>
+                                            <span class="acti-panel-title">Revenue at risk</span>
+                                            <span class="acti-panel-count">$9,650 MRR · 14 accounts</span>
+                                        </div>
+                                        <table class="acti-table">
+                                            <thead>
+                                                <tr><th>Account</th><th>MRR</th><th>Trend</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td class="acti-acct">Acme Corp</td><td>$2,800</td><td><span class="acti-pill red">0.46 ↓</span></td></tr>
+                                                <tr><td class="acti-acct">Globex Inc</td><td>$1,900</td><td><span class="acti-pill red">0.58 ↓</span></td></tr>
+                                                <tr><td class="acti-acct">Stark Industries</td><td>$950</td><td><span class="acti-pill red">0.61 ↓</span></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="acti-link acti-link-down">
+                                    <div class="acti-link-line acti-line-green"><span class="acti-packet acti-packet-green" style="animation-delay:1s;"></span></div>
+                                    <div class="acti-link-head acti-head-green"></div>
+                                    <span class="acti-link-label">take action</span>
+                                </div>
+                                <div class="acti-stage acti-stage-action">
+                                    <div class="acti-stage-label">Drive action</div>
+                                    <div class="acti-action-chip"><i class="fa-solid fa-life-ring"></i> Open a save-play: CSM task + exec check-in</div>
+                                    <div class="acti-action-chip"><i class="fa-brands fa-slack"></i> Page the owner with full context</div>
+                                    <div class="acti-action-chip"><i class="fa-solid fa-comments"></i> Win-back sequence to the champion</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 id="every-stage">5 · …and every other stage of the journey</h3>
+                        <p>
+                            The four plays above are just the start. ThriveStack Account Intelligence tracks every
+                            account across the full customer journey — <strong>acquisition, activation, monetization,
+                            engagement, retention, and expansion</strong> — and each stage emits its own signals.
+                            Behind every one of them is a list of accounts you can pull and act on, exactly the
+                            same way.
+                        </p>
+
+                        <div class="acti-jstages">
+                            <div class="acti-jstage">
+                                <div class="acti-jstage-icon" style="color:#3b82f6;background:rgba(59,130,246,0.1);"><i class="fa-solid fa-magnet"></i></div>
+                                <div class="acti-jstage-name">Acquisition</div>
+                                <div class="acti-jstage-sig">Which campaigns bring accounts that stick — and which bring signups that never come back</div>
+                            </div>
+                            <div class="acti-jstage">
+                                <div class="acti-jstage-icon" style="color:#22c55e;background:rgba(34,197,94,0.1);"><i class="fa-solid fa-circle-check"></i></div>
+                                <div class="acti-jstage-name">Activation</div>
+                                <div class="acti-jstage-sig">Accounts stuck before, or inside, the journey to first value</div>
+                            </div>
+                            <div class="acti-jstage">
+                                <div class="acti-jstage-icon" style="color:#a855f7;background:rgba(168,85,247,0.1);"><i class="fa-solid fa-credit-card"></i></div>
+                                <div class="acti-jstage-name">Monetization</div>
+                                <div class="acti-jstage-sig">Trials about to end, payments past due, plans that no longer fit usage</div>
+                            </div>
+                            <div class="acti-jstage">
+                                <div class="acti-jstage-icon" style="color:#06b6d4;background:rgba(6,182,212,0.1);"><i class="fa-solid fa-wave-square"></i></div>
+                                <div class="acti-jstage-name">Engagement</div>
+                                <div class="acti-jstage-sig">Usage climbing or fading, champions going quiet, teams logging in daily</div>
+                            </div>
+                            <div class="acti-jstage">
+                                <div class="acti-jstage-icon" style="color:#f59e0b;background:rgba(245,158,11,0.1);"><i class="fa-solid fa-rotate"></i></div>
+                                <div class="acti-jstage-name">Retention</div>
+                                <div class="acti-jstage-sig">Renewals at risk, churn signals firing while there is still time to act</div>
+                            </div>
+                            <div class="acti-jstage">
+                                <div class="acti-jstage-icon" style="color:#10b981;background:rgba(16,185,129,0.1);"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                                <div class="acti-jstage-name">Expansion</div>
+                                <div class="acti-jstage-sig">Seats growing, usage limits hit, high-value features adopted — ready to upgrade</div>
+                            </div>
+                        </div>
+
+                        <p>
+                            Whatever the signal — a spike, a stall, a silence — the play is the same: get the
+                            accounts behind it, and fix it before it shows up in revenue.
+                        </p>
+
+                        <blockquote class="note-callout">
+                            <strong>Building it yourself?</strong> Every list on this page is a single
+                            <a href="public/api/get-accounts.html">GetAccounts</a> call — the API reference has
+                            ready-to-run queries and the full list of filterable fields, and
+                            <a href="public/api/get-segments.html">GetSegments</a> lets you reuse the segments your
+                            team has already saved in ThriveStack.
+                        </blockquote>
+
+                        <h2 id="wire-up-tools">Wire the lists into your action tools</h2>
+                        <p>
+                            Once you have the list, the action happens in the tools your team already lives in. Any
+                            tool that can connect to ThriveStack can run these plays on a schedule — three that pair
+                            well:
+                        </p>
+
+                        <div class="acti-tools">
+                            <div class="acti-tool-card">
+                                <div class="acti-tool-head">
+                                    <img src="https://www.google.com/s2/favicons?domain=www.brevo.com&amp;sz=128" alt="Brevo logo" class="acti-tool-logo">
+                                    <div>
+                                        <div class="acti-tool-name">Brevo</div>
+                                        <div class="acti-tool-tag">Email &amp; SMS automation</div>
+                                    </div>
+                                </div>
+                                <p class="acti-tool-desc">Best for plays 1–3: turn each account list into a contact list and let an automation do the nurturing.</p>
+                                <ul class="acti-tool-steps">
+                                    <li>Pull each play's account list from ThriveStack on a daily schedule</li>
+                                    <li>Add each account's champion to the matching Brevo contact list</li>
+                                    <li>An automation triggers on list entry — onboarding nurture, "finish setup", or upgrade sequence</li>
+                                </ul>
+                                <a class="acti-tool-link" href="https://developers.brevo.com/" target="_blank" rel="noopener noreferrer">Brevo API docs <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </div>
+
+                            <div class="acti-tool-card">
+                                <div class="acti-tool-head">
+                                    <img src="https://www.google.com/s2/favicons?domain=n8n.io&amp;sz=128" alt="n8n logo" class="acti-tool-logo">
+                                    <div>
+                                        <div class="acti-tool-name">n8n</div>
+                                        <div class="acti-tool-tag">Workflow automation</div>
+                                    </div>
+                                </div>
+                                <p class="acti-tool-desc">Best when one signal should fan out to many tools — CRM, Slack, email, and a spreadsheet in a single flow.</p>
+                                <ul class="acti-tool-steps">
+                                    <li>A scheduled workflow pulls the account list from ThriveStack</li>
+                                    <li>Each account becomes one item flowing through the workflow</li>
+                                    <li>Branch per account: Slack alert to the owner, HubSpot update, Brevo enrollment</li>
+                                </ul>
+                                <a class="acti-tool-link" href="https://docs.n8n.io/" target="_blank" rel="noopener noreferrer">n8n docs <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </div>
+
+                            <div class="acti-tool-card">
+                                <div class="acti-tool-head">
+                                    <img src="https://www.google.com/s2/favicons?domain=openclaw.ai&amp;sz=128" alt="OpenClaw logo" class="acti-tool-logo">
+                                    <div>
+                                        <div class="acti-tool-name">OpenClaw</div>
+                                        <div class="acti-tool-tag">Open-source AI agent</div>
+                                    </div>
+                                </div>
+                                <p class="acti-tool-desc">Best when the action needs judgment: an agent reads each account's context and decides the right move, not just the right template.</p>
+                                <ul class="acti-tool-steps">
+                                    <li>Connect the agent to ThriveStack with your API key</li>
+                                    <li>A daily task pulls each play's list and reviews the context — stuck step, usage trend, revenue at risk</li>
+                                    <li>The agent drafts the outreach, files the CSM task, or escalates to you in chat when revenue is on the line</li>
+                                </ul>
+                                <a class="acti-tool-link" href="https://docs.openclaw.ai/" target="_blank" rel="noopener noreferrer">OpenClaw docs <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </div>
+                        </div>
+
+                        <p class="acti-tools-footnote">
+                            <i class="fa-solid fa-plug"></i> Not on this list? Zapier, Make, or a simple scheduled
+                            script work the same way — everything on this page is available through the
+                            <a href="api-reference.html">ThriveStack API</a>.
+                        </p>
+
+                    </article>
+
+                    <style>
+                        /* ── Shared diagram shell ── */
+                        .acti-diagram {
+                            display: flex;
+                            flex-direction: column;
+                            padding: 36px 28px;
+                            margin: 8px 0 28px;
+                            border-radius: 12px;
+                            border: 1px solid var(--border-color, #333);
+                            background: rgba(255,255,255,0.02);
+                            overflow-x: auto;
+                            min-width: 0;
+                        }
+                        .acti-flow {
+                            display: flex;
+                            align-items: center;
+                            gap: 14px;
+                            width: max-content;
+                            min-width: 100%;
+                            justify-content: space-between;
+                        }
+                        .acti-stage {
+                            flex: 0 0 auto;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 14px;
+                        }
+                        .acti-stage-action { width: 240px; }
+                        .acti-stage-label {
+                            font-size: 10px;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                            letter-spacing: 0.08em;
+                            color: var(--text-muted, #888);
+                        }
+                        /* ── Connectors ── */
+                        .acti-link {
+                            display: flex;
+                            align-items: center;
+                            align-self: center;
+                            flex-shrink: 0;
+                            position: relative;
+                            width: 72px;
+                            padding: 0 4px;
+                        }
+                        .acti-link-line {
+                            flex: 1;
+                            height: 2px;
+                            background: linear-gradient(90deg, rgba(59,130,246,0.35), rgba(59,130,246,0.12));
+                            position: relative;
+                            overflow: hidden;
+                        }
+                        .acti-packet {
+                            position: absolute;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            width: 20px;
+                            height: 5px;
+                            border-radius: 3px;
+                            background: #3b82f6;
+                            left: -20px;
+                            animation: actiPacket 2.4s ease-in-out infinite;
+                        }
+                        .acti-line-green { background: linear-gradient(90deg, rgba(34,197,94,0.35), rgba(34,197,94,0.12)); }
+                        .acti-packet-green { background: #22c55e; }
+                        .acti-link-head {
+                            width: 0; height: 0;
+                            border-top: 5px solid transparent;
+                            border-bottom: 5px solid transparent;
+                            border-left: 7px solid rgba(59,130,246,0.6);
+                            flex-shrink: 0;
+                        }
+                        .acti-head-green { border-left-color: rgba(34,197,94,0.6); }
+                        .acti-link-label {
+                            position: absolute;
+                            top: calc(50% - 22px);
+                            left: 50%;
+                            transform: translateX(-50%);
+                            font-size: 9px;
+                            font-family: monospace;
+                            color: var(--text-muted, #888);
+                            white-space: nowrap;
+                        }
+                        @keyframes actiPacket {
+                            0%   { left: -20px; opacity: 0; }
+                            12%  { opacity: 1; }
+                            88%  { opacity: 1; }
+                            100% { left: 100%; opacity: 0; }
+                        }
+
+                        /* ── Two-set (gap) visual ── */
+                        .acti-sets {
+                            display: flex;
+                            align-items: center;
+                            gap: 0;
+                        }
+                        .acti-set {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 4px;
+                            padding: 14px 16px;
+                            border-radius: 10px;
+                            border: 1px solid var(--border-color, #333);
+                            background: var(--bg-glass, rgba(255,255,255,0.04));
+                            min-width: 110px;
+                            text-align: center;
+                        }
+                        .acti-set-blue   { border-color: rgba(59,130,246,0.5);  background: rgba(59,130,246,0.06); }
+                        .acti-set-green  { border-color: rgba(34,197,94,0.5);   background: rgba(34,197,94,0.06); }
+                        .acti-set-purple { border-color: rgba(168,85,247,0.5);  background: rgba(168,85,247,0.06); }
+                        .acti-set-icon { font-size: 16px; }
+                        .acti-set-blue   .acti-set-icon { color: #3b82f6; }
+                        .acti-set-green  .acti-set-icon { color: #22c55e; }
+                        .acti-set-purple .acti-set-icon { color: #a855f7; }
+                        .acti-set-title { font-weight: 700; font-size: 13px; color: var(--text-primary, #fff); }
+                        .acti-set-count { font-size: 11px; color: var(--text-muted, #888); }
+                        .acti-dots { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; justify-content: center; max-width: 110px; }
+                        .acti-dot { width: 7px; height: 7px; border-radius: 50%; }
+                        .acti-dot.d-blue   { background: #3b82f6; }
+                        .acti-dot.d-green  { background: #22c55e; }
+                        .acti-dot.d-purple { background: #a855f7; }
+                        .acti-set-link {
+                            display: flex;
+                            align-items: center;
+                            position: relative;
+                            width: 76px;
+                            flex-shrink: 0;
+                            padding: 0 4px;
+                        }
+                        .acti-set-link-label {
+                            position: absolute;
+                            top: calc(50% - 20px);
+                            left: 50%;
+                            transform: translateX(-50%);
+                            font-size: 9px;
+                            color: var(--text-muted, #888);
+                            white-space: nowrap;
+                        }
+                        .acti-gap {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            width: 100%;
+                        }
+                        .acti-gap-stem {
+                            width: 1px;
+                            height: 16px;
+                            background: repeating-linear-gradient(180deg, rgba(245,158,11,0.7) 0, rgba(245,158,11,0.7) 3px, transparent 3px, transparent 6px);
+                        }
+                        .acti-gap-badge {
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 7px;
+                            padding: 6px 12px;
+                            border-radius: 999px;
+                            font-size: 11.5px;
+                            font-weight: 600;
+                            color: #fbbf24;
+                            background: rgba(245,158,11,0.1);
+                            border: 1px solid rgba(245,158,11,0.35);
+                            text-align: center;
+                        }
+                        .acti-gap-good {
+                            color: #c084fc;
+                            background: rgba(168,85,247,0.1);
+                            border-color: rgba(168,85,247,0.35);
+                        }
+                        .acti-gap:has(.acti-gap-good) .acti-gap-stem {
+                            background: repeating-linear-gradient(180deg, rgba(168,85,247,0.7) 0, rgba(168,85,247,0.7) 3px, transparent 3px, transparent 6px);
+                        }
+
+                        /* ── Journey stepper ── */
+                        .acti-journey {
+                            display: flex;
+                            align-items: flex-start;
+                            justify-content: center;
+                            width: 100%;
+                            padding-top: 4px;
+                        }
+                        .acti-step {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 5px;
+                            min-width: 64px;
+                            text-align: center;
+                        }
+                        .acti-step-node {
+                            width: 26px; height: 26px;
+                            border-radius: 50%;
+                            display: flex; align-items: center; justify-content: center;
+                            font-size: 10px;
+                            border: 2px solid var(--border-color, #444);
+                            color: var(--text-muted, #888);
+                            background: var(--bg-glass, rgba(255,255,255,0.03));
+                            flex-shrink: 0;
+                        }
+                        .acti-step.done .acti-step-node {
+                            border-color: #22c55e;
+                            color: #22c55e;
+                            background: rgba(34,197,94,0.1);
+                        }
+                        .acti-step.stuck .acti-step-node {
+                            border-color: #f59e0b;
+                            color: #f59e0b;
+                            background: rgba(245,158,11,0.12);
+                            animation: actiPulse 2s ease-in-out infinite;
+                        }
+                        @keyframes actiPulse {
+                            0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.35); }
+                            50%      { box-shadow: 0 0 0 6px rgba(245,158,11,0); }
+                        }
+                        .acti-step-name { font-size: 10.5px; font-weight: 600; color: var(--text-secondary, #cbd5e1); }
+                        .acti-step.todo .acti-step-name { color: var(--text-muted, #888); font-weight: 500; }
+                        .acti-step.stuck .acti-step-name { color: #fbbf24; }
+                        .acti-step-sub { font-size: 9px; color: #f59e0b; }
+                        .acti-step-bar {
+                            flex: 1;
+                            min-width: 18px;
+                            height: 2px;
+                            margin-top: 13px;
+                            background: var(--border-color, #333);
+                        }
+                        .acti-step-bar.done { background: rgba(34,197,94,0.55); }
+                        .acti-journey-meta {
+                            margin-top: 12px;
+                            font-size: 11px;
+                            color: var(--text-muted, #888);
+                            text-align: center;
+                        }
+                        .acti-journey-meta code { font-size: 10.5px; }
+
+                        /* ── Declining-usage card ── */
+                        .acti-decline {
+                            width: 100%;
+                            max-width: 280px;
+                            padding: 14px 16px;
+                            border-radius: 10px;
+                            border: 1px solid rgba(239,68,68,0.35);
+                            background: rgba(239,68,68,0.04);
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                        }
+                        .acti-decline-head {
+                            display: flex;
+                            align-items: center;
+                            gap: 7px;
+                            flex-wrap: wrap;
+                        }
+                        .acti-decline-name { font-weight: 700; font-size: 13px; color: var(--text-primary, #fff); }
+                        .acti-bars {
+                            display: flex;
+                            align-items: flex-end;
+                            gap: 7px;
+                            height: 64px;
+                            padding: 0 4px;
+                        }
+                        .acti-bar {
+                            flex: 1;
+                            border-radius: 3px 3px 0 0;
+                            background: rgba(59,130,246,0.55);
+                        }
+                        .acti-bar.warn { background: rgba(239,68,68,0.6); }
+                        .acti-bars-axis {
+                            display: flex;
+                            justify-content: space-between;
+                            font-size: 9px;
+                            color: var(--text-muted, #888);
+                            padding: 0 4px;
+                        }
+                        .acti-decline-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+
+                        /* ── Mini account panel ── */
+                        .acti-panel {
+                            border-radius: 10px;
+                            border: 1px solid rgba(59,130,246,0.25);
+                            background: var(--bg-glass, rgba(255,255,255,0.03));
+                            overflow: hidden;
+                            width: max-content;
+                        }
+                        .acti-panel-header {
+                            display: flex;
+                            align-items: center;
+                            gap: 7px;
+                            padding: 9px 12px;
+                            border-bottom: 1px solid rgba(59,130,246,0.12);
+                            background: rgba(59,130,246,0.06);
+                        }
+                        .acti-panel-header i { color: #3b82f6; font-size: 11px; }
+                        .acti-panel-title { font-weight: 700; font-size: 12px; color: var(--text-primary, #fff); }
+                        .acti-panel-count { font-size: 10px; color: var(--text-muted, #888); margin-left: auto; white-space: nowrap; }
+                        .acti-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+                        .acti-table th {
+                            padding: 6px 12px;
+                            white-space: nowrap;
+                            text-align: left;
+                            color: var(--text-muted, #888);
+                            font-weight: 600;
+                            font-size: 9.5px;
+                            letter-spacing: 0.06em;
+                            text-transform: uppercase;
+                            border-bottom: 1px solid rgba(255,255,255,0.06);
+                        }
+                        .acti-table td {
+                            padding: 6px 12px;
+                            white-space: nowrap;
+                            border-bottom: 1px solid rgba(255,255,255,0.04);
+                            color: var(--text-secondary, #cbd5e1);
+                        }
+                        .acti-table tbody tr:last-child td { border-bottom: none; }
+                        .acti-table td code { font-size: 10px; }
+                        .acti-acct { font-weight: 600; color: var(--text-primary, #fff) !important; white-space: nowrap; }
+                        .acti-pill {
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 4px;
+                            padding: 2px 8px;
+                            border-radius: 999px;
+                            font-size: 10px;
+                            font-weight: 600;
+                            white-space: nowrap;
+                        }
+                        .acti-pill.amber  { background: rgba(245,158,11,0.14); color: #fbbf24; }
+                        .acti-pill.green  { background: rgba(34,197,94,0.15);  color: #4ade80; }
+                        .acti-pill.red    { background: rgba(239,68,68,0.15);  color: #f87171; }
+                        .acti-pill.purple { background: rgba(168,85,247,0.14); color: #c084fc; }
+
+                        /* ── Action chips ── */
+                        .acti-action-chip {
+                            display: flex;
+                            align-items: center;
+                            gap: 9px;
+                            width: 100%;
+                            padding: 9px 12px;
+                            border-radius: 8px;
+                            border: 1px solid rgba(34,197,94,0.3);
+                            background: rgba(34,197,94,0.05);
+                            font-size: 11.5px;
+                            font-weight: 600;
+                            color: var(--text-secondary, #cbd5e1);
+                            line-height: 1.4;
+                        }
+                        .acti-action-chip i { color: #22c55e; font-size: 12px; flex-shrink: 0; }
+
+                        /* ── Journey stage cards ── */
+                        .acti-jstages {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                            gap: 14px;
+                            margin: 20px 0 24px;
+                        }
+                        .acti-jstage {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 8px;
+                            padding: 16px;
+                            border-radius: 10px;
+                            border: 1px solid var(--border-color, #333);
+                            background: rgba(255,255,255,0.02);
+                        }
+                        .acti-jstage-icon {
+                            width: 30px; height: 30px;
+                            display: flex; align-items: center; justify-content: center;
+                            border-radius: 7px;
+                            font-size: 13px;
+                        }
+                        .acti-jstage-name { font-weight: 700; font-size: 13.5px; color: var(--text-primary, #fff); }
+                        .acti-jstage-sig { font-size: 12px; line-height: 1.6; color: var(--text-secondary, #cbd5e1); }
+                        [data-theme="light"] .acti-jstage { background: rgba(0,0,0,0.015); }
+
+                        /* ── Tools grid ── */
+                        .acti-tools {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                            gap: 16px;
+                            margin: 20px 0 16px;
+                        }
+                        .acti-tool-card {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            padding: 18px;
+                            border-radius: 12px;
+                            border: 1px solid var(--border-color, #333);
+                            background: var(--bg-glass, rgba(255,255,255,0.03));
+                        }
+                        .acti-tool-head { display: flex; align-items: center; gap: 12px; }
+                        .acti-tool-logo {
+                            width: 34px; height: 34px;
+                            border-radius: 8px;
+                            object-fit: contain;
+                            background: rgba(255,255,255,0.9);
+                            padding: 4px;
+                            flex-shrink: 0;
+                        }
+                        .acti-tool-name { font-weight: 700; font-size: 15px; color: var(--text-primary, #fff); }
+                        .acti-tool-tag { font-size: 11px; color: var(--text-muted, #888); }
+                        .acti-tool-desc { font-size: 12.5px; line-height: 1.65; color: var(--text-secondary, #cbd5e1); margin: 0 !important; }
+                        .acti-tool-steps {
+                            margin: 0 !important;
+                            padding-left: 18px !important;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 5px;
+                        }
+                        .acti-tool-steps li { font-size: 12px !important; line-height: 1.6 !important; color: var(--text-secondary, #cbd5e1); }
+                        .acti-tool-steps code { font-size: 11px; }
+                        .acti-tool-link {
+                            margin-top: auto;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 6px;
+                            font-size: 12px;
+                            font-weight: 600;
+                        }
+                        .acti-tool-link i { font-size: 10px; }
+                        .acti-tools-footnote {
+                            font-size: 13px;
+                            color: var(--text-secondary, #cbd5e1);
+                        }
+                        .acti-tools-footnote i { color: #3b82f6; margin-right: 6px; }
+
+                        /* ── Light theme tuning ── */
+                        [data-theme="light"] .acti-diagram { background: rgba(0,0,0,0.015); }
+                        [data-theme="light"] .acti-gap-badge { color: #b45309; }
+                        [data-theme="light"] .acti-gap-good { color: #7e22ce; }
+                        [data-theme="light"] .acti-pill.amber  { color: #b45309; }
+                        [data-theme="light"] .acti-pill.green  { color: #15803d; }
+                        [data-theme="light"] .acti-pill.red    { color: #b91c1c; }
+                        [data-theme="light"] .acti-pill.purple { color: #7e22ce; }
+                        [data-theme="light"] .acti-step.stuck .acti-step-name { color: #b45309; }
+                        [data-theme="light"] .acti-table th { border-bottom-color: rgba(0,0,0,0.08); }
+                        [data-theme="light"] .acti-table td { border-bottom-color: rgba(0,0,0,0.05); }
+                        [data-theme="light"] .acti-tool-logo { background: #f4f4f5; }
+
+                        /* ── Responsive: stack flows vertically on narrow screens ── */
+                        @media (max-width: 860px) {
+                            .acti-flow {
+                                flex-direction: column;
+                                align-items: center;
+                                gap: 8px;
+                                width: 100%;
+                                min-width: 0;
+                            }
+                            .acti-stage { max-width: 100%; }
+                            .acti-stage-action { width: auto; min-width: 240px; }
+                            .acti-link.acti-link-down {
+                                transform: rotate(90deg);
+                                width: 44px;
+                                margin: 10px 0;
+                            }
+                            .acti-link.acti-link-down .acti-link-label {
+                                transform: translateX(-50%) rotate(-90deg);
+                                top: 50%;
+                                left: calc(50% + 26px);
+                            }
+                        }
+                    </style>
+
+                    <div class="page-nav">
+                        <a href="take-action.html" class="nav-card prev-card">
+                            <span class="nav-label">Previous</span>
+                            <span class="nav-title">Take Action</span>
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </a>
+                        <a href="public/api/get-segments.html" class="nav-card next-card">
+                            <span class="nav-label">Next</span>
+                            <span class="nav-title">GetSegments API</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <footer class="content-footer">
+                        <p>Was this page helpful?</p>
+                        <div class="feedback-btns">
+                            <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                            <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                        </div>
+                        <div class="footer-links">
+                            <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank"
+                                rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                            <a class="last-updated" href="#" tabindex="-1" aria-disabled="true"
+                                data-file="account-intelligence.html">Last updated: June 4, 2026</a>
+                        </div>
+                    </footer>
+                </section>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#the-pattern" class="toc-link active">The pattern</a>
+                    <a href="#examples" class="toc-link">Examples</a>
+                    <a href="#signed-up-not-activated" class="toc-link">1 · Signed up, not activated</a>
+                    <a href="#activation-struggling" class="toc-link">2 · Struggling to activate</a>
+                    <a href="#activated-not-converted" class="toc-link">3 · Activated, not converted</a>
+                    <a href="#converted-disengaging" class="toc-link">4 · Converted, disengaging</a>
+                    <a href="#every-stage" class="toc-link">5 · Every other stage</a>
+                    <a href="#wire-up-tools" class="toc-link">Wire up your tools</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

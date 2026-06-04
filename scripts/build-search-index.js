@@ -71,6 +71,7 @@ function inferSection(pageUrl) {
     if (page === "startup-cohort-discount.html") return "Discounts";
     if (page.startsWith("guided-")) return "Guides";
     if (page === "take-action.html") return "Take Action";
+    if (page === "account-intelligence.html") return "Take Action";
     if (
         page === "accelerate-free-to-paid.html" ||
         page === "drive-revenue-playbooks.html" ||

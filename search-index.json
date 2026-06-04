@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-05-27T12:18:26.425Z",
+  "generatedAt": "2026-06-04T12:35:21.098Z",
   "source": "thrivestack-documentation",
   "entries": [
     {
@@ -40,6 +40,55 @@
         "paywall",
         "expansion",
         "revenue"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "account-intelligence-Account-Intelligence",
+      "title": "Account Intelligence",
+      "url": "account-intelligence.html",
+      "section": "Take Action",
+      "description": "Every lifecycle gap is a list of accounts waiting for an action. Find exactly the accounts behind each signal — then drive the play: nudge, nurture, upsell, or save.",
+      "keywords": [
+        "account_intelligence",
+        "account",
+        "intelligence",
+        "playbooks",
+        "activation",
+        "churn",
+        "pql",
+        "upsell",
+        "disengaging",
+        "signed_up",
+        "signed",
+        "getaccounts",
+        "getsegments",
+        "brevo",
+        "n8n",
+        "openclaw",
+        "automation"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "account-intelligence-account-intelligence-The-pattern-drive-action-which-accounts",
+      "title": "Account Intelligence",
+      "url": "account-intelligence.html#account-intelligence",
+      "section": "Take Action",
+      "description": "Every lifecycle gap is a list of accounts waiting for an action. Find exactly the accounts behind each signal — then drive the play: nudge, nurture, upsell, or save.",
+      "keywords": [
+        "drive_action",
+        "drive",
+        "action",
+        "which_accounts",
+        "accounts",
+        "signals",
+        "lifecycle",
+        "gap",
+        "segments",
+        "filters",
+        "take_action",
+        "take"
       ],
       "deprecated": false
     },
@@ -1030,7 +1079,7 @@
       "title": "GetAccounts",
       "url": "public/api/get-accounts.html",
       "section": "API",
-      "description": "Fetch a paginated, filtered, and sorted list of accounts enriched with acquisition, activation, monetization, engagement, expansion, and firmographic data. Use this endpoint to power customer health dashboards, segment-based automations, and CRM exports. filters[].key and sort.key must use paths recognized by the growth-intelligence account list registry (see accountFieldByGraphQLKey in public-api-events ).",
+      "description": "Fetch a paginated, filtered, and sorted list of accounts enriched with acquisition, activation, monetization, engagement, expansion, and firmographic data — to power customer-health dashboards, segment automations, and CRM exports.",
       "keywords": [
         "getaccounts",
         "graphql",
@@ -1126,7 +1175,7 @@
       "title": "GetAccounts",
       "url": "public/api/get-accounts.html#get-accounts",
       "section": "API",
-      "description": "Fetch a paginated, filtered, and sorted list of accounts enriched with acquisition, activation, monetization, engagement, expansion, and firmographic data. Use this endpoint to power customer health dashboards, segment-based automations, and CRM exports. filters[].key and sort.key must use paths recognized by the growth-intelligence account list registry (see accountFieldByGraphQLKey in public-api-events ).",
+      "description": "Fetch a paginated, filtered, and sorted list of accounts enriched with acquisition, activation, monetization, engagement, expansion, and firmographic data — to power customer-health dashboards, segment automations, and CRM exports.",
       "keywords": [
         "getaccounts",
         "graphql",
@@ -1146,7 +1195,7 @@
       "title": "GetAccounts",
       "url": "public/api/get-accounts.html#input",
       "section": "API",
-      "description": "Input: GetAccountsRequest",
+      "description": "Input fields in detail",
       "keywords": [
         "getaccounts",
         "GetAccountsRequest",
@@ -1156,6 +1205,40 @@
         "limit",
         "offset",
         "graphql"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-accounts-request-What-you-send",
+      "title": "GetAccounts",
+      "url": "public/api/get-accounts.html#request",
+      "section": "API",
+      "description": "What you send",
+      "keywords": [
+        "public",
+        "api",
+        "get-accounts",
+        "html",
+        "getaccounts",
+        "send",
+        "request"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-accounts-response-What-you-get",
+      "title": "GetAccounts",
+      "url": "public/api/get-accounts.html#response",
+      "section": "API",
+      "description": "What you get",
+      "keywords": [
+        "public",
+        "api",
+        "get-accounts",
+        "html",
+        "getaccounts",
+        "get",
+        "response"
       ],
       "deprecated": false
     },
@@ -1175,6 +1258,164 @@
         "practices",
         "registry",
         "accountFieldByGraphQLKey"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-segments-GetSegments",
+      "title": "GetSegments",
+      "url": "public/api/get-segments.html",
+      "section": "API",
+      "description": "List the saved segments for your product and environment. Use a segment's id or systemName with the segmentId input on GetAccounts or GetUsers to apply its saved filters.",
+      "keywords": [
+        "public",
+        "api",
+        "get-segments",
+        "html",
+        "getsegments",
+        "list",
+        "saved",
+        "segments",
+        "product",
+        "environment",
+        "use",
+        "segment"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-segments-curl-example-cURL",
+      "title": "GetSegments",
+      "url": "public/api/get-segments.html#curl-example",
+      "section": "API",
+      "description": "cURL",
+      "keywords": [
+        "public",
+        "api",
+        "get-segments",
+        "html",
+        "getsegments",
+        "curl",
+        "curl-example"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-segments-example-request-Example-request",
+      "title": "GetSegments",
+      "url": "public/api/get-segments.html#example-request",
+      "section": "API",
+      "description": "Example request",
+      "keywords": [
+        "public",
+        "api",
+        "get-segments",
+        "html",
+        "getsegments",
+        "request",
+        "example-request"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-segments-example-response-Example-response",
+      "title": "GetSegments",
+      "url": "public/api/get-segments.html#example-response",
+      "section": "API",
+      "description": "Example response",
+      "keywords": [
+        "public",
+        "api",
+        "get-segments",
+        "html",
+        "getsegments",
+        "response",
+        "example-response"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-segments-get-segments-API-details",
+      "title": "GetSegments",
+      "url": "public/api/get-segments.html#get-segments",
+      "section": "API",
+      "description": "List the saved segments for your product and environment. Use a segment's id or systemName with the segmentId input on GetAccounts or GetUsers to apply its saved filters.",
+      "keywords": [
+        "public",
+        "api",
+        "get-segments",
+        "html",
+        "getsegments"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-segments-request-What-you-send",
+      "title": "GetSegments",
+      "url": "public/api/get-segments.html#request",
+      "section": "API",
+      "description": "What you send",
+      "keywords": [
+        "public",
+        "api",
+        "get-segments",
+        "html",
+        "getsegments",
+        "send",
+        "request"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-segments-response-What-you-get",
+      "title": "GetSegments",
+      "url": "public/api/get-segments.html#response",
+      "section": "API",
+      "description": "What you get",
+      "keywords": [
+        "public",
+        "api",
+        "get-segments",
+        "html",
+        "getsegments",
+        "get",
+        "response"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-segments-segment-fields-Segment-fields",
+      "title": "GetSegments",
+      "url": "public/api/get-segments.html#segment-fields",
+      "section": "API",
+      "description": "Segment fields",
+      "keywords": [
+        "public",
+        "api",
+        "get-segments",
+        "html",
+        "getsegments",
+        "segment",
+        "fields",
+        "segment-fields"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-segments-tips-Tips-and-best-practices",
+      "title": "GetSegments",
+      "url": "public/api/get-segments.html#tips",
+      "section": "API",
+      "description": "Tips and best practices",
+      "keywords": [
+        "public",
+        "api",
+        "get-segments",
+        "html",
+        "getsegments",
+        "tips",
+        "best",
+        "practices"
       ],
       "deprecated": false
     },
@@ -1479,7 +1720,7 @@
       "title": "GetUsers",
       "url": "public/api/get-users.html",
       "section": "API",
-      "description": "Fetch a paginated, filtered, and sorted list of users enriched with acquisition, engagement, and demographic data. Use this endpoint to segment your user base, build cohort analysis, and power user-level personalization. filters[].key and sort.key must use paths recognized by the growth-intelligence user list registry ( userFieldByGraphQLKey in the public-api-events service). Invalid keys produce a GraphQL error.",
+      "description": "Fetch a paginated, filtered, and sorted list of users enriched with acquisition, engagement, and demographic data — to segment your user base, build cohorts, and power user-level personalization.",
       "keywords": [
         "getusers",
         "graphql",
@@ -1551,7 +1792,7 @@
       "title": "GetUsers",
       "url": "public/api/get-users.html#get-users",
       "section": "API",
-      "description": "Fetch a paginated, filtered, and sorted list of users enriched with acquisition, engagement, and demographic data. Use this endpoint to segment your user base, build cohort analysis, and power user-level personalization. filters[].key and sort.key must use paths recognized by the growth-intelligence user list registry ( userFieldByGraphQLKey in the public-api-events service). Invalid keys produce a GraphQL error.",
+      "description": "Fetch a paginated, filtered, and sorted list of users enriched with acquisition, engagement, and demographic data — to segment your user base, build cohorts, and power user-level personalization.",
       "keywords": [
         "getusers",
         "graphql",
@@ -1571,7 +1812,7 @@
       "title": "GetUsers",
       "url": "public/api/get-users.html#input",
       "section": "API",
-      "description": "Input: GetUsersRequest",
+      "description": "Input fields in detail",
       "keywords": [
         "getusers",
         "GetUsersRequest",
@@ -1581,6 +1822,40 @@
         "limit",
         "offset",
         "graphql"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-users-request-What-you-send",
+      "title": "GetUsers",
+      "url": "public/api/get-users.html#request",
+      "section": "API",
+      "description": "What you send",
+      "keywords": [
+        "public",
+        "api",
+        "get-users",
+        "html",
+        "getusers",
+        "send",
+        "request"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-api-get-users-response-What-you-get",
+      "title": "GetUsers",
+      "url": "public/api/get-users.html#response",
+      "section": "API",
+      "description": "What you get",
+      "keywords": [
+        "public",
+        "api",
+        "get-users",
+        "html",
+        "getusers",
+        "get",
+        "response"
       ],
       "deprecated": false
     },
