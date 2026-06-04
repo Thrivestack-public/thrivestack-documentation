@@ -1,0 +1,43 @@
+ThriveStack instrumentation update — consumer-domain (non-work email) grouping
+
+Your codebase already has ThriveStack instrumentation with thriveStack.group()
+calls. Do not re-instrument or add new events — only modify the existing
+group() calls.
+
+1. Add a shared helper isPublicEmailDomain(email) near your auth utilities. It
+   checks user.email.split('@')[1] (lowercased, trimmed) against a maintainable
+   set of consumer email providers:
+
+     gmail.com, googlemail.com, yahoo.com, ymail.com, hotmail.com, outlook.com,
+     live.com, msn.com, icloud.com, me.com, mac.com, aol.com, protonmail.com,
+     proton.me, gmx.com, mail.com, zoho.com, yandex.com, fastmail.com, qq.com,
+     163.com
+
+   Treat this list as an extensible allow-set of consumer domains.
+
+2. Update every existing group() call (the account-creation/signup handler, the
+   login re-fire, and the B2C fallback) so the Account traits are derived
+   conditionally:
+
+   - If isPublicEmailDomain(user.email) is true — change the existing
+     account_name and account_domain to the user's FULL email address
+     (e.g. jane@gmail.com), and confirm group_id is the per-user account id /
+     user.id — never the bare domain, never a value shared across users on the
+     same provider. This makes each consumer-domain user a distinct,
+     email-specific group instead of collapsing all gmail users into one
+     account.
+
+   - Otherwise (work/corporate domain) — leave the existing account_name,
+     account_domain, and group_id exactly as they are now.
+
+   Preserve everything else in the existing group() payloads (group_type,
+   context.group_id, timestamp, structure) unchanged.
+
+3. EU compliance: if EU mode is active in the existing instrumentation, the
+   full-email account_name/account_domain for consumer-domain users is PII —
+   pass it through the same anonymiseUserId SHA-256 hash already used for
+   email-based user_id, or strip it consistently with the existing B2C EU
+   handling. Work-domain accounts are unaffected (business domain, not PII).
+
+4. After updating, re-run the existing verification step and note in the
+   summary which group() calls were switched to email-specific grouping.

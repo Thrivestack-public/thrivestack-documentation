@@ -90,6 +90,7 @@
                     <li><a href="../../public/api/get-user-by-id.html" class="nav-item"><span>GetUserById</span></a></li>
                     <li><a href="../../public/api/get-account-enrichment.html" class="nav-item"><span>GetAccountEnrichment</span></a></li>
                     <li><a href="../../public/api/get-user-enrichment.html" class="nav-item"><span>GetUserEnrichment</span></a></li>
+                    <li><a href="../../public/api/get-segments.html" class="nav-item"><span>GetSegments</span></a></li>
                 </ul>
             </div>
         </aside>
@@ -107,10 +108,9 @@
                         <span class="doc-page-header-eyebrow">GraphQL · Growth Intelligence</span>
                         <h1 class="doc-page-title">GetUsers</h1>
                         <p class="doc-page-description">
-                            Fetch a paginated, filtered, and sorted list of users enriched with acquisition, engagement, and demographic data.
-                            Use this endpoint to segment your user base, build cohort analysis, and power user-level personalization.
-                            <code>filters[].key</code> and <code>sort.key</code> must use paths recognized by the growth-intelligence user list registry
-                            (<code>userFieldByGraphQLKey</code> in the public-api-events service). Invalid keys produce a GraphQL error.
+                            Fetch a paginated, filtered, and sorted list of users enriched with acquisition, engagement,
+                            and demographic data — to segment your user base, build cohorts, and power user-level
+                            personalization.
                         </p>
                     </header>
 
@@ -131,10 +131,41 @@
                             </table>
                         </section>
 
+                        <section id="request" class="content-section">
+                            <h2>What you send</h2>
+                            <p>Operation <code>query GetUsers($input: GetUsersRequest!)</code>. Every field is optional —
+                                send an empty <code>input</code> to get the first page of all users.</p>
+                            <table class="params-table">
+                                <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                                <tbody>
+                                    <tr><td><code>filters</code></td><td><code>[Filter!]</code></td><td>No</td><td>Conditions a user must match, all ANDed together. <a href="#filters">Details →</a></td></tr>
+                                    <tr><td><code>segmentId</code></td><td><code>String</code></td><td>No</td><td>Apply a saved segment's filters (by id or system name). <a href="#segment">Details →</a></td></tr>
+                                    <tr><td><code>sort</code></td><td><code>Sort</code></td><td>No</td><td>Order results by one field. <a href="#sort">Details →</a></td></tr>
+                                    <tr><td><code>pagination</code></td><td><code>Pagination</code></td><td>No</td><td>Page number and size. Defaults to page 1, size 10. <a href="#pagination">Details →</a></td></tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                        <section id="response" class="content-section">
+                            <h2>What you get</h2>
+                            <p>A <code>GetUsersResponse</code> — the matching users for the requested page:</p>
+                            <pre><code>{
+  "data": {
+    "getUsers": {
+      "user": [ User, … ],     // matching users for this page
+      "message": "success"      // optional status note; may be omitted
+    }
+  }
+}</code></pre>
+                            <p>Each <code>User</code> nests its fields under <code>acquisition</code>,
+                                <code>engagement</code>, and <code>demographics</code>, plus an <code>account</code> list.
+                                The <a href="#user-fields">User fields</a> table lists every path, its type, and whether
+                                you can filter or sort on it.</p>
+                        </section>
+
                         <section id="user-fields" class="content-section">
                             <h2>User fields</h2>
-                            <p>Use this reference when choosing <code>filters[].key</code> and <code>sort.key</code>. It lists paths on <code>User</code> (and nested objects) and whether filtering or sorting is allowed.
-                            <code>account.*</code> is returned in query results but is not in that registry yet for filter/sort.</p>
+                            <p>Every field on <code>User</code>, its type, and whether it can be used as a <code>filters[].key</code> or <code>sort.key</code>. Fields marked <strong>No</strong> (including all <code>account.*</code> paths) are still returned in the response — they just can't drive filtering or sorting.</p>
                             <h5>Basic</h5>
                             <table class="params-table">
                                 <thead><tr><th>Path</th><th>Label</th><th>Filter</th><th>Sort</th><th>Type</th><th>Description</th><th>Example</th></tr></thead>
@@ -226,8 +257,8 @@
                         </section>
 
                         <section id="input" class="content-section">
-                            <h2>Input: <code>GetUsersRequest</code></h2>
-                            <p>All three input fields are optional — omit them to retrieve the first page of all users. Combine <code>filters</code>, <code>sort</code>, and <code>pagination</code> to build segments.</p>
+                            <h2>Input fields in detail</h2>
+                            <p>The shape and rules for each <code>GetUsersRequest</code> field.</p>
 
                             <h3 id="filters"><code>filters</code> · optional · array</h3>
                             <p>An array of filter objects. All filters are <strong>ANDed</strong>: a user must satisfy every filter. Each object has:</p>
@@ -250,6 +281,10 @@
                                     <tr><td><code>less_than_or_equal</code></td><td>≤</td><td>Numeric or date comparison (inclusive)</td><td><code>key: "engagement.totalSignIns"</code>, <code>value: "100"</code></td></tr>
                                 </tbody>
                             </table>
+
+                            <h3 id="segment"><code>segmentId</code> · optional · string</h3>
+                            <p>Apply a saved <strong>user segment</strong>'s filters instead of (or together with) inline <code>filters</code> — both are ANDed. Pass the segment's id or system name (list them with <a href="get-segments.html">GetSegments</a>). Curated segments are not supported and return an error.</p>
+                            <pre><code>{ "segmentId": "active_users" }</code></pre>
 
                             <h3 id="sort"><code>sort</code> · optional · object</h3>
                             <p>Sort by exactly one field per request. <code>sort.key</code> must be a path whose <strong>Sort</strong> column is <strong>Yes</strong> in the User fields table above.</p>
@@ -414,7 +449,7 @@
                             <ul>
                                 <li><strong>Filter values are always strings</strong> — use <code>"true"</code> / <code>"false"</code> for booleans and numeric strings for numbers; the server coerces them.</li>
                                 <li><strong>All filters are ANDed.</strong> Use separate filter objects for each condition (e.g. active and 10+ sign-ins).</li>
-                                <li><strong>Account on the user record:</strong> query <code>account { id name source timestamp }</code> as a list of <code>UserAccount</code>. <code>account.*</code> is not filterable/sortable in the current user-list registry; prefer <code>email</code>, <code>demographics.employmentDomain</code>, or other fields, then narrow client-side if needed.</li>
+                                <li><strong>Account on the user record:</strong> select <code>account { id name source timestamp }</code> (a list of <code>UserAccount</code>). <code>account.*</code> can't be filtered or sorted — narrow with <code>email</code> or <code>demographics.employmentDomain</code> instead, then refine client-side.</li>
                                 <li><strong>Organic power users:</strong> e.g. <code>acquisition.isInvited</code> <code>equals</code> <code>"false"</code> with high <code>engagement.totalSignIns</code>.</li>
                                 <li><strong>Paginate</strong> by incrementing <code>pagination.number</code> until <code>user</code> is empty.</li>
                             </ul>
@@ -455,10 +490,13 @@
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
                     <a href="#api-details" class="toc-link active">API details</a>
+                    <a href="#request" class="toc-link">What you send</a>
+                    <a href="#response" class="toc-link">What you get</a>
                     <a href="#user-fields" class="toc-link">User fields</a>
-                    <a href="#input" class="toc-link">Input</a>
+                    <a href="#input" class="toc-link">Input details</a>
                     <a href="#filters" class="toc-link">Filters</a>
                     <a href="#filter-operators" class="toc-link">Operators</a>
+                    <a href="#segment" class="toc-link">Segment</a>
                     <a href="#sort" class="toc-link">Sort</a>
                     <a href="#pagination" class="toc-link">Pagination</a>
                     <a href="#example-request" class="toc-link">Example request</a>

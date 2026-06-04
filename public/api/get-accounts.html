@@ -103,6 +103,7 @@
                             class="nav-item"><span>GetAccountEnrichment</span></a></li>
                     <li><a href="../../public/api/get-user-enrichment.html"
                             class="nav-item"><span>GetUserEnrichment</span></a></li>
+                    <li><a href="../../public/api/get-segments.html" class="nav-item"><span>GetSegments</span></a></li>
                 </ul>
             </div>
         </aside>
@@ -121,11 +122,8 @@
                         <h1 class="doc-page-title">GetAccounts</h1>
                         <p class="doc-page-description">
                             Fetch a paginated, filtered, and sorted list of accounts enriched with acquisition,
-                            activation, monetization, engagement, expansion, and firmographic data. Use this endpoint to
-                            power customer health dashboards, segment-based automations, and CRM exports.
-                            <code>filters[].key</code> and <code>sort.key</code> must use paths recognized by the
-                            growth-intelligence account list registry (see <code>accountFieldByGraphQLKey</code> in
-                            <code>public-api-events</code>).
+                            activation, monetization, engagement, expansion, and firmographic data — to power
+                            customer-health dashboards, segment automations, and CRM exports.
                         </p>
                     </header>
 
@@ -168,10 +166,68 @@
                                 </tbody>
                             </table>
                         </section>
+                        <section id="request" class="content-section">
+                            <h2>What you send</h2>
+                            <p>Operation <code>query GetAccounts($input: GetAccountsRequest!)</code>. Every field is
+                                optional — send an empty <code>input</code> to get the first page of all accounts.</p>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>filters</code></td>
+                                        <td><code>[Filter!]</code></td>
+                                        <td>No</td>
+                                        <td>Conditions an account must match, all ANDed together. <a href="#filters">Details →</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>segmentId</code></td>
+                                        <td><code>String</code></td>
+                                        <td>No</td>
+                                        <td>Apply a saved segment's filters (by id or system name). <a href="#segment">Details →</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>sort</code></td>
+                                        <td><code>Sort</code></td>
+                                        <td>No</td>
+                                        <td>Order results by one field. <a href="#sort">Details →</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>pagination</code></td>
+                                        <td><code>Pagination</code></td>
+                                        <td>No</td>
+                                        <td>Page number and size. Defaults to page 1, size 10. <a href="#pagination">Details →</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                        <section id="response" class="content-section">
+                            <h2>What you get</h2>
+                            <p>A <code>GetAccountsResponse</code> — the matching accounts for the requested page:</p>
+                            <pre><code>{
+  "data": {
+    "getAccounts": {
+      "account": [ Account, … ],   // matching accounts for this page
+      "message": "success"          // optional status note; may be omitted
+    }
+  }
+}</code></pre>
+                            <p>Each <code>Account</code> nests its fields under <code>acquisition</code>,
+                                <code>activation</code>, <code>monetization</code>, <code>engagement</code>,
+                                <code>expansion</code>, and <code>firmographics</code>. The
+                                <a href="#account-fields">Account fields</a> table lists every path, its type, and
+                                whether you can filter or sort on it.</p>
+                        </section>
                         <section id="account-fields" class="content-section">
                             <h2>Account fields</h2>
                             <p class="doc-muted-label">Filter &amp; sort reference</p>
-                            <p>Use this table when choosing <code>filters[].key</code> and <code>sort.key</code>. It lists every path on <code>Account</code> (and nested objects) and whether the growth-intelligence account list allows it for filtering or sorting (see <code>accountFieldByGraphQLKey</code> in <code>public-api-events</code>). Paths with <strong>Filter</strong> or <strong>Sort</strong> set to <strong>No</strong> are still valid in GraphQL selections (for example <code>acquisition.abuseRuleResult</code>, <code>activation.*</code>) but cannot be used as <code>filters[].key</code> or <code>sort.key</code> until the registry exposes them. Invalid keys produce a GraphQL error.</p>
+                            <p>Every field on <code>Account</code>, its type, and whether it can be used as a <code>filters[].key</code> or <code>sort.key</code>. Fields marked <strong>No</strong> are still returned in the response — they just can't drive filtering or sorting. An unknown or non-filterable key returns an error.</p>
                             <div class="doc-table-xscroll">
                             <table class="params-table">
                                 <thead>
@@ -278,10 +334,8 @@
                             </div>
                         </section>
                         <section id="input" class="content-section">
-                            <h2>Input: <code>GetAccountsRequest</code></h2>
-                            <p>All three input fields are optional — omit them to retrieve the first page of all
-                                accounts. Combine <code>filters</code>, <code>sort</code>, and <code>pagination</code>
-                                to build segmentation queries.</p>
+                            <h2>Input fields in detail</h2>
+                            <p>The shape and rules for each <code>GetAccountsRequest</code> field.</p>
 
                             <h3 id="filters"><code>filters</code> · optional · array</h3>
                             <p>An array of filter objects. All filters are <strong>ANDed</strong> together: an account
@@ -346,10 +400,17 @@
                                 </tbody>
                             </table>
 
+                            <h3 id="segment"><code>segmentId</code> · optional · string</h3>
+                            <p>Apply a saved <strong>account segment</strong>'s filters instead of (or together with)
+                                inline <code>filters</code> — both are ANDed. Pass the segment's id or system name (list
+                                them with <a href="get-segments.html">GetSegments</a>). Curated segments are not
+                                supported and return an error.</p>
+                            <pre><code>{ "segmentId": "enterprise_accounts" }</code></pre>
+
                             <h3 id="sort"><code>sort</code> · optional · object</h3>
                             <p>Sort by exactly one field per request. <code>sort.key</code> must be a path whose
                                 <strong>Sort</strong> column is <strong>Yes</strong> in the <a href="#account-fields">Account fields</a>
-                                table (same rules as <code>accountFieldByGraphQLKey</code>).</p>
+                                table.</p>
                             <pre><code>{
   "key": "&lt;dot-notation path — Sort = Yes in Account fields table&gt;",
   "direction": "asc" | "desc"
@@ -578,10 +639,10 @@
                                     numbers.</li>
                                 <li><strong>All filters are ANDed.</strong> To segment Pro accounts that are also
                                     healthy, add two separate filter objects rather than combining values.</li>
-                                <li><strong>Registry vs GraphQL.</strong> The Account fields table mirrors
-                                    <code>accountFieldByGraphQLKey</code> for list filters/sort. You can still query
-                                    response-only paths (for example <code>activation</code>,
-                                    <code>acquisition.abuseRuleResult</code>) in GraphQL when you need them on the wire.</li>
+                                <li><strong>Some fields are response-only.</strong> Paths marked <strong>No</strong> in
+                                    the Account fields table (e.g. <code>activation.*</code>,
+                                    <code>acquisition.abuseRuleResult</code>) can't filter or sort, but are still
+                                    returned when you select them.</li>
                                 <li><strong>Request only the fields you need.</strong> Omitting heavy objects like
                                     <code>firmographics</code> or <code>acquisition.abuseRuleResult</code> meaningfully
                                     reduces response size.</li>
@@ -632,10 +693,13 @@
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
                     <a href="#api-details" class="toc-link active">API details</a>
+                    <a href="#request" class="toc-link">What you send</a>
+                    <a href="#response" class="toc-link">What you get</a>
                     <a href="#account-fields" class="toc-link">Account fields</a>
-                    <a href="#input" class="toc-link">Input</a>
+                    <a href="#input" class="toc-link">Input details</a>
                     <a href="#filters" class="toc-link">Filters</a>
                     <a href="#filter-operators" class="toc-link">Operators</a>
+                    <a href="#segment" class="toc-link">Segment</a>
                     <a href="#sort" class="toc-link">Sort</a>
                     <a href="#pagination" class="toc-link">Pagination</a>
                     <a href="#example-request" class="toc-link">Example request</a>
