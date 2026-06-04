@@ -191,7 +191,7 @@
                                         <td><code>segmentId</code></td>
                                         <td><code>String</code></td>
                                         <td>No</td>
-                                        <td>Apply a saved segment's filters (by id or system name). <a href="#segment">Details →</a></td>
+                                        <td>Apply a saved segment's filters (by <code>id</code> or <code>systemName</code>). Use <a href="get-segments.html">GetSegments</a> to list available segments. <a href="#segment">Details →</a></td>
                                     </tr>
                                     <tr>
                                         <td><code>sort</code></td>
@@ -402,10 +402,12 @@
                             </table>
 
                             <h3 id="segment"><code>segmentId</code> · optional · string</h3>
+                            <blockquote class="note-callout">
+                                <strong>Getting segment IDs:</strong> Call <a href="get-segments.html">GetSegments</a> first to retrieve the <code>id</code> and <code>systemName</code> values for your saved segments. Pass either value here as <code>segmentId</code>.
+                            </blockquote>
                             <p>Apply a saved <strong>account segment</strong>'s filters instead of (or together with)
-                                inline <code>filters</code> — both are ANDed. Pass the segment's id or system name (list
-                                them with <a href="get-segments.html">GetSegments</a>). Curated segments are not
-                                supported and return an error.</p>
+                                inline <code>filters</code> — both are ANDed. Only <code>Accounts</code>-type segments
+                                are valid here; curated segments are not supported and return an error.</p>
                             <pre><code>{ "segmentId": "enterprise_accounts" }</code></pre>
 
                             <h3 id="sort"><code>sort</code> · optional · object</h3>
