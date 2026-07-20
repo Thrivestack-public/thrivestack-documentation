@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MCP Use Cases - ThriveStack Documentation">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>MCP Use Cases - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <script
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
+        api-key="i1rPJo38lB6hR2qZC5iNNz0xcGRuBYIKRVYfTBdpJyY="
+        source="marketing">
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../index.html">Get Started</a>
+                <a href="../../setup-overview.html">Setup (Unify)</a>
+                <a href="../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../take-action.html">Take Action</a>
+                <a href="../../api-reference.html">API Reference</a>
+                <a href="../../public/mcp/introduction.html" class="active">MCP</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../public/mcp/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="../../public/mcp/setup.html" class="nav-item"><span>Setup</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="../../public/mcp/use-cases.html" class="nav-item active"><span>Use Cases</span></a></li>
+                    <li><a href="../../public/mcp/prompts.html" class="nav-item"><span>Prompts</span></a></li>
+                    <li><a href="../../public/mcp/tools.html" class="nav-item"><span>Tools</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <div class="breadcrumbs">
+                    <a href="../../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                    <a href="../../public/mcp/introduction.html">MCP</a> <i class="fa-solid fa-chevron-right"></i>
+                    <span>Use Cases</span>
+                </div>
+                <header class="doc-page-header">
+                    <span class="doc-page-header-eyebrow">ThriveStack MCP</span>
+                    <h1 class="doc-page-title">Use Cases</h1>
+                    <p class="doc-page-description">
+                        Example prompts and workflows for the ThriveStack MCP Server. Browse by type if you need ideas on what to ask.
+                    </p>
+                </header>
+
+                <section id="getting-started" class="content-section">
+                    <p>Start by asking your AI assistant to list your projects, then pick one:</p>
+                    <blockquote class="note-callout">&ldquo;List my ThriveStack projects&rdquo;</blockquote>
+                    <blockquote class="note-callout">
+                        <i class="fa-solid fa-clock" style="margin-right: 4px;"></i>
+                        Include a time range in your questions. &ldquo;Last 30 days&rdquo;, &ldquo;this month&rdquo;, or &ldquo;past week&rdquo; gets you better results.
+                    </blockquote>
+                    <blockquote class="note-callout">
+                        <i class="fa-solid fa-bolt" style="margin-right: 4px;"></i>
+                        For the most common workflows (weekly pulse, competitor radar, engine scorecard, source audit, campaign tracker), use a built-in prompt instead. One slash command runs the full analysis and formats the output.
+                    </blockquote>
+                </section>
+
+                <section id="example-workflows" class="content-section query-examples">
+                    <h2>Example workflows</h2>
+
+                    <h3>1. Brand visibility overview</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;How visible is my brand across AI search engines this month?&rdquo;</blockquote>
+                    <p>Returns your visibility percentage, sentiment score, share of voice, and average position across all tracked AI models.</p>
+
+                    <h3>2. Competitive benchmarking by AI model</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Compare our visibility against competitors, broken down by AI model&rdquo;</blockquote>
+                    <p>Table showing each brand&rsquo;s visibility across ChatGPT, Perplexity, Gemini, and other platforms. See where you lead and where competitors outperform you.</p>
+
+                    <h3>3. Source citation analysis</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Which of our pages get cited most by AI engines?&rdquo;</blockquote>
+                    <p>Ranked list of your URLs with citation counts, retrieval numbers, and page types.</p>
+
+                    <h3>4. Topic deep-dive</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;How do we perform on the topic &lsquo;sustainable fashion&rsquo; vs competitors?&rdquo;</blockquote>
+                    <p>Brand-by-brand comparison within a specific topic: visibility, share of voice, and sentiment.</p>
+
+                    <h3>5. Visibility trend</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Show me our visibility trend over the last 30 days&rdquo;</blockquote>
+                    <p>Daily visibility data with notable changes highlighted.</p>
+                </section>
+
+                <section id="more-ideas" class="content-section">
+                    <h2>More ideas</h2>
+
+                    <details class="tools-dropdown" id="more-ideas-brand-visibility" open>
+                        <summary class="tools-dropdown__summary">
+                            <span>Brand visibility</span>
+                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+                        </summary>
+                        <div class="tools-dropdown__content">
+                            <ul>
+                                <li>Visibility by AI model</li>
+                                <li>Topic-level performance</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="tools-dropdown" id="more-ideas-competitive">
+                        <summary class="tools-dropdown__summary">
+                            <span>Competitive analysis</span>
+                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+                        </summary>
+                        <div class="tools-dropdown__content">
+                            <ul>
+                                <li>Share of voice comparison</li>
+                                <li>Sentiment comparison</li>
+                                <li>Position analysis</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="tools-dropdown" id="more-ideas-sources">
+                        <summary class="tools-dropdown__summary">
+                            <span>Sources and citations</span>
+                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+                        </summary>
+                        <div class="tools-dropdown__content">
+                            <ul>
+                                <li>Top cited domains</li>
+                                <li>Your domain&rsquo;s performance</li>
+                                <li>Competitor source analysis</li>
+                                <li>Inspect why a URL wins citations</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="tools-dropdown" id="more-ideas-reporting">
+                        <summary class="tools-dropdown__summary">
+                            <span>Reporting</span>
+                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+                        </summary>
+                        <div class="tools-dropdown__content">
+                            <ul>
+                                <li>Weekly performance summary</li>
+                                <li>Country-level breakdown</li>
+                                <li>Content gap analysis</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="tools-dropdown" id="more-ideas-actions">
+                        <summary class="tools-dropdown__summary">
+                            <span>Actions and next steps</span>
+                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+                        </summary>
+                        <div class="tools-dropdown__content">
+                            <ul>
+                                <li>Ranked next steps for the quarter</li>
+                                <li>Drill into a specific opportunity</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="tools-dropdown" id="more-ideas-agent-analytics">
+                        <summary class="tools-dropdown__summary">
+                            <span>Agent analytics</span>
+                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+                        </summary>
+                        <div class="tools-dropdown__content">
+                            <p class="mt-4" style="color: var(--text-secondary); font-size: 0.95rem;">
+                                Pair these with your bot and crawler traffic view. The MCP exposes the same access-log data via <code>list_bots</code> and <code>get_agent_visits</code>, so an assistant can answer ad-hoc questions without leaving the chat.
+                            </p>
+                            <ul>
+                                <li>Which AI bots are hitting our site?</li>
+                                <li>What&rsquo;s our failure rate for AI bots?</li>
+                                <li>Which folders are bots crawling most?</li>
+                                <li>Has crawl activity changed over time?</li>
+                                <li>Tie bot traffic to AI visibility</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                </section>
+
+                <section id="edit-project-setup" class="content-section query-examples">
+                    <h2>Edit your project setup</h2>
+
+                    <h3>Add a prompt you just thought of</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Add this prompt to my project: &lsquo;best CRM for remote sales teams 2026&rsquo;. Target US, tag it &lsquo;competitive&rsquo;.&rdquo;</blockquote>
+                    <p>The assistant resolves the tag and the project, then confirms with you before calling <code>create_prompt</code>.</p>
+
+                    <h3>Re-organize prompts under a new topic</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Create a topic called &lsquo;Pricing&rsquo; and move every prompt that mentions &lsquo;cost&rsquo; or &lsquo;pricing&rsquo; into it.&rdquo;</blockquote>
+                    <p>The assistant lists matching prompts first, creates the topic, and calls <code>update_prompt</code> for each one. Only after you confirm the list.</p>
+
+                    <ul>
+                        <li>Track a new competitor brand</li>
+                        <li>Clean up stale tags</li>
+                        <li>Add a batch of prompts in one go</li>
+                        <li>Refine your brand profile so prompt suggestions improve</li>
+                    </ul>
+                </section>
+
+                <section id="real-world-workflows" class="content-section query-examples">
+                    <h2>Real-world workflows</h2>
+                    <ul>
+                        <li>Fix outdated information in AI sources</li>
+                        <li>Find which of your pages are losing AI citations</li>
+                    </ul>
+
+                    <h3>Find the prompts where a competitor beats you</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;For every prompt we track, compare our visibility to [Competitor] and rank the prompts where they beat us most.&rdquo;</blockquote>
+                    <p><code>get_brand_report</code> dimensioned by <code>prompt_id</code> for both brands returns a ranked gap table. Output: the exact queries where the competitor is mentioned and you are not. Use <code>list_prompts</code> to resolve <code>prompt_id</code> values to the actual prompt text for the final ranking.</p>
+
+                    <h3>Find the URL hurting your brand</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Which URLs are AI models citing most when they describe us negatively?&rdquo;</blockquote>
+                    <p>The MCP pulls <code>get_url_report</code> for top-retrieved pages, cross-references with per-chat sentiment via <code>list_chats</code> + <code>get_chat</code>, and surfaces the specific URLs dragging the score down. Often: an old review, a negative forum thread, or a competitor comparison page.</p>
+                </section>
+
+                <section id="tips" class="content-section">
+                    <h2>Tips</h2>
+                    <p>To make the experience smoother or complete, take a look at the following tips:</p>
+                    <ul>
+                        <li><strong>Include dates:</strong> Always specify a time range (e.g. &ldquo;Last 7 days&rdquo;, &ldquo;Last month&rdquo;).</li>
+                        <li><strong>Name brands:</strong> Mention specific competitors by name (e.g. &ldquo;How do I compare against [competitor]?&rdquo;).</li>
+                        <li><strong>Ask for breakdowns:</strong> &ldquo;Break down by model&rdquo; or &ldquo;split by topic&rdquo; gives per-dimension results.</li>
+                        <li><strong>Start broad, then drill down:</strong> Start with your overview, then follow up on what stands out.</li>
+                    </ul>
+                </section>
+
+                <div class="page-nav">
+                    <a href="../../public/mcp/setup.html" class="nav-card prev-card">
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">Setup</span>
+                    </a>
+                    <a href="../../public/mcp/prompts.html" class="nav-card next-card">
+                        <span class="nav-label">Next</span>
+                        <span class="nav-title">Prompts</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="use-cases.html">Last updated: July 20, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#getting-started" class="toc-link active">Getting started</a>
+                    <a href="#example-workflows" class="toc-link">Example workflows</a>
+                    <a href="#more-ideas" class="toc-link">More ideas</a>
+                    <a href="#edit-project-setup" class="toc-link">Edit your project setup</a>
+                    <a href="#real-world-workflows" class="toc-link">Real-world workflows</a>
+                    <a href="#tips" class="toc-link">Tips</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../../script.js"></script>
+</body>
+</html>

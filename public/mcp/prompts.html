@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MCP Prompts - ThriveStack Documentation">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>MCP Prompts - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <script
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
+        api-key="i1rPJo38lB6hR2qZC5iNNz0xcGRuBYIKRVYfTBdpJyY="
+        source="marketing">
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../index.html">Get Started</a>
+                <a href="../../setup-overview.html">Setup (Unify)</a>
+                <a href="../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../take-action.html">Take Action</a>
+                <a href="../../api-reference.html">API Reference</a>
+                <a href="../../public/mcp/introduction.html" class="active">MCP</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../public/mcp/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="../../public/mcp/setup.html" class="nav-item"><span>Setup</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="../../public/mcp/use-cases.html" class="nav-item"><span>Use Cases</span></a></li>
+                    <li><a href="../../public/mcp/prompts.html" class="nav-item active"><span>Prompts</span></a></li>
+                    <li><a href="../../public/mcp/tools.html" class="nav-item"><span>Tools</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <div class="breadcrumbs">
+                    <a href="../../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                    <a href="../../public/mcp/introduction.html">MCP</a> <i class="fa-solid fa-chevron-right"></i>
+                    <span>Prompts</span>
+                </div>
+                <header class="doc-page-header">
+                    <span class="doc-page-header-eyebrow">ThriveStack MCP</span>
+                    <h1 class="doc-page-title">Prompts</h1>
+                    <p class="doc-page-description">
+                        ThriveStack ships native MCP prompts: ready-to-run analysis workflows exposed as slash commands in your AI tool. Each prompt runs a scripted sequence of tool calls and formats the output for you.
+                    </p>
+                </header>
+
+                <section id="prompts-intro" class="content-section">
+                    <blockquote class="note-callout">Prompts are a built-in MCP primitive. Instead of asking your AI assistant to combine tools step-by-step, you invoke a single slash command and get a fully formatted report back.</blockquote>
+                    <blockquote class="note-callout">Prompts are versioned with the ThriveStack MCP server. When we ship a new one, it appears in your client automatically. No install.</blockquote>
+                </section>
+
+                <section id="how-to-invoke" class="content-section">
+                    <h2>How to invoke a prompt</h2>
+                    <p>The command surface depends on your client.</p>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 12px">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">Client</th>
+                                <th style="text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">How to invoke</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">Claude (Desktop, Web, Code)</td>
+                                <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">Type <code>/</code> in the message input and pick the prompt from the list</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">Cursor</td>
+                                <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">Type <code>@</code> in the chat and pick the prompt</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">Other MCP clients</td>
+                                <td style="padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border);">Check your client&rsquo;s documentation for prompt support</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>If prompts don&rsquo;t show up after connecting, remove and re-add the ThriveStack integration to refresh the tool and prompt list.</p>
+                </section>
+
+                <section id="available-prompts" class="content-section">
+                    <h2>Available prompts</h2>
+                    <p>All prompts take a <code>project</code> argument (name or ID). Your AI assistant resolves the name for you, so &ldquo;Acme Q2&rdquo; works as well as a project ID.</p>
+
+                    <h3 id="prompt-weekly-pulse"><code>thrivestack_weekly_pulse</code></h3>
+                    <p><strong>Weekly Visibility Pulse.</strong> Week-over-week digest covering brand metrics, competitor movers, source shifts, and sentiment flags. Formatted for sharing internally.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Use when:</strong> you want a quick Monday-morning snapshot of what changed last week.</p>
+
+                    <h3 id="prompt-competitor-radar"><code>thrivestack_competitor_radar</code></h3>
+                    <p><strong>Competitor Movement Radar.</strong> Scans every brand &times; topic &times; engine combination for significant shifts. Returns the biggest gainers and losers, hypothesized drivers, and the topics where your own brand is most exposed.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
+                            <tr><td><code>threshold_pp</code></td><td>No</td><td>Minimum percentage-point change to flag (default: 10)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Use when:</strong> a competitor suddenly seems more visible and you want to know where and on which engines.</p>
+
+                    <h3 id="prompt-engine-scorecard"><code>thrivestack_engine_scorecard</code></h3>
+                    <p><strong>AI Engine Scorecard.</strong> Per-engine breakdown of brand visibility, share of voice, sentiment, position, plus source retrieval and citation rate from your own domains. Highlights the engine with the most untapped potential.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Use when:</strong> you want to know which AI engine to focus on next.</p>
+
+                    <h3 id="prompt-topic-heatmap"><code>thrivestack_topic_heatmap</code></h3>
+                    <p><strong>Topic &times; Model Heatmap.</strong> Visibility heatmap across all your topics and all tracked AI engines, calibrated to your own baseline so cells are labeled as blind spots, weak, moderate, strong, or dominant.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Use when:</strong> you want to find blind spots and strongholds across topics and engines at a glance.</p>
+
+                    <h3 id="prompt-grader"><code>thrivestack_prompt_grader</code></h3>
+                    <p><strong>Prompt Set Grader.</strong> Grades your tracked prompt set on topic balance, tag hygiene, funnel coverage, branded/unbranded segmentation, duplicate detection, and model data gaps. Returns an A&ndash;F report card with the top 3 fixes.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Use when:</strong> you suspect your prompt set is skewed, incomplete, or noisy.</p>
+
+                    <h3 id="prompt-source-authority"><code>thrivestack_source_authority</code></h3>
+                    <p><strong>Source Authority Audit.</strong> How your domains perform as sources across AI engines: retrieval rates, citation rates, top URLs, content type breakdown, and authority gaps where competitors are cited but you are not.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Use when:</strong> you&rsquo;re optimizing content and want to know which URLs and formats get picked up by AI.</p>
+
+                    <h3 id="prompt-campaign-tracker"><code>thrivestack_campaign_tracker</code></h3>
+                    <p><strong>PR / Campaign Impact Tracker.</strong> Before/after comparison around a launch date. Tracks brand metrics and source pickup, broken down by engine. Pass specific URLs to track a PR push, or omit them to analyze your whole domain.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
+                            <tr><td><code>campaign_date</code></td><td>Yes</td><td>Launch date in <code>YYYY-MM-DD</code> format</td></tr>
+                            <tr><td><code>urls</code></td><td>No</td><td>Comma-separated URLs to track. If omitted, analyzes your own brand domains broadly.</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Use when:</strong> you shipped a PR campaign, guest post, or content refresh and want to measure AI impact.</p>
+                </section>
+
+                <section id="combining-prompts" class="content-section query-examples">
+                    <h2>Combining prompts with free-form questions</h2>
+                    <p>Prompts are a starting point. After a prompt runs, follow up with questions in plain language. Your AI assistant still has access to every tool, so you can drill into any row, engine, or topic.</p>
+                    <blockquote class="query-examples__prompt">&ldquo;Run the weekly pulse, then dig into why Perplexity visibility dropped&rdquo;</blockquote>
+                    <blockquote class="query-examples__prompt">&ldquo;After the competitor radar, show me the chats from last week that mentioned Acme&rdquo;</blockquote>
+                    <p>Prompts are read-only. They only use the same ThriveStack data you can already see in the dashboard.</p>
+                </section>
+
+                <div class="page-nav">
+                    <a href="../../public/mcp/use-cases.html" class="nav-card prev-card">
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">Use Cases</span>
+                    </a>
+                    <a href="../../public/mcp/tools.html" class="nav-card next-card">
+                        <span class="nav-label">Next</span>
+                        <span class="nav-title">Tools</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="prompts.html">Last updated: July 20, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#prompts-intro" class="toc-link active">Overview</a>
+                    <a href="#how-to-invoke" class="toc-link">How to invoke a prompt</a>
+                    <a href="#available-prompts" class="toc-link">Available prompts</a>
+                    <a href="#combining-prompts" class="toc-link">Combining with free-form questions</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <style>
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.86rem;
+        }
+        .params-table th,
+        .params-table td {
+            border: 0;
+            border-bottom: 1px solid var(--table-row-border);
+            padding: 0.5rem 0.6rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        .params-table th {
+            background: var(--bg-sidebar);
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+    </style>
+
+    <script src="../../script.js"></script>
+</body>
+</html>

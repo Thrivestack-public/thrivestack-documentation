@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-06-04T12:35:21.098Z",
+  "generatedAt": "2026-07-20T12:52:25.463Z",
   "source": "thrivestack-documentation",
   "entries": [
     {
@@ -3072,6 +3072,872 @@
       "deprecated": false
     },
     {
+      "id": "public-mcp-introduction-Introduction",
+      "title": "Introduction",
+      "url": "public/mcp/introduction.html",
+      "section": "MCP",
+      "description": "Connect AI assistants like Claude, Cursor, and other MCP-compatible tools directly to your ThriveStack data. Ask questions in plain language and get answers from the same telemetry your dashboard shows.",
+      "keywords": [
+        "public",
+        "mcp",
+        "introduction",
+        "html",
+        "model",
+        "context",
+        "protocol",
+        "server",
+        "enables",
+        "ai",
+        "tools",
+        "query"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-introduction-access-Read-and-write-access",
+      "title": "Introduction",
+      "url": "public/mcp/introduction.html#access",
+      "section": "MCP",
+      "description": "Read and write access",
+      "keywords": [
+        "public",
+        "mcp",
+        "introduction",
+        "html",
+        "read",
+        "write",
+        "access"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-introduction-authentication-Authentication",
+      "title": "Introduction",
+      "url": "public/mcp/introduction.html#authentication",
+      "section": "MCP",
+      "description": "Authentication",
+      "keywords": [
+        "public",
+        "mcp",
+        "introduction",
+        "html",
+        "authentication"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-introduction-connection-details-Connection-details",
+      "title": "Introduction",
+      "url": "public/mcp/introduction.html#connection-details",
+      "section": "MCP",
+      "description": "Connection details",
+      "keywords": [
+        "public",
+        "mcp",
+        "introduction",
+        "html",
+        "connection",
+        "connection-details"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-introduction-get-started-Get-started",
+      "title": "Introduction",
+      "url": "public/mcp/introduction.html#get-started",
+      "section": "MCP",
+      "description": "Get started",
+      "keywords": [
+        "public",
+        "mcp",
+        "introduction",
+        "html",
+        "get",
+        "started",
+        "get-started"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-introduction-how-it-works-How-it-works",
+      "title": "Introduction",
+      "url": "public/mcp/introduction.html#how-it-works",
+      "section": "MCP",
+      "description": "How it works",
+      "keywords": [
+        "public",
+        "mcp",
+        "introduction",
+        "html",
+        "works",
+        "how-it-works"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-introduction-overview-What-is-ThriveStack-MCP",
+      "title": "Introduction",
+      "url": "public/mcp/introduction.html#overview",
+      "section": "MCP",
+      "description": "MCP Server",
+      "keywords": [
+        "public",
+        "mcp",
+        "introduction",
+        "html"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-introduction-requirements-Requirements",
+      "title": "Introduction",
+      "url": "public/mcp/introduction.html#requirements",
+      "section": "MCP",
+      "description": "Requirements",
+      "keywords": [
+        "public",
+        "mcp",
+        "introduction",
+        "html",
+        "requirements"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-introduction-support-Support",
+      "title": "Introduction",
+      "url": "public/mcp/introduction.html#support",
+      "section": "MCP",
+      "description": "Support",
+      "keywords": [
+        "public",
+        "mcp",
+        "introduction",
+        "html",
+        "support"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-introduction-supported-platforms-Supported-platforms",
+      "title": "Introduction",
+      "url": "public/mcp/introduction.html#supported-platforms",
+      "section": "MCP",
+      "description": "Supported platforms",
+      "keywords": [
+        "public",
+        "mcp",
+        "introduction",
+        "html",
+        "supported",
+        "platforms",
+        "supported-platforms"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-introduction-what-you-can-do-What-you-can-do",
+      "title": "Introduction",
+      "url": "public/mcp/introduction.html#what-you-can-do",
+      "section": "MCP",
+      "description": "What you can do",
+      "keywords": [
+        "public",
+        "mcp",
+        "introduction",
+        "html",
+        "what-you-can-do"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-prompts-Prompts",
+      "title": "Prompts",
+      "url": "public/mcp/prompts.html",
+      "section": "MCP",
+      "description": "ThriveStack ships native MCP prompts: ready-to-run analysis workflows exposed as slash commands in your AI tool. Each prompt runs a scripted sequence of tool calls and formats the output for you.",
+      "keywords": [
+        "public",
+        "mcp",
+        "prompts",
+        "html",
+        "questions",
+        "individual",
+        "tools",
+        "one",
+        "prompt",
+        "per",
+        "tool",
+        "unlike"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-prompts-available-prompts-Available-prompts",
+      "title": "Prompts",
+      "url": "public/mcp/prompts.html#available-prompts",
+      "section": "MCP",
+      "description": "Available prompts",
+      "keywords": [
+        "public",
+        "mcp",
+        "prompts",
+        "html",
+        "available",
+        "available-prompts"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-prompts-combining-prompts-Combining-prompts-with-free-form-questions",
+      "title": "Prompts",
+      "url": "public/mcp/prompts.html#combining-prompts",
+      "section": "MCP",
+      "description": "Combining prompts with free-form questions",
+      "keywords": [
+        "public",
+        "mcp",
+        "prompts",
+        "html",
+        "combining",
+        "free-form",
+        "questions",
+        "combining-prompts"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-prompts-how-to-invoke-How-to-invoke-a-prompt",
+      "title": "Prompts",
+      "url": "public/mcp/prompts.html#how-to-invoke",
+      "section": "MCP",
+      "description": "How to invoke a prompt",
+      "keywords": [
+        "public",
+        "mcp",
+        "prompts",
+        "html",
+        "invoke",
+        "prompt",
+        "how-to-invoke"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-prompts-prompts-prompts",
+      "title": "Prompts",
+      "url": "public/mcp/prompts.html#prompts",
+      "section": "MCP",
+      "description": "Example questions for individual tools, one prompt per tool — unlike Use Cases , these don&rsquo;t require a multi-step drill-down. Ask your AI client any of these once the ThriveStack MCP server is connected.",
+      "keywords": [
+        "public",
+        "mcp",
+        "prompts",
+        "html"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-prompts-prompts-intro-prompts-intro",
+      "title": "Prompts",
+      "url": "public/mcp/prompts.html#prompts-intro",
+      "section": "MCP",
+      "description": "prompts-intro",
+      "keywords": [
+        "public",
+        "mcp",
+        "prompts",
+        "html",
+        "prompts-intro"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-setup-Setup",
+      "title": "Setup Guide",
+      "url": "public/mcp/setup.html",
+      "section": "MCP",
+      "description": "Step-by-step instructions for connecting the ThriveStack MCP server to Claude, Cursor, and other AI tools. Stuck? Email support@thrivestack.ai .",
+      "keywords": [
+        "public",
+        "mcp",
+        "setup",
+        "html",
+        "configure",
+        "server",
+        "ai",
+        "client",
+        "choice",
+        "must",
+        "use",
+        "code"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-setup-authentication-options-Authentication-options",
+      "title": "Setup Guide",
+      "url": "public/mcp/setup.html#authentication-options",
+      "section": "MCP",
+      "description": "Authentication options",
+      "keywords": [
+        "public",
+        "mcp",
+        "setup",
+        "html",
+        "guide",
+        "authentication",
+        "options",
+        "authentication-options"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-setup-create-api-key-Create-an-x-api-key",
+      "title": "Setup Guide",
+      "url": "public/mcp/setup.html#create-api-key",
+      "section": "MCP",
+      "description": "Create an x-api-key",
+      "keywords": [
+        "public",
+        "mcp",
+        "setup",
+        "html",
+        "guide",
+        "x-api-key",
+        "create-api-key"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-setup-implementation-Implementation-instructions",
+      "title": "Setup Guide",
+      "url": "public/mcp/setup.html#implementation",
+      "section": "MCP",
+      "description": "Implementation instructions",
+      "keywords": [
+        "public",
+        "mcp",
+        "setup",
+        "html",
+        "implementation",
+        "instructions"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-setup-plugins-Plugins-coming-soon",
+      "title": "Setup Guide",
+      "url": "public/mcp/setup.html#plugins",
+      "section": "MCP",
+      "description": "Plugins (coming soon)",
+      "keywords": [
+        "public",
+        "mcp",
+        "setup",
+        "html",
+        "plugins",
+        "coming",
+        "soon"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-setup-remote-server-Remote-server",
+      "title": "Setup",
+      "url": "public/mcp/setup.html#remote-server",
+      "section": "MCP",
+      "description": "Remote server",
+      "keywords": [
+        "public",
+        "mcp",
+        "setup",
+        "html",
+        "remote",
+        "server",
+        "remote-server"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-setup-server-url-Server-URL",
+      "title": "Setup Guide",
+      "url": "public/mcp/setup.html#server-url",
+      "section": "MCP",
+      "description": "Server URL",
+      "keywords": [
+        "public",
+        "mcp",
+        "setup",
+        "html",
+        "guide",
+        "server",
+        "url",
+        "server-url"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-setup-technical-specs-Technical-specifications",
+      "title": "Setup Guide",
+      "url": "public/mcp/setup.html#technical-specs",
+      "section": "MCP",
+      "description": "Technical specifications",
+      "keywords": [
+        "public",
+        "mcp",
+        "setup",
+        "html",
+        "technical",
+        "specifications",
+        "technical-specs"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-setup-troubleshooting-Troubleshooting",
+      "title": "Setup Guide",
+      "url": "public/mcp/setup.html#troubleshooting",
+      "section": "MCP",
+      "description": "Troubleshooting",
+      "keywords": [
+        "public",
+        "mcp",
+        "setup",
+        "html",
+        "troubleshooting"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-setup-verify-Verify-your-connection",
+      "title": "Setup Guide",
+      "url": "public/mcp/setup.html#verify",
+      "section": "MCP",
+      "description": "Verify your connection",
+      "keywords": [
+        "public",
+        "mcp",
+        "setup",
+        "html",
+        "guide",
+        "verify",
+        "connection"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-tools-Tools",
+      "title": "Tools Reference",
+      "url": "public/mcp/tools.html",
+      "section": "MCP",
+      "description": "Every tool the ThriveStack MCP Server exposes, with parameters and response fields.",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "reference",
+        "catalog",
+        "server",
+        "exposes",
+        "grouped",
+        "category",
+        "prompts",
+        "call"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-tools-overview-overview",
+      "title": "Tools Reference",
+      "url": "public/mcp/tools.html#overview",
+      "section": "MCP",
+      "description": "overview",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "reference"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-tools-read-tools-Read-tools",
+      "title": "Tools Reference",
+      "url": "public/mcp/tools.html#read-tools",
+      "section": "MCP",
+      "description": "Read tools",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "reference",
+        "read",
+        "read-tools"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-tools-report-filters-Report-filters-and-dimensions",
+      "title": "Tools Reference",
+      "url": "public/mcp/tools.html#report-filters",
+      "section": "MCP",
+      "description": "Report filters and dimensions",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "reference",
+        "report",
+        "filters",
+        "dimensions",
+        "report-filters"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-tools-response-format-Response-format",
+      "title": "Tools Reference",
+      "url": "public/mcp/tools.html#response-format",
+      "section": "MCP",
+      "description": "Response format",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "reference",
+        "response",
+        "format",
+        "response-format"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-tools-tools-accounts-Accounts",
+      "title": "Tools",
+      "url": "public/mcp/tools.html#tools-accounts",
+      "section": "MCP",
+      "description": "Accounts",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "accounts",
+        "tools-accounts"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-tools-tools-acquisition-Acquisition-quality",
+      "title": "Tools",
+      "url": "public/mcp/tools.html#tools-acquisition",
+      "section": "MCP",
+      "description": "Acquisition quality",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "acquisition",
+        "quality",
+        "tools-acquisition"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-tools-tools-activation-Activation-amp-accounts",
+      "title": "Tools",
+      "url": "public/mcp/tools.html#tools-activation",
+      "section": "MCP",
+      "description": "Activation &amp; accounts",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "activation",
+        "amp",
+        "accounts",
+        "tools-activation"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-tools-tools-core-analytics-Core-analytics",
+      "title": "Tools",
+      "url": "public/mcp/tools.html#tools-core-analytics",
+      "section": "MCP",
+      "description": "Core analytics",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "core",
+        "analytics",
+        "tools-core-analytics"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-tools-tools-gtm-GTM",
+      "title": "Tools",
+      "url": "public/mcp/tools.html#tools-gtm",
+      "section": "MCP",
+      "description": "GTM",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "gtm",
+        "tools-gtm"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-tools-tools-revenue-Revenue-amp-monetization",
+      "title": "Tools",
+      "url": "public/mcp/tools.html#tools-revenue",
+      "section": "MCP",
+      "description": "Revenue &amp; monetization",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "revenue",
+        "amp",
+        "monetization",
+        "tools-revenue"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-tools-tools-setup-Setup",
+      "title": "Tools",
+      "url": "public/mcp/tools.html#tools-setup",
+      "section": "MCP",
+      "description": "Setup",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "setup",
+        "tools-setup"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-tools-tools-traffic-Traffic-amp-marketing-surface",
+      "title": "Tools",
+      "url": "public/mcp/tools.html#tools-traffic",
+      "section": "MCP",
+      "description": "Traffic &amp; marketing surface",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "traffic",
+        "amp",
+        "marketing",
+        "surface",
+        "tools-traffic"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-tools-tools-usage-Usage-amp-engagement",
+      "title": "Tools",
+      "url": "public/mcp/tools.html#tools-usage",
+      "section": "MCP",
+      "description": "Usage &amp; engagement",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "usage",
+        "amp",
+        "engagement",
+        "tools-usage"
+      ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-tools-write-tools-Write-tools",
+      "title": "Tools Reference",
+      "url": "public/mcp/tools.html#write-tools",
+      "section": "MCP",
+      "description": "Write tools",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "reference",
+        "write",
+        "write-tools"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-use-cases-Use-Cases",
+      "title": "Use Cases",
+      "url": "public/mcp/use-cases.html",
+      "section": "MCP",
+      "description": "Example prompts and workflows for the ThriveStack MCP Server. Browse by type if you need ideas on what to ask.",
+      "keywords": [
+        "public",
+        "mcp",
+        "use-cases",
+        "html",
+        "use",
+        "cases",
+        "correlated",
+        "multi-step",
+        "journeys",
+        "across",
+        "marketing",
+        "product"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-use-cases-edit-project-setup-Edit-your-project-setup",
+      "title": "Use Cases",
+      "url": "public/mcp/use-cases.html#edit-project-setup",
+      "section": "MCP",
+      "description": "Edit your project setup",
+      "keywords": [
+        "public",
+        "mcp",
+        "use-cases",
+        "html",
+        "use",
+        "cases",
+        "edit",
+        "project",
+        "setup",
+        "edit-project-setup"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-use-cases-example-workflows-Example-workflows",
+      "title": "Use Cases",
+      "url": "public/mcp/use-cases.html#example-workflows",
+      "section": "MCP",
+      "description": "Example workflows",
+      "keywords": [
+        "public",
+        "mcp",
+        "use-cases",
+        "html",
+        "use",
+        "cases",
+        "workflows",
+        "example-workflows"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-use-cases-getting-started-getting-started",
+      "title": "Use Cases",
+      "url": "public/mcp/use-cases.html#getting-started",
+      "section": "MCP",
+      "description": "getting-started",
+      "keywords": [
+        "public",
+        "mcp",
+        "use-cases",
+        "html",
+        "use",
+        "cases",
+        "getting-started"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-use-cases-more-ideas-More-ideas",
+      "title": "Use Cases",
+      "url": "public/mcp/use-cases.html#more-ideas",
+      "section": "MCP",
+      "description": "More ideas",
+      "keywords": [
+        "public",
+        "mcp",
+        "use-cases",
+        "html",
+        "use",
+        "cases",
+        "more",
+        "ideas",
+        "more-ideas"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-use-cases-real-world-workflows-Real-world-workflows",
+      "title": "Use Cases",
+      "url": "public/mcp/use-cases.html#real-world-workflows",
+      "section": "MCP",
+      "description": "Real-world workflows",
+      "keywords": [
+        "public",
+        "mcp",
+        "use-cases",
+        "html",
+        "use",
+        "cases",
+        "real-world",
+        "workflows",
+        "real-world-workflows"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-use-cases-tips-Tips",
+      "title": "Use Cases",
+      "url": "public/mcp/use-cases.html#tips",
+      "section": "MCP",
+      "description": "Tips",
+      "keywords": [
+        "public",
+        "mcp",
+        "use-cases",
+        "html",
+        "use",
+        "cases",
+        "tips"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-use-cases-use-cases-use-cases",
+      "title": "Use Cases",
+      "url": "public/mcp/use-cases.html#use-cases",
+      "section": "MCP",
+      "description": "Correlated, multi-step journeys across Marketing, Product, and Revenue — ask a broad question, then let your AI client drill down conversationally. These combine several tools in sequence, unlike the single-tool examples on the Prompts page.",
+      "keywords": [
+        "public",
+        "mcp",
+        "use-cases",
+        "html",
+        "use",
+        "cases"
+      ],
+      "deprecated": true
+    },
+    {
       "id": "public-product-setup-advanced-ai-instrumentation-Advanced-AI-Instrumentation",
       "title": "Advanced AI Instrumentation",
       "url": "public/product/setup/advanced-ai-instrumentation.html",
@@ -3400,7 +4266,7 @@
         "server",
         "instrumentation"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-product-setup-thrivestack-mcp-server-capabilities-Available-tools-and-cap",
@@ -3417,7 +4283,7 @@
         "schema",
         "cursor"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-product-setup-thrivestack-mcp-server-implementation-Implementation-instru",
@@ -3436,7 +4302,7 @@
         "stdio",
         "server"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-product-setup-thrivestack-mcp-server-overview-Configure-ThriveStack-MCP-Server",
@@ -3454,7 +4320,7 @@
         "mcp",
         "server"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-product-setup-thrivestack-mcp-server-plugins-Plugins-coming-soon-",
@@ -3470,7 +4336,7 @@
         "cursor",
         "roadmap"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-product-setup-thrivestack-mcp-server-remote-server-Remote-server",
@@ -3487,7 +4353,7 @@
         "server",
         "connection"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-product-setup-thrivestack-mcp-server-technical-specs-Technical-specificat",
@@ -3506,7 +4372,7 @@
         "spec",
         "version"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-product-setup-thrivestack-mcp-server-troubleshooting-Troubleshooting",
@@ -3525,7 +4391,7 @@
         "errors",
         "debug"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-product-setup-vibe-analytics-Vibe-Analytics-AI-",

@@ -59,6 +59,7 @@ function inferSection(pageUrl) {
     const page = pageUrl.split("#")[0];
     if (page === "index.html") return "Getting Started";
     if (page === "api-reference.html" || page.startsWith("public/api/")) return "API";
+    if (page.startsWith("public/mcp/")) return "MCP";
     if (page.startsWith("public/product/")) return "Product";
     if (page.startsWith("public/marketing/")) return "Marketing";
     if (page.startsWith("public/revenue/")) return "Revenue";
@@ -299,10 +300,10 @@ function validateIndex(entries) {
             errors.push(`Missing HTML file for active entry: ${entry.url}`);
         }
 
-        if (entry.url.includes("#")) {
+        if (!entry.deprecated && entry.url.includes("#")) {
             const hash = entry.url.split("#")[1];
             const html = fs.readFileSync(pagePath, "utf8");
-            if (!entry.deprecated && !html.includes(`id="${hash}"`) && !html.includes(`id='${hash}'`)) {
+            if (!html.includes(`id="${hash}"`) && !html.includes(`id='${hash}'`)) {
                 errors.push(`Missing section anchor #${hash} in ${pageUrl}`);
             }
         }

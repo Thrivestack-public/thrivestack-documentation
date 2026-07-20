@@ -136,9 +136,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 terms: 'vibe analytics ai telemetry spec identify group track checklist'
             },
             {
-                title: 'Configure ThriveStack MCP Server',
-                url: 'public/product/setup/thrivestack-mcp-server.html#capabilities',
-                terms: 'thrivestack mcp setup model context protocol remote server tools capabilities example prompts marketing product revenue tool oriented reference correlated metrics get_mau_mtu_count get_event_count list_accounts get_plg_leads get_setup_status getVisitor getPageViews getSignup acquisition conversion mrr stickiness dau wau mau activation churn expansion implementation'
+                title: 'MCP Introduction',
+                url: 'public/mcp/introduction.html#overview',
+                terms: 'thrivestack mcp model context protocol introduction what is mcp remote server'
+            },
+            {
+                title: 'MCP Setup',
+                url: 'public/mcp/setup.html#remote-server',
+                terms: 'thrivestack mcp setup remote server implementation claude desktop claude code cursor windsurf gemini cli lovable troubleshooting technical specifications x-api-key oauth'
+            },
+            {
+                title: 'MCP Use Cases',
+                url: 'public/mcp/use-cases.html#use-cases',
+                terms: 'thrivestack mcp use cases correlated journeys marketing product revenue drill down'
+            },
+            {
+                title: 'MCP Prompts',
+                url: 'public/mcp/prompts.html#prompts',
+                terms: 'thrivestack mcp example prompts tool oriented reference get_mau_mtu_count get_event_count list_accounts get_plg_leads get_setup_status getVisitor getPageViews getSignup acquisition conversion mrr stickiness dau wau mau activation churn expansion'
+            },
+            {
+                title: 'MCP Tools',
+                url: 'public/mcp/tools.html#tools-core-analytics',
+                terms: 'thrivestack mcp tools catalog reference core analytics accounts gtm setup traffic acquisition activation revenue monetization usage engagement'
             },
             {
                 title: 'API Reference',
@@ -444,13 +464,6 @@ class SetupSidebar extends HTMLElement {
                 <ul>
                     <li><a href="${prefix}setup-overview.html" class="nav-item"><span>Setup (Unify) Overview</span></a></li>
                     <li><a href="${prefix}data-collection.html" class="nav-item"><span>Data Collection</span></a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3>ThriveStack MCP</h3>
-                <ul>
-                    <li><a href="${prefix}public/product/setup/thrivestack-mcp-server.html" class="nav-item"><span>Configure ThriveStack MCP Server</span></a></li>
                 </ul>
             </div>
 

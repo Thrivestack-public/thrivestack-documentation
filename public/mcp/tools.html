@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MCP Tools Reference - ThriveStack Documentation">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>MCP Tools Reference - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <script
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
+        api-key="i1rPJo38lB6hR2qZC5iNNz0xcGRuBYIKRVYfTBdpJyY="
+        source="marketing">
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../index.html">Get Started</a>
+                <a href="../../setup-overview.html">Setup (Unify)</a>
+                <a href="../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../take-action.html">Take Action</a>
+                <a href="../../api-reference.html">API Reference</a>
+                <a href="../../public/mcp/introduction.html" class="active">MCP</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3>Overview</h3>
+                <ul>
+                    <li><a href="../../public/mcp/introduction.html" class="nav-item"><span>Introduction</span></a></li>
+                    <li><a href="../../public/mcp/setup.html" class="nav-item"><span>Setup</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="../../public/mcp/use-cases.html" class="nav-item"><span>Use Cases</span></a></li>
+                    <li><a href="../../public/mcp/prompts.html" class="nav-item"><span>Prompts</span></a></li>
+                    <li><a href="../../public/mcp/tools.html" class="nav-item active"><span>Tools</span></a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <div class="breadcrumbs">
+                    <a href="../../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                    <a href="../../public/mcp/introduction.html">MCP</a> <i class="fa-solid fa-chevron-right"></i>
+                    <span>Tools</span>
+                </div>
+                <header class="doc-page-header">
+                    <span class="doc-page-header-eyebrow">ThriveStack MCP</span>
+                    <h1 class="doc-page-title">Tools Reference</h1>
+                    <p class="doc-page-description">
+                        Every tool the ThriveStack MCP Server exposes, with parameters and response fields.
+                    </p>
+                </header>
+
+                <section id="overview" class="content-section">
+                    <p>The ThriveStack MCP Server exposes two sets of tools:</p>
+                    <ul>
+                        <li><strong>Read tools (23)</strong> return data: projects, brands, model channels, prompts, chats, reports, actions, scraped source content, custom classifications, the brand profile, the ThriveStack documentation, and bot &amp; crawler traffic tracking (known bots and access-log visit counts).</li>
+                        <li><strong>Write tools (37)</strong> create, update, archive, or delete brands, prompts, tags, tag groups, topics, custom domain/URL classifications, and the brand profile. Your assistant confirms before calling one.</li>
+                    </ul>
+                    <p>Your AI assistant calls these automatically based on your questions. You don&rsquo;t need to invoke them directly, but this reference helps you understand what is available.</p>
+                    <p>All tools except <code>list_projects</code>, <code>search_docs</code>, and <code>read_doc</code> require a <code>project_id</code>. Your AI assistant handles this automatically after you pick a project.</p>
+                    <p>Write tools require organization-owner access on the project. Any project member can use the read tools.</p>
+                    <p>Tool calls are rate limited to 1,000 calls per minute per user. If you hit the limit, the server tells your assistant to retry after a few seconds.</p>
+                </section>
+
+                <section id="response-format" class="content-section">
+                    <h2>Response format</h2>
+                    <p>Most tools return compact columnar JSON:</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)" type="button">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                        <div class="code-block-label">JSON</div>
+                        <pre><code>{
+  "columns": ["brand_id", "brand_name", "visibility", "..."],
+  "rows": [
+    ["b_1", "Acme", 0.42, "..."],
+    ["b_2", "Contoso", 0.18, "..."]
+  ],
+  "rowCount": 2
+}</code></pre>
+                    </div>
+                    <p>Each row is an array of values matching the columns order. List tools (<code>list_brands</code>, <code>list_topics</code>, <code>list_tags</code>, <code>list_prompts</code>, <code>list_chats</code>, <code>list_search_queries</code>, <code>list_domain_classifications</code>, <code>list_url_classifications</code>) also return a <code>totalCount</code> field with the total matching records across pages, so you can tell whether to paginate. <code>get_chat</code>, <code>get_url_content</code>, <code>get_project_profile</code>, <code>read_doc</code>, <code>list_bots</code>, and <code>get_agent_visits</code> are exceptions: they return their object directly.</p>
+                </section>
+
+                <section id="read-tools" class="content-section">
+                    <h2>Read tools</h2>
+
+                    <h3 id="tool-list-projects"><code>list_projects</code></h3>
+                    <p>Lists all projects your account has access to. This is always called first.</p>
+                    <p><strong>Columns:</strong> <code>id</code>, <code>name</code>, <code>status</code></p>
+
+                    <h3 id="tool-list-brands"><code>list_brands</code></h3>
+                    <p>List brands (your brand and tracked competitors) in a project.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Columns:</strong> <code>id</code>, <code>name</code>, <code>domains</code>, <code>aliases</code>, <code>is_own</code></p>
+                    <p><code>aliases</code> are alternate names the brand is matched under. <code>is_own</code> indicates whether this is your brand (<code>true</code>) or a competitor (<code>false</code>).</p>
+
+                    <h3 id="tool-list-topics"><code>list_topics</code></h3>
+                    <p>Lists topic groupings in a project. Each prompt belongs to one topic.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Columns:</strong> <code>id</code>, <code>name</code></p>
+
+                    <h3 id="tool-list-tags"><code>list_tags</code></h3>
+                    <p>Lists tags (cross-cutting labels) in a project.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>group</code></td><td>string</td><td>No</td><td>Filter to tags in this user-defined group</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Columns:</strong> <code>id</code>, <code>name</code>, <code>is_system</code>, <code>group</code></p>
+                    <p>System tags (<code>is_system: true</code>) are ThriveStack-managed branding/intent tags; their <code>group</code> is <code>branding</code> or <code>intentType</code>. User tags carry their user-defined group name in <code>group</code> (or <code>null</code> when ungrouped). Use <code>list_tag_groups</code> to enumerate the user-defined groups.</p>
+
+                    <h3 id="tool-list-tag-groups"><code>list_tag_groups</code></h3>
+                    <p>Lists the user-defined tag groups in a project, each with its shared color and tag count. System groups (<code>branding</code>/<code>intentType</code>) are not included &mdash; see <code>list_tags</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ data: [{ group, color, tag_count }] }</code>.</p>
+
+                    <h3 id="tool-list-models"><code>list_models</code></h3>
+                    <p>Lists all AI engines (models) configured for a project. Use this to resolve model names (e.g. &ldquo;ChatGPT&rdquo;, &ldquo;Perplexity&rdquo;) to IDs before filtering reports, and to label model IDs with human-readable names when presenting results.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Columns:</strong> <code>id</code>, <code>name</code>, <code>is_active</code></p>
+                    <p>The <code>is_active</code> field indicates whether the model is enabled for this project. Inactive models return empty data in reports.</p>
+                    <p>Filtering and breaking down reports by <code>model_id</code> is deprecated. Prefer <code>model_channel_id</code> (see <code>list_model_channels</code>) &mdash; channels are stable engine identifiers that survive model version upgrades.</p>
+
+                    <h3 id="tool-list-model-channels"><code>list_model_channels</code></h3>
+                    <p>Lists the AI engine channels tracked by ThriveStack. A model channel is a stable identifier for an engine (e.g. <code>openai-0</code> = ChatGPT UI) that persists as the underlying model is upgraded. Use it to filter or break down reports without tying yourself to a specific model version.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Columns:</strong> <code>id</code>, <code>description</code>, <code>current_model_id</code>, <code>is_active</code>, <code>unsupported_country_codes</code></p>
+                    <p><code>current_model_id</code> is the model ID currently active in the channel. Pass this as <code>model_id</code> if a report still requires the deprecated filter.</p>
+                    <p><code>is_active</code> mirrors the engine&rsquo;s status for this project. Inactive channels return empty data.</p>
+                    <p><code>unsupported_country_codes</code> lists ISO 3166-1 alpha-2 codes the channel can&rsquo;t serve. Chats requested for those countries are not created.</p>
+
+                    <h3 id="tool-list-prompts"><code>list_prompts</code></h3>
+                    <p>Lists prompts in a project. You can filter by topic or tag.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>topic_id</code></td><td>string</td><td>No</td><td>Filter by topic ID</td></tr>
+                            <tr><td><code>tag_id</code></td><td>string</td><td>No</td><td>Filter by tag ID</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Columns:</strong> <code>id</code>, <code>text</code>, <code>tag_ids</code>, <code>topic_id</code>, <code>volume</code></p>
+                    <p><code>tag_ids</code> is an array of tag IDs. <code>topic_id</code> is the topic ID or <code>null</code>. <code>volume</code> is a relative search-volume bucket: <code>very low</code>, <code>low</code>, <code>medium</code>, <code>high</code>, <code>very high</code>, or <code>null</code> when the prompt does not have a volume signal yet.</p>
+
+                    <h3 id="tool-list-chats"><code>list_chats</code></h3>
+                    <p>List individual AI responses (chats) for a project over a date range. Each chat is one prompt run against one AI engine on a given date. Combine with <code>get_chat</code> to inspect the full response.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>brand_id</code></td><td>string</td><td>No</td><td>Only chats that mentioned this brand</td></tr>
+                            <tr><td><code>prompt_id</code></td><td>string</td><td>No</td><td>Only chats produced by this prompt</td></tr>
+                            <tr><td><code>model_id</code></td><td>string</td><td>No</td><td>Only chats from this AI engine. Deprecated &mdash; prefer <code>model_channel_id</code>. Ignored if <code>model_channel_id</code> is also provided.</td></tr>
+                            <tr><td><code>model_channel_id</code></td><td>string</td><td>No</td><td>Only chats from this stable engine channel</td></tr>
+                            <tr><td><code>features</code></td><td>string[]</td><td>No</td><td>Only chats whose response contains all of the given features. Values: <code>AD</code>, <code>MAP</code>, <code>WEB_SEARCH</code>. Multiple values are AND&rsquo;d (a chat must contain every listed feature to match).</td></tr>
+                            <tr><td><code>include_archived_prompts</code></td><td>boolean</td><td>No</td><td>Include chats whose prompt has been archived. Default <code>false</code>. Set to <code>true</code> only when historical chats for prompts that are no longer active are needed. Chats for deleted prompts are always excluded regardless of this flag.</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100, max: 10000)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Columns:</strong> <code>id</code>, <code>prompt_id</code>, <code>model_id</code>, <code>model_channel_id</code>, <code>date</code>, <code>features</code></p>
+                    <p><code>features</code> is an array of feature flags marking special elements detected in the assistant response. Use the same values listed under the <code>features</code> filter above.</p>
+                    <p>By default, chats are excluded if their prompt has been deleted or archived. Pass <code>include_archived_prompts=true</code> to include chats for archived prompts (e.g. for a historical lookback against a prompt no longer being tracked). Chats for deleted prompts are always excluded.</p>
+
+                    <h3 id="tool-get-chat"><code>get_chat</code></h3>
+                    <p>Get the full content of a single chat: the user prompt, the AI response, every source URL the model retrieved, every brand it mentioned, every search query it issued, and any extracted products.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>chat_id</code></td><td>string</td><td>Yes</td><td>The chat ID (from <code>list_chats</code>)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong></p>
+                    <table class="params-table">
+                        <thead><tr><th>Field</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>messages</code></td><td>The user prompt and assistant response(s)</td></tr>
+                            <tr><td><code>brands_mentioned</code></td><td>Brands detected in the response with their position</td></tr>
+                            <tr><td><code>sources</code></td><td>URLs the model retrieved, with citation counts and position</td></tr>
+                            <tr><td><code>queries</code></td><td>Search queries the model issued</td></tr>
+                            <tr><td><code>products</code></td><td>Product gallery entries extracted from the response</td></tr>
+                            <tr><td><code>features</code></td><td>Feature flags for special elements detected in the assistant response. Values: <code>AD</code>, <code>MAP</code>, <code>WEB_SEARCH</code>.</td></tr>
+                            <tr><td><code>maps</code></td><td>Local-business map cards (one per business pinned in a map widget). Each entry: <code>{ name, url? }</code>, where <code>url</code> is the Google Maps directions deeplink.</td></tr>
+                            <tr><td><code>ads</code></td><td>Paid ad placements rendered by the model. Each entry: <code>{ brandName, url, id?, adUnitType?, adsRequestId?, cards }</code>, where <code>cards</code> is an array of <code>{ title?, body?, imageUrl?, targetUrl? }</code>. <code>targetUrl</code> is the clickout URL with attribution UTM params.</td></tr>
+                            <tr><td><code>prompt</code></td><td><code>{id}</code></td></tr>
+                            <tr><td><code>model</code></td><td><code>{id}</code> &mdash; Deprecated, prefer <code>model_channel</code></td></tr>
+                            <tr><td><code>model_channel</code></td><td><code>{id}</code> &mdash; stable engine channel ID (e.g. <code>openai-0</code>)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-list-search-queries"><code>list_search_queries</code></h3>
+                    <p>Lists the search sub-queries an AI engine fanned out to while answering prompts in a project over a date range. Each row is one sub-query issued for a given chat. Combine with <code>get_chat</code> to inspect the full response.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>prompt_id</code></td><td>string</td><td>No</td><td>Only queries from chats produced by this prompt</td></tr>
+                            <tr><td><code>chat_id</code></td><td>string</td><td>No</td><td>Only queries from this chat</td></tr>
+                            <tr><td><code>model_id</code></td><td>string</td><td>No</td><td>Only queries from this AI engine</td></tr>
+                            <tr><td><code>model_channel_id</code></td><td>string</td><td>No</td><td>Only queries from this model channel</td></tr>
+                            <tr><td><code>topic_id</code></td><td>string</td><td>No</td><td>Only queries from chats whose prompt belongs to this topic</td></tr>
+                            <tr><td><code>tag_id</code></td><td>string</td><td>No</td><td>Only queries from chats whose prompt carries this tag</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100, hard cap 1000)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Columns:</strong> <code>prompt_id</code>, <code>chat_id</code>, <code>model_id</code>, <code>model_channel_id</code>, <code>date</code>, <code>query_index</code>, <code>query_text</code></p>
+
+                    <h3 id="tool-list-bots"><code>list_bots</code></h3>
+                    <p>Lists every AI agent bot ThriveStack tracks. Each entry has the bot&rsquo;s ID (the user agent string ThriveStack matches), its provider, and its type. Use the returned IDs with <code>get_agent_visits</code> to filter visit counts by specific bots.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 1000, max: 10000)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ data: [{ id, provider, type }] }</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Field</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>id</code></td><td>Bot identifier &mdash; the user agent name (e.g. GPTBot, ClaudeBot, PerplexityBot)</td></tr>
+                            <tr><td><code>provider</code></td><td>Vendor behind the bot (e.g. OpenAI, Anthropic, Google)</td></tr>
+                            <tr><td><code>type</code></td><td>Bot purpose. One of <code>training</code>, <code>search</code>, <code>userQuery</code>, <code>other</code></td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Bot types:</strong></p>
+                    <ul>
+                        <li><code>training</code> &mdash; crawlers that collect data to build or refine AI models (e.g. GPTBot, ClaudeBot)</li>
+                        <li><code>search</code> &mdash; bots that browse the web to find up-to-date information for AI-powered search (e.g. PerplexityBot)</li>
+                        <li><code>userQuery</code> &mdash; bots triggered by a real-time user query that fetch content on the user&rsquo;s behalf</li>
+                        <li><code>other</code> &mdash; miscellaneous bots</li>
+                    </ul>
+                    <p>Bot &amp; crawler traffic tracking requires a connected access-log data source (Cloudflare Workers or a CSV/CLF log upload) in your ThriveStack account. See <a href="../../public/mcp/setup.html">Setup</a> for connecting your MCP client once that&rsquo;s in place.</p>
+
+                    <h3 id="tool-get-agent-visits"><code>get_agent_visits</code></h3>
+                    <p>Aggregate AI bot visit counts from your connected access logs over a date range. Without <code>group_by</code>, returns the total as a single <code>{ visits: N }</code> row. With <code>group_by</code>, returns one row per distinct value of the chosen dimension(s), sorted by visits descending.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>group_by</code></td><td>string[]</td><td>No</td><td>Dimension(s) to group visit counts by. Omit for the total. Values: <code>bot_id</code>, <code>response_status</code>, <code>request_host</code>, <code>request_path</code>.</td></tr>
+                            <tr><td><code>bot_ids</code></td><td>string[]</td><td>No</td><td>Filter to specific bot IDs. Resolve via <code>list_bots</code>.</td></tr>
+                            <tr><td><code>time_bucket</code></td><td>string</td><td>No</td><td>Bucket results by time period. One of <code>hour</code>, <code>day</code>, <code>week</code>, <code>month</code>. Each row gets a <code>time_bucket</code> timestamp marking the start of the bucket.</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max grouped rows (default: 100, max: 10000)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Grouped rows to skip (default: 0)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Group-by dimensions</h4>
+                    <table class="params-table">
+                        <thead><tr><th>Dimension</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>bot_id</code></td><td>Break down by bot. Combine with <code>list_bots</code> to resolve IDs to provider names.</td></tr>
+                            <tr><td><code>response_status</code></td><td>Break down by HTTP response status (200, 404, etc.)</td></tr>
+                            <tr><td><code>request_host</code></td><td>Break down by hostname</td></tr>
+                            <tr><td><code>request_path</code></td><td>Break down by URL path</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Multiple values produce a cross-dimensional breakdown &mdash; for example, <code>["bot_id", "response_status"]</code> gives per-bot, per-status counts. Combine with <code>time_bucket</code> to get e.g. per-bot, per-day counts.</p>
+
+                    <h4>Response fields</h4>
+                    <p><code>{ data: [...], totalCount }</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Field</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>visits</code></td><td>Visit count for the row</td></tr>
+                            <tr><td><code>bot_id</code></td><td>Present when <code>bot_id</code> is in <code>group_by</code></td></tr>
+                            <tr><td><code>response_status</code></td><td>Present when <code>response_status</code> is in <code>group_by</code></td></tr>
+                            <tr><td><code>request_host</code></td><td>Present when <code>request_host</code> is in <code>group_by</code></td></tr>
+                            <tr><td><code>request_path</code></td><td>Present when <code>request_path</code> is in <code>group_by</code></td></tr>
+                            <tr><td><code>time_bucket</code></td><td>Present when <code>time_bucket</code> is set. ISO-style timestamp marking the start of the bucket.</td></tr>
+                            <tr><td><code>totalCount</code></td><td>Total grouped rows ignoring limit/offset. Equals 1 when <code>group_by</code> is omitted.</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Pair <code>get_agent_visits</code> with the report tools to connect bot activity to AI visibility. For example, <code>request_path</code> grouping surfaces which of your pages bots hit most; <code>get_url_report</code> shows how those same pages perform as AI sources.</p>
+
+                    <h3 id="tool-list-domain-classifications"><code>list_domain_classifications</code></h3>
+                    <p>Lists the custom domain classifications defined for a project. These complement the built-in classifications (Corporate, Competitor, Editorial, Institutional, Other, Reference, UGC, You, Related) and can be assigned to specific domains via <code>assign_domain_classification</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Columns:</strong> <code>name</code>, <code>color</code></p>
+
+                    <h3 id="tool-list-url-classifications"><code>list_url_classifications</code></h3>
+                    <p>Lists the custom URL classifications defined for a project. These complement the built-in classifications (Homepage, Category Page, Product Page, Listicle, Comparison, Profile, Alternative, Discussion, How-To Guide, Article, Other) and can be assigned to specific URLs via <code>assign_url_classification</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Columns:</strong> <code>name</code>, <code>color</code></p>
+
+                    <h3 id="tool-get-brand-report"><code>get_brand_report</code></h3>
+                    <p>Returns brand visibility, sentiment, position, and share of voice across AI search engines.</p>
+                    <h4>Parameters</h4>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                            <tr><td><code>dimensions</code></td><td>string[]</td><td>No</td><td>Break down by: <code>prompt_id</code>, <code>model_id</code> (deprecated, prefer <code>model_channel_id</code>), <code>model_channel_id</code>, <code>tag_id</code>, <code>topic_id</code>, <code>date</code>, <code>country_code</code>, <code>chat_id</code></td></tr>
+                            <tr><td><code>filters</code></td><td>object[]</td><td>No</td><td>Filter results (see <a href="#filtering">Filtering</a>)</td></tr>
+                            <tr><td><code>order_by</code></td><td>object[]</td><td>No</td><td>Sort by one or more fields (see <a href="#sorting">Sorting</a>). Sortable: <code>visibility</code>, <code>visibility_count</code>, <code>mention_count</code>, <code>sentiment</code>, <code>position</code>, <code>share_of_voice</code>.</td></tr>
+                        </tbody>
+                    </table>
+                    <h4>Response fields</h4>
+                    <table class="params-table">
+                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>brand_id</code></td><td>string</td><td>The brand ID</td></tr>
+                            <tr><td><code>brand_name</code></td><td>string</td><td>The brand name</td></tr>
+                            <tr><td><code>visibility</code></td><td>number</td><td>0 to 1. Fraction of AI responses that mention the brand</td></tr>
+                            <tr><td><code>mention_count</code></td><td>number</td><td>Total times the brand was mentioned</td></tr>
+                            <tr><td><code>share_of_voice</code></td><td>number</td><td>0 to 1. Brand&rsquo;s share of total mentions across all brands</td></tr>
+                            <tr><td><code>sentiment</code></td><td>number</td><td>0 to 100. How positively AI platforms describe the brand. Most brands score 65 to 85</td></tr>
+                            <tr><td><code>position</code></td><td>number</td><td>Average rank when mentioned. Lower is better (1 = mentioned first)</td></tr>
+                        </tbody>
+                    </table>
+                    <p>The response also includes raw aggregation fields (<code>visibility_count</code>, <code>visibility_total</code>, <code>sentiment_sum</code>, <code>sentiment_count</code>, <code>position_sum</code>, <code>position_count</code>) for custom calculations across segments.</p>
+
+                    <h3 id="tool-get-domain-report"><code>get_domain_report</code></h3>
+                    <p>Returns source domain retrieval and citation metrics across AI search engines.</p>
+                    <h4>Parameters</h4>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                            <tr><td><code>dimensions</code></td><td>string[]</td><td>No</td><td>Break down by: <code>prompt_id</code>, <code>model_id</code> (deprecated, prefer <code>model_channel_id</code>), <code>model_channel_id</code>, <code>tag_id</code>, <code>topic_id</code>, <code>date</code>, <code>country_code</code>, <code>chat_id</code></td></tr>
+                            <tr><td><code>filters</code></td><td>object[]</td><td>No</td><td>Filter results (see <a href="#filtering">Filtering</a>)</td></tr>
+                            <tr><td><code>order_by</code></td><td>object[]</td><td>No</td><td>Sort by one or more fields (see <a href="#sorting">Sorting</a>). Sortable: <code>citation_rate</code>, <code>retrieval_count</code>, <code>citation_count</code>. (<code>retrieved_percentage</code> and <code>retrieval_rate</code> are computed from a separate aggregate and aren&rsquo;t sortable.)</td></tr>
+                        </tbody>
+                    </table>
+                    <h4>Response fields</h4>
+                    <table class="params-table">
+                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>domain</code></td><td>string</td><td>The source domain (e.g. example.com)</td></tr>
+                            <tr><td><code>classification</code></td><td>string</td><td>Domain type: You, Corporate, Editorial, Institutional, UGC, Reference, Competitor, Related, Other, the name of a custom classification, or <code>null</code></td></tr>
+                            <tr><td><code>retrieved_percentage</code></td><td>number</td><td>0 to 1. Fraction of chats that retrieved this domain</td></tr>
+                            <tr><td><code>retrieval_rate</code></td><td>number</td><td>Average URLs retrieved per chat. Can exceed 1.0 (this is an average, not a percentage)</td></tr>
+                            <tr><td><code>citation_rate</code></td><td>number</td><td>Average citations per distinct chat that retrieved this domain: <code>citation_count / retrieved_chat_count</code>. Can exceed 1.0. This is not <code>citation_count / retrieval_count</code> &mdash; dividing by <code>retrieval_count</code> gives the per-retrieval average, which is the deprecated <code>citation_avg</code></td></tr>
+                            <tr><td><code>retrieval_count</code></td><td>number</td><td>Total distinct URL retrievals from this domain across all chats (raw numerator of <code>retrieval_rate</code>). A single chat can retrieve several URLs from the same domain, so this is &gt;= <code>retrieved_chat_count</code></td></tr>
+                            <tr><td><code>citation_count</code></td><td>number</td><td>Total citations from this domain (raw count)</td></tr>
+                            <tr><td><code>retrieved_chat_count</code></td><td>number</td><td>Number of distinct chats in which this domain was retrieved (denominator of <code>citation_rate</code>)</td></tr>
+                            <tr><td><code>mentioned_brand_ids</code></td><td>string[]</td><td>Brand IDs mentioned alongside URLs from this domain (may be empty)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-url-report"><code>get_url_report</code></h3>
+                    <p>Returns URL-level retrieval and citation metrics across AI search engines.</p>
+                    <h4>Parameters</h4>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                            <tr><td><code>dimensions</code></td><td>string[]</td><td>No</td><td>Break down by: <code>prompt_id</code>, <code>model_id</code> (deprecated, prefer <code>model_channel_id</code>), <code>model_channel_id</code>, <code>tag_id</code>, <code>topic_id</code>, <code>date</code>, <code>country_code</code>, <code>chat_id</code></td></tr>
+                            <tr><td><code>filters</code></td><td>object[]</td><td>No</td><td>Filter results (see <a href="#filtering">Filtering</a>)</td></tr>
+                            <tr><td><code>order_by</code></td><td>object[]</td><td>No</td><td>Sort by one or more fields (see <a href="#sorting">Sorting</a>). Sortable: <code>retrieval_count</code>, <code>retrievals</code> (deprecated alias of <code>retrieval_count</code>), <code>citation_count</code>, <code>citation_rate</code>.</td></tr>
+                        </tbody>
+                    </table>
+                    <h4>Response fields</h4>
+                    <table class="params-table">
+                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>url</code></td><td>string</td><td>The full source URL</td></tr>
+                            <tr><td><code>classification</code></td><td>string</td><td>Page type: Homepage, Category Page, Product Page, Listicle, Comparison, Profile, Alternative, Discussion, How-To Guide, Article, Other, the name of a custom classification, or <code>null</code></td></tr>
+                            <tr><td><code>title</code></td><td>string</td><td>Page title (may be null)</td></tr>
+                            <tr><td><code>channel_title</code></td><td>string</td><td>Channel or author name for YouTube videos, Reddit threads, etc. (may be null)</td></tr>
+                            <tr><td><code>citation_count</code></td><td>number</td><td>Total citations across all chats</td></tr>
+                            <tr><td><code>retrieval_count</code></td><td>number</td><td>Total distinct chats that retrieved this URL</td></tr>
+                            <tr><td><code>citation_rate</code></td><td>number</td><td>Average citations per retrieval. Can exceed 1.0</td></tr>
+                            <tr><td><code>mentioned_brand_ids</code></td><td>string[]</td><td>Brand IDs mentioned alongside this URL (may be empty)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-url-content"><code>get_url_content</code></h3>
+                    <p>Returns the scraped markdown content of a source URL ThriveStack has indexed. Use this after <code>get_url_report</code> to inspect the actual content an AI engine read. Useful for content gap analysis and comparing why a competitor URL wins citations.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>url</code></td><td>string</td><td>Yes</td><td>Full URL of a source. Copy it verbatim from <code>get_url_report</code>. Trailing slashes and scheme variations change the resolved source ID.</td></tr>
+                            <tr><td><code>max_length</code></td><td>number</td><td>No</td><td>Cap on returned content length in characters. Increase and re-request if <code>truncated</code> is <code>true</code>.</td></tr>
+                        </tbody>
+                    </table>
+                    <h4>Response fields</h4>
+                    <table class="params-table">
+                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>url</code></td><td>string</td><td>The requested URL</td></tr>
+                            <tr><td><code>title</code></td><td>string</td><td>Page title (may be null)</td></tr>
+                            <tr><td><code>domain</code></td><td>string</td><td>The source domain</td></tr>
+                            <tr><td><code>channel_title</code></td><td>string</td><td>Channel or author name for YouTube videos, Reddit threads, etc. (may be null)</td></tr>
+                            <tr><td><code>classification</code></td><td>string</td><td>Domain-level classification (same values as <code>get_domain_report</code>)</td></tr>
+                            <tr><td><code>url_classification</code></td><td>string</td><td>Page-level classification (same values as <code>get_url_report</code>)</td></tr>
+                            <tr><td><code>content</code></td><td>string</td><td>Markdown extracted via Readability + Turndown. <code>null</code> if ThriveStack has tracked the URL but scraping has not completed yet (can take up to 24h)</td></tr>
+                            <tr><td><code>content_length</code></td><td>number</td><td>Original character length before truncation. 0 when <code>content</code> is null</td></tr>
+                            <tr><td><code>truncated</code></td><td>boolean</td><td><code>true</code> if content was truncated to <code>max_length</code></td></tr>
+                            <tr><td><code>content_updated_at</code></td><td>string</td><td>ISO timestamp of last scrape, or <code>null</code> if not yet scraped</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Returns a 404 if the URL has never been retrieved by any ThriveStack project. ThriveStack only scrapes URLs that appear as AI sources.</p>
+
+                    <h3 id="tool-get-actions"><code>get_actions</code></h3>
+                    <p>Returns ThriveStack&rsquo;s opportunity-scored action recommendations for a project and date range. Use this whenever the user asks what to do next, how to improve visibility, or wants ranked next steps instead of raw data.</p>
+                    <p>The tool is two-step: always call <code>scope=overview</code> first to see which slices have the biggest opportunity, then drill into <code>owned</code>, <code>editorial</code>, <code>reference</code>, or <code>ugc</code> for the actual textual recommendations.</p>
+                    <h4>Parameters</h4>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
+                            <tr><td><code>scope</code></td><td>string</td><td>Yes</td><td>One of <code>overview</code>, <code>owned</code>, <code>editorial</code>, <code>reference</code>, <code>ugc</code></td></tr>
+                            <tr><td><code>tag_ids</code></td><td>string[]</td><td>No</td><td>Only include actions matching these tags</td></tr>
+                            <tr><td><code>topic_ids</code></td><td>string[]</td><td>No</td><td>Only include actions for these topics</td></tr>
+                            <tr><td><code>model_ids</code></td><td>string[]</td><td>No</td><td>Only include actions for these AI models</td></tr>
+                            <tr><td><code>model_channel_ids</code></td><td>string[]</td><td>No</td><td>Only include actions for these model channels</td></tr>
+                            <tr><td><code>country_codes</code></td><td>string[]</td><td>No</td><td>ISO 3166-1 alpha-2 codes (e.g. US, DE)</td></tr>
+                            <tr><td><code>url_classification</code></td><td>string</td><td>Sometimes</td><td>Required for <code>scope=editorial</code>, optional for <code>scope=owned</code>. Page types like LISTICLE, ARTICLE, COMPARISON. Pass values surfaced by an overview row.</td></tr>
+                            <tr><td><code>domain</code></td><td>string</td><td>Sometimes</td><td>Required for <code>scope=reference</code> and <code>scope=ugc</code> (e.g. wikipedia.org, reddit.com). Pass values surfaced by an overview row.</td></tr>
+                        </tbody>
+                    </table>
+                    <h4>Response (scope=overview)</h4>
+                    <table class="params-table">
+                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>action_group_type</code></td><td>string</td><td>OWNED, EDITORIAL, REFERENCE, or UGC</td></tr>
+                            <tr><td><code>url_classification</code></td><td>string</td><td>Page type for OWNED / EDITORIAL rows (null for REFERENCE / UGC)</td></tr>
+                            <tr><td><code>domain</code></td><td>string</td><td>Domain for REFERENCE / UGC rows (null for OWNED / EDITORIAL)</td></tr>
+                            <tr><td><code>opportunity_score</code></td><td>number</td><td>Continuous score. Sort and rank by this.</td></tr>
+                            <tr><td><code>relative_opportunity_score</code></td><td>number</td><td>Strength tier: 1 = Low, 2 = Medium, 3 = High. Use this for prose labels.</td></tr>
+                            <tr><td><code>gap_percentage</code>, <code>coverage_percentage</code>, <code>used_ratio</code>, <code>used_total</code></td><td>number</td><td>Supporting stats</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Each overview row surfaces exactly one of <code>url_classification</code> or <code>domain</code>. Pass that value into the matching scope in the follow-up call.</p>
+                    <h4>Response (scope=owned | editorial | reference | ugc)</h4>
+                    <table class="params-table">
+                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>text</code></td><td>string</td><td>The recommendation, may include markdown links to targets or examples</td></tr>
+                            <tr><td><code>group_type</code></td><td>string</td><td>OWNED, EDITORIAL, REFERENCE, or UGC</td></tr>
+                            <tr><td><code>url_classification</code></td><td>string</td><td>Page type (may be null)</td></tr>
+                            <tr><td><code>domain</code></td><td>string</td><td>Domain (may be null)</td></tr>
+                            <tr><td><code>opportunity_score</code></td><td>number</td><td>Continuous score. Sort and rank by this.</td></tr>
+                            <tr><td><code>relative_opportunity_score</code></td><td>number</td><td>Strength tier: 1 = Low, 2 = Medium, 3 = High.</td></tr>
+                        </tbody>
+                    </table>
+                    <p>For example: <code>scope=overview</code> returns a row <code>{action_group_type: "UGC", domain: "youtube.com", opportunity_score: 0.30, ...}</code>. Follow up with <code>scope=ugc, domain="youtube.com"</code> to get ranked recommendations like &ldquo;Contact AutoPedia. Ask them for a collaboration.&rdquo;</p>
+
+                    <h3 id="tool-get-project-profile"><code>get_project_profile</code></h3>
+                    <p>Read the project&rsquo;s brand profile: the description, industry, brand-identity adjectives, target markets, audience distribution, and product or service list that ThriveStack uses to generate prompt suggestions. Call this before <code>set_project_profile</code> so the assistant can show you the current values before changing anything.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ profile }</code>. <code>profile</code> is <code>null</code> if the project hasn&rsquo;t been profiled yet, otherwise an object with the fields described under <code>set_project_profile</code>.</p>
+
+                    <h3 id="tool-search-docs"><code>search_docs</code></h3>
+                    <p>Search the ThriveStack product documentation at <a href="https://docs.thrivestack.ai" target="_blank" rel="noopener noreferrer">docs.thrivestack.ai</a> and return the most relevant pages. The assistant uses this for any question about how ThriveStack works &mdash; what a metric means, how a feature behaves, setup steps, plan and credit rules &mdash; then reads the best result with <code>read_doc</code>. Needs no <code>project_id</code> or project access.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>query</code></td><td>string</td><td>Yes</td><td>Search terms, e.g. <code>share of voice</code> or <code>set up prompts</code></td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max pages to return (default: 5, max: 20)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Columns:</strong> <code>title</code>, <code>path</code>, <code>url</code>, <code>snippet</code></p>
+                    <p>Pass a result&rsquo;s <code>path</code> to <code>read_doc</code>.</p>
+
+                    <h3 id="tool-read-doc"><code>read_doc</code></h3>
+                    <p>Read the full markdown content of a single documentation page. Pass the path returned by <code>search_docs</code> (e.g. <code>metrics/brand-metrics/visibility</code>). Needs no <code>project_id</code> or project access.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>path</code></td><td>string</td><td>Yes</td><td>Page path from a <code>search_docs</code> result</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ title, path, url, content }</code>. Returns a 404 if no page matches the path.</p>
+                </section>
+
+                <section id="write-tools" class="content-section">
+                    <h2>Write tools</h2>
+                    <p>Write tools let the assistant edit your project configuration: brands, prompts, tags, topics, and the brand profile. Every write tool is flagged <code>readOnlyHint: false</code>, and every <code>delete_*</code> tool is flagged <code>destructiveHint: true</code>. Clients that honor MCP annotations (Claude, Cursor, and most others) prompt for explicit confirmation before the call runs. Some deletes cascade, as noted below.</p>
+                    <p>Brands, prompts, tags, and topics also have bulk variants (<code>create_brands</code>, <code>update_brands</code>, <code>delete_brands</code>, <code>create_prompts</code>, <code>update_prompts</code>, <code>delete_prompts</code>, <code>create_tags</code>, <code>update_tags</code>, <code>delete_tags</code>, <code>create_topics</code>, <code>update_topics</code>, <code>delete_topics</code>) for handling up to 50 items in one call. Bulk tools return per-item results so partial failures don&rsquo;t block the rest of the batch.</p>
+                    <p>Prompts can also be archived (<code>archive_prompt</code> / <code>unarchive_prompt</code>) to stop or resume running them without deleting their history.</p>
+                    <p>There&rsquo;s also a small CRUD set for custom domain and URL classifications that extends the built-in classification taxonomy. Create the classification once, then assign it to specific domains or URLs as you find them.</p>
+                    <p>All write tools require organization-owner access and a <code>project_id</code>. Ask the assistant to look up IDs with the matching <code>list_*</code> tool before any write call so you see exactly what is about to change.</p>
+
+                    <h3 id="tool-create-brand"><code>create_brand</code></h3>
+                    <p>Create a new tracked brand in a project (own brand or competitor).</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Brand name</td></tr>
+                            <tr><td><code>domains</code></td><td>string[]</td><td>No</td><td>Domains associated with the brand</td></tr>
+                            <tr><td><code>aliases</code></td><td>string[]</td><td>No</td><td>Alternate names the brand should be matched under</td></tr>
+                            <tr><td><code>regex</code></td><td>string</td><td>No</td><td>Optional regex pattern for brand mentions in chat text</td></tr>
+                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>Hex color used for the brand in charts (e.g. #1A2B3C)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ id }</code>. The created brand ID.</p>
+
+                    <h3 id="tool-update-brand"><code>update_brand</code></h3>
+                    <p>Update a brand&rsquo;s name, regex, aliases, domains, or color. Changes to <code>name</code>, <code>regex</code>, or <code>aliases</code> trigger a background metric recalculation. Further edits during the recalc will fail; wait a few minutes and retry. Color changes don&rsquo;t trigger recalculation.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>brand_id</code></td><td>string</td><td>Yes</td><td>The brand ID to update</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>No</td><td>New brand name</td></tr>
+                            <tr><td><code>domains</code></td><td>string[]</td><td>No</td><td>New domain list (replaces existing)</td></tr>
+                            <tr><td><code>aliases</code></td><td>string[]</td><td>No</td><td>New alias list (replaces existing)</td></tr>
+                            <tr><td><code>regex</code></td><td>string | null</td><td>No</td><td>New regex. Pass <code>null</code> to clear an existing regex.</td></tr>
+                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>New hex color (e.g. #1A2B3C)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-delete-brand"><code>delete_brand</code></h3>
+                    <p>Soft-delete a brand. Destructive.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>brand_id</code></td><td>string</td><td>Yes</td><td>The brand ID to delete</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-create-brands"><code>create_brands</code></h3>
+                    <p>Create up to 50 brands in a single call. Duplicates (matched case-insensitively on name) are returned in <code>skipped</code> instead of failing the batch.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>brands</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries, each accepting the same fields as <code>create_brand</code>: <code>name</code>, <code>domains</code>, <code>aliases</code>, <code>regex</code>, <code>color</code></td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ created, skipped }</code>.</p>
+                    <p><code>created</code>: <code>[{ id, name }]</code><br><code>skipped</code>: <code>[{ name, reason: "duplicate" }]</code></p>
+
+                    <h3 id="tool-delete-brands"><code>delete_brands</code></h3>
+                    <p>Soft-delete up to 50 brands in a single call. Destructive.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>brand_ids</code></td><td>string[]</td><td>Yes</td><td>Up to 50 brand IDs to delete</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ deleted, skipped }</code>.</p>
+                    <p><code>deleted</code>: <code>[{ id }]</code><br><code>skipped</code>: <code>[{ id, reason: "not_found" | "already_deleted" }]</code></p>
+
+                    <h3 id="tool-update-brands"><code>update_brands</code></h3>
+                    <p>Update up to 50 brands in a single call. Per item, set any of <code>name</code>, <code>regex</code>, <code>aliases</code>, <code>domains</code>, <code>color</code>. Changes to <code>name</code>, <code>regex</code>, or <code>aliases</code> trigger a background metric recalculation per brand; a brand updated mid-recalculation is rejected.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>brands</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries. Each: <code>brand_id</code> (required), <code>name</code>, <code>regex</code> (pass null to clear), <code>aliases</code>, <code>domains</code>, <code>color</code></td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ updatedCount, skipped, rejected }</code>. Successful items collapse to <code>updatedCount</code>; <code>skipped</code> and <code>rejected</code> list any items that didn&rsquo;t apply.</p>
+
+                    <h3 id="tool-create-prompt"><code>create_prompt</code></h3>
+                    <p>Create a new prompt in a project. May consume plan credits.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>text</code></td><td>string</td><td>Yes</td><td>The prompt text</td></tr>
+                            <tr><td><code>country_code</code></td><td>string</td><td>Yes</td><td>ISO 3166-1 alpha-2 code the prompt targets (e.g. US, DE)</td></tr>
+                            <tr><td><code>topic_id</code></td><td>string</td><td>No</td><td>Topic ID to attach the prompt to</td></tr>
+                            <tr><td><code>tag_ids</code></td><td>string[]</td><td>No</td><td>Tag IDs to attach to the prompt</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ id }</code>. The created prompt ID.</p>
+
+                    <h3 id="tool-update-prompt"><code>update_prompt</code></h3>
+                    <p>Update a prompt&rsquo;s topic and/or tags. <code>tag_ids</code> fully replaces the existing tag set. Pass <code>topic_id: null</code> to detach the prompt from its topic.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>prompt_id</code></td><td>string</td><td>Yes</td><td>The prompt ID to update</td></tr>
+                            <tr><td><code>topic_id</code></td><td>string | null</td><td>No</td><td>New topic ID, or null to detach</td></tr>
+                            <tr><td><code>tag_ids</code></td><td>string[]</td><td>No</td><td>New tag set (replaces existing)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-delete-prompt"><code>delete_prompt</code></h3>
+                    <p>Soft-delete a prompt. Destructive. Cascades to the prompt&rsquo;s chats, which are soft-deleted too.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>prompt_id</code></td><td>string</td><td>Yes</td><td>The prompt ID to delete</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-create-prompts"><code>create_prompts</code></h3>
+                    <p>Create up to 50 prompts in a single call. May consume plan credits. Accepts existing <code>topic_id</code> and <code>tag_ids</code> only. This tool does not auto-create topics or tags; unknown IDs land in <code>rejected</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>prompts</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries, each accepting the same fields as <code>create_prompt</code>: <code>text</code>, <code>country_code</code>, <code>topic_id</code>, <code>tag_ids</code></td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ created, skipped, rejected, warning? }</code>.</p>
+                    <p><code>created</code>: <code>[{ id, text, country_code }]</code><br><code>skipped</code>: <code>[{ text, country_code, reason: "duplicate" }]</code><br><code>rejected</code>: <code>[{ text, country_code, reason: "limit_exceeded" | "invalid_topic" | "invalid_tag", message }]</code><br><code>warning</code>: optional plan-credit warning string when the batch was partially accepted</p>
+
+                    <h3 id="tool-delete-prompts"><code>delete_prompts</code></h3>
+                    <p>Soft-delete up to 50 prompts. Destructive. Each delete is enqueued asynchronously; the response reports which IDs were queued, skipped, or could not be enqueued.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>prompt_ids</code></td><td>string[]</td><td>Yes</td><td>Up to 50 prompt IDs to delete</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ queued, skipped, rejected }</code>.</p>
+                    <p><code>queued</code>: <code>[{ id }]</code><br><code>skipped</code>: <code>[{ id, reason: "not_found" | "already_deleted" }]</code><br><code>rejected</code>: <code>[{ id, reason: "enqueue_failed", message }]</code></p>
+
+                    <h3 id="tool-update-prompts"><code>update_prompts</code></h3>
+                    <p>Update the topic and/or tags of up to 50 prompts in a single call. Per item, pass <code>tag_ids</code> to fully replace the prompt&rsquo;s tag set, or <code>topic_id: null</code> to detach its topic. Topic and tag IDs must already exist.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>prompts</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries. Each: <code>prompt_id</code> (required), <code>topic_id</code> (or null to detach), <code>tag_ids</code> (replaces existing tags)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ updatedCount, skipped, rejected }</code>. Successful items collapse to <code>updatedCount</code>; <code>skipped</code> and <code>rejected</code> list any items that didn&rsquo;t apply.</p>
+
+                    <h3 id="tool-archive-prompt"><code>archive_prompt</code></h3>
+                    <p>Archive a prompt (sets <code>is_archived = true</code>) so it stops running while its chats and history stay intact. Use this instead of <code>delete_prompt</code> when the data should be retained.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>prompt_id</code></td><td>string</td><td>Yes</td><td>The prompt ID to archive</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-unarchive-prompt"><code>unarchive_prompt</code></h3>
+                    <p>Unarchive a prompt (sets <code>is_archived = false</code>), reactivating it so it resumes running. Subject to the project&rsquo;s active-prompt plan limit.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>prompt_id</code></td><td>string</td><td>Yes</td><td>The prompt ID to unarchive</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-create-tag"><code>create_tag</code></h3>
+                    <p>Create a new tag. Tags are cross-cutting labels that can be attached to prompts.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Tag name</td></tr>
+                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>Tag color (from ThriveStack&rsquo;s color palette)</td></tr>
+                            <tr><td><code>group</code></td><td>string</td><td>No</td><td>Optional tag group; grouped tags share the group&rsquo;s color, so <code>color</code> is ignored when a group is set</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ id }</code>. The created tag ID.</p>
+
+                    <h3 id="tool-update-tag"><code>update_tag</code></h3>
+                    <p>Update a tag&rsquo;s name, color, or group.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>tag_id</code></td><td>string</td><td>Yes</td><td>The tag ID to update</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>No</td><td>New tag name</td></tr>
+                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>New tag color</td></tr>
+                            <tr><td><code>group</code></td><td>string | null</td><td>No</td><td>Move the tag into a group (it inherits the group&rsquo;s color), null to ungroup, or omit to leave the group unchanged</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-delete-tag"><code>delete_tag</code></h3>
+                    <p>Soft-delete a tag and detach it from every prompt it&rsquo;s attached to. Destructive.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>tag_id</code></td><td>string</td><td>Yes</td><td>The tag ID to delete</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-create-tags"><code>create_tags</code></h3>
+                    <p>Create up to 50 tags in a single call. Duplicates (matched case-insensitively on name) land in <code>skipped</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>tags</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries, each accepting the same fields as <code>create_tag</code>: <code>name</code>, <code>color</code>, <code>group</code></td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ created, skipped }</code>.</p>
+                    <p><code>created</code>: <code>[{ id, name }]</code><br><code>skipped</code>: <code>[{ name, reason: "duplicate" }]</code></p>
+
+                    <h3 id="tool-delete-tags"><code>delete_tags</code></h3>
+                    <p>Soft-delete up to 50 tags in a single call and detach them from every prompt they&rsquo;re attached to. Destructive.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>tag_ids</code></td><td>string[]</td><td>Yes</td><td>Up to 50 tag IDs to delete</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ deleted, skipped }</code>.</p>
+                    <p><code>deleted</code>: <code>[{ id }]</code><br><code>skipped</code>: <code>[{ id, reason: "not_found" }]</code></p>
+
+                    <h3 id="tool-update-tags"><code>update_tags</code></h3>
+                    <p>Update up to 50 tags in a single call (name and/or color per item). System tags are skipped.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>tags</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries. Each: <code>tag_id</code> (required), <code>name</code>, <code>color</code> (from ThriveStack&rsquo;s palette), <code>group</code> (set a group, null to ungroup, or omit to leave unchanged)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ updatedCount, skipped, rejected }</code>. Successful items collapse to <code>updatedCount</code>; <code>skipped</code> (includes system tags) and <code>rejected</code> list any items that didn&rsquo;t apply.</p>
+
+                    <h3 id="tool-update-tag-group"><code>update_tag_group</code></h3>
+                    <p>Rename and/or recolor a user-defined tag group. The change applies to every tag in the group. Provide a new name, a new color, or both.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>group</code></td><td>string</td><td>Yes</td><td>The current group name</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>No</td><td>New group name to rename to</td></tr>
+                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>New color applied to every tag in the group</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ tag_count }</code>. The number of tags affected.</p>
+
+                    <h3 id="tool-delete-tag-group"><code>delete_tag_group</code></h3>
+                    <p>Delete a user-defined tag group. Destructive. By default its tags are kept and ungrouped; set <code>delete_tags: true</code> to delete the tags themselves and detach them from every prompt.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>group</code></td><td>string</td><td>Yes</td><td>The group name to delete</td></tr>
+                            <tr><td><code>delete_tags</code></td><td>boolean</td><td>No</td><td>Delete the group&rsquo;s tags instead of just ungrouping them (default: false)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ tag_count }</code>. The number of tags affected.</p>
+
+                    <h3 id="tool-create-topic"><code>create_topic</code></h3>
+                    <p>Create a new topic. Topics group related prompts.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Topic name (1&ndash;64 characters)</td></tr>
+                            <tr><td><code>country_code</code></td><td>string</td><td>No</td><td>Optional ISO 3166-1 alpha-2 code for the topic</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ id }</code>. The created topic ID.</p>
+
+                    <h3 id="tool-update-topic"><code>update_topic</code></h3>
+                    <p>Rename a topic.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>topic_id</code></td><td>string</td><td>Yes</td><td>The topic ID to update</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>No</td><td>New topic name (1&ndash;64 characters)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-delete-topic"><code>delete_topic</code></h3>
+                    <p>Soft-delete a topic. Destructive. Associated prompts are detached (not deleted); any AI-generated prompt suggestions under the topic are deleted.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>topic_id</code></td><td>string</td><td>Yes</td><td>The topic ID to delete</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-create-topics"><code>create_topics</code></h3>
+                    <p>Create up to 50 topics in a single call. Duplicates (matched case-insensitively on name) land in <code>skipped</code>. Items beyond the project&rsquo;s topic limit land in <code>rejected</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>topics</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries, each accepting the same fields as <code>create_topic</code>: <code>name</code> (1&ndash;64 chars), <code>country_code</code></td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ created, skipped, rejected }</code>.</p>
+                    <p><code>created</code>: <code>[{ id, name }]</code><br><code>skipped</code>: <code>[{ name, reason: "duplicate" }]</code><br><code>rejected</code>: <code>[{ name, reason: "limit_exceeded", message }]</code></p>
+
+                    <h3 id="tool-delete-topics"><code>delete_topics</code></h3>
+                    <p>Soft-delete up to 50 topics in a single call. Destructive. Associated prompts are detached (not deleted); any AI-generated prompt suggestions under the topics are deleted.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>topic_ids</code></td><td>string[]</td><td>Yes</td><td>Up to 50 topic IDs to delete</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ deleted, skipped }</code>.</p>
+                    <p><code>deleted</code>: <code>[{ id }]</code><br><code>skipped</code>: <code>[{ id, reason: "not_found" | "already_deleted" }]</code></p>
+
+                    <h3 id="tool-update-topics"><code>update_topics</code></h3>
+                    <p>Rename up to 50 topics in a single call.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>topics</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries. Each: <code>topic_id</code> (required), <code>name</code> (1&ndash;64 characters)</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ updatedCount, skipped, rejected }</code>. Successful items collapse to <code>updatedCount</code>; <code>skipped</code> and <code>rejected</code> list any items that didn&rsquo;t apply.</p>
+
+                    <h3 id="tool-create-domain-classification"><code>create_domain_classification</code></h3>
+                    <p>Define a new custom domain classification entity on a project. This creates the classification but does not assign it to any domain &mdash; use <code>assign_domain_classification</code> for that.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Classification name (unique per project)</td></tr>
+                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>Display color from ThriveStack&rsquo;s palette</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ id }</code>.</p>
+
+                    <h3 id="tool-delete-domain-classification"><code>delete_domain_classification</code></h3>
+                    <p>Permanently delete a custom domain classification entity. Destructive. Cascades through the override table &mdash; any domain currently assigned this classification falls back to its heuristic classification. To clear a single domain instead, use <code>unassign_domain_classification</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Name of the custom domain classification to delete</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-assign-domain-classification"><code>assign_domain_classification</code></h3>
+                    <p>Assign a built-in classification (Corporate, Competitor, Editorial, Institutional, Other, Reference, UGC, You, Related) or the name of a custom domain classification to a domain. Overrides any heuristic classification. The override applies at apex granularity.</p>
+                    <p>If a display label collides with an existing custom classification name, the custom classification wins &mdash; pass the built-in enum value (e.g. <code>OTHER</code>) to force the built-in.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Domain to classify (any host or apex &mdash; applied at apex granularity)</td></tr>
+                            <tr><td><code>classification</code></td><td>string</td><td>Yes</td><td>Built-in classification display name or custom classification name</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-unassign-domain-classification"><code>unassign_domain_classification</code></h3>
+                    <p>Clear the classification override on a domain, restoring its heuristic classification. Does not delete the custom classification entity itself.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Domain whose classification override should be cleared</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-create-url-classification"><code>create_url_classification</code></h3>
+                    <p>Define a new custom URL classification entity on a project. This creates the classification but does not assign it to any URL &mdash; use <code>assign_url_classification</code> for that.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Classification name (unique per project)</td></tr>
+                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>Display color from ThriveStack&rsquo;s palette</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ id }</code>.</p>
+
+                    <h3 id="tool-delete-url-classification"><code>delete_url_classification</code></h3>
+                    <p>Permanently delete a custom URL classification entity. Destructive. Cascades through the override table &mdash; any URL currently assigned this classification falls back to its heuristic classification. To clear a single URL instead, use <code>unassign_url_classification</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Name of the custom URL classification to delete</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-assign-url-classification"><code>assign_url_classification</code></h3>
+                    <p>Assign a built-in classification (Homepage, Category Page, Product Page, Listicle, Comparison, Profile, Alternative, Discussion, How-To Guide, Article, Other) or the name of a custom URL classification to a URL. Overrides any heuristic classification. The override applies to the normalized URL form.</p>
+                    <p>If a display label collides with an existing custom classification name, the custom classification wins &mdash; pass the built-in enum value (e.g. <code>OTHER</code>) to force the built-in.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>url</code></td><td>string</td><td>Yes</td><td>URL to classify</td></tr>
+                            <tr><td><code>classification</code></td><td>string</td><td>Yes</td><td>Built-in classification display name or custom classification name</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-unassign-url-classification"><code>unassign_url_classification</code></h3>
+                    <p>Clear the classification override on a URL, restoring its heuristic classification. Does not delete the custom classification entity itself.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>url</code></td><td>string</td><td>Yes</td><td>URL whose classification override should be cleared</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+
+                    <h3 id="tool-set-project-profile"><code>set_project_profile</code></h3>
+                    <p>Replace the project&rsquo;s brand profile. Every field is required, so call <code>get_project_profile</code> first, merge your changes into the existing values, then send the complete profile here. Saving triggers a background refresh of the project&rsquo;s prompt suggestions. The project display name is not part of the profile and can&rsquo;t be changed via this tool.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>occupation</code></td><td>string</td><td>Yes</td><td>Short brand description used in every generated prompt. Be specific.</td></tr>
+                            <tr><td><code>industry</code></td><td>string</td><td>Yes</td><td>Industry or vertical (e.g. FinTech, E-commerce)</td></tr>
+                            <tr><td><code>brandPresentation</code></td><td>string[]</td><td>Yes</td><td>Adjectives that define the brand&rsquo;s positioning (e.g. premium, challenger)</td></tr>
+                            <tr><td><code>productsAndServices</code></td><td>string[]</td><td>Yes</td><td>Main product lines, service categories, or flagship offerings</td></tr>
+                            <tr><td><code>targetMarkets</code></td><td>object[]</td><td>Yes</td><td>Geographic scope. Each entry: <code>{ marketSize, location, osmId? }</code></td></tr>
+                            <tr><td><code>audienceDistribution</code></td><td>object</td><td>Yes</td><td><code>{ simpleRecommendationSeeker, informedShopper, evaluativeResearcher }</code> integers that must sum to 100</td></tr>
+                        </tbody>
+                    </table>
+                    <p><code>marketSize</code> is one of: Neighborhood, City, State/Province, National, Continental Bloc, Global.</p>
+                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
+                </section>
+
+                <section id="report-filters" class="content-section">
+                    <h2>Report filters and dimensions</h2>
+
+                    <h3 id="filtering">Filtering</h3>
+                    <p>The three report tools support filters to narrow results. Each filter looks like this:</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)" type="button">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                        <div class="code-block-label">JSON</div>
+                        <pre><code>{
+  "field": "model_channel_id",
+  "operator": "in",
+  "values": ["openai-0", "perplexity-0"]
+}</code></pre>
+                    </div>
+
+                    <h4>Standard filter fields</h4>
+                    <p>These all use <code>in</code> / <code>not_in</code> operators with a <code>values</code> array.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Field</th><th>Available in</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>model_id</code></td><td>All reports</td><td>Deprecated &mdash; prefer <code>model_channel_id</code>. AI search engine (e.g. chatgpt-scraper, perplexity-scraper, gemini-scraper). Call <code>list_models</code> to get the IDs available for your project.</td></tr>
+                            <tr><td><code>model_channel_id</code></td><td>All reports</td><td>Stable engine channel ID &mdash; survives model version upgrades. Call <code>list_model_channels</code> to resolve.</td></tr>
+                            <tr><td><code>topic_id</code></td><td>All reports</td><td>Topic grouping ID</td></tr>
+                            <tr><td><code>tag_id</code></td><td>All reports</td><td>Tag ID</td></tr>
+                            <tr><td><code>prompt_id</code></td><td>All reports</td><td>Individual prompt ID</td></tr>
+                            <tr><td><code>country_code</code></td><td>All reports</td><td>ISO 3166-1 alpha-2 code (e.g. US, DE, GB)</td></tr>
+                            <tr><td><code>brand_id</code></td><td>Brand report</td><td>Brand ID</td></tr>
+                            <tr><td><code>domain</code></td><td>Domain and URL reports</td><td>Domain name</td></tr>
+                            <tr><td><code>url</code></td><td>Domain and URL reports</td><td>Full URL</td></tr>
+                            <tr><td><code>chat_id</code></td><td>All reports</td><td>Individual chat/conversation ID</td></tr>
+                            <tr><td><code>mentioned_brand_id</code></td><td>Domain and URL reports</td><td>Only sources where this brand was mentioned</td></tr>
+                            <tr><td><code>domain_classification</code></td><td>Domain and URL reports</td><td>Built-in classification display name (Corporate, Editorial, &hellip;) or the name of a custom domain classification. See <code>list_domain_classifications</code>.</td></tr>
+                            <tr><td><code>url_classification</code></td><td>URL report</td><td>Built-in classification display name (Listicle, Comparison, &hellip;) or the name of a custom URL classification. See <code>list_url_classifications</code>.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="numeric-filters">Numeric filters</h3>
+                    <p>Domain and URL reports also accept two numeric filters. These use <code>gt</code> / <code>gte</code> / <code>lt</code> / <code>lte</code> operators with a single <code>value</code> (not <code>values</code>).</p>
+                    <p><code>mentioned_brand_count</code>: filter by number of unique brands mentioned alongside a source.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)" type="button">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                        <div class="code-block-label">JSON</div>
+                        <pre><code>{
+  "field": "mentioned_brand_count",
+  "operator": "gte",
+  "value": 2
+}</code></pre>
+                    </div>
+                    <p><code>gap</code>: gap analysis. Excludes sources where your own brand is mentioned, then filters by how many competitor brands are present. This is ThriveStack&rsquo;s most actionable competitive filter: it finds content where competitors appear but you don&rsquo;t.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)" type="button">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                        <div class="code-block-label">JSON</div>
+                        <pre><code>{
+  "field": "gap",
+  "operator": "gte",
+  "value": 2
+}</code></pre>
+                    </div>
+                    <p>The example above returns domains or URLs where the own brand is absent but at least 2 competitors are mentioned.</p>
+
+                    <h3 id="operators">Operators</h3>
+                    <table class="params-table">
+                        <thead><tr><th>Operator</th><th>Use with</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>in</code></td><td>Standard fields</td><td>Include only matching values</td></tr>
+                            <tr><td><code>not_in</code></td><td>Standard fields</td><td>Exclude matching values</td></tr>
+                            <tr><td><code>gt</code>, <code>gte</code>, <code>lt</code>, <code>lte</code></td><td><code>mentioned_brand_count</code>, <code>gap</code></td><td>Numeric comparisons</td></tr>
+                        </tbody>
+                    </table>
+                    <p>You can combine multiple filters. They&rsquo;re joined with AND logic.</p>
+
+                    <h3 id="sorting">Sorting</h3>
+                    <p>The three report tools accept an <code>order_by</code> array that sorts results before pagination. Each entry is <code>{ field, direction }</code>. <code>direction</code> is <code>asc</code> or <code>desc</code> and defaults to <code>desc</code>. Multiple entries create a multi-key sort, applied in order.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)" type="button">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                        <div class="code-block-label">JSON</div>
+                        <pre><code>[
+  { "field": "visibility", "direction": "desc" },
+  { "field": "mention_count", "direction": "desc" }
+]</code></pre>
+                    </div>
+                    <p><strong>Sortable fields by report:</strong></p>
+                    <table class="params-table">
+                        <thead><tr><th>Report</th><th>Sortable fields</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>get_brand_report</code></td><td><code>visibility</code>, <code>visibility_count</code>, <code>mention_count</code>, <code>sentiment</code>, <code>position</code>, <code>share_of_voice</code></td></tr>
+                            <tr><td><code>get_domain_report</code></td><td><code>citation_rate</code>, <code>retrieval_count</code>, <code>citation_count</code></td></tr>
+                            <tr><td><code>get_url_report</code></td><td><code>retrievals</code>, <code>retrieval_count</code>, <code>citation_count</code>, <code>citation_rate</code></td></tr>
+                        </tbody>
+                    </table>
+                    <p>When <code>order_by</code> is omitted, each report falls back to a sensible default ordering.</p>
+
+                    <h3 id="dimensions">Dimensions</h3>
+                    <p>Dimensions break down results into rows grouped by a specific field. Without dimensions, results are totals for the entire date range.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Dimension</th><th>What it does</th><th>When to use it</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>date</code></td><td>Daily breakdown (YYYY-MM-DD)</td><td>Tracking trends over time</td></tr>
+                            <tr><td><code>model_id</code></td><td>Per AI search engine (deprecated, prefer <code>model_channel_id</code>)</td><td>Comparing performance across ChatGPT, Perplexity, etc.</td></tr>
+                            <tr><td><code>model_channel_id</code></td><td>Per stable engine channel</td><td>Same as <code>model_id</code> but survives model version changes</td></tr>
+                            <tr><td><code>topic_id</code></td><td>Per topic grouping</td><td>Finding your strongest and weakest topic areas</td></tr>
+                            <tr><td><code>tag_id</code></td><td>Per tag</td><td>Analyzing custom segments</td></tr>
+                            <tr><td><code>prompt_id</code></td><td>Per individual prompt</td><td>Drilling into specific queries</td></tr>
+                            <tr><td><code>country_code</code></td><td>Per country</td><td>Checking geographic differences</td></tr>
+                            <tr><td><code>chat_id</code></td><td>Per individual AI conversation</td><td>Inspecting specific responses</td></tr>
+                        </tbody>
+                    </table>
+                    <p>You can combine dimensions. For example, <code>["date", "model_channel_id"]</code> gives you daily trends per AI engine.</p>
+                </section>
+
+                <div class="page-nav">
+                    <a href="../../public/mcp/prompts.html" class="nav-card prev-card">
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">Prompts</span>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="tools.html">Last updated: July 20, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#response-format" class="toc-link active">Response format</a>
+                    <a href="#read-tools" class="toc-link">Read tools</a>
+                    <a href="#write-tools" class="toc-link">Write tools</a>
+                    <a href="#report-filters" class="toc-link">Report filters and dimensions</a>
+                    <a href="#filtering" class="toc-link">Filtering</a>
+                    <a href="#operators" class="toc-link">Operators</a>
+                    <a href="#sorting" class="toc-link">Sorting</a>
+                    <a href="#dimensions" class="toc-link">Dimensions</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <style>
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.86rem;
+        }
+        .params-table th,
+        .params-table td {
+            border: 0;
+            border-bottom: 1px solid var(--table-row-border);
+            padding: 0.5rem 0.6rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        .params-table th {
+            background: var(--bg-sidebar);
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+
+        /* Code blocks inside Tools reference */
+        .code-block-wrapper {
+            position: relative;
+            margin: 14px 0 18px;
+        }
+        .code-block-wrapper pre {
+            margin: 0;
+            padding: 40px 16px 16px;
+            border-radius: 10px;
+            background: rgba(248, 250, 252, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.32);
+            overflow-x: auto;
+        }
+        [data-theme="dark"] .code-block-wrapper pre {
+            background: rgba(2, 6, 23, 0.55);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+        }
+        .code-block-label {
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            font-size: 12px;
+            color: rgba(71, 85, 105, 0.98);
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(148, 163, 184, 0.38);
+            border-radius: 8px;
+            padding: 4px 8px;
+            pointer-events: none;
+        }
+        [data-theme="dark"] .code-block-label {
+            color: rgba(226, 232, 240, 0.95);
+            background: rgba(2, 6, 23, 0.55);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+        }
+        .code-block-wrapper pre code {
+            background: transparent;
+            color: rgba(15, 23, 42, 0.95);
+            padding: 0;
+            font-size: 0.88rem;
+        }
+        [data-theme="dark"] .code-block-wrapper pre code {
+            color: rgba(229, 231, 235, 0.95);
+        }
+        .copy-btn {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: 8px;
+            border: 1px solid rgba(55, 65, 81, 0.55);
+            background: rgba(55, 65, 81, 0.95);
+            color: rgba(255, 255, 255, 0.97);
+            transition: color 0.15s, border-color 0.15s;
+        }
+        .copy-btn:hover {
+            border-color: rgba(55, 65, 81, 0.9);
+        }
+        .copy-btn.copied {
+            color: #4ade80;
+            border-color: #4ade80;
+        }
+    </style>
+
+    <script>
+        function copyCode(btn) {
+            var wrapper = btn.closest(".code-block-wrapper");
+            var codeEl = wrapper ? wrapper.querySelector("pre code") : null;
+            if (!codeEl) return;
+
+            var text = codeEl.innerText;
+            navigator.clipboard.writeText(text).then(function () {
+                btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Copied';
+                btn.classList.add("copied");
+                setTimeout(function () {
+                    btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
+                    btn.classList.remove("copied");
+                }, 2000);
+            });
+        }
+    </script>
+
+    <script src="../../script.js"></script>
+</body>
+</html>
