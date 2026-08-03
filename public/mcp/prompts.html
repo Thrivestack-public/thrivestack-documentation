@@ -90,13 +90,14 @@
                     <span class="doc-page-header-eyebrow">ThriveStack MCP</span>
                     <h1 class="doc-page-title">Prompts</h1>
                     <p class="doc-page-description">
-                        ThriveStack ships native MCP prompts: ready-to-run analysis workflows exposed as slash commands in your AI tool. Each prompt runs a scripted sequence of tool calls and formats the output for you.
+                        ThriveStack ships native MCP prompts &mdash; system-prompt-style personas and setup wizards you invoke directly from your AI tool&rsquo;s prompt picker.
                     </p>
                 </header>
 
                 <section id="prompts-intro" class="content-section">
-                    <blockquote class="note-callout">Prompts are a built-in MCP primitive. Instead of asking your AI assistant to combine tools step-by-step, you invoke a single slash command and get a fully formatted report back.</blockquote>
+                    <blockquote class="note-callout">Prompts are a built-in MCP primitive. Instead of describing how you want the assistant to behave every time, you invoke a single named prompt and it takes on that persona or runs that workflow for the rest of the conversation.</blockquote>
                     <blockquote class="note-callout">Prompts are versioned with the ThriveStack MCP server. When we ship a new one, it appears in your client automatically. No install.</blockquote>
+                    <blockquote class="note-callout">None of the current prompts take arguments &mdash; invoke them as-is, no project or brand selection needed up front.</blockquote>
                 </section>
 
                 <section id="how-to-invoke" class="content-section">
@@ -129,88 +130,35 @@
 
                 <section id="available-prompts" class="content-section">
                     <h2>Available prompts</h2>
-                    <p>All prompts take a <code>project</code> argument (name or ID). Your AI assistant resolves the name for you, so &ldquo;Acme Q2&rdquo; works as well as a project ID.</p>
+                    <p>The server registers exactly four prompts &mdash; two analyst personas and two setup wizards.</p>
 
-                    <h3 id="prompt-weekly-pulse"><code>thrivestack_weekly_pulse</code></h3>
-                    <p><strong>Weekly Visibility Pulse.</strong> Week-over-week digest covering brand metrics, competitor movers, source shifts, and sentiment flags. Formatted for sharing internally.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Use when:</strong> you want a quick Monday-morning snapshot of what changed last week.</p>
+                    <h3 id="prompt-growth-advisor"><code>growth_advisor</code></h3>
+                    <p><strong>B2B SaaS growth advisor.</strong> Reads product telemetry, activation journey, and revenue data through the same ClickHouse-backed tools as the <code>ask</code> tool, and returns findings plus the business &ldquo;why&rdquo; behind them &mdash; what&rsquo;s working, what&rsquo;s broken, and what to fix next.</p>
+                    <p>No arguments.</p>
+                    <p><strong>Use when:</strong> you want the assistant to proactively reason about growth like an advisor would, rather than just answer one query at a time.</p>
 
-                    <h3 id="prompt-competitor-radar"><code>thrivestack_competitor_radar</code></h3>
-                    <p><strong>Competitor Movement Radar.</strong> Scans every brand &times; topic &times; engine combination for significant shifts. Returns the biggest gainers and losers, hypothesized drivers, and the topics where your own brand is most exposed.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
-                            <tr><td><code>threshold_pp</code></td><td>No</td><td>Minimum percentage-point change to flag (default: 10)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Use when:</strong> a competitor suddenly seems more visible and you want to know where and on which engines.</p>
+                    <h3 id="prompt-ai-visibility-analyst"><code>ai_visibility_analyst</code></h3>
+                    <p><strong>AI Visibility content strategist.</strong> Reads citation-gap probe evidence (<code>get_citation_probe_data</code>, <code>get_domain_report</code>) and source-domain metrics, classifies gaps into tiers &mdash; Silent, Mentioned-not-cited, Losing share &mdash; and turns them into content recommendations.</p>
+                    <p>No arguments.</p>
+                    <p><strong>Use when:</strong> you want a structured pass at &ldquo;why aren&rsquo;t AI engines citing us for this topic, and what should we publish to fix it&rdquo;, rather than pulling the raw probe data yourself.</p>
 
-                    <h3 id="prompt-engine-scorecard"><code>thrivestack_engine_scorecard</code></h3>
-                    <p><strong>AI Engine Scorecard.</strong> Per-engine breakdown of brand visibility, share of voice, sentiment, position, plus source retrieval and citation rate from your own domains. Highlights the engine with the most untapped potential.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Use when:</strong> you want to know which AI engine to focus on next.</p>
+                    <h3 id="prompt-marketing-setup-wizard"><code>thrivestack_marketing_setup_wizard</code></h3>
+                    <p><strong>Marketing telemetry installation wizard.</strong> Returns a wizard prompt meant to be pasted into Claude Code inside your marketing website repo, walking it through instrumenting the site with ThriveStack visitor tracking.</p>
+                    <p>No arguments.</p>
+                    <p><strong>Use when:</strong> you&rsquo;re setting up ThriveStack tracking on a marketing site for the first time. Pairs with the <code>start_thrivestack_setup</code> tool (see <a href="../../public/mcp/tools.html#tool-start-thrivestack-setup">Tools</a>).</p>
 
-                    <h3 id="prompt-topic-heatmap"><code>thrivestack_topic_heatmap</code></h3>
-                    <p><strong>Topic &times; Model Heatmap.</strong> Visibility heatmap across all your topics and all tracked AI engines, calibrated to your own baseline so cells are labeled as blind spots, weak, moderate, strong, or dominant.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Use when:</strong> you want to find blind spots and strongholds across topics and engines at a glance.</p>
-
-                    <h3 id="prompt-grader"><code>thrivestack_prompt_grader</code></h3>
-                    <p><strong>Prompt Set Grader.</strong> Grades your tracked prompt set on topic balance, tag hygiene, funnel coverage, branded/unbranded segmentation, duplicate detection, and model data gaps. Returns an A&ndash;F report card with the top 3 fixes.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Use when:</strong> you suspect your prompt set is skewed, incomplete, or noisy.</p>
-
-                    <h3 id="prompt-source-authority"><code>thrivestack_source_authority</code></h3>
-                    <p><strong>Source Authority Audit.</strong> How your domains perform as sources across AI engines: retrieval rates, citation rates, top URLs, content type breakdown, and authority gaps where competitors are cited but you are not.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Use when:</strong> you&rsquo;re optimizing content and want to know which URLs and formats get picked up by AI.</p>
-
-                    <h3 id="prompt-campaign-tracker"><code>thrivestack_campaign_tracker</code></h3>
-                    <p><strong>PR / Campaign Impact Tracker.</strong> Before/after comparison around a launch date. Tracks brand metrics and source pickup, broken down by engine. Pass specific URLs to track a PR push, or omit them to analyze your whole domain.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Argument</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project</code></td><td>Yes</td><td>Project name or ID</td></tr>
-                            <tr><td><code>campaign_date</code></td><td>Yes</td><td>Launch date in <code>YYYY-MM-DD</code> format</td></tr>
-                            <tr><td><code>urls</code></td><td>No</td><td>Comma-separated URLs to track. If omitted, analyzes your own brand domains broadly.</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Use when:</strong> you shipped a PR campaign, guest post, or content refresh and want to measure AI impact.</p>
+                    <h3 id="prompt-product-setup-wizard"><code>thrivestack_product_setup_wizard</code></h3>
+                    <p><strong>Product telemetry installation wizard.</strong> Returns a wizard prompt meant to be pasted into Claude Code inside your application repo, walking it through instrumenting your web app with ThriveStack product telemetry.</p>
+                    <p>No arguments.</p>
+                    <p><strong>Use when:</strong> you&rsquo;re setting up ThriveStack tracking on your product for the first time. Pairs with the <code>start_thrivestack_setup</code> tool (see <a href="../../public/mcp/tools.html#tool-start-thrivestack-setup">Tools</a>).</p>
                 </section>
 
                 <section id="combining-prompts" class="content-section query-examples">
                     <h2>Combining prompts with free-form questions</h2>
-                    <p>Prompts are a starting point. After a prompt runs, follow up with questions in plain language. Your AI assistant still has access to every tool, so you can drill into any row, engine, or topic.</p>
-                    <blockquote class="query-examples__prompt">&ldquo;Run the weekly pulse, then dig into why Perplexity visibility dropped&rdquo;</blockquote>
-                    <blockquote class="query-examples__prompt">&ldquo;After the competitor radar, show me the chats from last week that mentioned Acme&rdquo;</blockquote>
-                    <p>Prompts are read-only. They only use the same ThriveStack data you can already see in the dashboard.</p>
+                    <p>Prompts are a starting point. After invoking one, follow up with questions in plain language &mdash; your AI assistant still has access to every tool, so you can drill into any number, account, or domain the prompt surfaced.</p>
+                    <blockquote class="query-examples__prompt">&ldquo;Use the growth advisor, then dig into why activation dropped last month&rdquo;</blockquote>
+                    <blockquote class="query-examples__prompt">&ldquo;Run the AI visibility analyst for ourdomain.com, then show me the raw citation evidence for the gaps it flagged&rdquo;</blockquote>
+                    <p>All ThriveStack MCP prompts and tools are read-only except <code>create_account_segment</code> and <code>start_thrivestack_setup</code> &mdash; they only read the same ThriveStack data you can already see in the dashboard.</p>
                 </section>
 
                 <div class="page-nav">
@@ -233,7 +181,7 @@
                     </div>
                     <div class="footer-links">
                         <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
-                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="prompts.html">Last updated: July 20, 2026</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="prompts.html">Last updated: August 3, 2026</a>
                     </div>
                 </footer>
             </div>

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-07-20T12:52:25.463Z",
+  "generatedAt": "2026-08-03T15:25:20.635Z",
   "source": "thrivestack-documentation",
   "entries": [
     {
@@ -3255,7 +3255,7 @@
       "title": "Prompts",
       "url": "public/mcp/prompts.html",
       "section": "MCP",
-      "description": "ThriveStack ships native MCP prompts: ready-to-run analysis workflows exposed as slash commands in your AI tool. Each prompt runs a scripted sequence of tool calls and formats the output for you.",
+      "description": "ThriveStack ships native MCP prompts &mdash; system-prompt-style personas and setup wizards you invoke directly from your AI tool&rsquo;s prompt picker.",
       "keywords": [
         "public",
         "mcp",
@@ -3407,6 +3407,25 @@
         "x-api-key",
         "create-api-key"
       ],
+      "deprecated": true
+    },
+    {
+      "id": "public-mcp-setup-create-pat-Create-a-Personal-Access-Token",
+      "title": "Setup Guide",
+      "url": "public/mcp/setup.html#create-pat",
+      "section": "MCP",
+      "description": "Create a Personal Access Token",
+      "keywords": [
+        "public",
+        "mcp",
+        "setup",
+        "html",
+        "guide",
+        "personal",
+        "access",
+        "token",
+        "create-pat"
+      ],
       "deprecated": false
     },
     {
@@ -3440,7 +3459,7 @@
         "coming",
         "soon"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-mcp-setup-remote-server-Remote-server",
@@ -3531,7 +3550,7 @@
       "title": "Tools Reference",
       "url": "public/mcp/tools.html",
       "section": "MCP",
-      "description": "Every tool the ThriveStack MCP Server exposes, with parameters and response fields.",
+      "description": "Every tool the ThriveStack MCP Server exposes, with parameters and what each one does.",
       "keywords": [
         "public",
         "mcp",
@@ -3578,7 +3597,7 @@
         "read",
         "read-tools"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-mcp-tools-report-filters-Report-filters-and-dimensions",
@@ -3597,7 +3616,7 @@
         "dimensions",
         "report-filters"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-mcp-tools-response-format-Response-format",
@@ -3614,6 +3633,25 @@
         "response",
         "format",
         "response-format"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-tools-tool-catalog-Primary-entry-point",
+      "title": "Tools Reference",
+      "url": "public/mcp/tools.html#tool-catalog",
+      "section": "MCP",
+      "description": "Primary entry point",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "reference",
+        "primary",
+        "entry",
+        "point",
+        "tool-catalog"
       ],
       "deprecated": false
     },
@@ -3787,7 +3825,7 @@
         "write",
         "write-tools"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-mcp-use-cases-Use-Cases",
@@ -3829,7 +3867,7 @@
         "setup",
         "edit-project-setup"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "public-mcp-use-cases-example-workflows-Example-workflows",
