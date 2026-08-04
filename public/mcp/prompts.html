@@ -130,17 +130,25 @@
 
                 <section id="available-prompts" class="content-section">
                     <h2>Available prompts</h2>
-                    <p>The server registers exactly four prompts &mdash; two analyst personas and two setup wizards.</p>
+                    <p>The server registers exactly four prompts. <code>ai_visibility_analyst</code> is the flagship prompt today, matching the AI-Visibility-focused tool rollout (see <a href="../../public/mcp/tools.html">Tools</a>) &mdash; the other three remain fully available too, since prompts are registered independently of that rollout.</p>
+
+                    <h3 id="prompt-ai-visibility-analyst"><code>ai_visibility_analyst</code></h3>
+                    <p><strong>AI Visibility content strategist.</strong> Reads citation-gap probe evidence (<code>get_citation_probe_data</code>, <code>get_domain_report</code>) and source-domain metrics, then works through a structured process:</p>
+                    <ol>
+                        <li>Pulls the domain&rsquo;s latest visibility report and raw citation-gap evidence</li>
+                        <li>Classifies each gap into a tier &mdash; <strong>Silent</strong> (never mentioned), <strong>Mentioned-not-cited</strong> (brand comes up but no source is cited), or <strong>Losing share</strong> (cited less often than competitors)</li>
+                        <li>Pulls owned and earned content recommendations for the gaps that matter most</li>
+                        <li>Optionally drafts a content outline for the top recommendation via <code>generate_content_outline</code></li>
+                    </ol>
+                    <p>No arguments.</p>
+                    <p><strong>Use when:</strong> you want a structured pass at &ldquo;why aren&rsquo;t AI engines citing us for this topic, and what should we publish to fix it&rdquo;, rather than pulling the raw probe data and recommendations yourself one tool at a time.</p>
+                    <blockquote class="query-examples__prompt">&ldquo;Run the AI visibility analyst for ourdomain.com&rdquo;</blockquote>
+                    <p>Follow up with a specific competitor, topic, or content type to drill in &mdash; the assistant still has every AI Visibility tool available after the prompt runs.</p>
 
                     <h3 id="prompt-growth-advisor"><code>growth_advisor</code></h3>
                     <p><strong>B2B SaaS growth advisor.</strong> Reads product telemetry, activation journey, and revenue data through the same ClickHouse-backed tools as the <code>ask</code> tool, and returns findings plus the business &ldquo;why&rdquo; behind them &mdash; what&rsquo;s working, what&rsquo;s broken, and what to fix next.</p>
                     <p>No arguments.</p>
                     <p><strong>Use when:</strong> you want the assistant to proactively reason about growth like an advisor would, rather than just answer one query at a time.</p>
-
-                    <h3 id="prompt-ai-visibility-analyst"><code>ai_visibility_analyst</code></h3>
-                    <p><strong>AI Visibility content strategist.</strong> Reads citation-gap probe evidence (<code>get_citation_probe_data</code>, <code>get_domain_report</code>) and source-domain metrics, classifies gaps into tiers &mdash; Silent, Mentioned-not-cited, Losing share &mdash; and turns them into content recommendations.</p>
-                    <p>No arguments.</p>
-                    <p><strong>Use when:</strong> you want a structured pass at &ldquo;why aren&rsquo;t AI engines citing us for this topic, and what should we publish to fix it&rdquo;, rather than pulling the raw probe data yourself.</p>
 
                     <h3 id="prompt-marketing-setup-wizard"><code>thrivestack_marketing_setup_wizard</code></h3>
                     <p><strong>Marketing telemetry installation wizard.</strong> Returns a wizard prompt meant to be pasted into Claude Code inside your marketing website repo, walking it through instrumenting the site with ThriveStack visitor tracking.</p>
@@ -181,7 +189,7 @@
                     </div>
                     <div class="footer-links">
                         <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
-                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="prompts.html">Last updated: August 3, 2026</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="prompts.html">Last updated: August 4, 2026</a>
                     </div>
                 </footer>
             </div>

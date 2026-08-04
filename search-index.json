@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-08-04T06:48:15.562Z",
+  "generatedAt": "2026-08-04T07:21:48.948Z",
   "source": "thrivestack-documentation",
   "entries": [
     {
@@ -3892,7 +3892,7 @@
       "title": "Use Cases",
       "url": "public/mcp/use-cases.html#example-workflows",
       "section": "MCP",
-      "description": "Example workflows",
+      "description": "Example workflows: AI Visibility",
       "keywords": [
         "public",
         "mcp",
