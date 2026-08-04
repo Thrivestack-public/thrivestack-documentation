@@ -118,7 +118,40 @@
                     <h2>Authentication options</h2>
                     <p>The server accepts two auth methods. Pick based on your client.</p>
                     <ul>
-                        <li><strong>OAuth (recommended).</strong> The first connection redirects you to ThriveStack to sign in and approve access. Your session persists across conversations. Available for <strong>Claude / Claude Desktop</strong> and <strong>Claude Code (CLI)</strong> only.</li>
+                        <li>
+                            <strong>OAuth (recommended).</strong> The first connection redirects you to ThriveStack to sign in and approve access. Your session persists across conversations. Available for <strong>Claude / Claude Desktop</strong> and <strong>Claude Code (CLI)</strong> only.
+
+                            <div class="cards-grid" style="margin-top: 1rem;">
+                                <div class="feature-card glass-panel">
+                                    <a class="mcp-img-link" href="mcp-Oauth-step-1.png" aria-label="Open image">
+                                        <img src="mcp-Oauth-step-1.png" alt="Open the + menu in Claude, go to Connectors, then Add custom connector" class="mcp-img" loading="lazy">
+                                        <span class="mcp-open-icon" aria-hidden="true"><i class="fa-solid fa-eye"></i></span>
+                                    </a>
+                                    <p>1. In Claude, open the <strong>+</strong> menu &rarr; <strong>Connectors</strong> &rarr; <strong>Add custom connector</strong>.</p>
+                                </div>
+                                <div class="feature-card glass-panel">
+                                    <a class="mcp-img-link" href="mcp-Oauth-step-2.png" aria-label="Open image">
+                                        <img src="mcp-Oauth-step-2.png" alt="Enter a name and the ThriveStack MCP server URL in the Add custom connector dialog" class="mcp-img" loading="lazy">
+                                        <span class="mcp-open-icon" aria-hidden="true"><i class="fa-solid fa-eye"></i></span>
+                                    </a>
+                                    <p>2. Name it and enter <code>https://api.app.thrivestack.ai/mcp</code>, then click Add.</p>
+                                </div>
+                                <div class="feature-card glass-panel">
+                                    <a class="mcp-img-link" href="mcp-Oauth-step-3.png" aria-label="Open image">
+                                        <img src="mcp-Oauth-step-3.png" alt="ThriveStack OAuth consent screen with Agree and Allow Access button" class="mcp-img" loading="lazy">
+                                        <span class="mcp-open-icon" aria-hidden="true"><i class="fa-solid fa-eye"></i></span>
+                                    </a>
+                                    <p>3. Sign in and click <strong>Agree &amp; Allow Access</strong> on the ThriveStack consent screen.</p>
+                                </div>
+                                <div class="feature-card glass-panel">
+                                    <a class="mcp-img-link" href="mcp-Oauth-step-4.png" aria-label="Open image">
+                                        <img src="mcp-Oauth-step-4.png" alt="ThriveStack connector shown enabled in Claude's connector list" class="mcp-img" loading="lazy">
+                                        <span class="mcp-open-icon" aria-hidden="true"><i class="fa-solid fa-eye"></i></span>
+                                    </a>
+                                    <p>4. You&rsquo;re connected &mdash; ThriveStack tools are now available in Claude.</p>
+                                </div>
+                            </div>
+                        </li>
                         <li><strong>Personal Access Token (PAT).</strong> A long-lived token tied to your ThriveStack account, sent as an <code>Authorization: Bearer</code> header. It acts as you across every brand your account can access. This is the <strong>only</strong> option for Cursor, VS Code/Copilot, Windsurf, Gemini CLI, headless setups, CI, and any other client that doesn&rsquo;t support OAuth &mdash; those clients don&rsquo;t implement the OAuth flow, so a PAT is required, not just an alternative.</li>
                     </ul>
                 </section>
@@ -575,6 +608,118 @@
             color: #4ade80;
             border-color: #4ade80;
         }
+
+        /* OAuth step screenshots: click-to-enlarge lightbox */
+        .mcp-img-link {
+            display: block;
+            position: relative;
+            border-radius: 8px;
+            outline: none;
+            margin-bottom: 0.75rem;
+        }
+
+        .mcp-img {
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .mcp-img-link .mcp-open-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: rgba(255, 255, 255, 0.9);
+            opacity: 0;
+            transform: translateY(-2px);
+            transition: opacity 120ms ease, transform 120ms ease;
+            pointer-events: none;
+        }
+
+        .mcp-img-link:hover .mcp-open-icon,
+        .mcp-img-link:focus-visible .mcp-open-icon {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mcp-img-link:hover .mcp-img,
+        .mcp-img-link:focus-visible .mcp-img {
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+        }
+
+        .mcp-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            display: none;
+        }
+
+        .mcp-lightbox.is-open {
+            display: grid;
+            place-items: center;
+        }
+
+        .mcp-lightbox-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .mcp-lightbox-dialog {
+            position: relative;
+            width: min(1100px, calc(100vw - 40px));
+            max-height: calc(100vh - 40px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(17, 17, 23, 0.65);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+        }
+
+        .mcp-lightbox-media {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: calc(100vh - 90px);
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .mcp-lightbox-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(0, 0, 0, 0.55);
+            color: rgba(255, 255, 255, 0.92);
+            cursor: pointer;
+        }
+
+        .mcp-lightbox-close:focus-visible {
+            outline: 2px solid rgba(99, 102, 241, 0.5);
+            outline-offset: 2px;
+        }
+
+        body.mcp-lightbox-open {
+            overflow: hidden;
+        }
     </style>
 
     <script>
@@ -595,6 +740,69 @@
         }
     </script>
 
+    <div class="mcp-lightbox" id="mcp-lightbox" aria-hidden="true">
+        <div class="mcp-lightbox-backdrop" data-mcp-lightbox-close></div>
+        <div class="mcp-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Image preview">
+            <button type="button" class="mcp-lightbox-close" data-mcp-lightbox-close aria-label="Close preview">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img class="mcp-lightbox-media" id="mcp-lightbox-img" alt="" />
+        </div>
+    </div>
+
     <script src="../../script.js"></script>
+    <script>
+        (function () {
+            var lightbox = document.getElementById('mcp-lightbox');
+            var lightboxImg = document.getElementById('mcp-lightbox-img');
+            if (!lightbox || !lightboxImg) return;
+
+            var lastActive = null;
+
+            function openLightbox(imgEl, href) {
+                lastActive = document.activeElement;
+                lightboxImg.src = href || imgEl.currentSrc || imgEl.src;
+                lightboxImg.alt = imgEl.alt || 'Image preview';
+                lightbox.classList.add('is-open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('mcp-lightbox-open');
+                var closeBtn = lightbox.querySelector('[data-mcp-lightbox-close]');
+                if (closeBtn) closeBtn.focus();
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('is-open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('mcp-lightbox-open');
+                lightboxImg.removeAttribute('src');
+                if (lastActive && typeof lastActive.focus === 'function') lastActive.focus();
+                lastActive = null;
+            }
+
+            document.addEventListener('click', function (e) {
+                var link = e.target && e.target.closest ? e.target.closest('a.mcp-img-link') : null;
+                if (link) {
+                    var img = link.querySelector('img');
+                    if (!img) return;
+                    e.preventDefault();
+                    openLightbox(img, link.getAttribute('href'));
+                    return;
+                }
+
+                var closeEl = e.target && e.target.closest ? e.target.closest('[data-mcp-lightbox-close]') : null;
+                if (closeEl) closeLightbox();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && lightbox.classList.contains('is-open')) {
+                    closeLightbox();
+                }
+            });
+
+            lightbox.addEventListener('click', function (e) {
+                if (e.target === lightbox) closeLightbox();
+            });
+        })();
+    </script>
 </body>
 </html>
