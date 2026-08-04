@@ -90,26 +90,27 @@
                     <span class="doc-page-header-eyebrow">ThriveStack MCP</span>
                     <h1 class="doc-page-title">Tools Reference</h1>
                     <p class="doc-page-description">
-                        Every tool the ThriveStack MCP Server exposes, with parameters and what each one does.
+                        Every tool the ThriveStack MCP Server currently exposes, with parameters and what each one does.
                     </p>
                 </header>
 
                 <section id="overview" class="content-section">
-                    <p>The ThriveStack MCP Server exposes <strong>77 tools</strong> across product analytics, revenue, activation, AI visibility, and account/GTM data &mdash; plus one MCP resource, <code>analytics://schema</code>, describing the full ClickHouse schema for hand-written queries.</p>
-                    <p>Almost every tool is read-only. Only two touch state: <code>create_account_segment</code> (creates a segment) and <code>start_thrivestack_setup</code> (kicks off a telemetry install flow) &mdash; there is no delete/update surface.</p>
+                    <p>The ThriveStack MCP Server currently exposes <strong>9 tools</strong>: a primary natural-language entry point (<code>ask</code>), AI Visibility &amp; content recommendation tools, brand/identity lookup, and a health check &mdash; plus one MCP resource, <code>analytics://schema</code>, describing the full ClickHouse schema for hand-written queries.</p>
+                    <p>We&rsquo;re rolling out access incrementally. More tool groups (CRM accounts, revenue attribution, custom analytics queries, segments, setup wizards, and others) exist behind the scenes and are being enabled progressively &mdash; this page always reflects what&rsquo;s actually callable today, not the roadmap.</p>
+                    <p>Every currently-live tool is read-only.</p>
                     <p>None of these tools take a <code>project_id</code> or similar tenant parameter. Your product and environment are resolved automatically from how you authenticated (OAuth session or Personal Access Token) &mdash; see <a href="../../public/mcp/setup.html">Setup</a>.</p>
-                    <p>Your AI assistant calls these automatically based on your questions. For most analytics questions, it should reach for <a href="#tool-ask"><code>ask</code></a> first &mdash; that single tool auto-routes to the right internal data source instead of you (or the assistant) having to pick from the list below.</p>
+                    <p>Your AI assistant calls these automatically based on your questions. For growth and analytics questions, it should reach for <a href="#tool-ask"><code>ask</code></a> first &mdash; that single tool routes internally to ClickHouse and covers signups, MRR, churn, activation, retention, feature usage, and more, without needing a separate tool per metric.</p>
                 </section>
 
                 <section id="response-format" class="content-section">
                     <h2>Response format</h2>
-                    <p>There is no single universal response envelope &mdash; each tool returns the JSON shape natural to its own data source (a gRPC struct, a GraphQL result, a ClickHouse row set). Tools that return tabular data generally return an array of row objects; tools with a fixed multi-field result (like <code>get_mau_mtu_count</code>) return a flat object. Descriptions below call out anything non-obvious about a given tool&rsquo;s shape.</p>
+                    <p>There is no single universal response envelope &mdash; each tool returns the JSON shape natural to its own data source. <code>ask</code> returns a synthesized business-insight response (markdown tables and chart artifacts where useful); the AI Visibility tools return structured report/recommendation objects; <code>get_accessible_brands</code> and <code>ping</code> return small fixed objects.</p>
                     <p>Tools whose description says &ldquo;returns a clear empty/no-run result&rdquo; or similar are explicitly designed to return an empty-but-valid result rather than an error when there&rsquo;s no data yet (e.g. a domain that hasn&rsquo;t been probed) &mdash; treat that as &ldquo;nothing here yet&rdquo;, not a failure.</p>
                 </section>
 
                 <section id="tool-catalog" class="content-section">
                     <h2>Primary entry point</h2>
-                    <p>The <code>ask</code> tool is the primary interface for analytics and growth questions. Rather than mapping directly to a single backend call, it hands the question to an internal orchestrator that runs a Claude tool-use loop (up to 10 iterations) with a fixed set of ClickHouse-backed internal tools &mdash; schema discovery, signup/MRR/churn trends, activation status, feature usage, funnels, UTM/channel performance, abuse signals, and a constrained custom-SQL escape hatch. Claude decides which internal tool(s) to call, chains them when a question needs multiple data points (e.g. combining signups, MRR, and activation for a growth summary), and synthesizes the results into a business insight grounded strictly in the returned data (never estimated or recalled from training data), including markdown tables and chart artifacts for trend/comparison data where appropriate.</p>
+                    <p>The <code>ask</code> tool is the primary interface for analytics and growth questions. Rather than mapping directly to a single backend call, it hands the question to an internal orchestrator that runs a Claude tool-use loop (up to 10 iterations) with a fixed set of ClickHouse-backed internal capabilities &mdash; schema discovery, signup/MRR/churn trends, activation status, feature usage, funnels, UTM/channel performance, abuse signals, and a constrained custom-SQL escape hatch. These are internal to the orchestrator, not separate callable MCP tools right now. Claude decides which internal capability to use, chains them when a question needs multiple data points, and synthesizes the results into a business insight grounded strictly in the returned data (never estimated or recalled from training data), including markdown tables and chart artifacts for trend/comparison data where appropriate.</p>
 
                     <h3 id="tool-ask"><code>ask</code></h3>
                     <p>PRIMARY TOOL &mdash; use this for ALL analytics and growth questions. Queries live ClickHouse data, picks the right internal tool automatically, and returns a business insight. Use for any question about: signups, MRR, ARR, churn, activation, retention, feature usage, accounts, users, revenue, expansion, contraction, cohorts, funnels, or trends. Do NOT answer analytics questions from memory &mdash; always call this tool. Examples: &lsquo;Why is activation dropping?&rsquo;, &lsquo;What is my MRR trend?&rsquo;, &lsquo;Which accounts churned this month?&rsquo;, &lsquo;How many signups last month?&rsquo;</p>
@@ -117,60 +118,6 @@
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
                             <tr><td><code>question</code></td><td>string</td><td>Yes</td><td>Your analytics or growth question in plain English.</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h2 id="accounts">Accounts</h2>
-
-                    <h3 id="tool-list-accounts"><code>list_accounts</code></h3>
-                    <p>List CRM accounts with optional filtering and pagination. Returns account names, IDs, domains, scores, and subscription details.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>page</code></td><td>number</td><td>No</td><td>Page number, 1-indexed (default 1)</td></tr>
-                            <tr><td><code>size</code></td><td>number</td><td>No</td><td>Page size (default 20, max 100)</td></tr>
-                            <tr><td><code>sort_by</code></td><td>string</td><td>No</td><td>Column to sort by, e.g. <code>last_active_time</code></td></tr>
-                            <tr><td><code>sort_order</code></td><td>string</td><td>No</td><td>Sort order: <code>asc</code> or <code>desc</code> (default <code>desc</code>)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-company-name-from-contacts"><code>get_company_name_from_contacts</code></h3>
-                    <p>Derive company name and email for CRM contacts based on filter predicates.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>filters</code></td><td>array</td><td>Yes</td><td>Filters to apply to contacts. Each filter is <code>{ key, operator, value }</code>. <code>key</code>: one of <code>email</code>, <code>first_name</code>, <code>last_name</code>, <code>title</code>, <code>job_title</code>, <code>linkedin</code>, <code>phone_no</code>, <code>company</code>, <code>domain</code>, <code>company_type</code>, <code>industry</code>, <code>country</code>, <code>city</code>, <code>description</code>. <code>operator</code>: one of <code>eq</code>, <code>ne</code>, <code>gt</code>, <code>lt</code>, <code>gte</code>, <code>lte</code> (or the long-form aliases <code>equals</code>, <code>not_equals</code>, <code>greater_than</code>, <code>less_than</code>, <code>greater_than_or_equal</code>, <code>less_than_or_equal</code>).</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h2 id="acquisition-conversion">Acquisition &amp; Conversion</h2>
-
-                    <h3 id="tool-get-account-pre-signup-journey"><code>get_account_pre_signup_journey</code></h3>
-                    <p>Interactive 3-step pre-signup journey explorer. Step 1 (<code>step=dates</code>): returns all acquisition dates with signup counts. Step 2 (<code>step=users</code>): pass <code>selected_date</code> + <code>user_ids_json</code> to get a per-user summary for that date. Step 3 (<code>step=timeline</code>): pass <code>selected_user_id</code> to get that user&rsquo;s full session timeline. Always start with <code>step=dates</code>.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>dates</code>, <code>users</code>, <code>timeline</code></td></tr>
-                            <tr><td><code>selected_date</code></td><td>string</td><td>No</td><td>YYYY-MM-DD. Required when <code>step=users</code></td></tr>
-                            <tr><td><code>user_ids_json</code></td><td>string</td><td>No</td><td>JSON array of user IDs from <code>step=dates</code>. Required when <code>step=users</code></td></tr>
-                            <tr><td><code>selected_user_id</code></td><td>string</td><td>No</td><td>User ID. Required when <code>step=timeline</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-conversion-analytics"><code>get_conversion_analytics</code></h3>
-                    <p>Returns aggregate conversion metrics and a daily breakdown (touchpoints/time-to-signup).</p>
-                    <p>No input parameters required.</p>
-
-                    <h2 id="activation">Activation</h2>
-
-                    <h3 id="tool-get-feature-conversion-drivers"><code>get_feature_conversion_drivers</code></h3>
-                    <p>Interactive 2-step activation milestone explorer. Step 1 (<code>step=modules</code>): returns activation modules and their milestones. Step 2 (<code>step=milestone</code>): pass <code>module_id</code> and <code>milestone_id</code> to get converted-vs-dropped accounts for that milestone.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>modules</code>, <code>milestone</code></td></tr>
-                            <tr><td><code>module_id</code></td><td>string</td><td>No</td><td>Required when <code>step=milestone</code></td></tr>
-                            <tr><td><code>milestone_id</code></td><td>string</td><td>No</td><td>Required when <code>step=milestone</code></td></tr>
                         </tbody>
                     </table>
 
@@ -241,630 +188,22 @@
                         </tbody>
                     </table>
 
-                    <h2 id="gtm-leads">GTM / Leads</h2>
-
-                    <h3 id="tool-get-plg-leads"><code>get_plg_leads</code></h3>
-                    <p>Get PLG-qualified leads ready for sales outreach.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>lead_type</code></td><td>string</td><td>Yes</td><td>Lead acquisition type: <code>identify</code> or <code>group</code></td></tr>
-                            <tr><td><code>page</code></td><td>number</td><td>No</td><td>Page number (default 1)</td></tr>
-                            <tr><td><code>page_size</code></td><td>number</td><td>No</td><td>Page size (default 50)</td></tr>
-                        </tbody>
-                    </table>
-
                     <h2 id="identity-brands">Identity &amp; Brands</h2>
 
                     <h3 id="tool-get-accessible-brands"><code>get_accessible_brands</code></h3>
                     <p>Brands (products) the authenticated ThriveStack account can access &mdash; id, name, and domain for each. Reflects exactly the brands that account can switch between, whether authenticated via OAuth or a Personal Access Token.</p>
                     <p>No input parameters required.</p>
 
-                    <h2 id="segments">Segments</h2>
-
-                    <h3 id="tool-create-account-segment"><code>create_account_segment</code></h3>
-                    <p>Create an account segment using monetization criteria described in natural language (paid/trial/free, MRR/ARR thresholds, plan). One of the two tools that changes state rather than only reading it.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>user_request</code></td><td>string</td><td>Yes</td><td>Natural language segment criteria, e.g. &ldquo;paid accounts with MRR &gt; $500&rdquo;</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-compare-segments"><code>compare_segments</code></h3>
-                    <p>Compare 2 or more segments by identifier (segment id or system name) using account counts.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>segment_identifiers</code></td><td>array</td><td>Yes</td><td>Segment IDs or system names, minimum 2 items</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h2 id="setup-onboarding">Setup &amp; Onboarding</h2>
-
-                    <h3 id="tool-get-setup-status"><code>get_setup_status</code></h3>
-                    <p>Get current ThriveStack setup status and completed steps for the tenant (product/environment).</p>
-                    <p>No input parameters required.</p>
-
-                    <h3 id="tool-start-thrivestack-setup"><code>start_thrivestack_setup</code></h3>
-                    <p>Use this tool when the user wants to set up, integrate, or instrument ThriveStack telemetry. The assistant is expected to first ask what type of setup is needed (marketing, product, or both) and for a ThriveStack API key before calling this. Returns ordered setup prompts meant to be used one at a time inside Claude Code &mdash; the assistant should not show the raw prompt text to the user. The other state-changing tool alongside <code>create_account_segment</code>.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>type</code></td><td>string</td><td>Yes</td><td>One of <code>marketing</code>, <code>product</code>, <code>both</code></td></tr>
-                            <tr><td><code>api_key</code></td><td>string</td><td>Yes</td><td>The ThriveStack API key provided by the user</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h2 id="core-analytics-grpc">Core Analytics (gRPC)</h2>
-
-                    <h3 id="tool-get-mau-mtu-count"><code>get_mau_mtu_count</code></h3>
-                    <p>Get Monthly Active Users (MAU) and Monthly Tracked Users (MTU) counts.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Month in YYYY-MM format</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-event-count"><code>get_event_count</code></h3>
-                    <p>Get total event count for the product/environment.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period: <code>YYYY-MM</code> or <code>last_N_days</code> (e.g. <code>last_30_days</code>)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h2 id="feature-activation-insights">Feature &amp; Activation Insights</h2>
-
-                    <h3 id="tool-get-feature-usage-trend"><code>get_feature_usage_trend</code></h3>
-                    <p>Get feature usage trend data over time.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period, e.g. <code>last_30_days</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-feature-adoption"><code>get_feature_adoption</code></h3>
-                    <p>Get feature adoption timeline showing when users first used each feature.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period, e.g. <code>last_30_days</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-activation-summary"><code>get_activation_summary</code></h3>
-                    <p>Get activation module summary including milestone completion rates.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period, e.g. <code>last_30_days</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-activation-trend"><code>get_activation_trend</code></h3>
-                    <p>Get activation trend data over time.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period, e.g. <code>last_30_days</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-account-engagement"><code>get_account_engagement</code></h3>
-                    <p>Get engagement trend for a specific account.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>account_id</code></td><td>string</td><td>Yes</td><td>Account identifier</td></tr>
-                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-retention-data"><code>get_retention_data</code></h3>
-                    <p>Get retention cohort data showing how users return over time.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period, e.g. <code>last_90_days</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h2 id="engagement-retention">Engagement &amp; Retention</h2>
-
-                    <h3 id="tool-get-churn-expansion-signals"><code>get_churn_expansion_signals</code></h3>
-                    <p>Returns portfolio-level engagement segmentation (high/medium/low stickiness buckets) and inactive-account trend series. Per-account risk lists come from <code>list_accounts</code> or CRM filters instead &mdash; there is no dedicated per-account churn-risk RPC.</p>
-                    <p>No input parameters required.</p>
-
-                    <h3 id="tool-get-account-engagement-profile"><code>get_account_engagement_profile</code></h3>
-                    <p>Interactive 2-step account engagement profile. Step 1 (<code>step=profile</code>): pass <code>account_id</code>, returns account details, acquisition metrics, and an intervention recommendation. Step 2 (<code>step=timeline</code>): pass <code>champion_user_id</code> (use the acquisition user ID from the profile step when available) to view the journey timeline.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>profile</code>, <code>timeline</code></td></tr>
-                            <tr><td><code>account_id</code></td><td>string</td><td>No</td><td>Required when <code>step=profile</code></td></tr>
-                            <tr><td><code>champion_user_id</code></td><td>string</td><td>No</td><td>Required when <code>step=timeline</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h2 id="revenue-attribution">Revenue Attribution</h2>
-
-                    <h3 id="tool-get-campaign-revenue-ranking"><code>get_campaign_revenue_ranking</code></h3>
-                    <p>Interactive 2-step campaign revenue explorer. Step 1 (<code>step=campaigns</code>): campaigns ranked by revenue. Step 2 (<code>step=customers</code>): pass <code>channel_name</code> and <code>campaign_name</code> for the customer breakdown.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>campaigns</code>, <code>customers</code></td></tr>
-                            <tr><td><code>channel_name</code></td><td>string</td><td>No</td><td>Required when <code>step=customers</code></td></tr>
-                            <tr><td><code>campaign_name</code></td><td>string</td><td>No</td><td>Required when <code>step=customers</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-source-revenue-ranking"><code>get_source_revenue_ranking</code></h3>
-                    <p>Interactive 2-step source revenue explorer. Step 1 (<code>step=sources</code>): sources ranked by revenue per channel. Step 2 (<code>step=customers</code>): pass <code>channel_name</code> and <code>source_name</code> for the customer breakdown.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>sources</code>, <code>customers</code></td></tr>
-                            <tr><td><code>channel_name</code></td><td>string</td><td>No</td><td>Required when <code>step=customers</code></td></tr>
-                            <tr><td><code>source_name</code></td><td>string</td><td>No</td><td>Required when <code>step=customers</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-channel-revenue-attribution"><code>get_channel_revenue_attribution</code></h3>
-                    <p>Interactive 2-step channel revenue attribution explorer. Step 1 (<code>step=channels</code>): channels ranked by revenue, including a simple LTV proxy (total revenue / customer count). Step 2 (<code>step=breakdown</code>): pass <code>channel_name</code> for its campaigns, sources, and customer breakdown.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>channels</code>, <code>breakdown</code></td></tr>
-                            <tr><td><code>channel_name</code></td><td>string</td><td>No</td><td>Required when <code>step=breakdown</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h2 id="clickhouse-analytics">ClickHouse Analytics</h2>
-                    <p>These tools query ClickHouse directly for your product&rsquo;s raw event, revenue, and activation data. Run <code>discover_product_schema</code> first if you need real event/feature names &mdash; several of these accept them as inputs.</p>
-
-                    <h3 id="tool-get-signup-trend"><code>get_signup_trend</code></h3>
-                    <p>Weekly/monthly signup counts with marketing channel attribution (via device ID join to page events). Returns signups by channel, UTM source, campaign, and month-over-month change.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>months</code></td><td>number</td><td>No</td><td>Number of months back from today (default 3)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-visitor-conversion"><code>get_visitor_conversion</code></h3>
-                    <p>Top-of-funnel conversion: marketing visitors &rarr; signed up &rarr; engaged in product. Step 1: unique devices from marketing page events. Step 2: devices that signed up. Step 3: signed-up users with at least one product page event. Use for landing page performance and signup quality.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>months</code></td><td>number</td><td>No</td><td>Number of months back from today (default 3)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-activation-funnel"><code>get_activation_funnel</code></h3>
-                    <p>Activation funnel showing user counts and conversion at each stage. Provide the <code>funnel_events</code> list from <code>discover_product_schema</code> output. Returns count and conversion percentage at each stage, plus median time between stages.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date YYYY-MM-DD</td></tr>
-                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date YYYY-MM-DD</td></tr>
-                            <tr><td><code>funnel_events</code></td><td>string</td><td>No</td><td>Comma-separated ordered event names for the funnel (from <code>discover_product_schema</code>). Defaults to <code>signed_up,account_created</code> if not provided.</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-revenue-summary"><code>get_revenue_summary</code></h3>
-                    <p>Monthly revenue from transactions. Returns revenue, transaction count, and paying customer count per month with month-over-month trend.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>months</code></td><td>number</td><td>No</td><td>Number of months back (default 3)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-mrr-trend"><code>get_mrr_trend</code></h3>
-                    <p>Monthly Recurring Revenue trend from a pre-computed view (fastest MRR query). Returns MRR plus month-over-month change per month.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>months</code></td><td>number</td><td>No</td><td>Number of months back (default 6)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-mrr-waterfall"><code>get_mrr_waterfall</code></h3>
-                    <p>MRR waterfall breakdown: New / Expansion / Contraction / Churn MRR for a given month, with customer names.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>month</code></td><td>string</td><td>Yes</td><td>Month in YYYY-MM format</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-churn-accounts"><code>get_churn_accounts</code></h3>
-                    <p>Accounts that churned in a given month. Classifies each as <code>hard_churn</code> / <code>scheduled</code> / <code>already_lapsed</code> and cross-checks payments after the cancel date.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>month</code></td><td>string</td><td>Yes</td><td>Month in YYYY-MM format</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-feature-usage"><code>get_feature_usage</code></h3>
-                    <p>Top features by unique users and event volume for a date range. Returns feature name, unique users, total events, and events per user. Use <code>discover_product_schema</code> first to know which feature names exist.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date YYYY-MM-DD</td></tr>
-                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date YYYY-MM-DD</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-account-journey"><code>get_account_journey</code></h3>
-                    <p>Full event trail for one account: all users, all milestones, all feature usage in chronological order.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>account_id</code></td><td>string</td><td>Yes</td><td>Account identifier</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-get-activation-status"><code>get_activation_status</code></h3>
-                    <p>Account counts by activation status (<code>not_started</code> / <code>started</code> / <code>activated</code>). Returns counts and average time to activate.</p>
-                    <p>No input parameters required.</p>
-
-                    <h2 id="growth-insights">Growth Insights &amp; Custom Queries</h2>
-
-                    <h3 id="tool-run-analytics-query"><code>run_analytics_query</code></h3>
-                    <p>Execute a custom read-only SQL query against ClickHouse. Read the <code>analytics://schema</code> resource first to know the tables and rules. The query MUST include both <code>product_id</code> and <code>environment_id</code> in the WHERE clause &mdash; they are validated before execution. DDL and DML are rejected.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>sql</code></td><td>string</td><td>Yes</td><td>SELECT query to execute. Must filter on <code>product_id</code> and <code>environment_id</code>.</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-explain-growth"><code>explain_growth</code></h3>
-                    <p>Aggregate growth data across signups, revenue, features, and the activation funnel for a period. Returns structured data with interpretation rules for growth-advisor-style reasoning on top. Run <code>discover_product_schema</code> first.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>months</code></td><td>number</td><td>No</td><td>Number of months to analyze (default 3)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-explain-churn"><code>explain_churn</code></h3>
-                    <p>Churn analysis for a given month. Returns churned accounts with classification (<code>hard_churn</code> / <code>scheduled</code> / <code>already_lapsed</code>), LTV, last payment date, and event trail for each account.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>month</code></td><td>string</td><td>Yes</td><td>Month in YYYY-MM format</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-explain-activation"><code>explain_activation</code></h3>
-                    <p>Activation analysis: funnel drop-off points, time to each milestone, accounts stuck at each stage. Returns data for identifying primary activation blockers.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date YYYY-MM-DD</td></tr>
-                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date YYYY-MM-DD</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h2 id="schema-discovery">Schema Discovery</h2>
-
-                    <h3 id="tool-discover-product-schema"><code>discover_product_schema</code></h3>
-                    <p>Run this FIRST before any analysis. Discovers all event names, feature names (inside <code>feature_used</code> events), funnel sequence order, and AHA-moment candidates for this product/environment. Returns the event taxonomy needed to write correct queries &mdash; never hardcode event names without running this first.</p>
-                    <p>No input parameters required.</p>
-
-                    <h2 id="monthly-metrics-scorecard">Monthly Metrics Scorecard</h2>
-
-                    <h3 id="tool-get-monthly-metrics-table"><code>get_monthly_metrics_table</code></h3>
-                    <p>Returns a month-by-month scorecard covering the full PLG funnel: new visitors, repeat visitors, signups, time-to-signup, touchpoints-before-signup, new paying accounts, and new MRR. Each cell is color-coded (green/yellow/red) relative to all months in that column, so it&rsquo;s easy to spot strong or weak months at a glance. Covers the last 12 months. Use this when the user asks to diagnose conversion/acquisition/revenue health, understand why MRR or signups dropped, see a conversion scorecard, or identify the worst-performing month.</p>
-                    <p>No input parameters required.</p>
-
-                    <h2 id="cross-product-metrics">Cross-Product Metrics (gRPC)</h2>
-                    <p>A large, uniform family of single-metric tools backed by gRPC. Most only support monthly aggregation today &mdash; daily/custom date ranges are called out per tool where they aren&rsquo;t yet supported.</p>
-
-                    <h3 id="tool-getVisitor"><code>getVisitor</code></h3>
-                    <p>Get visitor count for ANY time period. In this MCP server, only monthly aggregation is supported via gRPC.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>monthly</code></td></tr>
-                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getPageViews"><code>getPageViews</code></h3>
-                    <p>Get page views count for ANY time period. In this MCP server, only monthly aggregation is supported via gRPC.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>monthly</code></td></tr>
-                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getUniqueVisitors"><code>getUniqueVisitors</code></h3>
-                    <p>Get unique visitor count for ANY time period. In this MCP server, only monthly aggregation is supported via gRPC.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>monthly</code></td></tr>
-                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getSignup"><code>getSignup</code></h3>
-                    <p>Get signup count. Daily/custom ranges are not supported via gRPC yet.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getAbuseDetection"><code>getAbuseDetection</code></h3>
-                    <p>Get abuse detection count. Daily/custom ranges are not supported via gRPC yet.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getAcquisitionAccounts"><code>getAcquisitionAccounts</code></h3>
-                    <p>Get acquisition accounts count. Daily/custom ranges are not supported via gRPC yet.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getTotalAcquisitionAccounts"><code>getTotalAcquisitionAccounts</code></h3>
-                    <p>Get total acquisition accounts count. Daily/custom ranges are not supported via gRPC yet.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getTouchpointsToAcquisition"><code>getTouchpointsToAcquisition</code></h3>
-                    <p>Get touchpoints-to-acquisition metric. Daily/custom ranges are not supported via gRPC yet.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getTimeToAcquisition"><code>getTimeToAcquisition</code></h3>
-                    <p>Get time-to-acquisition metric. Daily/custom ranges are not supported via gRPC yet.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getAcqConversion"><code>getAcqConversion</code></h3>
-                    <p>Get acquisition conversion metric. Daily/custom ranges are not supported via gRPC yet.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getAvgTimeToFirstValue"><code>getAvgTimeToFirstValue</code></h3>
-                    <p>Get average time-to-first-value metric (monthly only via gRPC).</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getUsersActivatedThisMonth"><code>getUsersActivatedThisMonth</code></h3>
-                    <p>Get users-activated-this-month metric (monthly only via gRPC).</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getActivationRate"><code>getActivationRate</code></h3>
-                    <p>Get activation rate metric (monthly only via gRPC).</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>monthly</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getTotalAccountsActivated"><code>getTotalAccountsActivated</code></h3>
-                    <p>Get total accounts activated metric (monthly only via gRPC).</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>monthly</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getNewPayers"><code>getNewPayers</code></h3>
-                    <p>Get new payers metric. Daily/custom ranges are not supported via gRPC yet.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>monthly</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getNetNewMrr"><code>getNetNewMrr</code></h3>
-                    <p>Get net new MRR metric. Daily/custom ranges are not supported via gRPC yet.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>monthly</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getGrossMrrAdded"><code>getGrossMrrAdded</code></h3>
-                    <p>Get gross MRR added metric. Daily/custom ranges are not supported via gRPC yet.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>monthly</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getAvgTimeFromAcqToConv"><code>getAvgTimeFromAcqToConv</code></h3>
-                    <p>Get average time from acquisition to conversion metric (monthly only via gRPC).</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getAvgTimeFromActToConv"><code>getAvgTimeFromActToConv</code></h3>
-                    <p>Get average time from activation to conversion metric (monthly only via gRPC).</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getTotalCompanyMrr"><code>getTotalCompanyMrr</code></h3>
-                    <p>Get total company MRR metric (monthly only via gRPC).</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getTotalAccounts"><code>getTotalAccounts</code></h3>
-                    <p>Get total accounts metric (monthly only via gRPC).</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getDailyActiveUsers"><code>getDailyActiveUsers</code></h3>
-                    <p>Get daily active users metric. Daily granularity is not supported via gRPC; only monthly aggregation is returned.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getWeeklyActiveUsers"><code>getWeeklyActiveUsers</code></h3>
-                    <p>Get weekly active users metric. Daily granularity is not supported via gRPC; delta/value/monthly are supported.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getMonthlyActiveUsers"><code>getMonthlyActiveUsers</code></h3>
-                    <p>Get monthly active users metric. Daily granularity is not supported via gRPC.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getMonthlyActiveAccounts"><code>getMonthlyActiveAccounts</code></h3>
-                    <p>Get monthly active accounts metric. Daily granularity is not supported via gRPC.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getLowStickiness"><code>getLowStickiness</code></h3>
-                    <p>Get low stickiness metric. Daily granularity is not supported via gRPC.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getMediumStickiness"><code>getMediumStickiness</code></h3>
-                    <p>Get medium stickiness metric. Daily granularity is not supported via gRPC.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getHighStickiness"><code>getHighStickiness</code></h3>
-                    <p>Get high stickiness metric. Daily granularity is not supported via gRPC.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-getAdoptionRate"><code>getAdoptionRate</code></h3>
-                    <p>Get adoption rate metric. Daily granularity is not supported via gRPC.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
-                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
-                        </tbody>
-                    </table>
-
                     <h2 id="diagnostics">Diagnostics</h2>
 
                     <h3 id="tool-ping"><code>ping</code></h3>
                     <p>Health check &mdash; confirms this response is coming directly from the thrivestack-mcp server, not from the assistant&rsquo;s training data or any other source.</p>
                     <p>No input parameters required.</p>
+                </section>
+
+                <section id="more-on-the-way" class="content-section">
+                    <h2>More on the way</h2>
+                    <p>Additional tool groups are being rolled out incrementally, covering CRM accounts and leads, revenue attribution, activation and engagement analytics, account segments, custom ClickHouse queries, and telemetry setup wizards. We&rsquo;ll update this page as each group goes live &mdash; there&rsquo;s no fixed timeline to share yet.</p>
                 </section>
 
                 <footer class="content-footer">
@@ -875,7 +214,7 @@
                     </div>
                     <div class="footer-links">
                         <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
-                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="tools.html">Last updated: August 3, 2026</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="tools.html">Last updated: August 4, 2026</a>
                     </div>
                 </footer>
             </div>
@@ -888,24 +227,10 @@
                     <a href="#overview" class="toc-link active">Overview</a>
                     <a href="#response-format" class="toc-link">Response format</a>
                     <a href="#tool-catalog" class="toc-link">Primary entry point</a>
-                    <a href="#accounts" class="toc-link">Accounts</a>
-                    <a href="#acquisition-conversion" class="toc-link">Acquisition &amp; Conversion</a>
-                    <a href="#activation" class="toc-link">Activation</a>
                     <a href="#ai-visibility" class="toc-link">AI Visibility &amp; Content</a>
-                    <a href="#gtm-leads" class="toc-link">GTM / Leads</a>
                     <a href="#identity-brands" class="toc-link">Identity &amp; Brands</a>
-                    <a href="#segments" class="toc-link">Segments</a>
-                    <a href="#setup-onboarding" class="toc-link">Setup &amp; Onboarding</a>
-                    <a href="#core-analytics-grpc" class="toc-link">Core Analytics (gRPC)</a>
-                    <a href="#feature-activation-insights" class="toc-link">Feature &amp; Activation Insights</a>
-                    <a href="#engagement-retention" class="toc-link">Engagement &amp; Retention</a>
-                    <a href="#revenue-attribution" class="toc-link">Revenue Attribution</a>
-                    <a href="#clickhouse-analytics" class="toc-link">ClickHouse Analytics</a>
-                    <a href="#growth-insights" class="toc-link">Growth Insights &amp; Custom Queries</a>
-                    <a href="#schema-discovery" class="toc-link">Schema Discovery</a>
-                    <a href="#monthly-metrics-scorecard" class="toc-link">Monthly Metrics Scorecard</a>
-                    <a href="#cross-product-metrics" class="toc-link">Cross-Product Metrics (gRPC)</a>
                     <a href="#diagnostics" class="toc-link">Diagnostics</a>
+                    <a href="#more-on-the-way" class="toc-link">More on the way</a>
                 </nav>
                 <ready-to-scale-promo></ready-to-scale-promo>
             </div>
