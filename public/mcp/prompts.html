@@ -130,7 +130,7 @@
 
                 <section id="available-prompts" class="content-section">
                     <h2>Available prompts</h2>
-                    <p>The server registers exactly four prompts. <code>ai_visibility_analyst</code> is the flagship prompt today, matching the AI-Visibility-focused tool rollout (see <a href="../../public/mcp/tools.html">Tools</a>) &mdash; the other three remain fully available too, since prompts are registered independently of that rollout.</p>
+                    <p><code>ai_visibility_analyst</code> is the flagship prompt today, matching the AI-Visibility-focused tool rollout (see <a href="../../public/mcp/tools.html">Tools</a>). Two setup wizards are also available for instrumenting new marketing sites or products.</p>
 
                     <h3 id="prompt-ai-visibility-analyst"><code>ai_visibility_analyst</code></h3>
                     <p><strong>AI Visibility content strategist.</strong> Reads citation-gap probe evidence (<code>get_citation_probe_data</code>, <code>get_domain_report</code>) and source-domain metrics, then works through a structured process:</p>
@@ -144,11 +144,6 @@
                     <p><strong>Use when:</strong> you want a structured pass at &ldquo;why aren&rsquo;t AI engines citing us for this topic, and what should we publish to fix it&rdquo;, rather than pulling the raw probe data and recommendations yourself one tool at a time.</p>
                     <blockquote class="query-examples__prompt">&ldquo;Run the AI visibility analyst for ourdomain.com&rdquo;</blockquote>
                     <p>Follow up with a specific competitor, topic, or content type to drill in &mdash; the assistant still has every AI Visibility tool available after the prompt runs.</p>
-
-                    <h3 id="prompt-growth-advisor"><code>growth_advisor</code></h3>
-                    <p><strong>B2B SaaS growth advisor.</strong> Reads product telemetry, activation journey, and revenue data through the same ClickHouse-backed tools as the <code>ask</code> tool, and returns findings plus the business &ldquo;why&rdquo; behind them &mdash; what&rsquo;s working, what&rsquo;s broken, and what to fix next.</p>
-                    <p>No arguments.</p>
-                    <p><strong>Use when:</strong> you want the assistant to proactively reason about growth like an advisor would, rather than just answer one query at a time.</p>
 
                     <h3 id="prompt-marketing-setup-wizard"><code>thrivestack_marketing_setup_wizard</code></h3>
                     <p><strong>Marketing telemetry installation wizard.</strong> Returns a wizard prompt meant to be pasted into Claude Code inside your marketing website repo, walking it through instrumenting the site with ThriveStack visitor tracking.</p>
@@ -164,8 +159,8 @@
                 <section id="combining-prompts" class="content-section query-examples">
                     <h2>Combining prompts with free-form questions</h2>
                     <p>Prompts are a starting point. After invoking one, follow up with questions in plain language &mdash; your AI assistant still has access to every tool, so you can drill into any number, account, or domain the prompt surfaced.</p>
-                    <blockquote class="query-examples__prompt">&ldquo;Use the growth advisor, then dig into why activation dropped last month&rdquo;</blockquote>
                     <blockquote class="query-examples__prompt">&ldquo;Run the AI visibility analyst for ourdomain.com, then show me the raw citation evidence for the gaps it flagged&rdquo;</blockquote>
+                    <blockquote class="query-examples__prompt">&ldquo;Now check the same gaps for [competitor]&rsquo;s domain&rdquo;</blockquote>
                     <p>Every currently-live ThriveStack MCP tool and prompt is read-only &mdash; they only read the same ThriveStack data you can already see in the dashboard.</p>
                 </section>
 

@@ -96,14 +96,14 @@
 
                 <section id="getting-started" class="content-section">
                     <p>Start by just asking a question &mdash; your AI assistant resolves your product and environment automatically from how you connected, so there&rsquo;s no project to pick first:</p>
-                    <blockquote class="note-callout">&ldquo;Is our ThriveStack setup finished, and what&rsquo;s still pending?&rdquo;</blockquote>
+                    <blockquote class="note-callout">&ldquo;How visible is ourdomain.com in AI search right now?&rdquo;</blockquote>
                     <blockquote class="note-callout">
                         <i class="fa-solid fa-clock" style="margin-right: 4px;"></i>
                         Include a time range in your questions. &ldquo;Last 30 days&rdquo;, &ldquo;this month&rdquo;, or &ldquo;past week&rdquo; gets you better results.
                     </blockquote>
                     <blockquote class="note-callout">
                         <i class="fa-solid fa-bolt" style="margin-right: 4px;"></i>
-                        For a running growth-advisor conversation instead of one-off questions, invoke the <code>growth_advisor</code> prompt (see <a href="../../public/mcp/prompts.html">Prompts</a>).
+                        For a structured AI-visibility pass instead of one-off questions, invoke the <code>ai_visibility_analyst</code> prompt (see <a href="../../public/mcp/prompts.html">Prompts</a>).
                     </blockquote>
                 </section>
 
@@ -155,22 +155,6 @@
                         </div>
                     </details>
 
-                    <details class="tools-dropdown" id="more-ideas-growth">
-                        <summary class="tools-dropdown__summary">
-                            <span>Growth, revenue &amp; activation (via <code>ask</code>)</span>
-                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
-                        </summary>
-                        <div class="tools-dropdown__content">
-                            <ul>
-                                <li>Signup trend by marketing channel</li>
-                                <li>Activation funnel drop-off points</li>
-                                <li>Feature adoption over time</li>
-                                <li>Retention cohorts over time</li>
-                                <li>MRR waterfall (new / expansion / contraction / churn) for a month</li>
-                            </ul>
-                        </div>
-                    </details>
-
                     <details class="tools-dropdown" id="more-ideas-brands">
                         <summary class="tools-dropdown__summary">
                             <span>Brands</span>
@@ -199,10 +183,6 @@
                     <h3>Prep for a competitive review</h3>
                     <blockquote class="query-examples__prompt">&ldquo;Before our QBR: how does ourdomain.com&rsquo;s AI visibility compare to last quarter, and which competitors are winning the questions we&rsquo;re losing?&rdquo;</blockquote>
                     <p><code>get_domain_report</code> gives the headline numbers, <code>get_citation_probe_data</code> names the specific competitor brands appearing in place of yours on each losing question &mdash; concrete talking points instead of a single visibility percentage.</p>
-
-                    <h3>Diagnose a bad month end-to-end</h3>
-                    <blockquote class="query-examples__prompt">&ldquo;Something felt off in October &mdash; walk me through what happened to signups, MRR, and activation.&rdquo;</blockquote>
-                    <p>The assistant synthesizes a single narrative across signups, MRR, and activation instead of three disconnected numbers &mdash; this is exactly the kind of multi-source question <code>ask</code> is designed to handle on its own.</p>
                 </section>
 
                 <section id="tips" class="content-section">
