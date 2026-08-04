@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-08-03T15:25:20.635Z",
+  "generatedAt": "2026-08-04T06:48:15.562Z",
   "source": "thrivestack-documentation",
   "entries": [
     {
@@ -3550,7 +3550,7 @@
       "title": "Tools Reference",
       "url": "public/mcp/tools.html",
       "section": "MCP",
-      "description": "Every tool the ThriveStack MCP Server exposes, with parameters and what each one does.",
+      "description": "Every tool the ThriveStack MCP Server currently exposes, with parameters and what each one does.",
       "keywords": [
         "public",
         "mcp",
@@ -3564,6 +3564,24 @@
         "category",
         "prompts",
         "call"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-tools-more-on-the-way-More-on-the-way",
+      "title": "Tools Reference",
+      "url": "public/mcp/tools.html#more-on-the-way",
+      "section": "MCP",
+      "description": "More on the way",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "reference",
+        "more",
+        "way",
+        "more-on-the-way"
       ],
       "deprecated": false
     },
