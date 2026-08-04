@@ -96,144 +96,93 @@
 
                 <section id="getting-started" class="content-section">
                     <p>Start by just asking a question &mdash; your AI assistant resolves your product and environment automatically from how you connected, so there&rsquo;s no project to pick first:</p>
-                    <blockquote class="note-callout">&ldquo;Is our ThriveStack setup finished, and what&rsquo;s still pending?&rdquo;</blockquote>
+                    <blockquote class="note-callout">&ldquo;How visible is ourdomain.com in AI search right now?&rdquo;</blockquote>
                     <blockquote class="note-callout">
                         <i class="fa-solid fa-clock" style="margin-right: 4px;"></i>
                         Include a time range in your questions. &ldquo;Last 30 days&rdquo;, &ldquo;this month&rdquo;, or &ldquo;past week&rdquo; gets you better results.
                     </blockquote>
                     <blockquote class="note-callout">
                         <i class="fa-solid fa-bolt" style="margin-right: 4px;"></i>
-                        For a running growth-advisor conversation instead of one-off questions, invoke the <code>growth_advisor</code> prompt (see <a href="../../public/mcp/prompts.html">Prompts</a>).
+                        For a structured AI-visibility pass instead of one-off questions, invoke the <code>ai_visibility_analyst</code> prompt (see <a href="../../public/mcp/prompts.html">Prompts</a>).
                     </blockquote>
                 </section>
 
                 <section id="example-workflows" class="content-section query-examples">
-                    <h2>Example workflows</h2>
+                    <h2>Example workflows: AI Visibility</h2>
+                    <p>AI Visibility is the flagship live capability today &mdash; these six tools cover a full loop from &ldquo;where are we losing citations&rdquo; to &ldquo;here&rsquo;s a content outline to fix it.&rdquo;</p>
 
-                    <h3>1. Growth health check</h3>
-                    <blockquote class="query-examples__prompt">&ldquo;Why is activation dropping this month?&rdquo;</blockquote>
-                    <p>The <code>ask</code> tool routes this to <code>explain_activation</code> (and pulls in signup/feature-usage context as needed), returning funnel drop-off points, time to each milestone, and which accounts are stuck at which stage.</p>
+                    <h3>1. Full visibility snapshot for a domain</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;How visible is ourdomain.com in AI search right now?&rdquo;</blockquote>
+                    <p><code>get_domain_report</code> returns overall visibility and average position for the domain&rsquo;s latest completed probe run, broken down by topic and by individual tracked question, with per-AI-model detail underneath each. If the domain hasn&rsquo;t been probed yet, you get a clear empty result, not an error.</p>
 
-                    <h3>2. MRR and churn trend</h3>
-                    <blockquote class="query-examples__prompt">&ldquo;What&rsquo;s our MRR trend over the last 6 months, and which accounts churned last month?&rdquo;</blockquote>
-                    <p>Combines <code>get_mrr_trend</code> with <code>get_churn_accounts</code>/<code>explain_churn</code> &mdash; MoM MRR trend plus churned accounts classified as hard churn, scheduled, or already lapsed, with LTV and last payment date for each.</p>
+                    <h3>2. Citation gap deep-dive</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Where are we losing AI citations for ourdomain.com, and which competitors are showing up instead?&rdquo;</blockquote>
+                    <p><code>get_citation_probe_data</code> returns the raw evidence behind the gaps: every tracked buyer question, your citation count vs. total, and which competitor brands appeared in your place. Use this when you want the underlying evidence rather than <code>get_domain_report</code>&rsquo;s rollup.</p>
 
-                    <h3>3. Monthly PLG scorecard</h3>
-                    <blockquote class="query-examples__prompt">&ldquo;Give me a scorecard of our funnel over the last year &mdash; where were we weakest?&rdquo;</blockquote>
-                    <p><code>get_monthly_metrics_table</code> returns a 12-month, color-coded scorecard across visitors, signups, time-to-signup, new paying accounts, and new MRR, so weak months stand out immediately.</p>
+                    <h3>3. See what buyer questions you&rsquo;re tracked on</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;What buyer questions is ourdomain.com being evaluated on?&rdquo;</blockquote>
+                    <p><code>get_domain_prompts</code> lists the tracked buyer questions ThriveStack has generated for the domain, grouped by topic &mdash; useful context before interpreting a citation gap or requesting content recommendations.</p>
 
-                    <h3>4. Revenue attribution</h3>
-                    <blockquote class="query-examples__prompt">&ldquo;Which marketing channel drives the most revenue, and what&rsquo;s the LTV per channel?&rdquo;</blockquote>
-                    <p><code>get_channel_revenue_attribution</code> (<code>step=channels</code>) ranks channels by revenue with an LTV proxy; follow up with <code>step=breakdown</code> for one channel&rsquo;s campaigns, sources, and customers.</p>
+                    <h3>4. Turn a gap into a content plan</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;What content should we publish this week to close our biggest AI citation gaps?&rdquo;</blockquote>
+                    <p><code>get_owned_content_recommendations</code> returns gap-scored, prioritized recommendations (severity tier, gap score, citations vs. total, competitors winning) for your own site. Pick the top one and call <code>generate_content_outline</code> to get headings, an answer-first summary, FAQ questions, and schema markup suggestions &mdash; ready to hand to a writer.</p>
 
-                    <h3>5. AI visibility gap check</h3>
-                    <blockquote class="query-examples__prompt">&ldquo;Where are we losing AI citations for ourdomain.com, and what should we publish to fix it?&rdquo;</blockquote>
-                    <p><code>get_domain_report</code> and <code>get_citation_probe_data</code> surface the visibility report and raw citation-gap evidence; <code>get_owned_content_recommendations</code> turns the gaps into ranked content recommendations, and <code>generate_content_outline</code> drafts a structure for any one of them.</p>
+                    <h3>5. Find third-party outreach opportunities</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Where could we get cited on sites like Reddit or G2 instead of just our own blog?&rdquo;</blockquote>
+                    <p><code>get_earned_content_recommendations</code> surfaces ideas for earned/third-party media. Each recommendation is flagged <code>citation_backed</code> (tied to a real probe gap) or <code>category_inferred</code> (no direct citation evidence yet) &mdash; check which one before treating it as fact.</p>
+
+                    <h3>6. Combine the full picture in one pass</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Give me the full AI-visibility picture for ourdomain.com: how we&rsquo;re doing, why, and what to publish next.&rdquo;</blockquote>
+                    <p>The assistant chains <code>get_domain_report</code> (the headline numbers) with <code>get_citation_probe_data</code> (the gap evidence) and <code>get_owned_content_recommendations</code> (what to do about it) &mdash; or you can invoke the <code>ai_visibility_analyst</code> prompt (see <a href="../../public/mcp/prompts.html">Prompts</a>) to get this as a single structured pass instead of three separate questions.</p>
                 </section>
 
                 <section id="more-ideas" class="content-section">
                     <h2>More ideas</h2>
 
-                    <details class="tools-dropdown" id="more-ideas-growth" open>
-                        <summary class="tools-dropdown__summary">
-                            <span>Growth &amp; activation</span>
-                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
-                        </summary>
-                        <div class="tools-dropdown__content">
-                            <ul>
-                                <li>Signup trend by marketing channel</li>
-                                <li>Activation funnel drop-off points</li>
-                                <li>Feature adoption timeline</li>
-                                <li>Retention cohorts over time</li>
-                            </ul>
-                        </div>
-                    </details>
-
-                    <details class="tools-dropdown" id="more-ideas-revenue">
-                        <summary class="tools-dropdown__summary">
-                            <span>Revenue</span>
-                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
-                        </summary>
-                        <div class="tools-dropdown__content">
-                            <ul>
-                                <li>MRR waterfall (new / expansion / contraction / churn) for a month</li>
-                                <li>Revenue by campaign, source, or channel</li>
-                                <li>New payers and net new MRR for a period</li>
-                            </ul>
-                        </div>
-                    </details>
-
-                    <details class="tools-dropdown" id="more-ideas-accounts">
-                        <summary class="tools-dropdown__summary">
-                            <span>Accounts &amp; engagement</span>
-                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
-                        </summary>
-                        <div class="tools-dropdown__content">
-                            <ul>
-                                <li>List and filter CRM accounts</li>
-                                <li>Engagement profile and intervention recommendation for one account</li>
-                                <li>Portfolio-wide stickiness segmentation (high/medium/low)</li>
-                                <li>PLG-qualified leads ready for outreach</li>
-                            </ul>
-                        </div>
-                    </details>
-
-                    <details class="tools-dropdown" id="more-ideas-ai-visibility">
+                    <details class="tools-dropdown" id="more-ideas-ai-visibility" open>
                         <summary class="tools-dropdown__summary">
                             <span>AI visibility</span>
                             <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
                         </summary>
                         <div class="tools-dropdown__content">
                             <ul>
-                                <li>Full visibility report for a domain&rsquo;s latest probe run</li>
-                                <li>Owned vs. earned content recommendations for a domain</li>
-                                <li>Content outline for a specific recommendation</li>
+                                <li>Full visibility report for a domain&rsquo;s latest probe run, with per-model detail</li>
+                                <li>Raw citation-gap evidence, including which competitors appeared instead</li>
+                                <li>The tracked buyer questions generated for a domain, grouped by topic</li>
+                                <li>Owned vs. earned content recommendations, filterable by status, priority, or channel</li>
+                                <li>A ready-to-write content outline for a specific recommendation</li>
                             </ul>
                         </div>
                     </details>
 
-                    <details class="tools-dropdown" id="more-ideas-segments">
+                    <details class="tools-dropdown" id="more-ideas-brands">
                         <summary class="tools-dropdown__summary">
-                            <span>Segments</span>
+                            <span>Brands</span>
                             <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
                         </summary>
                         <div class="tools-dropdown__content">
                             <ul>
-                                <li>Create a segment from a plain-language description</li>
-                                <li>Compare two or more segments by account count</li>
+                                <li>Which brands/products your account can access</li>
                             </ul>
                         </div>
                     </details>
 
-                    <details class="tools-dropdown" id="more-ideas-setup">
-                        <summary class="tools-dropdown__summary">
-                            <span>Setup</span>
-                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
-                        </summary>
-                        <div class="tools-dropdown__content">
-                            <ul>
-                                <li>Check what&rsquo;s left in your ThriveStack setup</li>
-                                <li>Kick off marketing or product telemetry instrumentation from inside your repo</li>
-                            </ul>
-                        </div>
-                    </details>
-
+                    <blockquote class="note-callout">
+                        <i class="fa-solid fa-circle-info" style="margin-right: 4px;"></i>
+                        CRM accounts, leads, revenue attribution by channel, segments, custom SQL, and setup wizards are being rolled out incrementally and aren&rsquo;t connectable yet &mdash; see <a href="../../public/mcp/tools.html">Tools</a> for what&rsquo;s live today.
+                    </blockquote>
                 </section>
 
                 <section id="real-world-workflows" class="content-section query-examples">
                     <h2>Real-world workflows</h2>
 
-                    <h3>Diagnose a bad month end-to-end</h3>
-                    <blockquote class="query-examples__prompt">&ldquo;Something felt off in October &mdash; walk me through what happened to signups, MRR, and activation.&rdquo;</blockquote>
-                    <p>The assistant chains <code>get_signup_trend</code>, <code>get_mrr_trend</code>/<code>get_mrr_waterfall</code>, and <code>explain_activation</code> for the month, synthesizing a single narrative instead of three disconnected numbers &mdash; this is exactly the kind of multi-source question <code>ask</code> is designed to route on its own.</p>
-
                     <h3>Turn an AI-visibility gap into a content plan</h3>
                     <blockquote class="query-examples__prompt">&ldquo;What content should we publish this week to close our biggest AI citation gaps?&rdquo;</blockquote>
                     <p><code>get_owned_content_recommendations</code> returns gap-scored, prioritized recommendations with the evidence behind each; pick the top one and call <code>generate_content_outline</code> to get headings, an answer-first summary, FAQ questions, and schema markup suggestions to hand to a writer.</p>
 
-                    <h3>Instrument a new repo from scratch</h3>
-                    <blockquote class="query-examples__prompt">&ldquo;Help me add ThriveStack tracking to this marketing site.&rdquo;</blockquote>
-                    <p>The assistant asks whether you need marketing, product, or both, and for your API key, then calls <code>start_thrivestack_setup</code> and works through the returned wizard prompts one at a time &mdash; or you can invoke <code>thrivestack_marketing_setup_wizard</code> / <code>thrivestack_product_setup_wizard</code> directly (see <a href="../../public/mcp/prompts.html">Prompts</a>).</p>
+                    <h3>Prep for a competitive review</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Before our QBR: how does ourdomain.com&rsquo;s AI visibility compare to last quarter, and which competitors are winning the questions we&rsquo;re losing?&rdquo;</blockquote>
+                    <p><code>get_domain_report</code> gives the headline numbers, <code>get_citation_probe_data</code> names the specific competitor brands appearing in place of yours on each losing question &mdash; concrete talking points instead of a single visibility percentage.</p>
                 </section>
 
                 <section id="tips" class="content-section">
@@ -241,8 +190,7 @@
                     <p>To make the experience smoother or more complete, take a look at the following tips:</p>
                     <ul>
                         <li><strong>Include dates:</strong> Always specify a time range or month (e.g. &ldquo;last 7 days&rdquo;, &ldquo;October 2026&rdquo;).</li>
-                        <li><strong>Name accounts:</strong> Mention a specific account by ID or name when you want a drill-down instead of a portfolio view.</li>
-                        <li><strong>Let discover_product_schema run first:</strong> For anything referencing your own event or feature names, the assistant needs to discover your real event taxonomy before it can query it correctly &mdash; don&rsquo;t worry, it does this automatically.</li>
+                        <li><strong>Let the assistant discover your schema automatically:</strong> For anything referencing your own event or feature names, the assistant figures out your real event taxonomy before querying &mdash; you don&rsquo;t need to know exact event names.</li>
                         <li><strong>Start broad, then drill down:</strong> Ask for the overview first, then follow up on whatever stands out.</li>
                     </ul>
                 </section>
@@ -267,7 +215,7 @@
                     </div>
                     <div class="footer-links">
                         <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
-                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="use-cases.html">Last updated: August 3, 2026</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="use-cases.html">Last updated: August 4, 2026</a>
                     </div>
                 </footer>
             </div>

@@ -103,16 +103,12 @@
                 <section id="what-you-can-do" class="content-section">
                     <h2>What you can do</h2>
                     <ul>
-                        <li>Ask growth and revenue questions in plain English &mdash; signups, MRR, churn, activation, retention, feature usage &mdash; via the <code>ask</code> tool, which auto-routes to the right data source for you</li>
-                        <li>Get a month-by-month PLG scorecard (visitors, signups, conversion, new MRR) color-coded to spot strong and weak months at a glance</li>
-                        <li>Explore CRM accounts and leads: list and filter accounts, pull PLG-qualified leads ready for outreach, and profile a specific account&rsquo;s engagement and intervention risk</li>
-                        <li>Run interactive, multi-step explorers for pre-signup journeys, activation milestones, and revenue attribution by campaign, source, and channel</li>
                         <li>Check AI search visibility for a domain &mdash; citation gaps, competitor mentions, and content recommendations to close them, plus generate a content outline for any recommendation</li>
-                        <li>Create and compare account segments using plain-language monetization criteria (e.g. &ldquo;paid accounts with MRR &gt; $500&rdquo;)</li>
-                        <li>Write and run custom read-only ClickHouse SQL against your own event, revenue, and activation data (scoped and validated to your product/environment)</li>
-                        <li>Kick off ThriveStack telemetry setup for a marketing site or product from inside your own repo, guided by the setup prompts and wizards</li>
-                        <li>Run built-in prompts &mdash; a growth advisor persona and an AI-visibility content strategist persona &mdash; instead of asking one question at a time</li>
+                        <li>See what buyer questions AI engines are evaluating your domain on, grouped by topic</li>
+                        <li>See which brands/products your ThriveStack account can access</li>
+                        <li>Run the <code>ai_visibility_analyst</code> prompt for a structured, one-shot analysis instead of asking one question at a time</li>
                     </ul>
+                    <p>We&rsquo;re rolling out more tools incrementally &mdash; CRM accounts and leads, revenue attribution, account segments, custom SQL, and telemetry setup wizards all exist behind the scenes and are being enabled progressively. See <a href="../../public/mcp/tools.html">Tools</a> for exactly what&rsquo;s callable today.</p>
                 </section>
 
                 <section id="how-it-works" class="content-section">
@@ -175,15 +171,14 @@
                     <p>Two options, depending on what your client supports:</p>
                     <ul>
                         <li><strong>OAuth.</strong> Your AI assistant opens a ThriveStack consent page in your browser. Sign in and authorize access. The session persists across conversations. Available for <strong>Claude and Claude Code only</strong>.</li>
-                        <li><strong>Personal Access Token.</strong> Generate one under AI Visibility &rarr; Settings &rarr; Personal Access Tokens in the ThriveStack dashboard, then attach it as an <code>Authorization: Bearer</code> header on your client&rsquo;s MCP connection. This is the only option for Cursor, VS Code/Copilot, Windsurf, Gemini CLI, and any other client without OAuth support &mdash; not just an alternative for them.</li>
+                        <li><strong>Personal Access Token.</strong> Generate one from <a href="https://app.thrivestack.ai/analyze/ai-visibility/agents/mcp/tokens" target="_blank" rel="noopener noreferrer">Personal Access Tokens</a> (AI Visibility &rarr; Settings &rarr; Personal Access Tokens) in the ThriveStack dashboard, then attach it as an <code>Authorization: Bearer</code> header on your client&rsquo;s MCP connection. This is the only option for Cursor, VS Code/Copilot, Windsurf, Gemini CLI, and any other client without OAuth support &mdash; not just an alternative for them.</li>
                     </ul>
                     <p>Either way, every call resolves your product and environment automatically and respects the same permissions as your dashboard session. See the <a href="../../public/mcp/setup.html">setup guide</a> for client-by-client examples.</p>
                 </section>
 
                 <section id="access" class="content-section">
                     <h2>Read and write access</h2>
-                    <p>Almost every tool is read-only &mdash; analytics, revenue, activation, accounts, and AI-visibility data all pull existing data with no side effects.</p>
-                    <p>Exactly two tools change state: <code>create_account_segment</code> (creates a segment from a natural-language description) and <code>start_thrivestack_setup</code> (kicks off a telemetry install flow). Neither deletes or overwrites anything. See <a href="../../public/mcp/tools.html">Tools</a> for the full list.</p>
+                    <p>Every tool currently live is read-only &mdash; <code>ask</code>, the AI-visibility tools, and brand lookup all pull existing data with no side effects. See <a href="../../public/mcp/tools.html">Tools</a> for the current list.</p>
                 </section>
 
                 <section id="supported-platforms" class="content-section">

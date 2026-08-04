@@ -3550,7 +3550,7 @@
       "title": "Tools Reference",
       "url": "public/mcp/tools.html",
       "section": "MCP",
-      "description": "Every tool the ThriveStack MCP Server exposes, with parameters and what each one does.",
+      "description": "Every tool the ThriveStack MCP Server currently exposes, with parameters and what each one does.",
       "keywords": [
         "public",
         "mcp",
@@ -3564,6 +3564,24 @@
         "category",
         "prompts",
         "call"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "public-mcp-tools-more-on-the-way-More-on-the-way",
+      "title": "Tools Reference",
+      "url": "public/mcp/tools.html#more-on-the-way",
+      "section": "MCP",
+      "description": "More on the way",
+      "keywords": [
+        "public",
+        "mcp",
+        "tools",
+        "html",
+        "reference",
+        "more",
+        "way",
+        "more-on-the-way"
       ],
       "deprecated": false
     },
@@ -3874,7 +3892,7 @@
       "title": "Use Cases",
       "url": "public/mcp/use-cases.html#example-workflows",
       "section": "MCP",
-      "description": "Example workflows",
+      "description": "Example workflows: AI Visibility",
       "keywords": [
         "public",
         "mcp",
