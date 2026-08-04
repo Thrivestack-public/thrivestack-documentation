@@ -118,42 +118,38 @@
                     <h2>Authentication options</h2>
                     <p>The server accepts two auth methods. Pick based on your client.</p>
                     <ul>
-                        <li><strong>OAuth-style authorization.</strong> The first connection redirects you to ThriveStack to sign in and approve access. Your session persists across conversations. Available for <strong>Claude</strong> (claude.ai, Claude Code) and <strong>Claude Desktop</strong>.</li>
-                        <li><strong>x-api-key.</strong> A key tied to your ThriveStack account, sent as an <code>x-api-key</code> header. Works with <strong>any</strong> MCP client — use this for Cursor, VS Code, Windsurf, Gemini CLI, headless setups, CI, or clients that don&rsquo;t support OAuth.</li>
+                        <li><strong>OAuth (recommended).</strong> The first connection redirects you to ThriveStack to sign in and approve access. Your session persists across conversations. Available for <strong>Claude / Claude Desktop</strong> and <strong>Claude Code (CLI)</strong> only.</li>
+                        <li><strong>Personal Access Token (PAT).</strong> A long-lived token tied to your ThriveStack account, sent as an <code>Authorization: Bearer</code> header. It acts as you across every brand your account can access. This is the <strong>only</strong> option for Cursor, VS Code/Copilot, Windsurf, Gemini CLI, headless setups, CI, and any other client that doesn&rsquo;t support OAuth &mdash; those clients don&rsquo;t implement the OAuth flow, so a PAT is required, not just an alternative.</li>
                     </ul>
                 </section>
 
-                <section id="create-api-key" class="content-section">
-                    <h2>Create an x-api-key</h2>
+                <section id="create-pat" class="content-section">
+                    <h2>Create a Personal Access Token</h2>
                     <div class="cards-grid">
                         <div class="feature-card glass-panel">
                             <div class="card-icon blue"><i class="fa-solid fa-1"></i></div>
-                            <h3>Open API Keys</h3>
-                            <p>Sign in to <a href="https://app.thrivestack.ai" target="_blank" rel="noopener noreferrer">app.thrivestack.ai</a> and go to <strong>Settings &rarr; API Keys</strong>.</p>
+                            <h3>Open the tokens page</h3>
+                            <p>Sign in to <a href="https://app.thrivestack.ai" target="_blank" rel="noopener noreferrer">app.thrivestack.ai</a> and go to <strong>AI Visibility &rarr; Settings &rarr; Personal Access Tokens</strong> (or click &ldquo;Personal access tokens&rdquo; from the Connect via MCP page).</p>
                         </div>
                         <div class="feature-card glass-panel">
                             <div class="card-icon purple"><i class="fa-solid fa-2"></i></div>
-                            <h3>Create a key</h3>
-                            <p>Click <strong>Create key</strong> and give it a name (e.g. &ldquo;Claude Desktop&rdquo;, &ldquo;Cursor laptop&rdquo;) so you can tell your keys apart later.</p>
+                            <h3>Generate a token</h3>
+                            <p>Click <strong>Generate new token</strong>, give it a name (e.g. &ldquo;Claude Desktop&rdquo;, &ldquo;Cursor laptop&rdquo;) so you can tell your tokens apart later, and pick an expiry.</p>
                         </div>
                         <div class="feature-card glass-panel">
                             <div class="card-icon green"><i class="fa-solid fa-3"></i></div>
-                            <h3>Copy the key</h3>
-                            <p>Copy it immediately &mdash; it&rsquo;s shown only once. Treat it like a password: anyone with it can act as you via MCP.</p>
+                            <h3>Copy the token</h3>
+                            <p>Copy it immediately &mdash; it&rsquo;s shown only once, as a value starting with <code>tsmcp_</code>. Treat it like a password: anyone with it can act as you across every brand your account can access.</p>
                         </div>
                     </div>
-                    <p>Keys act on your account, so every call respects the same permissions as your dashboard session. Revoke a key any time from <strong>Settings &rarr; API Keys</strong>; clients using it lose access immediately.</p>
-                    <blockquote class="note-callout">
-                        <i class="fa-solid fa-book-open" style="margin-right: 4px;"></i>
-                        <strong>Note:</strong> The x-api-key shown in examples on this page (<code>d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g=</code>) is a sample demo key for trying things out before you generate your own.
-                    </blockquote>
+                    <p>A token acts on your account, so every call respects the same permissions as your dashboard session. Revoke a token any time from <strong>Personal Access Tokens</strong>; clients using it lose access immediately.</p>
                 </section>
 
                 <section id="implementation" class="content-section">
                     <h2>Implementation instructions</h2>
                     <p>
                         Configure your MCP client to connect to
-                        <code>https://api.app.thrivestack.ai/mcp</code>, then authenticate with either OAuth or an <code>x-api-key</code> as described above.
+                        <code>https://api.app.thrivestack.ai/mcp</code>, then authenticate with OAuth (Claude / Claude Code only) or a Personal Access Token as described above.
                     </p>
 
                     <details class="tools-dropdown">
@@ -196,11 +192,12 @@
                             </blockquote>
                             <p>Once connected, start asking questions &mdash; ThriveStack tools will be available in MCP mode.</p>
 
-                            <h4>Option B: x-api-key</h4>
+                            <h4>Option B: Personal Access Token</h4>
                             <p style="margin: 12px 0 10px; color: var(--text-secondary); font-size: 0.95rem;">
                                 Add this to
-                                <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>
-                                using this <strong>demo x-api-key</strong>:
+                                <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>,
+                                replacing <code>YOUR_PAT_TOKEN</code> with a token from
+                                <a href="#create-pat">Personal Access Tokens</a>:
                             </p>
                             <div class="code-block-wrapper">
                                 <button class="copy-btn" onclick="copyCode(this)" type="button">
@@ -212,11 +209,8 @@
     "thrivestack": {
       "command": "npx",
       "args": [
-        "-y",
-        "mcp-remote",
-        "https://api.app.thrivestack.ai/mcp",
-        "--header",
-        "x-api-key: d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g="
+        "-y", "mcp-remote", "https://api.app.thrivestack.ai/mcp",
+        "--header", "Authorization: Bearer YOUR_PAT_TOKEN"
       ]
     }
   }
@@ -236,48 +230,34 @@
                                 <a href="https://docs.anthropic.com/en/docs/claude-code/mcp" target="_blank" rel="noopener noreferrer">Claude Code MCP documentation</a>.
                             </p>
 
-                            <h4>Option A: OAuth (default)</h4>
+                            <h4>Option A: OAuth (recommended)</h4>
                             <div class="code-block-wrapper">
                                 <button class="copy-btn" onclick="copyCode(this)" type="button">
                                     <i class="fa-regular fa-copy"></i> Copy
                                 </button>
                                 <div class="code-block-label">Shell</div>
-                                <pre><code>claude mcp add -t http -s user Thrivestack "https://api.app.thrivestack.ai/mcp"</code></pre>
+                                <pre><code>claude mcp add --transport http --scope user Thrivestack "https://api.app.thrivestack.ai/mcp"</code></pre>
                             </div>
-                            <p>Claude Code will prompt you to authorize with ThriveStack when you first use a ThriveStack tool.</p>
+                            <p>Run this once, then start <code>claude</code> and type <code>/mcp</code> to sign in.</p>
 
-                            <h4>Option B: x-api-key</h4>
+                            <h4>Option B: Personal Access Token</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.95rem;">Replace <code>YOUR_PAT_TOKEN</code> with a token from <a href="#create-pat">Personal Access Tokens</a>:</p>
                             <div class="code-block-wrapper">
                                 <button class="copy-btn" onclick="copyCode(this)" type="button">
                                     <i class="fa-regular fa-copy"></i> Copy
                                 </button>
                                 <div class="code-block-label">Shell</div>
-                                <pre><code>claude mcp add -t http -s user Thrivestack "https://api.app.thrivestack.ai/mcp" --header "x-api-key: d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g="</code></pre>
+                                <pre><code>claude mcp add --transport http --scope user Thrivestack "https://api.app.thrivestack.ai/mcp" --header "Authorization: Bearer YOUR_PAT_TOKEN"</code></pre>
                             </div>
 
-                            <p style="margin-top: 1rem;">Then, either way:</p>
-                            <ol>
-                                <li>
-                                    Start Claude Code:
-                                    <div class="code-block-wrapper">
-                                        <button class="copy-btn" onclick="copyCode(this)" type="button">
-                                            <i class="fa-regular fa-copy"></i> Copy
-                                        </button>
-                                        <div class="code-block-label">Shell</div>
-                                        <pre><code>claude</code></pre>
-                                    </div>
-                                </li>
-                                <li>
-                                    If using OAuth, enter MCP mode to authorize:
-                                    <div class="code-block-wrapper">
-                                        <button class="copy-btn" onclick="copyCode(this)" type="button">
-                                            <i class="fa-regular fa-copy"></i> Copy
-                                        </button>
-                                        <div class="code-block-label">Shell</div>
-                                        <pre><code>/mcp</code></pre>
-                                    </div>
-                                </li>
-                            </ol>
+                            <p style="margin-top: 1rem;">Then start Claude Code:</p>
+                            <div class="code-block-wrapper">
+                                <button class="copy-btn" onclick="copyCode(this)" type="button">
+                                    <i class="fa-regular fa-copy"></i> Copy
+                                </button>
+                                <div class="code-block-label">Shell</div>
+                                <pre><code>claude</code></pre>
+                            </div>
                         </div>
                     </details>
 
@@ -288,14 +268,14 @@
                         </summary>
                         <div class="tools-dropdown__content">
                             <p class="mt-4">
-                                ThriveStack OAuth is currently available for Claude and Claude Desktop only — connect Cursor with your <code>x-api-key</code>. For general MCP setup, refer to
+                                ThriveStack OAuth is currently available for Claude and Claude Code only &mdash; connect Cursor with a <a href="#create-pat">Personal Access Token</a>. For general MCP setup, refer to
                                 <a href="https://www.cursor.com/docs/context/mcp" target="_blank" rel="noopener noreferrer">Cursor&apos;s MCP documentation</a>.
                             </p>
 
                             <ol>
                                 <li>Open Cursor Settings, then go to <strong>Tools &amp; Integrations</strong> &gt; <strong>MCP</strong>.</li>
                                 <li>
-                                    Click <strong>Add Custom MCP</strong> and add the ThriveStack MCP configuration using this <strong>demo x-api-key</strong>:
+                                    Click <strong>Add Custom MCP</strong> and add the ThriveStack MCP configuration, replacing <code>YOUR_PAT_TOKEN</code>:
                                     <div class="code-block-wrapper">
                                         <button class="copy-btn" onclick="copyCode(this)" type="button">
                                             <i class="fa-regular fa-copy"></i> Copy
@@ -305,9 +285,7 @@
   "mcpServers": {
     "thrivestack": {
       "url": "https://api.app.thrivestack.ai/mcp",
-      "headers": {
-        "x-api-key": "d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g="
-      }
+      "headers": { "Authorization": "Bearer YOUR_PAT_TOKEN" }
     }
   }
 }</code></pre>
@@ -325,24 +303,22 @@
                         </summary>
                         <div class="tools-dropdown__content">
                             <p class="mt-4">
-                                ThriveStack OAuth is currently available for Claude and Claude Desktop only — connect VS Code with your <code>x-api-key</code>.
+                                ThriveStack OAuth is currently available for Claude and Claude Code only &mdash; connect VS Code with a <a href="#create-pat">Personal Access Token</a>.
                             </p>
                             <p>
-                                Add a <code>.vscode/mcp.json</code> file to your workspace (or open the user-level config via the <strong>MCP: Open User Configuration</strong> command) using this <strong>demo x-api-key</strong>:
+                                Create <code>.vscode/mcp.json</code> in your project (or open the user-level config via the <strong>MCP: Open User Configuration</strong> command), replacing <code>YOUR_PAT_TOKEN</code>:
                             </p>
                             <div class="code-block-wrapper">
                                 <button class="copy-btn" onclick="copyCode(this)" type="button">
                                     <i class="fa-regular fa-copy"></i> Copy
                                 </button>
-                                <div class="code-block-label">JSON</div>
+                                <div class="code-block-label">.vscode/mcp.json</div>
                                 <pre><code>{
   "servers": {
     "thrivestack": {
       "type": "http",
       "url": "https://api.app.thrivestack.ai/mcp",
-      "headers": {
-        "x-api-key": "d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g="
-      }
+      "headers": { "Authorization": "Bearer YOUR_PAT_TOKEN" }
     }
   }
 }</code></pre>
@@ -357,24 +333,22 @@
                         </summary>
                         <div class="tools-dropdown__content">
                             <p class="mt-4">
-                                ThriveStack OAuth is currently available for Claude and Claude Desktop only — connect Windsurf with your <code>x-api-key</code>.
+                                ThriveStack OAuth is currently available for Claude and Claude Code only &mdash; connect Windsurf with a <a href="#create-pat">Personal Access Token</a>.
                             </p>
                             <ol>
                                 <li>Open Windsurf Settings, then go to <strong>MCP</strong>.</li>
                                 <li>
-                                    Click <strong>Add Server</strong> and add the ThriveStack MCP configuration using this <strong>demo x-api-key</strong>:
+                                    Click <strong>Add Server</strong> and add the ThriveStack MCP configuration, using the same config as Cursor, replacing <code>YOUR_PAT_TOKEN</code>:
                                     <div class="code-block-wrapper">
                                         <button class="copy-btn" onclick="copyCode(this)" type="button">
                                             <i class="fa-regular fa-copy"></i> Copy
                                         </button>
-                                        <div class="code-block-label">JSON</div>
+                                        <div class="code-block-label">MCP config</div>
                                         <pre><code>{
   "mcpServers": {
     "thrivestack": {
       "url": "https://api.app.thrivestack.ai/mcp",
-      "headers": {
-        "x-api-key": "d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g="
-      }
+      "headers": { "Authorization": "Bearer YOUR_PAT_TOKEN" }
     }
   }
 }</code></pre>
@@ -391,61 +365,29 @@
                         </summary>
                         <div class="tools-dropdown__content">
                             <p class="mt-4">
-                                ThriveStack OAuth is currently available for Claude and Claude Desktop only — connect Gemini CLI with your <code>x-api-key</code>. For general MCP setup, refer to
+                                ThriveStack OAuth is currently available for Claude and Claude Code only &mdash; connect Gemini CLI with a <a href="#create-pat">Personal Access Token</a>. For general MCP setup, refer to
                                 <a href="https://google-gemini.github.io/gemini-cli/docs/tools/mcp-server.html" target="_blank" rel="noopener noreferrer">Gemini CLI MCP server documentation</a>.
                             </p>
 
                             <ol>
-                                <li>Ensure you&apos;re authenticated with Gemini.</li>
                                 <li>
-                                    Add this to your <code>~/.gemini/settings.json</code> using this <strong>demo x-api-key</strong>:
+                                    Add this to your <code>~/.gemini/settings.json</code>, replacing <code>YOUR_PAT_TOKEN</code>:
                                     <div class="code-block-wrapper">
                                         <button class="copy-btn" onclick="copyCode(this)" type="button">
                                             <i class="fa-regular fa-copy"></i> Copy
                                         </button>
-                                        <div class="code-block-label">JSON</div>
+                                        <div class="code-block-label">~/.gemini/settings.json</div>
                                         <pre><code>{
   "mcpServers": {
     "thrivestack": {
       "httpUrl": "https://api.app.thrivestack.ai/mcp",
-      "headers": {
-        "x-api-key": "d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g="
-      }
+      "headers": { "Authorization": "Bearer YOUR_PAT_TOKEN" }
     }
   }
 }</code></pre>
                                     </div>
                                 </li>
                                 <li>Restart Gemini CLI to load the MCP server.</li>
-                                <li>Start asking questions; ThriveStack tools will be available in MCP mode.</li>
-                            </ol>
-                        </div>
-                    </details>
-
-                    <details class="tools-dropdown">
-                        <summary class="tools-dropdown__summary">
-                            <span>Lovable <span class="coming-soon-badge coming-soon-badge--blue">Coming soon</span></span>
-                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
-                        </summary>
-                        <div class="tools-dropdown__content">
-                            <p class="mt-4">
-                                For MCP connector setup, refer to
-                                <a href="https://docs.lovable.dev/integrations/mcp-servers" target="_blank" rel="noopener noreferrer">Lovable&apos;s MCP servers documentation</a>. ThriveStack supports <code>x-api-key</code> (use sample
-                                demo x-api-key: <code>d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g=</code>).
-                            </p>
-
-                            <ol>
-                                <li>Log in to Lovable.</li>
-                                <li>Open <strong>Settings</strong>, then go to <strong>Connectors</strong>.</li>
-                                <li>Add a new MCP connector (or search for <strong>Thrivestack</strong> if available).</li>
-                                <li>
-                                    Configure the connector:
-                                    <ul>
-                                        <li>URL: <code>https://api.app.thrivestack.ai/mcp</code></li>
-                                        <li>Auth header: <code>x-api-key</code> = <code>d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g=</code> (sample demo x-api-key)</li>
-                                    </ul>
-                                </li>
-                                <li>Complete the ThriveStack connection flow in Lovable.</li>
                             </ol>
                         </div>
                     </details>
@@ -459,14 +401,14 @@
                             <p class="mt-4">
                                 The ThriveStack MCP server uses Streamable HTTP transport and works with any AI tool that supports the MCP standard. Configure the
                                 client to connect to
-                                <code>https://api.app.thrivestack.ai/mcp</code>. If the client doesn&rsquo;t support OAuth (currently Claude and Claude Desktop only), attach
-                                this sample demo x-api-key as an <code>x-api-key</code> header:
-                                <code>d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g=</code>.
+                                <code>https://api.app.thrivestack.ai/mcp</code>. If the client doesn&rsquo;t support OAuth (currently Claude and Claude Code only), attach
+                                a <a href="#create-pat">Personal Access Token</a> as an
+                                <code>Authorization: Bearer YOUR_PAT_TOKEN</code> header.
                             </p>
 
                             <ol>
                                 <li>Configure your client&apos;s MCP server URL to <code>https://api.app.thrivestack.ai/mcp</code>.</li>
-                                <li>Ensure your client supports custom HTTP headers and set <code>x-api-key</code> to <code>d8rRhN6Ji8BGZdlVJONMm/e06k1zLkT4pHoN4LstE4g=</code> (sample demo key).</li>
+                                <li>Ensure your client supports custom HTTP headers and set <code>Authorization</code> to <code>Bearer YOUR_PAT_TOKEN</code>.</li>
                                 <li>Authenticate/connect when prompted (if your client asks for it).</li>
                                 <li>Start using ThriveStack tools in MCP mode.</li>
                             </ol>
@@ -481,18 +423,8 @@
                     <p>You should get a status response back. If that works, you&rsquo;re all set. From here:</p>
                     <ul>
                         <li>Browse <a href="../../public/mcp/use-cases.html">Use Cases</a> for ready-made, multi-step examples.</li>
-                        <li>Or browse <a href="../../public/mcp/prompts.html">Prompts</a> for single-tool question ideas.</li>
+                        <li>Or browse <a href="../../public/mcp/prompts.html">Prompts</a> for built-in analysis workflows.</li>
                     </ul>
-                </section>
-
-                <section id="plugins" class="content-section">
-                    <h2>Plugins (coming soon)</h2>
-                    <p>
-                        ThriveStack plans to publish an MCP marketplace to extend MCP with
-                        reusable analysis and instrumentation skills. Until released,
-                        connect directly to the ThriveStack MCP server URL and use the
-                        built-in tools it exposes.
-                    </p>
                 </section>
 
                 <section id="troubleshooting" class="content-section">
@@ -502,12 +434,12 @@
                         <li>Check that you signed in with the correct ThriveStack account.</li>
                         <li>Try removing and re-adding the integration.</li>
                         <li>Clear your browser cookies for <code>app.thrivestack.ai</code> and try again.</li>
-                        <li>Using an <code>x-api-key</code>? Confirm the key hasn&rsquo;t been revoked in <strong>Settings &rarr; API Keys</strong>, and that the <code>x-api-key</code> header is being sent.</li>
+                        <li>Using a Personal Access Token? Confirm it hasn&rsquo;t been revoked under <strong>Personal Access Tokens</strong>, and that the <code>Authorization: Bearer</code> header is being sent.</li>
                     </ul>
                     <h3>Other issues</h3>
                     <ul>
-                        <li><strong>Missing data</strong>: ensure your ThriveStack account has access to the target account and the data actually exists.</li>
-                        <li><strong>Tool not found</strong>: tool availability depends on what your MCP server exposes for your account.</li>
+                        <li><strong>Missing data</strong>: ensure your ThriveStack account has access to the target product/environment and the data actually exists.</li>
+                        <li><strong>Tool not found</strong>: tool availability depends on what your MCP server version exposes.</li>
                         <li><strong>Queries timing out</strong>: try smaller questions or narrower date ranges.</li>
                         <li><strong>Connection timeout</strong>: check your internet connection, and make sure the URL is exactly <code>https://api.app.thrivestack.ai/mcp</code>.</li>
                     </ul>
@@ -517,8 +449,8 @@
                 <section id="technical-specs" class="content-section">
                     <h2>Technical specifications</h2>
                     <ul>
-                        <li><strong>Transport Type:</strong> Streaming HTTP (Remote)</li>
-                        <li><strong>Authentication:</strong> <code>x-api-key</code> header (sample/demo x-api-key format shown on this page) and OAuth 2.1 (Claude and Claude Desktop)</li>
+                        <li><strong>Transport Type:</strong> Streamable HTTP (Remote)</li>
+                        <li><strong>Authentication:</strong> OAuth 2.1 (Claude and Claude Code only) or a Personal Access Token via <code>Authorization: Bearer</code> header (any client)</li>
                     </ul>
                 </section>
 
@@ -542,7 +474,7 @@
                     </div>
                     <div class="footer-links">
                         <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
-                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="setup.html">Last updated: July 20, 2026</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="setup.html">Last updated: August 3, 2026</a>
                     </div>
                 </footer>
             </div>
@@ -554,10 +486,9 @@
                 <nav id="toc" class="toc-nav">
                     <a href="#server-url" class="toc-link active">Server URL</a>
                     <a href="#authentication-options" class="toc-link">Authentication options</a>
-                    <a href="#create-api-key" class="toc-link">Create an x-api-key</a>
+                    <a href="#create-pat" class="toc-link">Create a Personal Access Token</a>
                     <a href="#implementation" class="toc-link">Implementation</a>
                     <a href="#verify" class="toc-link">Verify your connection</a>
-                    <a href="#plugins" class="toc-link">Plugins</a>
                     <a href="#troubleshooting" class="toc-link">Troubleshooting</a>
                     <a href="#technical-specs" class="toc-link">Technical specs</a>
                 </nav>

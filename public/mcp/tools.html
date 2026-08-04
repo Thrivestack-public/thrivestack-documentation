@@ -90,1089 +90,782 @@
                     <span class="doc-page-header-eyebrow">ThriveStack MCP</span>
                     <h1 class="doc-page-title">Tools Reference</h1>
                     <p class="doc-page-description">
-                        Every tool the ThriveStack MCP Server exposes, with parameters and response fields.
+                        Every tool the ThriveStack MCP Server exposes, with parameters and what each one does.
                     </p>
                 </header>
 
                 <section id="overview" class="content-section">
-                    <p>The ThriveStack MCP Server exposes two sets of tools:</p>
-                    <ul>
-                        <li><strong>Read tools (23)</strong> return data: projects, brands, model channels, prompts, chats, reports, actions, scraped source content, custom classifications, the brand profile, the ThriveStack documentation, and bot &amp; crawler traffic tracking (known bots and access-log visit counts).</li>
-                        <li><strong>Write tools (37)</strong> create, update, archive, or delete brands, prompts, tags, tag groups, topics, custom domain/URL classifications, and the brand profile. Your assistant confirms before calling one.</li>
-                    </ul>
-                    <p>Your AI assistant calls these automatically based on your questions. You don&rsquo;t need to invoke them directly, but this reference helps you understand what is available.</p>
-                    <p>All tools except <code>list_projects</code>, <code>search_docs</code>, and <code>read_doc</code> require a <code>project_id</code>. Your AI assistant handles this automatically after you pick a project.</p>
-                    <p>Write tools require organization-owner access on the project. Any project member can use the read tools.</p>
-                    <p>Tool calls are rate limited to 1,000 calls per minute per user. If you hit the limit, the server tells your assistant to retry after a few seconds.</p>
+                    <p>The ThriveStack MCP Server exposes <strong>77 tools</strong> across product analytics, revenue, activation, AI visibility, and account/GTM data &mdash; plus one MCP resource, <code>analytics://schema</code>, describing the full ClickHouse schema for hand-written queries.</p>
+                    <p>Almost every tool is read-only. Only two touch state: <code>create_account_segment</code> (creates a segment) and <code>start_thrivestack_setup</code> (kicks off a telemetry install flow) &mdash; there is no delete/update surface.</p>
+                    <p>None of these tools take a <code>project_id</code> or similar tenant parameter. Your product and environment are resolved automatically from how you authenticated (OAuth session or Personal Access Token) &mdash; see <a href="../../public/mcp/setup.html">Setup</a>.</p>
+                    <p>Your AI assistant calls these automatically based on your questions. For most analytics questions, it should reach for <a href="#tool-ask"><code>ask</code></a> first &mdash; that single tool auto-routes to the right internal data source instead of you (or the assistant) having to pick from the list below.</p>
                 </section>
 
                 <section id="response-format" class="content-section">
                     <h2>Response format</h2>
-                    <p>Most tools return compact columnar JSON:</p>
-                    <div class="code-block-wrapper">
-                        <button class="copy-btn" onclick="copyCode(this)" type="button">
-                            <i class="fa-regular fa-copy"></i> Copy
-                        </button>
-                        <div class="code-block-label">JSON</div>
-                        <pre><code>{
-  "columns": ["brand_id", "brand_name", "visibility", "..."],
-  "rows": [
-    ["b_1", "Acme", 0.42, "..."],
-    ["b_2", "Contoso", 0.18, "..."]
-  ],
-  "rowCount": 2
-}</code></pre>
-                    </div>
-                    <p>Each row is an array of values matching the columns order. List tools (<code>list_brands</code>, <code>list_topics</code>, <code>list_tags</code>, <code>list_prompts</code>, <code>list_chats</code>, <code>list_search_queries</code>, <code>list_domain_classifications</code>, <code>list_url_classifications</code>) also return a <code>totalCount</code> field with the total matching records across pages, so you can tell whether to paginate. <code>get_chat</code>, <code>get_url_content</code>, <code>get_project_profile</code>, <code>read_doc</code>, <code>list_bots</code>, and <code>get_agent_visits</code> are exceptions: they return their object directly.</p>
+                    <p>There is no single universal response envelope &mdash; each tool returns the JSON shape natural to its own data source (a gRPC struct, a GraphQL result, a ClickHouse row set). Tools that return tabular data generally return an array of row objects; tools with a fixed multi-field result (like <code>get_mau_mtu_count</code>) return a flat object. Descriptions below call out anything non-obvious about a given tool&rsquo;s shape.</p>
+                    <p>Tools whose description says &ldquo;returns a clear empty/no-run result&rdquo; or similar are explicitly designed to return an empty-but-valid result rather than an error when there&rsquo;s no data yet (e.g. a domain that hasn&rsquo;t been probed) &mdash; treat that as &ldquo;nothing here yet&rdquo;, not a failure.</p>
                 </section>
 
-                <section id="read-tools" class="content-section">
-                    <h2>Read tools</h2>
+                <section id="tool-catalog" class="content-section">
+                    <h2>Primary entry point</h2>
+                    <p>The <code>ask</code> tool is the primary interface for analytics and growth questions. Rather than mapping directly to a single backend call, it hands the question to an internal orchestrator that runs a Claude tool-use loop (up to 10 iterations) with a fixed set of ClickHouse-backed internal tools &mdash; schema discovery, signup/MRR/churn trends, activation status, feature usage, funnels, UTM/channel performance, abuse signals, and a constrained custom-SQL escape hatch. Claude decides which internal tool(s) to call, chains them when a question needs multiple data points (e.g. combining signups, MRR, and activation for a growth summary), and synthesizes the results into a business insight grounded strictly in the returned data (never estimated or recalled from training data), including markdown tables and chart artifacts for trend/comparison data where appropriate.</p>
 
-                    <h3 id="tool-list-projects"><code>list_projects</code></h3>
-                    <p>Lists all projects your account has access to. This is always called first.</p>
-                    <p><strong>Columns:</strong> <code>id</code>, <code>name</code>, <code>status</code></p>
-
-                    <h3 id="tool-list-brands"><code>list_brands</code></h3>
-                    <p>List brands (your brand and tracked competitors) in a project.</p>
+                    <h3 id="tool-ask"><code>ask</code></h3>
+                    <p>PRIMARY TOOL &mdash; use this for ALL analytics and growth questions. Queries live ClickHouse data, picks the right internal tool automatically, and returns a business insight. Use for any question about: signups, MRR, ARR, churn, activation, retention, feature usage, accounts, users, revenue, expansion, contraction, cohorts, funnels, or trends. Do NOT answer analytics questions from memory &mdash; always call this tool. Examples: &lsquo;Why is activation dropping?&rsquo;, &lsquo;What is my MRR trend?&rsquo;, &lsquo;Which accounts churned this month?&rsquo;, &lsquo;How many signups last month?&rsquo;</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                            <tr><td><code>question</code></td><td>string</td><td>Yes</td><td>Your analytics or growth question in plain English.</td></tr>
                         </tbody>
                     </table>
-                    <p><strong>Columns:</strong> <code>id</code>, <code>name</code>, <code>domains</code>, <code>aliases</code>, <code>is_own</code></p>
-                    <p><code>aliases</code> are alternate names the brand is matched under. <code>is_own</code> indicates whether this is your brand (<code>true</code>) or a competitor (<code>false</code>).</p>
 
-                    <h3 id="tool-list-topics"><code>list_topics</code></h3>
-                    <p>Lists topic groupings in a project. Each prompt belongs to one topic.</p>
+                    <h2 id="accounts">Accounts</h2>
+
+                    <h3 id="tool-list-accounts"><code>list_accounts</code></h3>
+                    <p>List CRM accounts with optional filtering and pagination. Returns account names, IDs, domains, scores, and subscription details.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                            <tr><td><code>page</code></td><td>number</td><td>No</td><td>Page number, 1-indexed (default 1)</td></tr>
+                            <tr><td><code>size</code></td><td>number</td><td>No</td><td>Page size (default 20, max 100)</td></tr>
+                            <tr><td><code>sort_by</code></td><td>string</td><td>No</td><td>Column to sort by, e.g. <code>last_active_time</code></td></tr>
+                            <tr><td><code>sort_order</code></td><td>string</td><td>No</td><td>Sort order: <code>asc</code> or <code>desc</code> (default <code>desc</code>)</td></tr>
                         </tbody>
                     </table>
-                    <p><strong>Columns:</strong> <code>id</code>, <code>name</code></p>
 
-                    <h3 id="tool-list-tags"><code>list_tags</code></h3>
-                    <p>Lists tags (cross-cutting labels) in a project.</p>
+                    <h3 id="tool-get-company-name-from-contacts"><code>get_company_name_from_contacts</code></h3>
+                    <p>Derive company name and email for CRM contacts based on filter predicates.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>group</code></td><td>string</td><td>No</td><td>Filter to tags in this user-defined group</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                            <tr><td><code>filters</code></td><td>array</td><td>Yes</td><td>Filters to apply to contacts. Each filter is <code>{ key, operator, value }</code>. <code>key</code>: one of <code>email</code>, <code>first_name</code>, <code>last_name</code>, <code>title</code>, <code>job_title</code>, <code>linkedin</code>, <code>phone_no</code>, <code>company</code>, <code>domain</code>, <code>company_type</code>, <code>industry</code>, <code>country</code>, <code>city</code>, <code>description</code>. <code>operator</code>: one of <code>eq</code>, <code>ne</code>, <code>gt</code>, <code>lt</code>, <code>gte</code>, <code>lte</code> (or the long-form aliases <code>equals</code>, <code>not_equals</code>, <code>greater_than</code>, <code>less_than</code>, <code>greater_than_or_equal</code>, <code>less_than_or_equal</code>).</td></tr>
                         </tbody>
                     </table>
-                    <p><strong>Columns:</strong> <code>id</code>, <code>name</code>, <code>is_system</code>, <code>group</code></p>
-                    <p>System tags (<code>is_system: true</code>) are ThriveStack-managed branding/intent tags; their <code>group</code> is <code>branding</code> or <code>intentType</code>. User tags carry their user-defined group name in <code>group</code> (or <code>null</code> when ungrouped). Use <code>list_tag_groups</code> to enumerate the user-defined groups.</p>
 
-                    <h3 id="tool-list-tag-groups"><code>list_tag_groups</code></h3>
-                    <p>Lists the user-defined tag groups in a project, each with its shared color and tag count. System groups (<code>branding</code>/<code>intentType</code>) are not included &mdash; see <code>list_tags</code>.</p>
+                    <h2 id="acquisition-conversion">Acquisition &amp; Conversion</h2>
+
+                    <h3 id="tool-get-account-pre-signup-journey"><code>get_account_pre_signup_journey</code></h3>
+                    <p>Interactive 3-step pre-signup journey explorer. Step 1 (<code>step=dates</code>): returns all acquisition dates with signup counts. Step 2 (<code>step=users</code>): pass <code>selected_date</code> + <code>user_ids_json</code> to get a per-user summary for that date. Step 3 (<code>step=timeline</code>): pass <code>selected_user_id</code> to get that user&rsquo;s full session timeline. Always start with <code>step=dates</code>.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>dates</code>, <code>users</code>, <code>timeline</code></td></tr>
+                            <tr><td><code>selected_date</code></td><td>string</td><td>No</td><td>YYYY-MM-DD. Required when <code>step=users</code></td></tr>
+                            <tr><td><code>user_ids_json</code></td><td>string</td><td>No</td><td>JSON array of user IDs from <code>step=dates</code>. Required when <code>step=users</code></td></tr>
+                            <tr><td><code>selected_user_id</code></td><td>string</td><td>No</td><td>User ID. Required when <code>step=timeline</code></td></tr>
                         </tbody>
                     </table>
-                    <p><strong>Returns:</strong> <code>{ data: [{ group, color, tag_count }] }</code>.</p>
 
-                    <h3 id="tool-list-models"><code>list_models</code></h3>
-                    <p>Lists all AI engines (models) configured for a project. Use this to resolve model names (e.g. &ldquo;ChatGPT&rdquo;, &ldquo;Perplexity&rdquo;) to IDs before filtering reports, and to label model IDs with human-readable names when presenting results.</p>
+                    <h3 id="tool-get-conversion-analytics"><code>get_conversion_analytics</code></h3>
+                    <p>Returns aggregate conversion metrics and a daily breakdown (touchpoints/time-to-signup).</p>
+                    <p>No input parameters required.</p>
+
+                    <h2 id="activation">Activation</h2>
+
+                    <h3 id="tool-get-feature-conversion-drivers"><code>get_feature_conversion_drivers</code></h3>
+                    <p>Interactive 2-step activation milestone explorer. Step 1 (<code>step=modules</code>): returns activation modules and their milestones. Step 2 (<code>step=milestone</code>): pass <code>module_id</code> and <code>milestone_id</code> to get converted-vs-dropped accounts for that milestone.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>modules</code>, <code>milestone</code></td></tr>
+                            <tr><td><code>module_id</code></td><td>string</td><td>No</td><td>Required when <code>step=milestone</code></td></tr>
+                            <tr><td><code>milestone_id</code></td><td>string</td><td>No</td><td>Required when <code>step=milestone</code></td></tr>
                         </tbody>
                     </table>
-                    <p><strong>Columns:</strong> <code>id</code>, <code>name</code>, <code>is_active</code></p>
-                    <p>The <code>is_active</code> field indicates whether the model is enabled for this project. Inactive models return empty data in reports.</p>
-                    <p>Filtering and breaking down reports by <code>model_id</code> is deprecated. Prefer <code>model_channel_id</code> (see <code>list_model_channels</code>) &mdash; channels are stable engine identifiers that survive model version upgrades.</p>
 
-                    <h3 id="tool-list-model-channels"><code>list_model_channels</code></h3>
-                    <p>Lists the AI engine channels tracked by ThriveStack. A model channel is a stable identifier for an engine (e.g. <code>openai-0</code> = ChatGPT UI) that persists as the underlying model is upgraded. Use it to filter or break down reports without tying yourself to a specific model version.</p>
+                    <h2 id="ai-visibility">AI Visibility &amp; Content Recommendations</h2>
+
+                    <h3 id="tool-get-citation-probe-data"><code>get_citation_probe_data</code></h3>
+                    <p>Citation-gap evidence for a domain&rsquo;s most recent completed AI-visibility probe run: every tracked buyer question, our citation count vs. total, and which competitor brands appeared instead. Returns raw evidence only. Returns a clear empty/no-run result if the domain has no completed probe run yet &mdash; not an error.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Domain to fetch citation probe evidence for</td></tr>
                         </tbody>
                     </table>
-                    <p><strong>Columns:</strong> <code>id</code>, <code>description</code>, <code>current_model_id</code>, <code>is_active</code>, <code>unsupported_country_codes</code></p>
-                    <p><code>current_model_id</code> is the model ID currently active in the channel. Pass this as <code>model_id</code> if a report still requires the deprecated filter.</p>
-                    <p><code>is_active</code> mirrors the engine&rsquo;s status for this project. Inactive channels return empty data.</p>
-                    <p><code>unsupported_country_codes</code> lists ISO 3166-1 alpha-2 codes the channel can&rsquo;t serve. Chats requested for those countries are not created.</p>
 
-                    <h3 id="tool-list-prompts"><code>list_prompts</code></h3>
-                    <p>Lists prompts in a project. You can filter by topic or tag.</p>
+                    <h3 id="tool-get-domain-prompts"><code>get_domain_prompts</code></h3>
+                    <p>The tracked buyer questions (prompts) generated for a domain, grouped by topic. The domain must be enriched first; if it isn&rsquo;t, the resulting error message is returned cleanly rather than crashing.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>topic_id</code></td><td>string</td><td>No</td><td>Filter by topic ID</td></tr>
-                            <tr><td><code>tag_id</code></td><td>string</td><td>No</td><td>Filter by tag ID</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Domain to fetch generated prompts for</td></tr>
                         </tbody>
                     </table>
-                    <p><strong>Columns:</strong> <code>id</code>, <code>text</code>, <code>tag_ids</code>, <code>topic_id</code>, <code>volume</code></p>
-                    <p><code>tag_ids</code> is an array of tag IDs. <code>topic_id</code> is the topic ID or <code>null</code>. <code>volume</code> is a relative search-volume bucket: <code>very low</code>, <code>low</code>, <code>medium</code>, <code>high</code>, <code>very high</code>, or <code>null</code> when the prompt does not have a volume signal yet.</p>
-
-                    <h3 id="tool-list-chats"><code>list_chats</code></h3>
-                    <p>List individual AI responses (chats) for a project over a date range. Each chat is one prompt run against one AI engine on a given date. Combine with <code>get_chat</code> to inspect the full response.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>brand_id</code></td><td>string</td><td>No</td><td>Only chats that mentioned this brand</td></tr>
-                            <tr><td><code>prompt_id</code></td><td>string</td><td>No</td><td>Only chats produced by this prompt</td></tr>
-                            <tr><td><code>model_id</code></td><td>string</td><td>No</td><td>Only chats from this AI engine. Deprecated &mdash; prefer <code>model_channel_id</code>. Ignored if <code>model_channel_id</code> is also provided.</td></tr>
-                            <tr><td><code>model_channel_id</code></td><td>string</td><td>No</td><td>Only chats from this stable engine channel</td></tr>
-                            <tr><td><code>features</code></td><td>string[]</td><td>No</td><td>Only chats whose response contains all of the given features. Values: <code>AD</code>, <code>MAP</code>, <code>WEB_SEARCH</code>. Multiple values are AND&rsquo;d (a chat must contain every listed feature to match).</td></tr>
-                            <tr><td><code>include_archived_prompts</code></td><td>boolean</td><td>No</td><td>Include chats whose prompt has been archived. Default <code>false</code>. Set to <code>true</code> only when historical chats for prompts that are no longer active are needed. Chats for deleted prompts are always excluded regardless of this flag.</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100, max: 10000)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Columns:</strong> <code>id</code>, <code>prompt_id</code>, <code>model_id</code>, <code>model_channel_id</code>, <code>date</code>, <code>features</code></p>
-                    <p><code>features</code> is an array of feature flags marking special elements detected in the assistant response. Use the same values listed under the <code>features</code> filter above.</p>
-                    <p>By default, chats are excluded if their prompt has been deleted or archived. Pass <code>include_archived_prompts=true</code> to include chats for archived prompts (e.g. for a historical lookback against a prompt no longer being tracked). Chats for deleted prompts are always excluded.</p>
-
-                    <h3 id="tool-get-chat"><code>get_chat</code></h3>
-                    <p>Get the full content of a single chat: the user prompt, the AI response, every source URL the model retrieved, every brand it mentioned, every search query it issued, and any extracted products.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>chat_id</code></td><td>string</td><td>Yes</td><td>The chat ID (from <code>list_chats</code>)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong></p>
-                    <table class="params-table">
-                        <thead><tr><th>Field</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>messages</code></td><td>The user prompt and assistant response(s)</td></tr>
-                            <tr><td><code>brands_mentioned</code></td><td>Brands detected in the response with their position</td></tr>
-                            <tr><td><code>sources</code></td><td>URLs the model retrieved, with citation counts and position</td></tr>
-                            <tr><td><code>queries</code></td><td>Search queries the model issued</td></tr>
-                            <tr><td><code>products</code></td><td>Product gallery entries extracted from the response</td></tr>
-                            <tr><td><code>features</code></td><td>Feature flags for special elements detected in the assistant response. Values: <code>AD</code>, <code>MAP</code>, <code>WEB_SEARCH</code>.</td></tr>
-                            <tr><td><code>maps</code></td><td>Local-business map cards (one per business pinned in a map widget). Each entry: <code>{ name, url? }</code>, where <code>url</code> is the Google Maps directions deeplink.</td></tr>
-                            <tr><td><code>ads</code></td><td>Paid ad placements rendered by the model. Each entry: <code>{ brandName, url, id?, adUnitType?, adsRequestId?, cards }</code>, where <code>cards</code> is an array of <code>{ title?, body?, imageUrl?, targetUrl? }</code>. <code>targetUrl</code> is the clickout URL with attribution UTM params.</td></tr>
-                            <tr><td><code>prompt</code></td><td><code>{id}</code></td></tr>
-                            <tr><td><code>model</code></td><td><code>{id}</code> &mdash; Deprecated, prefer <code>model_channel</code></td></tr>
-                            <tr><td><code>model_channel</code></td><td><code>{id}</code> &mdash; stable engine channel ID (e.g. <code>openai-0</code>)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="tool-list-search-queries"><code>list_search_queries</code></h3>
-                    <p>Lists the search sub-queries an AI engine fanned out to while answering prompts in a project over a date range. Each row is one sub-query issued for a given chat. Combine with <code>get_chat</code> to inspect the full response.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>prompt_id</code></td><td>string</td><td>No</td><td>Only queries from chats produced by this prompt</td></tr>
-                            <tr><td><code>chat_id</code></td><td>string</td><td>No</td><td>Only queries from this chat</td></tr>
-                            <tr><td><code>model_id</code></td><td>string</td><td>No</td><td>Only queries from this AI engine</td></tr>
-                            <tr><td><code>model_channel_id</code></td><td>string</td><td>No</td><td>Only queries from this model channel</td></tr>
-                            <tr><td><code>topic_id</code></td><td>string</td><td>No</td><td>Only queries from chats whose prompt belongs to this topic</td></tr>
-                            <tr><td><code>tag_id</code></td><td>string</td><td>No</td><td>Only queries from chats whose prompt carries this tag</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100, hard cap 1000)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Columns:</strong> <code>prompt_id</code>, <code>chat_id</code>, <code>model_id</code>, <code>model_channel_id</code>, <code>date</code>, <code>query_index</code>, <code>query_text</code></p>
-
-                    <h3 id="tool-list-bots"><code>list_bots</code></h3>
-                    <p>Lists every AI agent bot ThriveStack tracks. Each entry has the bot&rsquo;s ID (the user agent string ThriveStack matches), its provider, and its type. Use the returned IDs with <code>get_agent_visits</code> to filter visit counts by specific bots.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 1000, max: 10000)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ data: [{ id, provider, type }] }</code>.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Field</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>id</code></td><td>Bot identifier &mdash; the user agent name (e.g. GPTBot, ClaudeBot, PerplexityBot)</td></tr>
-                            <tr><td><code>provider</code></td><td>Vendor behind the bot (e.g. OpenAI, Anthropic, Google)</td></tr>
-                            <tr><td><code>type</code></td><td>Bot purpose. One of <code>training</code>, <code>search</code>, <code>userQuery</code>, <code>other</code></td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Bot types:</strong></p>
-                    <ul>
-                        <li><code>training</code> &mdash; crawlers that collect data to build or refine AI models (e.g. GPTBot, ClaudeBot)</li>
-                        <li><code>search</code> &mdash; bots that browse the web to find up-to-date information for AI-powered search (e.g. PerplexityBot)</li>
-                        <li><code>userQuery</code> &mdash; bots triggered by a real-time user query that fetch content on the user&rsquo;s behalf</li>
-                        <li><code>other</code> &mdash; miscellaneous bots</li>
-                    </ul>
-                    <p>Bot &amp; crawler traffic tracking requires a connected access-log data source (Cloudflare Workers or a CSV/CLF log upload) in your ThriveStack account. See <a href="../../public/mcp/setup.html">Setup</a> for connecting your MCP client once that&rsquo;s in place.</p>
-
-                    <h3 id="tool-get-agent-visits"><code>get_agent_visits</code></h3>
-                    <p>Aggregate AI bot visit counts from your connected access logs over a date range. Without <code>group_by</code>, returns the total as a single <code>{ visits: N }</code> row. With <code>group_by</code>, returns one row per distinct value of the chosen dimension(s), sorted by visits descending.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>group_by</code></td><td>string[]</td><td>No</td><td>Dimension(s) to group visit counts by. Omit for the total. Values: <code>bot_id</code>, <code>response_status</code>, <code>request_host</code>, <code>request_path</code>.</td></tr>
-                            <tr><td><code>bot_ids</code></td><td>string[]</td><td>No</td><td>Filter to specific bot IDs. Resolve via <code>list_bots</code>.</td></tr>
-                            <tr><td><code>time_bucket</code></td><td>string</td><td>No</td><td>Bucket results by time period. One of <code>hour</code>, <code>day</code>, <code>week</code>, <code>month</code>. Each row gets a <code>time_bucket</code> timestamp marking the start of the bucket.</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max grouped rows (default: 100, max: 10000)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Grouped rows to skip (default: 0)</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h4>Group-by dimensions</h4>
-                    <table class="params-table">
-                        <thead><tr><th>Dimension</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>bot_id</code></td><td>Break down by bot. Combine with <code>list_bots</code> to resolve IDs to provider names.</td></tr>
-                            <tr><td><code>response_status</code></td><td>Break down by HTTP response status (200, 404, etc.)</td></tr>
-                            <tr><td><code>request_host</code></td><td>Break down by hostname</td></tr>
-                            <tr><td><code>request_path</code></td><td>Break down by URL path</td></tr>
-                        </tbody>
-                    </table>
-                    <p>Multiple values produce a cross-dimensional breakdown &mdash; for example, <code>["bot_id", "response_status"]</code> gives per-bot, per-status counts. Combine with <code>time_bucket</code> to get e.g. per-bot, per-day counts.</p>
-
-                    <h4>Response fields</h4>
-                    <p><code>{ data: [...], totalCount }</code>.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Field</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>visits</code></td><td>Visit count for the row</td></tr>
-                            <tr><td><code>bot_id</code></td><td>Present when <code>bot_id</code> is in <code>group_by</code></td></tr>
-                            <tr><td><code>response_status</code></td><td>Present when <code>response_status</code> is in <code>group_by</code></td></tr>
-                            <tr><td><code>request_host</code></td><td>Present when <code>request_host</code> is in <code>group_by</code></td></tr>
-                            <tr><td><code>request_path</code></td><td>Present when <code>request_path</code> is in <code>group_by</code></td></tr>
-                            <tr><td><code>time_bucket</code></td><td>Present when <code>time_bucket</code> is set. ISO-style timestamp marking the start of the bucket.</td></tr>
-                            <tr><td><code>totalCount</code></td><td>Total grouped rows ignoring limit/offset. Equals 1 when <code>group_by</code> is omitted.</td></tr>
-                        </tbody>
-                    </table>
-                    <p>Pair <code>get_agent_visits</code> with the report tools to connect bot activity to AI visibility. For example, <code>request_path</code> grouping surfaces which of your pages bots hit most; <code>get_url_report</code> shows how those same pages perform as AI sources.</p>
-
-                    <h3 id="tool-list-domain-classifications"><code>list_domain_classifications</code></h3>
-                    <p>Lists the custom domain classifications defined for a project. These complement the built-in classifications (Corporate, Competitor, Editorial, Institutional, Other, Reference, UGC, You, Related) and can be assigned to specific domains via <code>assign_domain_classification</code>.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Columns:</strong> <code>name</code>, <code>color</code></p>
-
-                    <h3 id="tool-list-url-classifications"><code>list_url_classifications</code></h3>
-                    <p>Lists the custom URL classifications defined for a project. These complement the built-in classifications (Homepage, Category Page, Product Page, Listicle, Comparison, Profile, Alternative, Discussion, How-To Guide, Article, Other) and can be assigned to specific URLs via <code>assign_url_classification</code>.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Columns:</strong> <code>name</code>, <code>color</code></p>
-
-                    <h3 id="tool-get-brand-report"><code>get_brand_report</code></h3>
-                    <p>Returns brand visibility, sentiment, position, and share of voice across AI search engines.</p>
-                    <h4>Parameters</h4>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
-                            <tr><td><code>dimensions</code></td><td>string[]</td><td>No</td><td>Break down by: <code>prompt_id</code>, <code>model_id</code> (deprecated, prefer <code>model_channel_id</code>), <code>model_channel_id</code>, <code>tag_id</code>, <code>topic_id</code>, <code>date</code>, <code>country_code</code>, <code>chat_id</code></td></tr>
-                            <tr><td><code>filters</code></td><td>object[]</td><td>No</td><td>Filter results (see <a href="#filtering">Filtering</a>)</td></tr>
-                            <tr><td><code>order_by</code></td><td>object[]</td><td>No</td><td>Sort by one or more fields (see <a href="#sorting">Sorting</a>). Sortable: <code>visibility</code>, <code>visibility_count</code>, <code>mention_count</code>, <code>sentiment</code>, <code>position</code>, <code>share_of_voice</code>.</td></tr>
-                        </tbody>
-                    </table>
-                    <h4>Response fields</h4>
-                    <table class="params-table">
-                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>brand_id</code></td><td>string</td><td>The brand ID</td></tr>
-                            <tr><td><code>brand_name</code></td><td>string</td><td>The brand name</td></tr>
-                            <tr><td><code>visibility</code></td><td>number</td><td>0 to 1. Fraction of AI responses that mention the brand</td></tr>
-                            <tr><td><code>mention_count</code></td><td>number</td><td>Total times the brand was mentioned</td></tr>
-                            <tr><td><code>share_of_voice</code></td><td>number</td><td>0 to 1. Brand&rsquo;s share of total mentions across all brands</td></tr>
-                            <tr><td><code>sentiment</code></td><td>number</td><td>0 to 100. How positively AI platforms describe the brand. Most brands score 65 to 85</td></tr>
-                            <tr><td><code>position</code></td><td>number</td><td>Average rank when mentioned. Lower is better (1 = mentioned first)</td></tr>
-                        </tbody>
-                    </table>
-                    <p>The response also includes raw aggregation fields (<code>visibility_count</code>, <code>visibility_total</code>, <code>sentiment_sum</code>, <code>sentiment_count</code>, <code>position_sum</code>, <code>position_count</code>) for custom calculations across segments.</p>
 
                     <h3 id="tool-get-domain-report"><code>get_domain_report</code></h3>
-                    <p>Returns source domain retrieval and citation metrics across AI search engines.</p>
-                    <h4>Parameters</h4>
+                    <p>Full visibility report for a domain&rsquo;s most recent completed AI-visibility probe run: overall visibility and average position, competitor/mentioned brands, broken down by topic and by individual tracked question, with per-AI-model detail underneath each. Scoped automatically to the latest completed probe run for the domain. Returns a clear empty/no-run result if the domain has no completed probe run yet &mdash; not an error. Does not include response text or citation URLs &mdash; use <code>get_citation_probe_data</code> for that evidence.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
-                            <tr><td><code>dimensions</code></td><td>string[]</td><td>No</td><td>Break down by: <code>prompt_id</code>, <code>model_id</code> (deprecated, prefer <code>model_channel_id</code>), <code>model_channel_id</code>, <code>tag_id</code>, <code>topic_id</code>, <code>date</code>, <code>country_code</code>, <code>chat_id</code></td></tr>
-                            <tr><td><code>filters</code></td><td>object[]</td><td>No</td><td>Filter results (see <a href="#filtering">Filtering</a>)</td></tr>
-                            <tr><td><code>order_by</code></td><td>object[]</td><td>No</td><td>Sort by one or more fields (see <a href="#sorting">Sorting</a>). Sortable: <code>citation_rate</code>, <code>retrieval_count</code>, <code>citation_count</code>. (<code>retrieved_percentage</code> and <code>retrieval_rate</code> are computed from a separate aggregate and aren&rsquo;t sortable.)</td></tr>
-                        </tbody>
-                    </table>
-                    <h4>Response fields</h4>
-                    <table class="params-table">
-                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>domain</code></td><td>string</td><td>The source domain (e.g. example.com)</td></tr>
-                            <tr><td><code>classification</code></td><td>string</td><td>Domain type: You, Corporate, Editorial, Institutional, UGC, Reference, Competitor, Related, Other, the name of a custom classification, or <code>null</code></td></tr>
-                            <tr><td><code>retrieved_percentage</code></td><td>number</td><td>0 to 1. Fraction of chats that retrieved this domain</td></tr>
-                            <tr><td><code>retrieval_rate</code></td><td>number</td><td>Average URLs retrieved per chat. Can exceed 1.0 (this is an average, not a percentage)</td></tr>
-                            <tr><td><code>citation_rate</code></td><td>number</td><td>Average citations per distinct chat that retrieved this domain: <code>citation_count / retrieved_chat_count</code>. Can exceed 1.0. This is not <code>citation_count / retrieval_count</code> &mdash; dividing by <code>retrieval_count</code> gives the per-retrieval average, which is the deprecated <code>citation_avg</code></td></tr>
-                            <tr><td><code>retrieval_count</code></td><td>number</td><td>Total distinct URL retrievals from this domain across all chats (raw numerator of <code>retrieval_rate</code>). A single chat can retrieve several URLs from the same domain, so this is &gt;= <code>retrieved_chat_count</code></td></tr>
-                            <tr><td><code>citation_count</code></td><td>number</td><td>Total citations from this domain (raw count)</td></tr>
-                            <tr><td><code>retrieved_chat_count</code></td><td>number</td><td>Number of distinct chats in which this domain was retrieved (denominator of <code>citation_rate</code>)</td></tr>
-                            <tr><td><code>mentioned_brand_ids</code></td><td>string[]</td><td>Brand IDs mentioned alongside URLs from this domain (may be empty)</td></tr>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Domain to fetch the visibility report for</td></tr>
                         </tbody>
                     </table>
 
-                    <h3 id="tool-get-url-report"><code>get_url_report</code></h3>
-                    <p>Returns URL-level retrieval and citation metrics across AI search engines.</p>
-                    <h4>Parameters</h4>
+                    <h3 id="tool-get-owned-content-recommendations"><code>get_owned_content_recommendations</code></h3>
+                    <p>Content recommendations for the brand&rsquo;s own site &mdash; content to publish on your blog/site to close AI-citation gaps found during probing. Each item includes a severity tier, gap score, your citations vs. total citations, and which competitors are winning as evidence. Recommendations only exist after generation has been run for the domain &mdash; an empty list can mean generation hasn&rsquo;t run yet, not that there&rsquo;s nothing to recommend.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results (default: 100)</td></tr>
-                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default: 0)</td></tr>
-                            <tr><td><code>dimensions</code></td><td>string[]</td><td>No</td><td>Break down by: <code>prompt_id</code>, <code>model_id</code> (deprecated, prefer <code>model_channel_id</code>), <code>model_channel_id</code>, <code>tag_id</code>, <code>topic_id</code>, <code>date</code>, <code>country_code</code>, <code>chat_id</code></td></tr>
-                            <tr><td><code>filters</code></td><td>object[]</td><td>No</td><td>Filter results (see <a href="#filtering">Filtering</a>)</td></tr>
-                            <tr><td><code>order_by</code></td><td>object[]</td><td>No</td><td>Sort by one or more fields (see <a href="#sorting">Sorting</a>). Sortable: <code>retrieval_count</code>, <code>retrievals</code> (deprecated alias of <code>retrieval_count</code>), <code>citation_count</code>, <code>citation_rate</code>.</td></tr>
-                        </tbody>
-                    </table>
-                    <h4>Response fields</h4>
-                    <table class="params-table">
-                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>url</code></td><td>string</td><td>The full source URL</td></tr>
-                            <tr><td><code>classification</code></td><td>string</td><td>Page type: Homepage, Category Page, Product Page, Listicle, Comparison, Profile, Alternative, Discussion, How-To Guide, Article, Other, the name of a custom classification, or <code>null</code></td></tr>
-                            <tr><td><code>title</code></td><td>string</td><td>Page title (may be null)</td></tr>
-                            <tr><td><code>channel_title</code></td><td>string</td><td>Channel or author name for YouTube videos, Reddit threads, etc. (may be null)</td></tr>
-                            <tr><td><code>citation_count</code></td><td>number</td><td>Total citations across all chats</td></tr>
-                            <tr><td><code>retrieval_count</code></td><td>number</td><td>Total distinct chats that retrieved this URL</td></tr>
-                            <tr><td><code>citation_rate</code></td><td>number</td><td>Average citations per retrieval. Can exceed 1.0</td></tr>
-                            <tr><td><code>mentioned_brand_ids</code></td><td>string[]</td><td>Brand IDs mentioned alongside this URL (may be empty)</td></tr>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Domain to fetch owned content recommendations for</td></tr>
+                            <tr><td><code>status</code></td><td>string</td><td>No</td><td>One of <code>suggested</code>, <code>todo</code>, <code>approved</code>, <code>dismissed</code> (default: all active statuses, dismissed excluded)</td></tr>
+                            <tr><td><code>priority</code></td><td>string</td><td>No</td><td>One of <code>HIGH</code>, <code>MED</code>, <code>LOW</code></td></tr>
+                            <tr><td><code>channel</code></td><td>string</td><td>No</td><td>Filter by channel, e.g. Blog</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results per page (default 100)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default 0)</td></tr>
                         </tbody>
                     </table>
 
-                    <h3 id="tool-get-url-content"><code>get_url_content</code></h3>
-                    <p>Returns the scraped markdown content of a source URL ThriveStack has indexed. Use this after <code>get_url_report</code> to inspect the actual content an AI engine read. Useful for content gap analysis and comparing why a competitor URL wins citations.</p>
+                    <h3 id="tool-get-earned-content-recommendations"><code>get_earned_content_recommendations</code></h3>
+                    <p>Content recommendations for earned/third-party media &mdash; ideas for getting cited on sites like Reddit, G2, or other reference/editorial domains. Each item&rsquo;s evidence type is either <code>citation_backed</code> (tied to a real probe gap) or <code>category_inferred</code> (inferred from category, no direct citation evidence) &mdash; check which one before treating a recommendation as citation-backed fact. Recommendations only exist after generation has been run for the domain.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>url</code></td><td>string</td><td>Yes</td><td>Full URL of a source. Copy it verbatim from <code>get_url_report</code>. Trailing slashes and scheme variations change the resolved source ID.</td></tr>
-                            <tr><td><code>max_length</code></td><td>number</td><td>No</td><td>Cap on returned content length in characters. Increase and re-request if <code>truncated</code> is <code>true</code>.</td></tr>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Domain to fetch earned content recommendations for</td></tr>
+                            <tr><td><code>status</code></td><td>string</td><td>No</td><td>One of <code>suggested</code>, <code>todo</code>, <code>approved</code>, <code>dismissed</code> (default: all active statuses, dismissed excluded)</td></tr>
+                            <tr><td><code>priority</code></td><td>string</td><td>No</td><td>One of <code>HIGH</code>, <code>MED</code>, <code>LOW</code></td></tr>
+                            <tr><td><code>channel</code></td><td>string</td><td>No</td><td>Filter by channel, e.g. Reddit, G2</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max results per page (default 100)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Results to skip (default 0)</td></tr>
                         </tbody>
                     </table>
-                    <h4>Response fields</h4>
-                    <table class="params-table">
-                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>url</code></td><td>string</td><td>The requested URL</td></tr>
-                            <tr><td><code>title</code></td><td>string</td><td>Page title (may be null)</td></tr>
-                            <tr><td><code>domain</code></td><td>string</td><td>The source domain</td></tr>
-                            <tr><td><code>channel_title</code></td><td>string</td><td>Channel or author name for YouTube videos, Reddit threads, etc. (may be null)</td></tr>
-                            <tr><td><code>classification</code></td><td>string</td><td>Domain-level classification (same values as <code>get_domain_report</code>)</td></tr>
-                            <tr><td><code>url_classification</code></td><td>string</td><td>Page-level classification (same values as <code>get_url_report</code>)</td></tr>
-                            <tr><td><code>content</code></td><td>string</td><td>Markdown extracted via Readability + Turndown. <code>null</code> if ThriveStack has tracked the URL but scraping has not completed yet (can take up to 24h)</td></tr>
-                            <tr><td><code>content_length</code></td><td>number</td><td>Original character length before truncation. 0 when <code>content</code> is null</td></tr>
-                            <tr><td><code>truncated</code></td><td>boolean</td><td><code>true</code> if content was truncated to <code>max_length</code></td></tr>
-                            <tr><td><code>content_updated_at</code></td><td>string</td><td>ISO timestamp of last scrape, or <code>null</code> if not yet scraped</td></tr>
-                        </tbody>
-                    </table>
-                    <p>Returns a 404 if the URL has never been retrieved by any ThriveStack project. ThriveStack only scrapes URLs that appear as AI sources.</p>
 
-                    <h3 id="tool-get-actions"><code>get_actions</code></h3>
-                    <p>Returns ThriveStack&rsquo;s opportunity-scored action recommendations for a project and date range. Use this whenever the user asks what to do next, how to improve visibility, or wants ranked next steps instead of raw data.</p>
-                    <p>The tool is two-step: always call <code>scope=overview</code> first to see which slices have the biggest opportunity, then drill into <code>owned</code>, <code>editorial</code>, <code>reference</code>, or <code>ugc</code> for the actual textual recommendations.</p>
-                    <h4>Parameters</h4>
+                    <h3 id="tool-generate-content-outline"><code>generate_content_outline</code></h3>
+                    <p>Generates a content outline (structure only, not finished copy) for one owned-media content recommendation &mdash; headings, an answer-first opening summary, FAQ questions, and suggested schema markup types. Stateless and synchronous &mdash; nothing is persisted, calling it again just re-generates. Only owned-media content types are supported: Homepage, Domain, Product, Comparison, Article, Educational, Blog, Guide, How-to, Documentation, Listicle, Wiki. Earned-media content types (Social post, News, PR, User review, Research) get an outreach action instead &mdash; calling this with one returns an error.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date (YYYY-MM-DD)</td></tr>
-                            <tr><td><code>scope</code></td><td>string</td><td>Yes</td><td>One of <code>overview</code>, <code>owned</code>, <code>editorial</code>, <code>reference</code>, <code>ugc</code></td></tr>
-                            <tr><td><code>tag_ids</code></td><td>string[]</td><td>No</td><td>Only include actions matching these tags</td></tr>
-                            <tr><td><code>topic_ids</code></td><td>string[]</td><td>No</td><td>Only include actions for these topics</td></tr>
-                            <tr><td><code>model_ids</code></td><td>string[]</td><td>No</td><td>Only include actions for these AI models</td></tr>
-                            <tr><td><code>model_channel_ids</code></td><td>string[]</td><td>No</td><td>Only include actions for these model channels</td></tr>
-                            <tr><td><code>country_codes</code></td><td>string[]</td><td>No</td><td>ISO 3166-1 alpha-2 codes (e.g. US, DE)</td></tr>
-                            <tr><td><code>url_classification</code></td><td>string</td><td>Sometimes</td><td>Required for <code>scope=editorial</code>, optional for <code>scope=owned</code>. Page types like LISTICLE, ARTICLE, COMPARISON. Pass values surfaced by an overview row.</td></tr>
-                            <tr><td><code>domain</code></td><td>string</td><td>Sometimes</td><td>Required for <code>scope=reference</code> and <code>scope=ugc</code> (e.g. wikipedia.org, reddit.com). Pass values surfaced by an overview row.</td></tr>
+                            <tr><td><code>content_type</code></td><td>string</td><td>Yes</td><td>Owned-media content type &mdash; one of: Homepage, Domain, Product, Comparison, Article, Educational, Blog, Guide, How-to, Documentation, Listicle, Wiki</td></tr>
+                            <tr><td><code>title</code></td><td>string</td><td>Yes</td><td>The content recommendation&rsquo;s title to outline (e.g. from <code>get_owned_content_recommendations</code>)</td></tr>
                         </tbody>
                     </table>
-                    <h4>Response (scope=overview)</h4>
-                    <table class="params-table">
-                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>action_group_type</code></td><td>string</td><td>OWNED, EDITORIAL, REFERENCE, or UGC</td></tr>
-                            <tr><td><code>url_classification</code></td><td>string</td><td>Page type for OWNED / EDITORIAL rows (null for REFERENCE / UGC)</td></tr>
-                            <tr><td><code>domain</code></td><td>string</td><td>Domain for REFERENCE / UGC rows (null for OWNED / EDITORIAL)</td></tr>
-                            <tr><td><code>opportunity_score</code></td><td>number</td><td>Continuous score. Sort and rank by this.</td></tr>
-                            <tr><td><code>relative_opportunity_score</code></td><td>number</td><td>Strength tier: 1 = Low, 2 = Medium, 3 = High. Use this for prose labels.</td></tr>
-                            <tr><td><code>gap_percentage</code>, <code>coverage_percentage</code>, <code>used_ratio</code>, <code>used_total</code></td><td>number</td><td>Supporting stats</td></tr>
-                        </tbody>
-                    </table>
-                    <p>Each overview row surfaces exactly one of <code>url_classification</code> or <code>domain</code>. Pass that value into the matching scope in the follow-up call.</p>
-                    <h4>Response (scope=owned | editorial | reference | ugc)</h4>
-                    <table class="params-table">
-                        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>text</code></td><td>string</td><td>The recommendation, may include markdown links to targets or examples</td></tr>
-                            <tr><td><code>group_type</code></td><td>string</td><td>OWNED, EDITORIAL, REFERENCE, or UGC</td></tr>
-                            <tr><td><code>url_classification</code></td><td>string</td><td>Page type (may be null)</td></tr>
-                            <tr><td><code>domain</code></td><td>string</td><td>Domain (may be null)</td></tr>
-                            <tr><td><code>opportunity_score</code></td><td>number</td><td>Continuous score. Sort and rank by this.</td></tr>
-                            <tr><td><code>relative_opportunity_score</code></td><td>number</td><td>Strength tier: 1 = Low, 2 = Medium, 3 = High.</td></tr>
-                        </tbody>
-                    </table>
-                    <p>For example: <code>scope=overview</code> returns a row <code>{action_group_type: "UGC", domain: "youtube.com", opportunity_score: 0.30, ...}</code>. Follow up with <code>scope=ugc, domain="youtube.com"</code> to get ranked recommendations like &ldquo;Contact AutoPedia. Ask them for a collaboration.&rdquo;</p>
 
-                    <h3 id="tool-get-project-profile"><code>get_project_profile</code></h3>
-                    <p>Read the project&rsquo;s brand profile: the description, industry, brand-identity adjectives, target markets, audience distribution, and product or service list that ThriveStack uses to generate prompt suggestions. Call this before <code>set_project_profile</code> so the assistant can show you the current values before changing anything.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ profile }</code>. <code>profile</code> is <code>null</code> if the project hasn&rsquo;t been profiled yet, otherwise an object with the fields described under <code>set_project_profile</code>.</p>
+                    <h2 id="gtm-leads">GTM / Leads</h2>
 
-                    <h3 id="tool-search-docs"><code>search_docs</code></h3>
-                    <p>Search the ThriveStack product documentation at <a href="https://docs.thrivestack.ai" target="_blank" rel="noopener noreferrer">docs.thrivestack.ai</a> and return the most relevant pages. The assistant uses this for any question about how ThriveStack works &mdash; what a metric means, how a feature behaves, setup steps, plan and credit rules &mdash; then reads the best result with <code>read_doc</code>. Needs no <code>project_id</code> or project access.</p>
+                    <h3 id="tool-get-plg-leads"><code>get_plg_leads</code></h3>
+                    <p>Get PLG-qualified leads ready for sales outreach.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>query</code></td><td>string</td><td>Yes</td><td>Search terms, e.g. <code>share of voice</code> or <code>set up prompts</code></td></tr>
-                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max pages to return (default: 5, max: 20)</td></tr>
+                            <tr><td><code>lead_type</code></td><td>string</td><td>Yes</td><td>Lead acquisition type: <code>identify</code> or <code>group</code></td></tr>
+                            <tr><td><code>page</code></td><td>number</td><td>No</td><td>Page number (default 1)</td></tr>
+                            <tr><td><code>page_size</code></td><td>number</td><td>No</td><td>Page size (default 50)</td></tr>
                         </tbody>
                     </table>
-                    <p><strong>Columns:</strong> <code>title</code>, <code>path</code>, <code>url</code>, <code>snippet</code></p>
-                    <p>Pass a result&rsquo;s <code>path</code> to <code>read_doc</code>.</p>
 
-                    <h3 id="tool-read-doc"><code>read_doc</code></h3>
-                    <p>Read the full markdown content of a single documentation page. Pass the path returned by <code>search_docs</code> (e.g. <code>metrics/brand-metrics/visibility</code>). Needs no <code>project_id</code> or project access.</p>
+                    <h2 id="identity-brands">Identity &amp; Brands</h2>
+
+                    <h3 id="tool-get-accessible-brands"><code>get_accessible_brands</code></h3>
+                    <p>Brands (products) the authenticated ThriveStack account can access &mdash; id, name, and domain for each. Reflects exactly the brands that account can switch between, whether authenticated via OAuth or a Personal Access Token.</p>
+                    <p>No input parameters required.</p>
+
+                    <h2 id="segments">Segments</h2>
+
+                    <h3 id="tool-create-account-segment"><code>create_account_segment</code></h3>
+                    <p>Create an account segment using monetization criteria described in natural language (paid/trial/free, MRR/ARR thresholds, plan). One of the two tools that changes state rather than only reading it.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>path</code></td><td>string</td><td>Yes</td><td>Page path from a <code>search_docs</code> result</td></tr>
+                            <tr><td><code>user_request</code></td><td>string</td><td>Yes</td><td>Natural language segment criteria, e.g. &ldquo;paid accounts with MRR &gt; $500&rdquo;</td></tr>
                         </tbody>
                     </table>
-                    <p><strong>Returns:</strong> <code>{ title, path, url, content }</code>. Returns a 404 if no page matches the path.</p>
+
+                    <h3 id="tool-compare-segments"><code>compare_segments</code></h3>
+                    <p>Compare 2 or more segments by identifier (segment id or system name) using account counts.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>segment_identifiers</code></td><td>array</td><td>Yes</td><td>Segment IDs or system names, minimum 2 items</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="setup-onboarding">Setup &amp; Onboarding</h2>
+
+                    <h3 id="tool-get-setup-status"><code>get_setup_status</code></h3>
+                    <p>Get current ThriveStack setup status and completed steps for the tenant (product/environment).</p>
+                    <p>No input parameters required.</p>
+
+                    <h3 id="tool-start-thrivestack-setup"><code>start_thrivestack_setup</code></h3>
+                    <p>Use this tool when the user wants to set up, integrate, or instrument ThriveStack telemetry. The assistant is expected to first ask what type of setup is needed (marketing, product, or both) and for a ThriveStack API key before calling this. Returns ordered setup prompts meant to be used one at a time inside Claude Code &mdash; the assistant should not show the raw prompt text to the user. The other state-changing tool alongside <code>create_account_segment</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>type</code></td><td>string</td><td>Yes</td><td>One of <code>marketing</code>, <code>product</code>, <code>both</code></td></tr>
+                            <tr><td><code>api_key</code></td><td>string</td><td>Yes</td><td>The ThriveStack API key provided by the user</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="core-analytics-grpc">Core Analytics (gRPC)</h2>
+
+                    <h3 id="tool-get-mau-mtu-count"><code>get_mau_mtu_count</code></h3>
+                    <p>Get Monthly Active Users (MAU) and Monthly Tracked Users (MTU) counts.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Month in YYYY-MM format</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-event-count"><code>get_event_count</code></h3>
+                    <p>Get total event count for the product/environment.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period: <code>YYYY-MM</code> or <code>last_N_days</code> (e.g. <code>last_30_days</code>)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="feature-activation-insights">Feature &amp; Activation Insights</h2>
+
+                    <h3 id="tool-get-feature-usage-trend"><code>get_feature_usage_trend</code></h3>
+                    <p>Get feature usage trend data over time.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period, e.g. <code>last_30_days</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-feature-adoption"><code>get_feature_adoption</code></h3>
+                    <p>Get feature adoption timeline showing when users first used each feature.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period, e.g. <code>last_30_days</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-activation-summary"><code>get_activation_summary</code></h3>
+                    <p>Get activation module summary including milestone completion rates.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period, e.g. <code>last_30_days</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-activation-trend"><code>get_activation_trend</code></h3>
+                    <p>Get activation trend data over time.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period, e.g. <code>last_30_days</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-account-engagement"><code>get_account_engagement</code></h3>
+                    <p>Get engagement trend for a specific account.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>account_id</code></td><td>string</td><td>Yes</td><td>Account identifier</td></tr>
+                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-retention-data"><code>get_retention_data</code></h3>
+                    <p>Get retention cohort data showing how users return over time.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>period</code></td><td>string</td><td>Yes</td><td>Time period, e.g. <code>last_90_days</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="engagement-retention">Engagement &amp; Retention</h2>
+
+                    <h3 id="tool-get-churn-expansion-signals"><code>get_churn_expansion_signals</code></h3>
+                    <p>Returns portfolio-level engagement segmentation (high/medium/low stickiness buckets) and inactive-account trend series. Per-account risk lists come from <code>list_accounts</code> or CRM filters instead &mdash; there is no dedicated per-account churn-risk RPC.</p>
+                    <p>No input parameters required.</p>
+
+                    <h3 id="tool-get-account-engagement-profile"><code>get_account_engagement_profile</code></h3>
+                    <p>Interactive 2-step account engagement profile. Step 1 (<code>step=profile</code>): pass <code>account_id</code>, returns account details, acquisition metrics, and an intervention recommendation. Step 2 (<code>step=timeline</code>): pass <code>champion_user_id</code> (use the acquisition user ID from the profile step when available) to view the journey timeline.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>profile</code>, <code>timeline</code></td></tr>
+                            <tr><td><code>account_id</code></td><td>string</td><td>No</td><td>Required when <code>step=profile</code></td></tr>
+                            <tr><td><code>champion_user_id</code></td><td>string</td><td>No</td><td>Required when <code>step=timeline</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="revenue-attribution">Revenue Attribution</h2>
+
+                    <h3 id="tool-get-campaign-revenue-ranking"><code>get_campaign_revenue_ranking</code></h3>
+                    <p>Interactive 2-step campaign revenue explorer. Step 1 (<code>step=campaigns</code>): campaigns ranked by revenue. Step 2 (<code>step=customers</code>): pass <code>channel_name</code> and <code>campaign_name</code> for the customer breakdown.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>campaigns</code>, <code>customers</code></td></tr>
+                            <tr><td><code>channel_name</code></td><td>string</td><td>No</td><td>Required when <code>step=customers</code></td></tr>
+                            <tr><td><code>campaign_name</code></td><td>string</td><td>No</td><td>Required when <code>step=customers</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-source-revenue-ranking"><code>get_source_revenue_ranking</code></h3>
+                    <p>Interactive 2-step source revenue explorer. Step 1 (<code>step=sources</code>): sources ranked by revenue per channel. Step 2 (<code>step=customers</code>): pass <code>channel_name</code> and <code>source_name</code> for the customer breakdown.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>sources</code>, <code>customers</code></td></tr>
+                            <tr><td><code>channel_name</code></td><td>string</td><td>No</td><td>Required when <code>step=customers</code></td></tr>
+                            <tr><td><code>source_name</code></td><td>string</td><td>No</td><td>Required when <code>step=customers</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-channel-revenue-attribution"><code>get_channel_revenue_attribution</code></h3>
+                    <p>Interactive 2-step channel revenue attribution explorer. Step 1 (<code>step=channels</code>): channels ranked by revenue, including a simple LTV proxy (total revenue / customer count). Step 2 (<code>step=breakdown</code>): pass <code>channel_name</code> for its campaigns, sources, and customer breakdown.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>step</code></td><td>string</td><td>Yes</td><td>One of <code>channels</code>, <code>breakdown</code></td></tr>
+                            <tr><td><code>channel_name</code></td><td>string</td><td>No</td><td>Required when <code>step=breakdown</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="clickhouse-analytics">ClickHouse Analytics</h2>
+                    <p>These tools query ClickHouse directly for your product&rsquo;s raw event, revenue, and activation data. Run <code>discover_product_schema</code> first if you need real event/feature names &mdash; several of these accept them as inputs.</p>
+
+                    <h3 id="tool-get-signup-trend"><code>get_signup_trend</code></h3>
+                    <p>Weekly/monthly signup counts with marketing channel attribution (via device ID join to page events). Returns signups by channel, UTM source, campaign, and month-over-month change.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>months</code></td><td>number</td><td>No</td><td>Number of months back from today (default 3)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-visitor-conversion"><code>get_visitor_conversion</code></h3>
+                    <p>Top-of-funnel conversion: marketing visitors &rarr; signed up &rarr; engaged in product. Step 1: unique devices from marketing page events. Step 2: devices that signed up. Step 3: signed-up users with at least one product page event. Use for landing page performance and signup quality.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>months</code></td><td>number</td><td>No</td><td>Number of months back from today (default 3)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-activation-funnel"><code>get_activation_funnel</code></h3>
+                    <p>Activation funnel showing user counts and conversion at each stage. Provide the <code>funnel_events</code> list from <code>discover_product_schema</code> output. Returns count and conversion percentage at each stage, plus median time between stages.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date YYYY-MM-DD</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date YYYY-MM-DD</td></tr>
+                            <tr><td><code>funnel_events</code></td><td>string</td><td>No</td><td>Comma-separated ordered event names for the funnel (from <code>discover_product_schema</code>). Defaults to <code>signed_up,account_created</code> if not provided.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-revenue-summary"><code>get_revenue_summary</code></h3>
+                    <p>Monthly revenue from transactions. Returns revenue, transaction count, and paying customer count per month with month-over-month trend.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>months</code></td><td>number</td><td>No</td><td>Number of months back (default 3)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-mrr-trend"><code>get_mrr_trend</code></h3>
+                    <p>Monthly Recurring Revenue trend from a pre-computed view (fastest MRR query). Returns MRR plus month-over-month change per month.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>months</code></td><td>number</td><td>No</td><td>Number of months back (default 6)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-mrr-waterfall"><code>get_mrr_waterfall</code></h3>
+                    <p>MRR waterfall breakdown: New / Expansion / Contraction / Churn MRR for a given month, with customer names.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>month</code></td><td>string</td><td>Yes</td><td>Month in YYYY-MM format</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-churn-accounts"><code>get_churn_accounts</code></h3>
+                    <p>Accounts that churned in a given month. Classifies each as <code>hard_churn</code> / <code>scheduled</code> / <code>already_lapsed</code> and cross-checks payments after the cancel date.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>month</code></td><td>string</td><td>Yes</td><td>Month in YYYY-MM format</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-feature-usage"><code>get_feature_usage</code></h3>
+                    <p>Top features by unique users and event volume for a date range. Returns feature name, unique users, total events, and events per user. Use <code>discover_product_schema</code> first to know which feature names exist.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date YYYY-MM-DD</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date YYYY-MM-DD</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-account-journey"><code>get_account_journey</code></h3>
+                    <p>Full event trail for one account: all users, all milestones, all feature usage in chronological order.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>account_id</code></td><td>string</td><td>Yes</td><td>Account identifier</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-activation-status"><code>get_activation_status</code></h3>
+                    <p>Account counts by activation status (<code>not_started</code> / <code>started</code> / <code>activated</code>). Returns counts and average time to activate.</p>
+                    <p>No input parameters required.</p>
+
+                    <h2 id="growth-insights">Growth Insights &amp; Custom Queries</h2>
+
+                    <h3 id="tool-run-analytics-query"><code>run_analytics_query</code></h3>
+                    <p>Execute a custom read-only SQL query against ClickHouse. Read the <code>analytics://schema</code> resource first to know the tables and rules. The query MUST include both <code>product_id</code> and <code>environment_id</code> in the WHERE clause &mdash; they are validated before execution. DDL and DML are rejected.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>sql</code></td><td>string</td><td>Yes</td><td>SELECT query to execute. Must filter on <code>product_id</code> and <code>environment_id</code>.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-explain-growth"><code>explain_growth</code></h3>
+                    <p>Aggregate growth data across signups, revenue, features, and the activation funnel for a period. Returns structured data with interpretation rules for growth-advisor-style reasoning on top. Run <code>discover_product_schema</code> first.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>months</code></td><td>number</td><td>No</td><td>Number of months to analyze (default 3)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-explain-churn"><code>explain_churn</code></h3>
+                    <p>Churn analysis for a given month. Returns churned accounts with classification (<code>hard_churn</code> / <code>scheduled</code> / <code>already_lapsed</code>), LTV, last payment date, and event trail for each account.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>month</code></td><td>string</td><td>Yes</td><td>Month in YYYY-MM format</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-explain-activation"><code>explain_activation</code></h3>
+                    <p>Activation analysis: funnel drop-off points, time to each milestone, accounts stuck at each stage. Returns data for identifying primary activation blockers.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>start_date</code></td><td>string</td><td>Yes</td><td>Start date YYYY-MM-DD</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>Yes</td><td>End date YYYY-MM-DD</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="schema-discovery">Schema Discovery</h2>
+
+                    <h3 id="tool-discover-product-schema"><code>discover_product_schema</code></h3>
+                    <p>Run this FIRST before any analysis. Discovers all event names, feature names (inside <code>feature_used</code> events), funnel sequence order, and AHA-moment candidates for this product/environment. Returns the event taxonomy needed to write correct queries &mdash; never hardcode event names without running this first.</p>
+                    <p>No input parameters required.</p>
+
+                    <h2 id="monthly-metrics-scorecard">Monthly Metrics Scorecard</h2>
+
+                    <h3 id="tool-get-monthly-metrics-table"><code>get_monthly_metrics_table</code></h3>
+                    <p>Returns a month-by-month scorecard covering the full PLG funnel: new visitors, repeat visitors, signups, time-to-signup, touchpoints-before-signup, new paying accounts, and new MRR. Each cell is color-coded (green/yellow/red) relative to all months in that column, so it&rsquo;s easy to spot strong or weak months at a glance. Covers the last 12 months. Use this when the user asks to diagnose conversion/acquisition/revenue health, understand why MRR or signups dropped, see a conversion scorecard, or identify the worst-performing month.</p>
+                    <p>No input parameters required.</p>
+
+                    <h2 id="cross-product-metrics">Cross-Product Metrics (gRPC)</h2>
+                    <p>A large, uniform family of single-metric tools backed by gRPC. Most only support monthly aggregation today &mdash; daily/custom date ranges are called out per tool where they aren&rsquo;t yet supported.</p>
+
+                    <h3 id="tool-getVisitor"><code>getVisitor</code></h3>
+                    <p>Get visitor count for ANY time period. In this MCP server, only monthly aggregation is supported via gRPC.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>monthly</code></td></tr>
+                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getPageViews"><code>getPageViews</code></h3>
+                    <p>Get page views count for ANY time period. In this MCP server, only monthly aggregation is supported via gRPC.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>monthly</code></td></tr>
+                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getUniqueVisitors"><code>getUniqueVisitors</code></h3>
+                    <p>Get unique visitor count for ANY time period. In this MCP server, only monthly aggregation is supported via gRPC.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>monthly</code></td></tr>
+                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getSignup"><code>getSignup</code></h3>
+                    <p>Get signup count. Daily/custom ranges are not supported via gRPC yet.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getAbuseDetection"><code>getAbuseDetection</code></h3>
+                    <p>Get abuse detection count. Daily/custom ranges are not supported via gRPC yet.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getAcquisitionAccounts"><code>getAcquisitionAccounts</code></h3>
+                    <p>Get acquisition accounts count. Daily/custom ranges are not supported via gRPC yet.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getTotalAcquisitionAccounts"><code>getTotalAcquisitionAccounts</code></h3>
+                    <p>Get total acquisition accounts count. Daily/custom ranges are not supported via gRPC yet.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getTouchpointsToAcquisition"><code>getTouchpointsToAcquisition</code></h3>
+                    <p>Get touchpoints-to-acquisition metric. Daily/custom ranges are not supported via gRPC yet.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getTimeToAcquisition"><code>getTimeToAcquisition</code></h3>
+                    <p>Get time-to-acquisition metric. Daily/custom ranges are not supported via gRPC yet.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getAcqConversion"><code>getAcqConversion</code></h3>
+                    <p>Get acquisition conversion metric. Daily/custom ranges are not supported via gRPC yet.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getAvgTimeToFirstValue"><code>getAvgTimeToFirstValue</code></h3>
+                    <p>Get average time-to-first-value metric (monthly only via gRPC).</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getUsersActivatedThisMonth"><code>getUsersActivatedThisMonth</code></h3>
+                    <p>Get users-activated-this-month metric (monthly only via gRPC).</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getActivationRate"><code>getActivationRate</code></h3>
+                    <p>Get activation rate metric (monthly only via gRPC).</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>monthly</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getTotalAccountsActivated"><code>getTotalAccountsActivated</code></h3>
+                    <p>Get total accounts activated metric (monthly only via gRPC).</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>monthly</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getNewPayers"><code>getNewPayers</code></h3>
+                    <p>Get new payers metric. Daily/custom ranges are not supported via gRPC yet.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>monthly</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getNetNewMrr"><code>getNetNewMrr</code></h3>
+                    <p>Get net new MRR metric. Daily/custom ranges are not supported via gRPC yet.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>monthly</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getGrossMrrAdded"><code>getGrossMrrAdded</code></h3>
+                    <p>Get gross MRR added metric. Daily/custom ranges are not supported via gRPC yet.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>monthly</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getAvgTimeFromAcqToConv"><code>getAvgTimeFromAcqToConv</code></h3>
+                    <p>Get average time from acquisition to conversion metric (monthly only via gRPC).</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getAvgTimeFromActToConv"><code>getAvgTimeFromActToConv</code></h3>
+                    <p>Get average time from activation to conversion metric (monthly only via gRPC).</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getTotalCompanyMrr"><code>getTotalCompanyMrr</code></h3>
+                    <p>Get total company MRR metric (monthly only via gRPC).</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getTotalAccounts"><code>getTotalAccounts</code></h3>
+                    <p>Get total accounts metric (monthly only via gRPC).</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getDailyActiveUsers"><code>getDailyActiveUsers</code></h3>
+                    <p>Get daily active users metric. Daily granularity is not supported via gRPC; only monthly aggregation is returned.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getWeeklyActiveUsers"><code>getWeeklyActiveUsers</code></h3>
+                    <p>Get weekly active users metric. Daily granularity is not supported via gRPC; delta/value/monthly are supported.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getMonthlyActiveUsers"><code>getMonthlyActiveUsers</code></h3>
+                    <p>Get monthly active users metric. Daily granularity is not supported via gRPC.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>startDate</code></td><td>string</td><td>No</td><td>ISO start date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>endDate</code></td><td>string</td><td>No</td><td>ISO end date (not supported via gRPC yet)</td></tr>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>targetMonth</code></td><td>string</td><td>No</td><td>Currently ignored; gRPC uses a relative timerange</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getMonthlyActiveAccounts"><code>getMonthlyActiveAccounts</code></h3>
+                    <p>Get monthly active accounts metric. Daily granularity is not supported via gRPC.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getLowStickiness"><code>getLowStickiness</code></h3>
+                    <p>Get low stickiness metric. Daily granularity is not supported via gRPC.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getMediumStickiness"><code>getMediumStickiness</code></h3>
+                    <p>Get medium stickiness metric. Daily granularity is not supported via gRPC.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getHighStickiness"><code>getHighStickiness</code></h3>
+                    <p>Get high stickiness metric. Daily granularity is not supported via gRPC.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-getAdoptionRate"><code>getAdoptionRate</code></h3>
+                    <p>Get adoption rate metric. Daily granularity is not supported via gRPC.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>template</code></td><td>string</td><td>No</td><td>One of <code>value</code>, <code>delta</code>, <code>daily</code>, <code>monthly</code></td></tr>
+                            <tr><td><code>filters</code></td><td>string</td><td>No</td><td>Additional filters (not supported via gRPC yet)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="diagnostics">Diagnostics</h2>
+
+                    <h3 id="tool-ping"><code>ping</code></h3>
+                    <p>Health check &mdash; confirms this response is coming directly from the thrivestack-mcp server, not from the assistant&rsquo;s training data or any other source.</p>
+                    <p>No input parameters required.</p>
                 </section>
-
-                <section id="write-tools" class="content-section">
-                    <h2>Write tools</h2>
-                    <p>Write tools let the assistant edit your project configuration: brands, prompts, tags, topics, and the brand profile. Every write tool is flagged <code>readOnlyHint: false</code>, and every <code>delete_*</code> tool is flagged <code>destructiveHint: true</code>. Clients that honor MCP annotations (Claude, Cursor, and most others) prompt for explicit confirmation before the call runs. Some deletes cascade, as noted below.</p>
-                    <p>Brands, prompts, tags, and topics also have bulk variants (<code>create_brands</code>, <code>update_brands</code>, <code>delete_brands</code>, <code>create_prompts</code>, <code>update_prompts</code>, <code>delete_prompts</code>, <code>create_tags</code>, <code>update_tags</code>, <code>delete_tags</code>, <code>create_topics</code>, <code>update_topics</code>, <code>delete_topics</code>) for handling up to 50 items in one call. Bulk tools return per-item results so partial failures don&rsquo;t block the rest of the batch.</p>
-                    <p>Prompts can also be archived (<code>archive_prompt</code> / <code>unarchive_prompt</code>) to stop or resume running them without deleting their history.</p>
-                    <p>There&rsquo;s also a small CRUD set for custom domain and URL classifications that extends the built-in classification taxonomy. Create the classification once, then assign it to specific domains or URLs as you find them.</p>
-                    <p>All write tools require organization-owner access and a <code>project_id</code>. Ask the assistant to look up IDs with the matching <code>list_*</code> tool before any write call so you see exactly what is about to change.</p>
-
-                    <h3 id="tool-create-brand"><code>create_brand</code></h3>
-                    <p>Create a new tracked brand in a project (own brand or competitor).</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Brand name</td></tr>
-                            <tr><td><code>domains</code></td><td>string[]</td><td>No</td><td>Domains associated with the brand</td></tr>
-                            <tr><td><code>aliases</code></td><td>string[]</td><td>No</td><td>Alternate names the brand should be matched under</td></tr>
-                            <tr><td><code>regex</code></td><td>string</td><td>No</td><td>Optional regex pattern for brand mentions in chat text</td></tr>
-                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>Hex color used for the brand in charts (e.g. #1A2B3C)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ id }</code>. The created brand ID.</p>
-
-                    <h3 id="tool-update-brand"><code>update_brand</code></h3>
-                    <p>Update a brand&rsquo;s name, regex, aliases, domains, or color. Changes to <code>name</code>, <code>regex</code>, or <code>aliases</code> trigger a background metric recalculation. Further edits during the recalc will fail; wait a few minutes and retry. Color changes don&rsquo;t trigger recalculation.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>brand_id</code></td><td>string</td><td>Yes</td><td>The brand ID to update</td></tr>
-                            <tr><td><code>name</code></td><td>string</td><td>No</td><td>New brand name</td></tr>
-                            <tr><td><code>domains</code></td><td>string[]</td><td>No</td><td>New domain list (replaces existing)</td></tr>
-                            <tr><td><code>aliases</code></td><td>string[]</td><td>No</td><td>New alias list (replaces existing)</td></tr>
-                            <tr><td><code>regex</code></td><td>string | null</td><td>No</td><td>New regex. Pass <code>null</code> to clear an existing regex.</td></tr>
-                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>New hex color (e.g. #1A2B3C)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-delete-brand"><code>delete_brand</code></h3>
-                    <p>Soft-delete a brand. Destructive.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>brand_id</code></td><td>string</td><td>Yes</td><td>The brand ID to delete</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-create-brands"><code>create_brands</code></h3>
-                    <p>Create up to 50 brands in a single call. Duplicates (matched case-insensitively on name) are returned in <code>skipped</code> instead of failing the batch.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>brands</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries, each accepting the same fields as <code>create_brand</code>: <code>name</code>, <code>domains</code>, <code>aliases</code>, <code>regex</code>, <code>color</code></td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ created, skipped }</code>.</p>
-                    <p><code>created</code>: <code>[{ id, name }]</code><br><code>skipped</code>: <code>[{ name, reason: "duplicate" }]</code></p>
-
-                    <h3 id="tool-delete-brands"><code>delete_brands</code></h3>
-                    <p>Soft-delete up to 50 brands in a single call. Destructive.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>brand_ids</code></td><td>string[]</td><td>Yes</td><td>Up to 50 brand IDs to delete</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ deleted, skipped }</code>.</p>
-                    <p><code>deleted</code>: <code>[{ id }]</code><br><code>skipped</code>: <code>[{ id, reason: "not_found" | "already_deleted" }]</code></p>
-
-                    <h3 id="tool-update-brands"><code>update_brands</code></h3>
-                    <p>Update up to 50 brands in a single call. Per item, set any of <code>name</code>, <code>regex</code>, <code>aliases</code>, <code>domains</code>, <code>color</code>. Changes to <code>name</code>, <code>regex</code>, or <code>aliases</code> trigger a background metric recalculation per brand; a brand updated mid-recalculation is rejected.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>brands</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries. Each: <code>brand_id</code> (required), <code>name</code>, <code>regex</code> (pass null to clear), <code>aliases</code>, <code>domains</code>, <code>color</code></td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ updatedCount, skipped, rejected }</code>. Successful items collapse to <code>updatedCount</code>; <code>skipped</code> and <code>rejected</code> list any items that didn&rsquo;t apply.</p>
-
-                    <h3 id="tool-create-prompt"><code>create_prompt</code></h3>
-                    <p>Create a new prompt in a project. May consume plan credits.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>text</code></td><td>string</td><td>Yes</td><td>The prompt text</td></tr>
-                            <tr><td><code>country_code</code></td><td>string</td><td>Yes</td><td>ISO 3166-1 alpha-2 code the prompt targets (e.g. US, DE)</td></tr>
-                            <tr><td><code>topic_id</code></td><td>string</td><td>No</td><td>Topic ID to attach the prompt to</td></tr>
-                            <tr><td><code>tag_ids</code></td><td>string[]</td><td>No</td><td>Tag IDs to attach to the prompt</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ id }</code>. The created prompt ID.</p>
-
-                    <h3 id="tool-update-prompt"><code>update_prompt</code></h3>
-                    <p>Update a prompt&rsquo;s topic and/or tags. <code>tag_ids</code> fully replaces the existing tag set. Pass <code>topic_id: null</code> to detach the prompt from its topic.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>prompt_id</code></td><td>string</td><td>Yes</td><td>The prompt ID to update</td></tr>
-                            <tr><td><code>topic_id</code></td><td>string | null</td><td>No</td><td>New topic ID, or null to detach</td></tr>
-                            <tr><td><code>tag_ids</code></td><td>string[]</td><td>No</td><td>New tag set (replaces existing)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-delete-prompt"><code>delete_prompt</code></h3>
-                    <p>Soft-delete a prompt. Destructive. Cascades to the prompt&rsquo;s chats, which are soft-deleted too.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>prompt_id</code></td><td>string</td><td>Yes</td><td>The prompt ID to delete</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-create-prompts"><code>create_prompts</code></h3>
-                    <p>Create up to 50 prompts in a single call. May consume plan credits. Accepts existing <code>topic_id</code> and <code>tag_ids</code> only. This tool does not auto-create topics or tags; unknown IDs land in <code>rejected</code>.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>prompts</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries, each accepting the same fields as <code>create_prompt</code>: <code>text</code>, <code>country_code</code>, <code>topic_id</code>, <code>tag_ids</code></td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ created, skipped, rejected, warning? }</code>.</p>
-                    <p><code>created</code>: <code>[{ id, text, country_code }]</code><br><code>skipped</code>: <code>[{ text, country_code, reason: "duplicate" }]</code><br><code>rejected</code>: <code>[{ text, country_code, reason: "limit_exceeded" | "invalid_topic" | "invalid_tag", message }]</code><br><code>warning</code>: optional plan-credit warning string when the batch was partially accepted</p>
-
-                    <h3 id="tool-delete-prompts"><code>delete_prompts</code></h3>
-                    <p>Soft-delete up to 50 prompts. Destructive. Each delete is enqueued asynchronously; the response reports which IDs were queued, skipped, or could not be enqueued.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>prompt_ids</code></td><td>string[]</td><td>Yes</td><td>Up to 50 prompt IDs to delete</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ queued, skipped, rejected }</code>.</p>
-                    <p><code>queued</code>: <code>[{ id }]</code><br><code>skipped</code>: <code>[{ id, reason: "not_found" | "already_deleted" }]</code><br><code>rejected</code>: <code>[{ id, reason: "enqueue_failed", message }]</code></p>
-
-                    <h3 id="tool-update-prompts"><code>update_prompts</code></h3>
-                    <p>Update the topic and/or tags of up to 50 prompts in a single call. Per item, pass <code>tag_ids</code> to fully replace the prompt&rsquo;s tag set, or <code>topic_id: null</code> to detach its topic. Topic and tag IDs must already exist.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>prompts</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries. Each: <code>prompt_id</code> (required), <code>topic_id</code> (or null to detach), <code>tag_ids</code> (replaces existing tags)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ updatedCount, skipped, rejected }</code>. Successful items collapse to <code>updatedCount</code>; <code>skipped</code> and <code>rejected</code> list any items that didn&rsquo;t apply.</p>
-
-                    <h3 id="tool-archive-prompt"><code>archive_prompt</code></h3>
-                    <p>Archive a prompt (sets <code>is_archived = true</code>) so it stops running while its chats and history stay intact. Use this instead of <code>delete_prompt</code> when the data should be retained.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>prompt_id</code></td><td>string</td><td>Yes</td><td>The prompt ID to archive</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-unarchive-prompt"><code>unarchive_prompt</code></h3>
-                    <p>Unarchive a prompt (sets <code>is_archived = false</code>), reactivating it so it resumes running. Subject to the project&rsquo;s active-prompt plan limit.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>prompt_id</code></td><td>string</td><td>Yes</td><td>The prompt ID to unarchive</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-create-tag"><code>create_tag</code></h3>
-                    <p>Create a new tag. Tags are cross-cutting labels that can be attached to prompts.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Tag name</td></tr>
-                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>Tag color (from ThriveStack&rsquo;s color palette)</td></tr>
-                            <tr><td><code>group</code></td><td>string</td><td>No</td><td>Optional tag group; grouped tags share the group&rsquo;s color, so <code>color</code> is ignored when a group is set</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ id }</code>. The created tag ID.</p>
-
-                    <h3 id="tool-update-tag"><code>update_tag</code></h3>
-                    <p>Update a tag&rsquo;s name, color, or group.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>tag_id</code></td><td>string</td><td>Yes</td><td>The tag ID to update</td></tr>
-                            <tr><td><code>name</code></td><td>string</td><td>No</td><td>New tag name</td></tr>
-                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>New tag color</td></tr>
-                            <tr><td><code>group</code></td><td>string | null</td><td>No</td><td>Move the tag into a group (it inherits the group&rsquo;s color), null to ungroup, or omit to leave the group unchanged</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-delete-tag"><code>delete_tag</code></h3>
-                    <p>Soft-delete a tag and detach it from every prompt it&rsquo;s attached to. Destructive.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>tag_id</code></td><td>string</td><td>Yes</td><td>The tag ID to delete</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-create-tags"><code>create_tags</code></h3>
-                    <p>Create up to 50 tags in a single call. Duplicates (matched case-insensitively on name) land in <code>skipped</code>.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>tags</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries, each accepting the same fields as <code>create_tag</code>: <code>name</code>, <code>color</code>, <code>group</code></td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ created, skipped }</code>.</p>
-                    <p><code>created</code>: <code>[{ id, name }]</code><br><code>skipped</code>: <code>[{ name, reason: "duplicate" }]</code></p>
-
-                    <h3 id="tool-delete-tags"><code>delete_tags</code></h3>
-                    <p>Soft-delete up to 50 tags in a single call and detach them from every prompt they&rsquo;re attached to. Destructive.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>tag_ids</code></td><td>string[]</td><td>Yes</td><td>Up to 50 tag IDs to delete</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ deleted, skipped }</code>.</p>
-                    <p><code>deleted</code>: <code>[{ id }]</code><br><code>skipped</code>: <code>[{ id, reason: "not_found" }]</code></p>
-
-                    <h3 id="tool-update-tags"><code>update_tags</code></h3>
-                    <p>Update up to 50 tags in a single call (name and/or color per item). System tags are skipped.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>tags</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries. Each: <code>tag_id</code> (required), <code>name</code>, <code>color</code> (from ThriveStack&rsquo;s palette), <code>group</code> (set a group, null to ungroup, or omit to leave unchanged)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ updatedCount, skipped, rejected }</code>. Successful items collapse to <code>updatedCount</code>; <code>skipped</code> (includes system tags) and <code>rejected</code> list any items that didn&rsquo;t apply.</p>
-
-                    <h3 id="tool-update-tag-group"><code>update_tag_group</code></h3>
-                    <p>Rename and/or recolor a user-defined tag group. The change applies to every tag in the group. Provide a new name, a new color, or both.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>group</code></td><td>string</td><td>Yes</td><td>The current group name</td></tr>
-                            <tr><td><code>name</code></td><td>string</td><td>No</td><td>New group name to rename to</td></tr>
-                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>New color applied to every tag in the group</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ tag_count }</code>. The number of tags affected.</p>
-
-                    <h3 id="tool-delete-tag-group"><code>delete_tag_group</code></h3>
-                    <p>Delete a user-defined tag group. Destructive. By default its tags are kept and ungrouped; set <code>delete_tags: true</code> to delete the tags themselves and detach them from every prompt.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>group</code></td><td>string</td><td>Yes</td><td>The group name to delete</td></tr>
-                            <tr><td><code>delete_tags</code></td><td>boolean</td><td>No</td><td>Delete the group&rsquo;s tags instead of just ungrouping them (default: false)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ tag_count }</code>. The number of tags affected.</p>
-
-                    <h3 id="tool-create-topic"><code>create_topic</code></h3>
-                    <p>Create a new topic. Topics group related prompts.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Topic name (1&ndash;64 characters)</td></tr>
-                            <tr><td><code>country_code</code></td><td>string</td><td>No</td><td>Optional ISO 3166-1 alpha-2 code for the topic</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ id }</code>. The created topic ID.</p>
-
-                    <h3 id="tool-update-topic"><code>update_topic</code></h3>
-                    <p>Rename a topic.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>topic_id</code></td><td>string</td><td>Yes</td><td>The topic ID to update</td></tr>
-                            <tr><td><code>name</code></td><td>string</td><td>No</td><td>New topic name (1&ndash;64 characters)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-delete-topic"><code>delete_topic</code></h3>
-                    <p>Soft-delete a topic. Destructive. Associated prompts are detached (not deleted); any AI-generated prompt suggestions under the topic are deleted.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>topic_id</code></td><td>string</td><td>Yes</td><td>The topic ID to delete</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-create-topics"><code>create_topics</code></h3>
-                    <p>Create up to 50 topics in a single call. Duplicates (matched case-insensitively on name) land in <code>skipped</code>. Items beyond the project&rsquo;s topic limit land in <code>rejected</code>.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>topics</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries, each accepting the same fields as <code>create_topic</code>: <code>name</code> (1&ndash;64 chars), <code>country_code</code></td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ created, skipped, rejected }</code>.</p>
-                    <p><code>created</code>: <code>[{ id, name }]</code><br><code>skipped</code>: <code>[{ name, reason: "duplicate" }]</code><br><code>rejected</code>: <code>[{ name, reason: "limit_exceeded", message }]</code></p>
-
-                    <h3 id="tool-delete-topics"><code>delete_topics</code></h3>
-                    <p>Soft-delete up to 50 topics in a single call. Destructive. Associated prompts are detached (not deleted); any AI-generated prompt suggestions under the topics are deleted.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>topic_ids</code></td><td>string[]</td><td>Yes</td><td>Up to 50 topic IDs to delete</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ deleted, skipped }</code>.</p>
-                    <p><code>deleted</code>: <code>[{ id }]</code><br><code>skipped</code>: <code>[{ id, reason: "not_found" | "already_deleted" }]</code></p>
-
-                    <h3 id="tool-update-topics"><code>update_topics</code></h3>
-                    <p>Rename up to 50 topics in a single call.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>topics</code></td><td>object[]</td><td>Yes</td><td>Up to 50 entries. Each: <code>topic_id</code> (required), <code>name</code> (1&ndash;64 characters)</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ updatedCount, skipped, rejected }</code>. Successful items collapse to <code>updatedCount</code>; <code>skipped</code> and <code>rejected</code> list any items that didn&rsquo;t apply.</p>
-
-                    <h3 id="tool-create-domain-classification"><code>create_domain_classification</code></h3>
-                    <p>Define a new custom domain classification entity on a project. This creates the classification but does not assign it to any domain &mdash; use <code>assign_domain_classification</code> for that.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Classification name (unique per project)</td></tr>
-                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>Display color from ThriveStack&rsquo;s palette</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ id }</code>.</p>
-
-                    <h3 id="tool-delete-domain-classification"><code>delete_domain_classification</code></h3>
-                    <p>Permanently delete a custom domain classification entity. Destructive. Cascades through the override table &mdash; any domain currently assigned this classification falls back to its heuristic classification. To clear a single domain instead, use <code>unassign_domain_classification</code>.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Name of the custom domain classification to delete</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-assign-domain-classification"><code>assign_domain_classification</code></h3>
-                    <p>Assign a built-in classification (Corporate, Competitor, Editorial, Institutional, Other, Reference, UGC, You, Related) or the name of a custom domain classification to a domain. Overrides any heuristic classification. The override applies at apex granularity.</p>
-                    <p>If a display label collides with an existing custom classification name, the custom classification wins &mdash; pass the built-in enum value (e.g. <code>OTHER</code>) to force the built-in.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Domain to classify (any host or apex &mdash; applied at apex granularity)</td></tr>
-                            <tr><td><code>classification</code></td><td>string</td><td>Yes</td><td>Built-in classification display name or custom classification name</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-unassign-domain-classification"><code>unassign_domain_classification</code></h3>
-                    <p>Clear the classification override on a domain, restoring its heuristic classification. Does not delete the custom classification entity itself.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Domain whose classification override should be cleared</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-create-url-classification"><code>create_url_classification</code></h3>
-                    <p>Define a new custom URL classification entity on a project. This creates the classification but does not assign it to any URL &mdash; use <code>assign_url_classification</code> for that.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Classification name (unique per project)</td></tr>
-                            <tr><td><code>color</code></td><td>string</td><td>No</td><td>Display color from ThriveStack&rsquo;s palette</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ id }</code>.</p>
-
-                    <h3 id="tool-delete-url-classification"><code>delete_url_classification</code></h3>
-                    <p>Permanently delete a custom URL classification entity. Destructive. Cascades through the override table &mdash; any URL currently assigned this classification falls back to its heuristic classification. To clear a single URL instead, use <code>unassign_url_classification</code>.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Name of the custom URL classification to delete</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-assign-url-classification"><code>assign_url_classification</code></h3>
-                    <p>Assign a built-in classification (Homepage, Category Page, Product Page, Listicle, Comparison, Profile, Alternative, Discussion, How-To Guide, Article, Other) or the name of a custom URL classification to a URL. Overrides any heuristic classification. The override applies to the normalized URL form.</p>
-                    <p>If a display label collides with an existing custom classification name, the custom classification wins &mdash; pass the built-in enum value (e.g. <code>OTHER</code>) to force the built-in.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>url</code></td><td>string</td><td>Yes</td><td>URL to classify</td></tr>
-                            <tr><td><code>classification</code></td><td>string</td><td>Yes</td><td>Built-in classification display name or custom classification name</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-unassign-url-classification"><code>unassign_url_classification</code></h3>
-                    <p>Clear the classification override on a URL, restoring its heuristic classification. Does not delete the custom classification entity itself.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>url</code></td><td>string</td><td>Yes</td><td>URL whose classification override should be cleared</td></tr>
-                        </tbody>
-                    </table>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-
-                    <h3 id="tool-set-project-profile"><code>set_project_profile</code></h3>
-                    <p>Replace the project&rsquo;s brand profile. Every field is required, so call <code>get_project_profile</code> first, merge your changes into the existing values, then send the complete profile here. Saving triggers a background refresh of the project&rsquo;s prompt suggestions. The project display name is not part of the profile and can&rsquo;t be changed via this tool.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>project_id</code></td><td>string</td><td>Yes</td><td>The project ID</td></tr>
-                            <tr><td><code>occupation</code></td><td>string</td><td>Yes</td><td>Short brand description used in every generated prompt. Be specific.</td></tr>
-                            <tr><td><code>industry</code></td><td>string</td><td>Yes</td><td>Industry or vertical (e.g. FinTech, E-commerce)</td></tr>
-                            <tr><td><code>brandPresentation</code></td><td>string[]</td><td>Yes</td><td>Adjectives that define the brand&rsquo;s positioning (e.g. premium, challenger)</td></tr>
-                            <tr><td><code>productsAndServices</code></td><td>string[]</td><td>Yes</td><td>Main product lines, service categories, or flagship offerings</td></tr>
-                            <tr><td><code>targetMarkets</code></td><td>object[]</td><td>Yes</td><td>Geographic scope. Each entry: <code>{ marketSize, location, osmId? }</code></td></tr>
-                            <tr><td><code>audienceDistribution</code></td><td>object</td><td>Yes</td><td><code>{ simpleRecommendationSeeker, informedShopper, evaluativeResearcher }</code> integers that must sum to 100</td></tr>
-                        </tbody>
-                    </table>
-                    <p><code>marketSize</code> is one of: Neighborhood, City, State/Province, National, Continental Bloc, Global.</p>
-                    <p><strong>Returns:</strong> <code>{ success: true }</code>.</p>
-                </section>
-
-                <section id="report-filters" class="content-section">
-                    <h2>Report filters and dimensions</h2>
-
-                    <h3 id="filtering">Filtering</h3>
-                    <p>The three report tools support filters to narrow results. Each filter looks like this:</p>
-                    <div class="code-block-wrapper">
-                        <button class="copy-btn" onclick="copyCode(this)" type="button">
-                            <i class="fa-regular fa-copy"></i> Copy
-                        </button>
-                        <div class="code-block-label">JSON</div>
-                        <pre><code>{
-  "field": "model_channel_id",
-  "operator": "in",
-  "values": ["openai-0", "perplexity-0"]
-}</code></pre>
-                    </div>
-
-                    <h4>Standard filter fields</h4>
-                    <p>These all use <code>in</code> / <code>not_in</code> operators with a <code>values</code> array.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Field</th><th>Available in</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>model_id</code></td><td>All reports</td><td>Deprecated &mdash; prefer <code>model_channel_id</code>. AI search engine (e.g. chatgpt-scraper, perplexity-scraper, gemini-scraper). Call <code>list_models</code> to get the IDs available for your project.</td></tr>
-                            <tr><td><code>model_channel_id</code></td><td>All reports</td><td>Stable engine channel ID &mdash; survives model version upgrades. Call <code>list_model_channels</code> to resolve.</td></tr>
-                            <tr><td><code>topic_id</code></td><td>All reports</td><td>Topic grouping ID</td></tr>
-                            <tr><td><code>tag_id</code></td><td>All reports</td><td>Tag ID</td></tr>
-                            <tr><td><code>prompt_id</code></td><td>All reports</td><td>Individual prompt ID</td></tr>
-                            <tr><td><code>country_code</code></td><td>All reports</td><td>ISO 3166-1 alpha-2 code (e.g. US, DE, GB)</td></tr>
-                            <tr><td><code>brand_id</code></td><td>Brand report</td><td>Brand ID</td></tr>
-                            <tr><td><code>domain</code></td><td>Domain and URL reports</td><td>Domain name</td></tr>
-                            <tr><td><code>url</code></td><td>Domain and URL reports</td><td>Full URL</td></tr>
-                            <tr><td><code>chat_id</code></td><td>All reports</td><td>Individual chat/conversation ID</td></tr>
-                            <tr><td><code>mentioned_brand_id</code></td><td>Domain and URL reports</td><td>Only sources where this brand was mentioned</td></tr>
-                            <tr><td><code>domain_classification</code></td><td>Domain and URL reports</td><td>Built-in classification display name (Corporate, Editorial, &hellip;) or the name of a custom domain classification. See <code>list_domain_classifications</code>.</td></tr>
-                            <tr><td><code>url_classification</code></td><td>URL report</td><td>Built-in classification display name (Listicle, Comparison, &hellip;) or the name of a custom URL classification. See <code>list_url_classifications</code>.</td></tr>
-                        </tbody>
-                    </table>
-
-                    <h3 id="numeric-filters">Numeric filters</h3>
-                    <p>Domain and URL reports also accept two numeric filters. These use <code>gt</code> / <code>gte</code> / <code>lt</code> / <code>lte</code> operators with a single <code>value</code> (not <code>values</code>).</p>
-                    <p><code>mentioned_brand_count</code>: filter by number of unique brands mentioned alongside a source.</p>
-                    <div class="code-block-wrapper">
-                        <button class="copy-btn" onclick="copyCode(this)" type="button">
-                            <i class="fa-regular fa-copy"></i> Copy
-                        </button>
-                        <div class="code-block-label">JSON</div>
-                        <pre><code>{
-  "field": "mentioned_brand_count",
-  "operator": "gte",
-  "value": 2
-}</code></pre>
-                    </div>
-                    <p><code>gap</code>: gap analysis. Excludes sources where your own brand is mentioned, then filters by how many competitor brands are present. This is ThriveStack&rsquo;s most actionable competitive filter: it finds content where competitors appear but you don&rsquo;t.</p>
-                    <div class="code-block-wrapper">
-                        <button class="copy-btn" onclick="copyCode(this)" type="button">
-                            <i class="fa-regular fa-copy"></i> Copy
-                        </button>
-                        <div class="code-block-label">JSON</div>
-                        <pre><code>{
-  "field": "gap",
-  "operator": "gte",
-  "value": 2
-}</code></pre>
-                    </div>
-                    <p>The example above returns domains or URLs where the own brand is absent but at least 2 competitors are mentioned.</p>
-
-                    <h3 id="operators">Operators</h3>
-                    <table class="params-table">
-                        <thead><tr><th>Operator</th><th>Use with</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>in</code></td><td>Standard fields</td><td>Include only matching values</td></tr>
-                            <tr><td><code>not_in</code></td><td>Standard fields</td><td>Exclude matching values</td></tr>
-                            <tr><td><code>gt</code>, <code>gte</code>, <code>lt</code>, <code>lte</code></td><td><code>mentioned_brand_count</code>, <code>gap</code></td><td>Numeric comparisons</td></tr>
-                        </tbody>
-                    </table>
-                    <p>You can combine multiple filters. They&rsquo;re joined with AND logic.</p>
-
-                    <h3 id="sorting">Sorting</h3>
-                    <p>The three report tools accept an <code>order_by</code> array that sorts results before pagination. Each entry is <code>{ field, direction }</code>. <code>direction</code> is <code>asc</code> or <code>desc</code> and defaults to <code>desc</code>. Multiple entries create a multi-key sort, applied in order.</p>
-                    <div class="code-block-wrapper">
-                        <button class="copy-btn" onclick="copyCode(this)" type="button">
-                            <i class="fa-regular fa-copy"></i> Copy
-                        </button>
-                        <div class="code-block-label">JSON</div>
-                        <pre><code>[
-  { "field": "visibility", "direction": "desc" },
-  { "field": "mention_count", "direction": "desc" }
-]</code></pre>
-                    </div>
-                    <p><strong>Sortable fields by report:</strong></p>
-                    <table class="params-table">
-                        <thead><tr><th>Report</th><th>Sortable fields</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>get_brand_report</code></td><td><code>visibility</code>, <code>visibility_count</code>, <code>mention_count</code>, <code>sentiment</code>, <code>position</code>, <code>share_of_voice</code></td></tr>
-                            <tr><td><code>get_domain_report</code></td><td><code>citation_rate</code>, <code>retrieval_count</code>, <code>citation_count</code></td></tr>
-                            <tr><td><code>get_url_report</code></td><td><code>retrievals</code>, <code>retrieval_count</code>, <code>citation_count</code>, <code>citation_rate</code></td></tr>
-                        </tbody>
-                    </table>
-                    <p>When <code>order_by</code> is omitted, each report falls back to a sensible default ordering.</p>
-
-                    <h3 id="dimensions">Dimensions</h3>
-                    <p>Dimensions break down results into rows grouped by a specific field. Without dimensions, results are totals for the entire date range.</p>
-                    <table class="params-table">
-                        <thead><tr><th>Dimension</th><th>What it does</th><th>When to use it</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>date</code></td><td>Daily breakdown (YYYY-MM-DD)</td><td>Tracking trends over time</td></tr>
-                            <tr><td><code>model_id</code></td><td>Per AI search engine (deprecated, prefer <code>model_channel_id</code>)</td><td>Comparing performance across ChatGPT, Perplexity, etc.</td></tr>
-                            <tr><td><code>model_channel_id</code></td><td>Per stable engine channel</td><td>Same as <code>model_id</code> but survives model version changes</td></tr>
-                            <tr><td><code>topic_id</code></td><td>Per topic grouping</td><td>Finding your strongest and weakest topic areas</td></tr>
-                            <tr><td><code>tag_id</code></td><td>Per tag</td><td>Analyzing custom segments</td></tr>
-                            <tr><td><code>prompt_id</code></td><td>Per individual prompt</td><td>Drilling into specific queries</td></tr>
-                            <tr><td><code>country_code</code></td><td>Per country</td><td>Checking geographic differences</td></tr>
-                            <tr><td><code>chat_id</code></td><td>Per individual AI conversation</td><td>Inspecting specific responses</td></tr>
-                        </tbody>
-                    </table>
-                    <p>You can combine dimensions. For example, <code>["date", "model_channel_id"]</code> gives you daily trends per AI engine.</p>
-                </section>
-
-                <div class="page-nav">
-                    <a href="../../public/mcp/prompts.html" class="nav-card prev-card">
-                        <span class="nav-label">Previous</span>
-                        <span class="nav-title">Prompts</span>
-                    </a>
-                </div>
 
                 <footer class="content-footer">
                     <p>Was this page helpful?</p>
@@ -1182,7 +875,7 @@
                     </div>
                     <div class="footer-links">
                         <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
-                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="tools.html">Last updated: July 20, 2026</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="tools.html">Last updated: August 3, 2026</a>
                     </div>
                 </footer>
             </div>
@@ -1192,14 +885,27 @@
             <div class="toc-container sticky-top">
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
-                    <a href="#response-format" class="toc-link active">Response format</a>
-                    <a href="#read-tools" class="toc-link">Read tools</a>
-                    <a href="#write-tools" class="toc-link">Write tools</a>
-                    <a href="#report-filters" class="toc-link">Report filters and dimensions</a>
-                    <a href="#filtering" class="toc-link">Filtering</a>
-                    <a href="#operators" class="toc-link">Operators</a>
-                    <a href="#sorting" class="toc-link">Sorting</a>
-                    <a href="#dimensions" class="toc-link">Dimensions</a>
+                    <a href="#overview" class="toc-link active">Overview</a>
+                    <a href="#response-format" class="toc-link">Response format</a>
+                    <a href="#tool-catalog" class="toc-link">Primary entry point</a>
+                    <a href="#accounts" class="toc-link">Accounts</a>
+                    <a href="#acquisition-conversion" class="toc-link">Acquisition &amp; Conversion</a>
+                    <a href="#activation" class="toc-link">Activation</a>
+                    <a href="#ai-visibility" class="toc-link">AI Visibility &amp; Content</a>
+                    <a href="#gtm-leads" class="toc-link">GTM / Leads</a>
+                    <a href="#identity-brands" class="toc-link">Identity &amp; Brands</a>
+                    <a href="#segments" class="toc-link">Segments</a>
+                    <a href="#setup-onboarding" class="toc-link">Setup &amp; Onboarding</a>
+                    <a href="#core-analytics-grpc" class="toc-link">Core Analytics (gRPC)</a>
+                    <a href="#feature-activation-insights" class="toc-link">Feature &amp; Activation Insights</a>
+                    <a href="#engagement-retention" class="toc-link">Engagement &amp; Retention</a>
+                    <a href="#revenue-attribution" class="toc-link">Revenue Attribution</a>
+                    <a href="#clickhouse-analytics" class="toc-link">ClickHouse Analytics</a>
+                    <a href="#growth-insights" class="toc-link">Growth Insights &amp; Custom Queries</a>
+                    <a href="#schema-discovery" class="toc-link">Schema Discovery</a>
+                    <a href="#monthly-metrics-scorecard" class="toc-link">Monthly Metrics Scorecard</a>
+                    <a href="#cross-product-metrics" class="toc-link">Cross-Product Metrics (gRPC)</a>
+                    <a href="#diagnostics" class="toc-link">Diagnostics</a>
                 </nav>
                 <ready-to-scale-promo></ready-to-scale-promo>
             </div>
@@ -1227,94 +933,7 @@
             color: var(--text-primary);
             white-space: nowrap;
         }
-
-        /* Code blocks inside Tools reference */
-        .code-block-wrapper {
-            position: relative;
-            margin: 14px 0 18px;
-        }
-        .code-block-wrapper pre {
-            margin: 0;
-            padding: 40px 16px 16px;
-            border-radius: 10px;
-            background: rgba(248, 250, 252, 0.95);
-            border: 1px solid rgba(148, 163, 184, 0.32);
-            overflow-x: auto;
-        }
-        [data-theme="dark"] .code-block-wrapper pre {
-            background: rgba(2, 6, 23, 0.55);
-            border: 1px solid rgba(148, 163, 184, 0.22);
-        }
-        .code-block-label {
-            position: absolute;
-            top: 8px;
-            left: 12px;
-            font-size: 12px;
-            color: rgba(71, 85, 105, 0.98);
-            background: rgba(255, 255, 255, 0.92);
-            border: 1px solid rgba(148, 163, 184, 0.38);
-            border-radius: 8px;
-            padding: 4px 8px;
-            pointer-events: none;
-        }
-        [data-theme="dark"] .code-block-label {
-            color: rgba(226, 232, 240, 0.95);
-            background: rgba(2, 6, 23, 0.55);
-            border: 1px solid rgba(148, 163, 184, 0.22);
-        }
-        .code-block-wrapper pre code {
-            background: transparent;
-            color: rgba(15, 23, 42, 0.95);
-            padding: 0;
-            font-size: 0.88rem;
-        }
-        [data-theme="dark"] .code-block-wrapper pre code {
-            color: rgba(229, 231, 235, 0.95);
-        }
-        .copy-btn {
-            position: absolute;
-            top: 6px;
-            right: 8px;
-            z-index: 1;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            font-size: 12px;
-            font-family: inherit;
-            cursor: pointer;
-            border-radius: 8px;
-            border: 1px solid rgba(55, 65, 81, 0.55);
-            background: rgba(55, 65, 81, 0.95);
-            color: rgba(255, 255, 255, 0.97);
-            transition: color 0.15s, border-color 0.15s;
-        }
-        .copy-btn:hover {
-            border-color: rgba(55, 65, 81, 0.9);
-        }
-        .copy-btn.copied {
-            color: #4ade80;
-            border-color: #4ade80;
-        }
     </style>
-
-    <script>
-        function copyCode(btn) {
-            var wrapper = btn.closest(".code-block-wrapper");
-            var codeEl = wrapper ? wrapper.querySelector("pre code") : null;
-            if (!codeEl) return;
-
-            var text = codeEl.innerText;
-            navigator.clipboard.writeText(text).then(function () {
-                btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Copied';
-                btn.classList.add("copied");
-                setTimeout(function () {
-                    btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
-                    btn.classList.remove("copied");
-                }, 2000);
-            });
-        }
-    </script>
 
     <script src="../../script.js"></script>
 </body>
