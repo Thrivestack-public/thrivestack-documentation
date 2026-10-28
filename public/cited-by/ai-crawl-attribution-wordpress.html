@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Connect WordPress to ThriveStack Citedby with the ThriveStack AI Crawler Tracker plugin and see which AI crawlers (GPTBot, ClaudeBot, PerplexityBot and more) read your site and which pages they fetch, including cached pages. Setup, what we collect, costs, disconnecting and troubleshooting.">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>Cited By — Connect WordPress - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .vc-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        .vc-table th { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border); vertical-align: bottom; }
+        .vc-table td { padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--table-row-border); vertical-align: top; }
+        .vc-table-wrap { overflow-x: auto; }
+        .vc-table-wrap + p { margin-top: 1rem; }
+        .vc-table ul, .vc-table ol { margin: 0.35rem 0 0; padding-left: 1.2rem; }
+        .vc-table ul { list-style: disc; }
+        .vc-table ol { list-style: decimal; }
+        .vc-table li { margin-bottom: 0.3rem; }
+        .vc-steps { counter-reset: vc-step; list-style: none; padding-left: 0; }
+        .vc-steps > li { position: relative; padding-left: 2.6rem; margin-bottom: 1.1rem; }
+        .vc-steps > li::before { counter-increment: vc-step; content: counter(vc-step); position: absolute; left: 0; top: 0.05rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: #2F54EB; color: #fff; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; }
+        .vc-steps > li > strong:first-child { display: block; margin-bottom: 0.15rem; }
+        .content-section ul + h3, .content-section ol + h3 { margin-top: 1.75rem; }
+    </style>
+    <script
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
+        api-key="i1rPJo38lB6hR2qZC5iNNz0xcGRuBYIKRVYfTBdpJyY="
+        source="marketing">
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../../index.html">Get Started</a>
+                <a href="../../setup-overview.html">Setup (Unify)</a>
+                <a href="../../analyze-signals.html">Analyze Signals</a>
+                <a href="../../take-action.html">Take Action</a>
+                <a href="../../api-reference.html">API Reference</a>
+                <a href="../../public/mcp/introduction.html">MCP</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <cited-by-sidebar base-path="../../"></cited-by-sidebar>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <div class="breadcrumbs">
+                    <a href="../../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                    <a href="../../public/cited-by/introduction.html">Cited By</a> <i class="fa-solid fa-chevron-right"></i>
+                    <span>Connect WordPress</span>
+                </div>
+                <header class="doc-page-header">
+                    <span class="doc-page-header-eyebrow">Cited By · AI Crawl Attribution</span>
+                    <h1 class="doc-page-title">Connect WordPress</h1>
+                    <p class="doc-page-description">
+                        See which AI crawlers read your WordPress site and which pages they fetch, including pages served from your cache. Install the free ThriveStack AI Crawler Tracker plugin and connect in about five minutes, or let ThriveStack set it up for you.
+                    </p>
+                </header>
+
+                <section id="overview" class="content-section">
+                    <h2>What this does</h2>
+                    <p>
+                        AI assistants such as ChatGPT, Claude and Perplexity send crawlers (GPTBot, ClaudeBot, PerplexityBot and 40+ more) to read your pages.
+                        Those visits are invisible to tools like Google Analytics, because crawlers do not run JavaScript or accept cookies.
+                        They do show up in your web server's access log.
+                    </p>
+                    <p>
+                        The <strong>ThriveStack AI Crawler Tracker</strong> plugin reads that access log and sends the AI crawler visits to <strong>AI Crawl Attribution</strong> in ThriveStack Citedby.
+                        Because it reads the server log rather than watching WordPress itself, it also counts visits that your cache plugin or your host's cache answered without running WordPress.
+                        On most sites that is the majority of AI crawler visits.
+                        From then on you can see, for your domain:
+                    </p>
+                    <ul>
+                        <li><strong>Which AI crawlers</strong> visit, and how often.</li>
+                        <li><strong>Which pages</strong> they read, and what your site answered (200, redirect, 404, 5xx).</li>
+                        <li><strong>Crawl problems</strong> that can cost you citations, with recommended fixes.</li>
+                    </ul>
+
+                    <h3>At a glance</h3>
+                    <div class="vc-table-wrap">
+                        <table class="vc-table">
+                            <tbody>
+                                <tr><td><strong>Time</strong></td><td>About 5 minutes to connect (about 1 minute with <a href="#automatic">Connect automatically</a>). The plugin sends new visits every five minutes.</td></tr>
+                                <tr><td><strong>Requirements</strong></td><td>WordPress 5.6 or later and PHP 7.4 or later. Connecting automatically also needs your site on HTTPS.</td></tr>
+                                <tr><td><strong>You need</strong></td><td>A ThriveStack Citedby account (you can create one during setup) and a WordPress administrator account on your site.</td></tr>
+                                <tr><td><strong>Changes to your site</strong></td><td>One plugin. No theme or code changes. Pages load exactly as before.</td></tr>
+                                <tr><td><strong>What we keep</strong></td><td>Only AI crawler visits on your domain. Visits from people never leave your site. <a href="#data">Details</a></td></tr>
+                                <tr><td><strong>Cost</strong></td><td>The plugin is free. ThriveStack's AI Crawl Logs add-on is free during your trial. <a href="#costs">Details</a></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="before-you-start" class="content-section">
+                    <h2>Before you start</h2>
+                    <ul>
+                        <li>
+                            <strong>Know which site you are tracking.</strong> ThriveStack tracks the domain saved on your brand (shown at the top of the Connect panel, for example <code>acmelabs.com</code>).
+                            Install the plugin on the WordPress site that serves that domain, either <code>acmelabs.com</code> or <code>www.acmelabs.com</code>.
+                        </li>
+                        <li>
+                            <strong>Have a WordPress administrator account.</strong> Installing plugins and opening the plugin's settings needs one.
+                        </li>
+                        <li>
+                            <strong>Sign in or sign up.</strong> You need a ThriveStack Citedby account. If you are new, you create it as part of setup, and your free trial starts.
+                        </li>
+                        <li>
+                            <strong>Behind Cloudflare?</strong> If Cloudflare proxies your domain, use the <em>Cloudflare Worker</em> source on the same Setup page instead.
+                            Cloudflare answers some visits from its own cache before they reach your WordPress server, and the Worker sees every one of them.
+                            Only one server-log source can be active for a domain at a time, so choose one.
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="connect" class="content-section">
+                    <h2>Connect from ThriveStack</h2>
+                    <p>
+                        This is the standard way: you install the plugin and paste a connection code. It works on every WordPress site.
+                        (To let ThriveStack install and set up the plugin for you, see <a href="#automatic">Connect automatically</a>.)
+                    </p>
+
+                    <ol class="vc-steps">
+                        <li>
+                            <strong>Open Setup and choose WordPress</strong>
+                            In ThriveStack Citedby, go to <strong>Attribution → Setup</strong> and click <strong>WordPress</strong> under <em>Server logs</em>.
+                            <figure class="doc-screenshot">
+                                <a href="wordpress-setup.png" target="_blank" rel="noopener noreferrer" title="Open full size"><img src="wordpress-setup.png" alt="The Setup page: WordPress listed under Server logs, next to Cloudflare (Worker) and Vercel" class="doc-screenshot__img" loading="lazy"></a>
+                                <figcaption>Setup: pick WordPress under Server logs.</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <strong>Follow the setup page</strong>
+                            The <strong>Connect WordPress</strong> card holds the whole setup on one page, in four steps that you follow from top to bottom. The progress across the top (<em>Connect, Verify, Activate</em>) moves on as each part is done; no step is locked.
+                            If you see the tabs <strong>Connect automatically</strong> and <strong>Manual</strong>, choose <strong>Manual</strong> for these steps.
+                            <strong>How it works</strong>, next to <strong>Help</strong> at the top of the card, explains what the plugin does.
+                            <figure class="doc-screenshot">
+                                <a href="wordpress-connect.png" target="_blank" rel="noopener noreferrer" title="Open full size"><img src="wordpress-connect.png" alt="The Connect WordPress card on the Manual tab: four steps, with How it works and Help at the top" class="doc-screenshot__img" loading="lazy"></a>
+                                <figcaption>Connect WordPress: four steps on one page, with How it works and Help at the top.</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <strong>Install the plugin</strong>
+                            Click <strong>Download plugin (.zip)</strong>. Keep the file as it is; there is no need to unzip it.
+                            In your WordPress admin, go to <strong>Plugins → Add New Plugin → Upload Plugin</strong>, choose the file and click <strong>Install Now</strong>.
+                            <figure class="doc-screenshot">
+                                <a href="wordpress-plugin-upload.png" target="_blank" rel="noopener noreferrer" title="Open full size"><img src="wordpress-plugin-upload.png" alt="WordPress admin, Add Plugins: Upload Plugin with the ThriveStack plugin zip chosen and the Install Now button" class="doc-screenshot__img" loading="lazy"></a>
+                                <figcaption>In WordPress: upload the zip and click Install Now.</figcaption>
+                            </figure>
+                            When WordPress says <em>Plugin installed successfully</em>, click <strong>Activate Plugin</strong>.
+                            <figure class="doc-screenshot">
+                                <a href="wordpress-plugin-activate.png" target="_blank" rel="noopener noreferrer" title="Open full size"><img src="wordpress-plugin-activate.png" alt="WordPress: Plugin installed successfully, with the Activate Plugin button" class="doc-screenshot__img" loading="lazy"></a>
+                                <figcaption>Then activate the plugin.</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <strong>Copy your connection code</strong>
+                            Back in ThriveStack, click <strong>Generate connection code</strong> and copy the code (it starts with <code>tswp1.</code>).
+                            <blockquote class="note-callout">
+                                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                                <span><strong>Copy it now.</strong> For your security the code is shown only once and stored encrypted. Lost it before pasting it? Come back to this step and click <strong>Get a new code</strong>. The old code stops working.</span>
+                            </blockquote>
+                        </li>
+                        <li>
+                            <strong>Paste it into WordPress</strong>
+                            In WordPress, open <strong>Settings → AI Crawler Tracker</strong>, paste the code, click <strong>Save</strong>, then click <strong>Test connection</strong>.
+                            You should see <em>Connected. ThriveStack accepted the test delivery.</em>
+                            The plugin's <strong>Status</strong> box also shows its source: <em>Server access log</em>, or <em>Fallback</em> if your host does not let WordPress read the log (see <a href="#how-it-works">How the plugin finds your visits</a>).
+                            <figure class="doc-screenshot">
+                                <a href="wordpress-plugin-settings.png" target="_blank" rel="noopener noreferrer" title="Open full size"><img src="wordpress-plugin-settings.png" alt="The plugin's settings page in WordPress after Test connection: a Connected notice and the Status box" class="doc-screenshot__img" loading="lazy"></a>
+                                <figcaption>The plugin's settings: the code is saved and the test delivery was accepted.</figcaption>
+                            </figure>
+                            Meanwhile ThriveStack shows <em>Waiting for your plugin to connect…</em> and checks every few seconds. You don't need to click anything: as soon as the test delivery arrives, it changes to <strong>Plugin connected</strong> and the progress moves on to <em>Verify</em>.
+                            <figure class="doc-screenshot">
+                                <a href="wordpress-waiting.png" target="_blank" rel="noopener noreferrer" title="Open full size"><img src="wordpress-waiting.png" alt="ThriveStack with the connection code copied and step 3 showing Waiting for your plugin to connect" class="doc-screenshot__img" loading="lazy"></a>
+                                <figcaption>Waiting for the plugin: this updates on its own when you click Test connection.</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <strong>Wait for the first AI crawler visit</strong>
+                            With the plugin connected, the last step shows <em>Listening for the first AI crawler visit…</em>.
+                            The plugin sends new visits every five minutes, so allow a few minutes after a visit. Most sites see the first one within an hour; it can take up to 24 hours, depending on how often AI crawlers visit. <strong>Check now</strong> re-reads the status on the spot.
+                            Don't want to wait? Click <strong>Send a test visit</strong>. ThriveStack sends one real request to your site using the name of a known AI crawler (GPTBot). Then, in the plugin's settings, click <strong>Send now</strong> so you don't wait for the next five-minute run.
+                            <figure class="doc-screenshot">
+                                <a href="wordpress-listening.png" target="_blank" rel="noopener noreferrer" title="Open full size"><img src="wordpress-listening.png" alt="Plugin connected, and step 4 Listening for the first AI crawler visit with Send a test visit and Check now" class="doc-screenshot__img" loading="lazy"></a>
+                                <figcaption>Plugin connected: now waiting for the first visit, or send a test visit.</figcaption>
+                            </figure>
+                            <blockquote class="note-callout">
+                                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                                <span>The test visit goes to your tracked domain, so it only appears if that domain is served by the WordPress site where you installed the plugin. If it does not appear, see <a href="#troubleshooting">Troubleshooting</a>.</span>
+                            </blockquote>
+                            When a visit arrives, the step shows <strong>First AI crawler visit captured</strong>. Click <strong>Continue</strong>.
+                            <figure class="doc-screenshot">
+                                <a href="wordpress-captured.png" target="_blank" rel="noopener noreferrer" title="Open full size"><img src="wordpress-captured.png" alt="First AI crawler visit captured, with the Continue button" class="doc-screenshot__img" loading="lazy"></a>
+                                <figcaption>Your connection works. Continue when you are ready.</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <strong>Turn on AI crawl logs</strong>
+                            If the <strong>AI Crawl Logs add-on</strong> is not on yet, the last step activates it. The add-on unlocks the dashboards. (If it is already on, <strong>Continue</strong> takes you straight to the next step.)
+                            During your free trial it costs nothing to activate, and the fee starts when the trial ends. Otherwise you pay on Stripe and come straight back.
+                            Everything collected since you connected is kept, and appears the moment you activate. <a href="#costs">Pricing details</a>
+                        </li>
+                        <li>
+                            <strong>You are live</strong>
+                            The card says <em>You're all set</em>, with when the last delivery arrived. Open <strong>See which AI crawlers visit</strong> or <strong>Drill into pages</strong> to start exploring.
+                            <figure class="doc-screenshot">
+                                <a href="wordpress-live.png" target="_blank" rel="noopener noreferrer" title="Open full size"><img src="wordpress-live.png" alt="You're all set: Receiving data, with See which AI crawlers visit and Drill into pages" class="doc-screenshot__img" loading="lazy"></a>
+                                <figcaption>Live: data is flowing.</figcaption>
+                            </figure>
+                        </li>
+                    </ol>
+                </section>
+
+                <section id="automatic" class="content-section">
+                    <h2>Connect automatically</h2>
+                    <p>
+                        Where it is available, the WordPress card has a <strong>Connect automatically</strong> tab. ThriveStack signs in to your site with a WordPress <strong>Application Password</strong>, installs and activates the plugin, and saves the connection code in it for you. Your site must use HTTPS, on your tracked domain or its <code>www</code> version.
+                    </p>
+                    <ol class="vc-steps">
+                        <li>
+                            <strong>Create an Application Password</strong>
+                            In WordPress, signed in as an administrator, open <strong>Users → Profile</strong>. Under <strong>Application Passwords</strong>, type a name such as <em>ThriveStack</em> and click <strong>Add New Application Password</strong>.
+                            Copy the password WordPress shows (it looks like <code>abcd efgh ijkl mnop qrst uvwx</code>). It is not your login password, and you can revoke it at any time.
+                            The same steps are under <strong>How do I create an Application Password?</strong>, below the password field in ThriveStack.
+                        </li>
+                        <li>
+                            <strong>Sign in to your WordPress from ThriveStack</strong>
+                            On the <strong>Connect automatically</strong> tab, check the <strong>WordPress address</strong> (filled in from your domain; add the folder if WordPress is installed in one, for example <code>https://acmelabs.com/blog</code>), then enter the <strong>administrator username</strong> and the <strong>Application Password</strong>.
+                            <figure class="doc-screenshot">
+                                <a href="wordpress-automatic.png" target="_blank" rel="noopener noreferrer" title="Open full size"><img src="wordpress-automatic.png" alt="The Connect automatically tab: WordPress address, administrator username and Application Password, with Install and connect" class="doc-screenshot__img" loading="lazy"></a>
+                                <figcaption>Connect automatically: your WordPress address, an administrator and an Application Password.</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <strong>Click Install and connect</strong>
+                            ThriveStack checks that the account can manage plugins, installs the plugin (or activates it if it is already there), and saves the connection code. A message tells you what was done.
+                            The plugin sends a test delivery straight away, so the next step usually shows <strong>Plugin connected</strong> within moments (or within five minutes, as it retries).
+                            Then wait for the first AI crawler visit, as in <a href="#connect">step 6 above</a>.
+                        </li>
+                    </ol>
+                    <blockquote class="note-callout">
+                        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                        <span><strong>Your password is used once.</strong> ThriveStack uses the Application Password for this setup only and never stores it. It is sent only to your own site, over HTTPS. Once the plugin is set up you can revoke it in <strong>Users → Profile → Application Passwords</strong>; the plugin keeps working.</span>
+                    </blockquote>
+                    <p>
+                        Prefer to install the plugin yourself, or your organization does not allow Application Passwords? Use the <strong>Manual</strong> tab and the steps in <a href="#connect">Connect from ThriveStack</a>.
+                    </p>
+                </section>
+
+                <section id="how-it-works" class="content-section">
+                    <h2>How the plugin finds your visits</h2>
+                    <p>The plugin has two modes. Its settings page (<strong>Settings → AI Crawler Tracker</strong>) shows which one is active under <strong>Source</strong>.</p>
+                    <div class="vc-table-wrap">
+                        <table class="vc-table">
+                            <thead>
+                                <tr><th>Mode</th><th>How it works</th><th>Cached pages</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Server access log</strong> (preferred)</td>
+                                    <td>Every five minutes, the plugin reads the lines your web server added to its access log, keeps the AI crawler visits and sends them in one compressed, signed request. It finds the usual Apache, Nginx, LiteSpeed and cPanel log locations automatically.</td>
+                                    <td>Counted. The web server logs every request, including those your cache answered.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Fallback</strong></td>
+                                    <td>Used when your host does not let WordPress read the access log. The plugin notes AI crawler visits as WordPress answers them and sends them every five minutes.</td>
+                                    <td>Not counted. A page served from a cache never reaches WordPress.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        <strong>Your log is somewhere else?</strong> If you know where your access log is (your hosting control panel or host's support can tell you), enter its full path under <strong>Access log path</strong> in the plugin's settings and click <strong>Save</strong>. The log must use the standard <em>combined</em> format, which is the default for Apache, Nginx and LiteSpeed.
+                    </p>
+                    <p>
+                        <strong>Quiet site?</strong> The five-minute schedule runs on WP-Cron, which runs when your site gets visits. On a site with very little traffic, or where WP-Cron is turned off, ask your host to set up a real cron job that calls <code>wp-cron.php</code> every five minutes. You can always click <strong>Send now</strong> in the plugin's settings.
+                    </p>
+                </section>
+
+                <section id="data" class="content-section">
+                    <h2>What ThriveStack collects</h2>
+                    <p>
+                        The plugin picks out the visits whose user-agent names a known AI crawler <strong>on your site</strong>, before anything is sent. Visits from people never leave your WordPress.
+                        ThriveStack checks every line again on arrival and keeps only AI crawler visits on your domain.
+                    </p>
+                    <div class="vc-table-wrap">
+                        <table class="vc-table">
+                            <thead>
+                                <tr><th>Kept for each AI crawler visit</th><th>Never stored</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <ul>
+                                            <li>The page path (without the query string)</li>
+                                            <li>Your domain and the HTTP method</li>
+                                            <li>The HTTP status your site returned</li>
+                                            <li>The crawler's user-agent name</li>
+                                            <li>The referrer, if one was sent</li>
+                                            <li>The time of the visit</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            <li>Visits from regular people (they are never sent)</li>
+                                            <li>Search engine crawlers (such as Googlebot and Bingbot) and SEO tools</li>
+                                            <li>IP addresses (a log line includes the crawler's IP address; ThriveStack does not keep it)</li>
+                                            <li>Cookies, form data and request bodies</li>
+                                            <li>Anything from your WordPress database: posts, users or settings</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        Nothing is sent until you save a connection code. The plugin also adds a suggested paragraph to your site's privacy policy page (<strong>Settings → Privacy</strong>) describing what it sends.
+                    </p>
+
+                    <h3 id="permissions">What access ThriveStack uses</h3>
+                    <div class="vc-table-wrap">
+                        <table class="vc-table">
+                            <thead>
+                                <tr><th>Method</th><th>Access</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Manual</strong></td><td>None. ThriveStack never connects to your site; the plugin sends to ThriveStack, signed with your connection code.</td></tr>
+                                <tr><td><strong>Connect automatically</strong></td><td>Your administrator's Application Password, once, to check the account can manage plugins, install and activate the plugin, and save the connection code. It is never stored.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="costs" class="content-section">
+                    <h2>Costs</h2>
+                    <ul>
+                        <li>
+                            <strong>The plugin is free.</strong> It has no paid version and no locked features.
+                        </li>
+                        <li>
+                            <strong>ThriveStack: the AI Crawl Logs add-on.</strong> It is free to activate during your free trial, and the fee starts when the trial ends.
+                            The add-on card shows the exact price before you pay. At the time of writing it is <strong>$10 per month</strong> and includes <strong>100,000 AI bot events per month</strong>.
+                            Extra events are billed in blocks of 100,000 on your next invoice.
+                        </li>
+                    </ul>
+                    <p>There is no charge from WordPress, and the plugin does not depend on your hosting plan. Neither cost depends on the number of people who visit your site.</p>
+                </section>
+
+                <section id="insights" class="content-section">
+                    <h2>What you will see</h2>
+                    <p>
+                        Open <strong>Attribution → AI Crawl</strong>. The page has three tabs: <strong>Overview</strong>, <strong>Detailed Insights</strong> and <strong>Settings</strong> (billing for the AI crawl logs add-on). Connecting and disconnecting your site is done in <strong>Attribution → Setup</strong>.
+                    </p>
+                    <h3>Overview: who visits, and when</h3>
+                    <p>Total bot visits, how many different AI bots visited, your failure rate, and a chart of visits over time by crawler.</p>
+                    <h3>Detailed Insights: which pages</h3>
+                    <p>Every URL AI crawlers fetched, with visit counts, which platforms visited, the status your site returned, retrievals and citation rate. Filter by status code or folder, or export the table.</p>
+                    <p>
+                        Pages that AI crawlers keep hitting but that return errors or redirects (4xx, 5xx, 301/302) are the quickest wins. A page that cannot be read cannot be cited.
+                    </p>
+                </section>
+
+                <section id="manage" class="content-section">
+                    <h2>Change or disconnect</h2>
+
+                    <h3>Disconnect from ThriveStack</h3>
+                    <ol>
+                        <li>Go to <strong>Attribution → Setup</strong> and open <strong>WordPress</strong>.</li>
+                        <li>Scroll to the <strong>Danger zone</strong> at the bottom and click <strong>Disconnect WordPress…</strong>.</li>
+                        <li>Type your domain to confirm, then click <strong>Disconnect WordPress</strong>.</li>
+                    </ol>
+                    <figure class="doc-screenshot">
+                        <a href="wordpress-disconnect.png" target="_blank" rel="noopener noreferrer" title="Open full size"><img src="wordpress-disconnect.png" alt="The live WordPress card with the Danger zone below it and the Disconnect WordPress button" class="doc-screenshot__img" loading="lazy"></a>
+                        <figcaption>Disconnect: the Danger zone appears once your connection is verified.</figcaption>
+                    </figure>
+                    <p>
+                        ThriveStack stops accepting data from the plugin right away. Your existing crawl data stays in ThriveStack.
+                        The Danger zone appears once your connection is verified (the first AI crawler visit arrived). While you are still setting up there is nothing to disconnect: to start over with a new code, use <strong>Get a new code</strong> instead.
+                    </p>
+
+                    <h3>Remove the plugin from WordPress</h3>
+                    <p>
+                        ThriveStack cannot remove the plugin from your site. In WordPress, go to <strong>Plugins</strong>, then <strong>Deactivate</strong> and <strong>Delete</strong> <em>ThriveStack AI Crawler Tracker</em>.
+                        Deleting it also removes its settings. If you disconnected in ThriveStack but leave the plugin installed, it notices on its next run and stops sending.
+                    </p>
+
+                    <h3>Use a new connection code</h3>
+                    <p>
+                        <strong>Still setting up?</strong> If you lost the code before the plugin connected, open WordPress in Setup and click <strong>Get a new code</strong> in step 2, then paste the new code. The old one stops working.
+                        <strong>Already connected</strong>, for example moving to a new site? Disconnect in ThriveStack, connect again to generate a new code, and paste it into the plugin's settings. The plugin's own <strong>Disconnect</strong> button only forgets the code on your site.
+                    </p>
+                </section>
+
+                <section id="troubleshooting" class="content-section">
+                    <h2>Troubleshooting</h2>
+                    <div class="vc-table-wrap">
+                        <table class="vc-table">
+                            <thead>
+                                <tr><th>What you see</th><th>What it means and what to do</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Stuck on <em>Waiting for your plugin to connect…</em></td>
+                                    <td>The plugin has not contacted ThriveStack yet. In WordPress, open <strong>Settings → AI Crawler Tracker</strong> and click <strong>Test connection</strong>. It tells you exactly what is wrong if the code does not work. If the plugin reached ThriveStack with a problem, ThriveStack shows it under the waiting message.</td>
+                                </tr>
+                                <tr>
+                                    <td><em>Plugin connected</em>, but <em>Listening for the first AI crawler visit…</em> never completes</td>
+                                    <td>
+                                        Work through these in order:
+                                        <ol>
+                                            <li><strong>Has the plugin sent anything yet?</strong> It sends every five minutes, and only when your site gets traffic. Click <strong>Send now</strong> in the plugin's settings.</li>
+                                            <li><strong>Is it an AI crawler?</strong> Search engines such as Googlebot and Bingbot are deliberately not recorded.</li>
+                                            <li><strong>Did the test visit reach this site?</strong> <strong>Send a test visit</strong> goes to your tracked domain. If that domain is not served by this WordPress site, the visit lands elsewhere.</li>
+                                            <li>Real crawlers can take hours, or up to a day, to arrive.</li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>The plugin says <em>Fallback: no readable access log found</em></td>
+                                    <td>Your host does not let WordPress read the server's access log. The plugin still works, but visits to cached pages are not counted. If you know where the log is, enter its path in the plugin's settings. If Cloudflare is in front of your site, the Cloudflare Worker source counts every visit.</td>
+                                </tr>
+                                <tr>
+                                    <td><em>This is not a ThriveStack connection code</em> or <em>The connection code is incomplete</em></td>
+                                    <td>The pasted text is not the whole code. Copy it again in full (it starts with <code>tswp1.</code>). If you no longer have it, click <strong>Get a new code</strong> in step 2 of the setup page.</td>
+                                </tr>
+                                <tr>
+                                    <td><em>ThriveStack rejected the signature</em> or <em>ThriveStack does not know this connection</em></td>
+                                    <td>The code in the plugin is not the current one, for example after you reconnected. Paste the latest code.</td>
+                                </tr>
+                                <tr>
+                                    <td><em>This site was disconnected in ThriveStack</em></td>
+                                    <td>The connection was removed in ThriveStack, so the plugin stopped sending. To reconnect, connect again in ThriveStack and paste the new code.</td>
+                                </tr>
+                                <tr>
+                                    <td><em>ThriveStack could not read the log lines</em></td>
+                                    <td>Your server writes its access log in a custom format. The plugin needs the standard <em>combined</em> format. Ask your host, or remove the custom log path so the plugin uses fallback mode.</td>
+                                </tr>
+                                <tr>
+                                    <td>Step 2 says <em>You created a code on …</em> instead of showing a code</td>
+                                    <td>A code was already created for this domain (for example earlier, or in another tab), and codes are shown only once. If you pasted it into the plugin, carry on with step 3. If you lost it, click <strong>Get a new code</strong>.</td>
+                                </tr>
+                                <tr>
+                                    <td><em>… is already connected for this domain through Cloudflare</em> (or Vercel)</td>
+                                    <td>Only one server-log source can be active for a domain, so visits are never counted twice. Disconnect the other source first, or keep it.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>WordPress didn't accept these details</strong> (Connect automatically)</td>
+                                    <td>Check the username and the Application Password. Some security plugins turn Application Passwords off; check their settings, or use the <strong>Manual</strong> tab.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>This user can't manage plugins</strong> (Connect automatically)</td>
+                                    <td>Use an administrator account. On sites where installing plugins is turned off, install the plugin yourself and try again: ThriveStack then only activates and sets it up.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>We couldn't reach your WordPress site</strong> (Connect automatically)</td>
+                                    <td>Check that the address loads in a browser over HTTPS, that it is your tracked domain or its <code>www</code> version, and that a firewall or security plugin is not blocking the WordPress REST API.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>We couldn't install the plugin for you</strong> or <strong>Your plugin needs an update</strong> (Connect automatically)</td>
+                                    <td>Click <strong>Switch to manual setup</strong>, download the plugin and upload it in WordPress (an upload replaces an older version). Then use Connect automatically again, or finish with the manual steps.</td>
+                                </tr>
+                                <tr>
+                                    <td><em>Couldn't reach yourdomain.com</em> after Send a test visit</td>
+                                    <td>ThriveStack could not fetch your site. Check that the domain loads in a browser, is not behind a login or a firewall rule that blocks bots, and redirects (for example to <code>www</code>) end on a page that loads.</td>
+                                </tr>
+                                <tr>
+                                    <td>The dashboards are locked or empty after verifying</td>
+                                    <td>The <strong>AI Crawl Logs add-on</strong> is not active yet. Click <strong>Continue</strong> after the first visit is captured, then finish the last step, <strong>Turn on AI crawl logs</strong>. Data collected since you connected is kept and appears as soon as you activate.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        Still stuck? Contact <a href="mailto:support@thrivestack.ai">support@thrivestack.ai</a> or use <strong>Help</strong> in the connect panel. Include your domain, what the plugin's <strong>Status</strong> box shows, and, if you can, the time you connected.
+                    </p>
+                </section>
+
+                <section id="faq" class="content-section">
+                    <h2>Frequently asked questions</h2>
+                    <h3>Will this slow down my site?</h3>
+                    <p>No. In server-log mode the plugin works in a background job every five minutes and is not involved in serving your pages. In fallback mode it does a little work only for AI crawler visits (it notes each one), never for visits from people, and sends them in the background.</p>
+                    <h3>Does it work with my cache plugin?</h3>
+                    <p>Yes. In server-log mode, visits that your cache plugin (such as WP Rocket, LiteSpeed Cache or WP Super Cache) or your host's cache answered are still in the server log, so they are counted. In fallback mode they are not.</p>
+                    <h3>Does ThriveStack see my visitors?</h3>
+                    <p>No. The plugin sends only visits whose user-agent names a known AI crawler. Visits from people never leave your site. See <a href="#data">What ThriveStack collects</a>.</p>
+                    <h3>Is my Application Password stored?</h3>
+                    <p>No. With <strong>Connect automatically</strong>, it is used once for the setup and never stored or logged. You can revoke it in WordPress afterwards. The manual method needs no password at all.</p>
+                    <h3>I use Cloudflare too. Which should I connect?</h3>
+                    <p>If Cloudflare proxies your domain, the Cloudflare Worker sees every visit, including those Cloudflare answers from its cache, so it is the more complete source. Only one server-log source can be active for a domain at a time.</p>
+                    <h3>How do I stop everything?</h3>
+                    <p>Disconnect in ThriveStack, then delete the plugin in WordPress. Data stops flowing immediately. See <a href="#manage">Change or disconnect</a>.</p>
+                </section>
+
+                <div class="page-nav">
+                    <a href="../../public/cited-by/ai-crawl-attribution-vercel.html" class="nav-card prev-card">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">Connect Vercel</span>
+                    </a>
+                    <a href="../../public/cited-by/prompts-bulk-import.html" class="nav-card next-card">
+                        <span class="nav-label">Next</span>
+                        <span class="nav-title">Prompts · Bulk import</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="ai-crawl-attribution-wordpress.html">Last updated: October 28, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#overview" class="toc-link active">What this does</a>
+                    <a href="#before-you-start" class="toc-link">Before you start</a>
+                    <a href="#connect" class="toc-link">Connect from ThriveStack</a>
+                    <a href="#automatic" class="toc-link">Connect automatically</a>
+                    <a href="#how-it-works" class="toc-link">How the plugin finds visits</a>
+                    <a href="#data" class="toc-link">What ThriveStack collects</a>
+                    <a href="#costs" class="toc-link">Costs</a>
+                    <a href="#insights" class="toc-link">What you will see</a>
+                    <a href="#manage" class="toc-link">Change or disconnect</a>
+                    <a href="#troubleshooting" class="toc-link">Troubleshooting</a>
+                    <a href="#faq" class="toc-link">FAQ</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../../script.js"></script>
+</body>
+</html>

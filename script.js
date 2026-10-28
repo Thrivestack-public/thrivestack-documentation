@@ -203,6 +203,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 terms: 'vercel troubleshooting hobby plan pro enterprise no data waiting for ai bot visit domain mismatch disconnect'
             },
             {
+                title: 'Connect WordPress (AI Crawl Attribution)',
+                url: 'public/cited-by/ai-crawl-attribution-wordpress.html#overview',
+                terms: 'cited by ai crawl attribution connect wordpress plugin thrivestack ai crawler tracker server logs access log cache ai crawlers gptbot claudebot perplexitybot bot traffic'
+            },
+            {
+                title: 'Connect WordPress — Steps',
+                url: 'public/cited-by/ai-crawl-attribution-wordpress.html#connect',
+                terms: 'connect wordpress steps download plugin upload install connection code test connection send now verify activate ai crawl logs add-on connect automatically application password one click'
+            },
+            {
+                title: 'Connect WordPress — What ThriveStack collects',
+                url: 'public/cited-by/ai-crawl-attribution-wordpress.html#data',
+                terms: 'wordpress plugin data collected privacy access log ai crawler requests application password not stored fallback mode'
+            },
+            {
+                title: 'Connect WordPress — Troubleshooting',
+                url: 'public/cited-by/ai-crawl-attribution-wordpress.html#troubleshooting',
+                terms: 'wordpress troubleshooting plugin fallback no readable access log connection code get a new code waiting for your plugin to connect listening first ai crawler visit send a test visit wp-cron send now disconnect application password'
+            },
+            {
                 title: 'Cited By Prompts Bulk Import',
                 url: 'public/cited-by/prompts-bulk-import.html#overview',
                 terms: 'cited by prompts bulk import csv upload template column mapping entitlement'
@@ -648,6 +668,7 @@ class CitedBySidebar extends HTMLElement {
                 <h3>AI Crawl Attribution</h3>
                 <ul>
                     <li><a href="${prefix}public/cited-by/ai-crawl-attribution-vercel.html" class="nav-item" data-nav="crawl-vercel"><span>Connect Vercel</span></a></li>
+                    <li><a href="${prefix}public/cited-by/ai-crawl-attribution-wordpress.html" class="nav-item" data-nav="crawl-wordpress"><span>Connect WordPress</span></a></li>
                 </ul>
             </div>
 
@@ -680,6 +701,7 @@ class CitedBySidebar extends HTMLElement {
         if (inCitedBy && file === 'introduction.html') active = 'cited-intro';
         else if (inCitedBy && file === 'prompts-bulk-import.html') active = 'prompts-bulk';
         else if (inCitedBy && file === 'ai-crawl-attribution-vercel.html') active = 'crawl-vercel';
+        else if (inCitedBy && file === 'ai-crawl-attribution-wordpress.html') active = 'crawl-wordpress';
         else if (inCitedBy && file === 'mcp.html') active = 'mcp-intro';
         else if (inMcp && file === 'introduction.html') active = 'mcp-intro';
         else if (inMcp && file === 'setup.html') active = 'mcp-setup';
