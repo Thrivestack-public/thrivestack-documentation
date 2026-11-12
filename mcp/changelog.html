@@ -81,15 +81,43 @@
                                 <section id="overview" class="content-section">
                     <div class="cl-stats">
                         <div class="cl-stat"><b>23</b><span>Tools at v1</span></div>
-                        <div class="cl-stat"><b>160</b><span>Added since v1</span></div>
-                        <div class="cl-stat"><b>183</b><span>Tools now</span></div>
+                        <div class="cl-stat"><b>169</b><span>Added since v1</span></div>
+                        <div class="cl-stat"><b>192</b><span>Tools now</span></div>
                         <div class="cl-stat"><b>0</b><span>Removed</span></div>
                     </div>
                     <p>New tools are available on the ThriveStack MCP endpoint as soon as they are released. The directory listings (OpenAI, Claude and Cursor) pick up new tools after each platform reviews them, so a listing can show fewer tools than the endpoint.</p>
-                    <p>Tool names link to the <a href="tools.html">Tools Reference</a> when the tool is documented there. All new tools are read-only except <a href="../revenue/mcp/tools.html#tool-create-account-segment"><code>create_account_segment</code></a>, which creates a segment.</p>
+                    <p>Tool names link to the <a href="tools.html">Tools Reference</a> when the tool is documented there. New tools are read-only except <a href="../revenue/mcp/tools.html#tool-create-account-segment"><code>create_account_segment</code></a>, which creates a segment, and the nine prompt and probe tools added on Nov 12, which change what a brand tracks or start probe runs.</p>
                 </section>
 
                 <div class="cl-timeline">
+                <article class="cl-entry" id="nov-12">
+                    <div class="cl-meta"><time>Nov 12, 2026</time><span class="cl-count">9 new tools</span></div>
+                    <div class="cl-main">
+                        <h2>Manage prompts and probe runs</h2>
+                        <p class="cl-lead">Nine tools to change what a brand tracks and to run probes, without opening the app. They are documented in <a href="tools.html#manage-prompts">Managing Prompts &amp; Probe Runs</a>.</p>
+                    <div class="cl-group">
+                        <div class="cl-badge cl-added">Added &middot; 9</div>
+                        <ul class="cl-tools">
+                            <li><a class="cl-name" href="tools.html#tool-track-prompts"><code>track_prompts</code></a><span class="cl-desc">Start tracking suggested prompts. Returns the new id of each tracked prompt.</span></li>
+                            <li><a class="cl-name" href="tools.html#tool-archive-prompts"><code>archive_prompts</code></a><span class="cl-desc">Stop tracking prompts. Their history is kept and they can be brought back.</span></li>
+                            <li><a class="cl-name" href="tools.html#tool-reactivate-prompts"><code>reactivate_prompts</code></a><span class="cl-desc">Start tracking archived prompts again, within your plan&rsquo;s prompt limit.</span></li>
+                            <li><a class="cl-name" href="tools.html#tool-reject-suggested-prompts"><code>reject_suggested_prompts</code></a><span class="cl-desc">Dismiss suggested prompts so they are not suggested again.</span></li>
+                            <li><a class="cl-name" href="tools.html#tool-generate-suggested-prompts"><code>generate_suggested_prompts</code></a><span class="cl-desc">Write new suggested prompts for a topic, in the country and language you choose. Returns only the new prompts.</span></li>
+                            <li><a class="cl-name" href="tools.html#tool-suggest-more-topics"><code>suggest_more_topics</code></a><span class="cl-desc">Suggest new topics with their prompts, replace one suggested topic, or refresh them all.</span></li>
+                            <li><a class="cl-name" href="tools.html#tool-add-topics"><code>add_topics</code></a><span class="cl-desc">Add new topics to the brand&rsquo;s tracked topics. Prompts for them are a separate step.</span></li>
+                            <li><a class="cl-name" href="tools.html#tool-start-probe-run"><code>start_probe_run</code></a><span class="cl-desc">Start a one-off AI visibility run for the tracked prompts. Uses your answer quota.</span></li>
+                            <li><a class="cl-name" href="tools.html#tool-repair-probe-run"><code>repair_probe_run</code></a><span class="cl-desc">Run again only the prompts that failed in a probe run.</span></li>
+                        </ul>
+                    </div>
+                    <div class="cl-group">
+                        <div class="cl-badge cl-changed">Changed</div>
+                        <ul class="cl-list">
+                            <li><a href="prompts.html#prompt-ai-visibility-analyst"><code>ai_visibility_analyst</code></a>: now also covers managing prompts and probe runs. It reads before it changes anything, asks before starting a run or replacing suggested topics, and reports only what changed.</li>
+                            <li><a href="tools.html#tool-save-content-recommendations"><code>save_content_recommendations</code></a>: the description no longer says it is the only tool that writes data.</li>
+                        </ul>
+                    </div>
+                    </div>
+                </article>
                 <article class="cl-entry" id="nov-3">
                     <div class="cl-meta"><time>Nov 3, 2026</time><span class="cl-count">Improvements</span></div>
                     <div class="cl-main">
@@ -314,6 +342,7 @@
                 <h4>On this page</h4>
                 <nav id="toc" class="toc-nav">
                     <a href="#overview" class="toc-link active">Overview</a>
+                    <a href="#nov-12" class="toc-link">Nov 12, 2026</a>
                     <a href="#nov-3" class="toc-link">Nov 3, 2026</a>
                     <a href="#nov-2" class="toc-link">Nov 2, 2026</a>
                     <a href="#oct-30" class="toc-link">Oct 30, 2026</a>

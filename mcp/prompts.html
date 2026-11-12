@@ -127,6 +127,7 @@
                         <li>Pulls owned and earned content recommendations for the gaps that matter most</li>
                         <li>Optionally drafts a content outline for the top recommendation via <code>generate_content_outline</code></li>
                     </ol>
+                    <p>When you ask it to change what is tracked or to run a probe, it also uses the tools in <a href="tools.html#manage-prompts">Managing Prompts &amp; Probe Runs</a>. It reads first, asks before starting a run (which uses your answer quota) or replacing suggested topics, and reports only what the tools returned.</p>
                     <p>No arguments.</p>
                     <p><strong>Use when:</strong> you want a structured pass at &ldquo;why aren&rsquo;t AI engines citing us for this topic, and what should we publish to fix it&rdquo;, rather than pulling the raw probe data and recommendations yourself one tool at a time.</p>
                     <blockquote class="query-examples__prompt">&ldquo;Run the AI visibility analyst for ourdomain.com&rdquo;</blockquote>
@@ -148,7 +149,7 @@
                     <p>Prompts are a starting point. After invoking one, follow up with questions in plain language &mdash; your AI assistant still has access to every tool, so you can drill into any number, account, or domain the prompt surfaced.</p>
                     <blockquote class="query-examples__prompt">&ldquo;Run the AI visibility analyst for ourdomain.com, then show me the raw citation evidence for the gaps it flagged&rdquo;</blockquote>
                     <blockquote class="query-examples__prompt">&ldquo;Now check the same gaps for [competitor]&rsquo;s domain&rdquo;</blockquote>
-                    <p>The prompt itself only reads data. All ThriveStack MCP tools are read-only except <code>save_content_recommendations</code>, which saves content recommendations to your brand as <em>suggested</em> items and asks you to confirm first.</p>
+                    <p>Running the prompt reads data and changes nothing until you ask for a change. Most ThriveStack MCP tools are read-only. The exceptions are <code>save_content_recommendations</code>, which saves content recommendations to your brand as <em>suggested</em> items, <code>create_account_segment</code>, and the nine tools in <a href="tools.html#manage-prompts">Managing Prompts &amp; Probe Runs</a>. Your AI client may ask you to confirm before it runs them.</p>
                 </section>
 
                 <div class="page-nav">
