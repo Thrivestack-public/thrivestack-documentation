@@ -121,6 +121,10 @@
                     <h3>6. Combine the full picture in one pass</h3>
                     <blockquote class="query-examples__prompt">&ldquo;Give me the full AI-visibility picture for ourdomain.com: how we&rsquo;re doing, why, and what to publish next.&rdquo;</blockquote>
                     <p>The assistant chains <code>get_domain_report</code> (the headline numbers) with <code>get_citation_probe_data</code> (the gap evidence) and <code>get_owned_content_recommendations</code> (what to do about it) &mdash; or you can invoke the <code>ai_visibility_analyst</code> prompt (see <a href="prompts.html">Prompts</a>) to get this as a single structured pass instead of three separate questions.</p>
+
+                    <h3>7. Change what you track, then run a fresh check</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Suggest five more prompts about pricing for ourdomain.com, track the ones about enterprise plans, and run a new visibility check.&rdquo;</blockquote>
+                    <p><code>generate_suggested_prompts</code> writes the suggestions for the topic, <code>track_prompts</code> starts tracking the ones you pick (and returns their new ids), and <code>start_probe_run</code> runs every tracked prompt again. <code>get_probe_run</code> shows progress, and <code>get_domain_report</code> has the results when the run finishes. A run uses your plan&rsquo;s answer quota, so your AI client may ask you to confirm before it starts. To stop tracking something, <code>archive_prompts</code> moves it to Archived and <code>reactivate_prompts</code> brings it back; see <a href="tools.html#manage-prompts">Managing Prompts &amp; Probe Runs</a>.</p>
                 </section>
 
                 <section id="more-ideas" class="content-section">

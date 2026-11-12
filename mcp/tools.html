@@ -82,8 +82,8 @@
                 </header>
 
                 <section id="overview" class="content-section">
-                    <p>This page documents <strong>54 tools</strong> of the ThriveStack MCP Server, and its one prompt. They cover your brands and brand kit, AI-search visibility and citations, the AI answers and sources behind each tracked prompt, probe runs, the sources AI answers draw on, your site&rsquo;s crawl and indexing health, page traffic and Google search performance, traffic attribution, AI crawler visits, AI revenue, the content audit, prompt research, and content recommendations.</p>
-                    <p><strong>53 of the 54 tools are read-only.</strong> The only tool that changes anything is <a href="#tool-save-content-recommendations"><code>save_content_recommendations</code></a>, which saves recommendations to your brand as <em>suggested</em> items for your team. It cannot approve, dismiss, assign or delete anything, and your AI client asks you to confirm before it runs.</p>
+                    <p>This page documents <strong>63 tools</strong> of the ThriveStack MCP Server, and its one prompt. They cover your brands and brand kit, AI-search visibility and citations, the AI answers and sources behind each tracked prompt, probe runs, the sources AI answers draw on, your site&rsquo;s crawl and indexing health, page traffic and Google search performance, traffic attribution, AI crawler visits, AI revenue, the content audit, prompt research, content recommendations, and managing your tracked prompts and probe runs.</p>
+                    <p><strong>53 of the 63 tools are read-only.</strong> The other 10 change things in your brand. <a href="#tool-save-content-recommendations"><code>save_content_recommendations</code></a> saves recommendations as <em>suggested</em> items for your team; it cannot approve, dismiss, assign or delete anything. The nine tools in <a href="#manage-prompts">Managing Prompts &amp; Probe Runs</a> move prompts between Suggested, Tracked and Archived, generate new suggestions and topics, and start or repair probe runs. Your AI client may ask you to confirm before it runs any of them.</p>
                     <p>None of these tools take a <code>project_id</code> or similar tenant parameter. Your product and environment are resolved automatically from how you authenticated (OAuth session or Personal Access Token) &mdash; see <a href="setup.html">Setup</a>.</p>
                     <p>Your AI assistant calls these automatically based on your questions. Each section opens with an <strong>Example prompts</strong> dropdown, with a sample question for every tool in it. The server also provides one prompt, <code>ai_visibility_analyst</code>, a ready-made content-strategy analysis &mdash; see <a href="prompts.html">Prompts</a>. It does not expose any MCP resources.</p>
                 </section>
@@ -1119,13 +1119,147 @@
                     </table>
 
                     <h3 id="tool-save-content-recommendations"><code>save_content_recommendations</code></h3>
-                    <p>Saves content recommendations (owned and/or earned) to the brand's recommendations list as 'suggested' items for the team to act on. This is the only tool that writes data, and it is deliberately narrow: it creates new 'suggested' items or refreshes ones still 'suggested'.</p>
+                    <p>Saves content recommendations (owned and/or earned) to the brand's recommendations list as 'suggested' items for the team to act on. It is deliberately narrow: it creates new 'suggested' items or refreshes ones still 'suggested'.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
                             <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain the recommendations are for</td></tr>
                             <tr><td><code>recommendations</code></td><td>object[]</td><td>Yes</td><td>Recommendations to save (max 30)</td></tr>
                             <tr><td><code>probe_run_id</code></td><td>string</td><td>No</td><td>The probe run the evidence came from (run_id from get_citation_probe_data). Omit to use the latest run with results.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="manage-prompts">Managing Prompts &amp; Probe Runs</h2>
+
+                    <p>These tools change what a brand tracks and start or repair probe runs. Every prompt sits in one of three places: <strong>Suggested</strong> (proposed, not tracked), <strong>Tracked</strong> (asked in every probe run, and counted against your plan&rsquo;s prompt limit) or <strong>Archived</strong> (stopped, with its history kept). <a href="#tool-get-domain-prompts"><code>get_domain_prompts</code></a> lists each place with its <code>status</code> and gives the ids these tools need.</p>
+                    <table class="params-table">
+                        <thead><tr><th>To move a prompt</th><th>Tool</th></tr></thead>
+                        <tbody>
+                            <tr><td>Suggested &rarr; Tracked</td><td><a href="#tool-track-prompts"><code>track_prompts</code></a></td></tr>
+                            <tr><td>Tracked &rarr; Archived</td><td><a href="#tool-archive-prompts"><code>archive_prompts</code></a></td></tr>
+                            <tr><td>Archived &rarr; Tracked</td><td><a href="#tool-reactivate-prompts"><code>reactivate_prompts</code></a></td></tr>
+                            <tr><td>Suggested &rarr; dismissed</td><td><a href="#tool-reject-suggested-prompts"><code>reject_suggested_prompts</code></a></td></tr>
+                        </tbody>
+                    </table>
+                    <ul>
+                        <li>Tracking gives a prompt a <strong>new id</strong>. <code>track_prompts</code> returns the new ids in <code>tracked_prompts</code>; use those for any later call.</li>
+                        <li>Changes to tracked prompts apply from the <strong>next</strong> probe run, never to one already in progress.</li>
+                        <li>Your plan sets how many prompts you can track. When tracking or reactivating would go over it, nothing is changed and the call returns an error saying so.</li>
+                        <li>Your AI client may ask you to confirm before it runs a tool that changes things. Nothing here permanently deletes a tracked or archived prompt: only suggestions can be dismissed or replaced.</li>
+                    </ul>
+
+                    <details class="tools-dropdown tool-examples" id="examples-manage-prompts">
+                        <summary class="tools-dropdown__summary">
+                            <span>Example prompts <span class="tool-examples__count">&middot; 9 tools</span></span>
+                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+                        </summary>
+                        <div class="tools-dropdown__content">
+                            <div class="query-examples__tool-grid">
+                                <div class="query-examples__tool-grid-header"><span>Tool</span><span>Example prompt</span></div>
+                                    <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-track-prompts"><code>track_prompts</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Start tracking the suggested prompts about pricing for acme.com.&rdquo;</p><p>&ldquo;Track the two suggested prompts I liked for the &ldquo;Integrations&rdquo; topic on acme.com.&rdquo;</p></div></div>
+                                    <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-archive-prompts"><code>archive_prompts</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Archive the two tracked prompts about legacy pricing for acme.com. I don&rsquo;t want them in the next run.&rdquo;</p></div></div>
+                                    <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-reactivate-prompts"><code>reactivate_prompts</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Bring back the archived prompts about integrations for acme.com.&rdquo;</p></div></div>
+                                    <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-reject-suggested-prompts"><code>reject_suggested_prompts</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Dismiss the suggested prompts about careers pages for acme.com. They aren&rsquo;t relevant to us.&rdquo;</p></div></div>
+                                    <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-generate-suggested-prompts"><code>generate_suggested_prompts</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Suggest 5 new prompts for the &ldquo;Pricing&rdquo; topic on acme.com.&rdquo;</p><p>&ldquo;Write 3 suggested prompts for acme.com&rsquo;s &ldquo;Integrations&rdquo; topic for buyers in Germany, in German.&rdquo;</p></div></div>
+                                    <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-suggest-more-topics"><code>suggest_more_topics</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Suggest a new topic for acme.com that we aren&rsquo;t covering yet.&rdquo;</p><p>&ldquo;Replace the suggested topic &ldquo;Crawl Budget Optimization&rdquo; for acme.com with a different one.&rdquo;</p></div></div>
+                                    <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-add-topics"><code>add_topics</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Add two new topics to acme.com&rsquo;s tracked topics.&rdquo;</p></div></div>
+                                    <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-start-probe-run"><code>start_probe_run</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Run a fresh visibility check for acme.com now.&rdquo;</p><p>&ldquo;I just changed which prompts we track for acme.com. Start a new run so I can see the effect.&rdquo;</p></div></div>
+                                    <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-repair-probe-run"><code>repair_probe_run</code></a></div><div class="tool-examples__prompts"><p>&ldquo;The last run for acme.com had some failed prompts. Re-run just those.&rdquo;</p></div></div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <h3 id="tool-track-prompts"><code>track_prompts</code></h3>
+                    <p>Starts tracking suggested prompts: moves the listed prompts from a brand&rsquo;s Suggested list to its tracked prompts. Tracked prompts count against your plan&rsquo;s prompt limit; if the limit would be exceeded, nothing is tracked and the call returns an error saying so. Prompts tracked while a probe run is in progress are included from the next run, not the one in progress. Ids that are not suggested prompts are ignored. Returns how many prompts were affected, the new active count, and <code>tracked_prompts</code>: the id, topic and text of each prompt now tracked. Tracking gives each prompt a new id, so the suggested ids no longer apply and later calls such as <code>archive_prompts</code> need the new ones.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                                <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain the prompts belong to, e.g. acme.com</td></tr>
+                                <tr><td><code>ids</code></td><td>string[]</td><td>Yes</td><td>Ids of the suggested prompts to track, as listed by <code>get_domain_prompts</code> with status <code>suggested</code> (max 100)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-archive-prompts"><code>archive_prompts</code></h3>
+                    <p>Stops tracking prompts: moves the listed tracked prompts of a brand to its Archived list. Archived prompts keep their history, are left out of future probe runs and no longer count against your plan&rsquo;s prompt limit; <a href="#tool-reactivate-prompts"><code>reactivate_prompts</code></a> brings them back. A probe run already in progress finishes with the prompts it started with. Ids that are not tracked prompts are ignored. Returns how many prompts were affected and the new active and archived counts.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                                <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain the prompts belong to, e.g. acme.com</td></tr>
+                                <tr><td><code>ids</code></td><td>string[]</td><td>Yes</td><td>Ids of the tracked prompts to archive, as listed by <code>get_domain_prompts</code> with status <code>active</code> (max 100)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-reactivate-prompts"><code>reactivate_prompts</code></h3>
+                    <p>Starts tracking archived prompts again: moves the listed archived prompts of a brand back to its tracked prompts. Reactivated prompts count against your plan&rsquo;s prompt limit; if the limit would be exceeded, nothing is reactivated and the call returns an error saying so. The limit is checked before the ids are, so at the limit the call is refused even when the listed prompts are already tracked. They are included from the next probe run, not the one in progress. Ids that are not archived prompts are ignored. Returns how many prompts were affected and the new active count.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                                <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain the prompts belong to, e.g. acme.com</td></tr>
+                                <tr><td><code>ids</code></td><td>string[]</td><td>Yes</td><td>Ids of the archived prompts to reactivate, as listed by <code>get_domain_prompts</code> with status <code>archived</code> (max 100)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-reject-suggested-prompts"><code>reject_suggested_prompts</code></h3>
+                    <p>Dismisses suggested prompts: removes the listed prompts from a brand&rsquo;s Suggested list so they are not suggested again. Tracked and archived prompts are not affected. Returns how many prompts were affected.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                                <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain the prompts belong to, e.g. acme.com</td></tr>
+                                <tr><td><code>ids</code></td><td>string[]</td><td>Yes</td><td>Ids of the suggested prompts to dismiss, as listed by <code>get_domain_prompts</code> with status <code>suggested</code> (max 100)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-generate-suggested-prompts"><code>generate_suggested_prompts</code></h3>
+                    <p>Generates new suggested prompts (the questions buyers ask AI assistants) for one topic of a brand and saves them to its Suggested list; nothing is tracked until you track them with <a href="#tool-track-prompts"><code>track_prompts</code></a>. The prompts are written for the given country and language, by default the brand&rsquo;s own market and language. A topic holds at most 25 suggested prompts, and a full topic is refused. An AI model writes them, so each call can produce different prompts; asking for more than about 15 at once can time out, so split larger batches. Use a common language name such as English, German or Spanish: an unrecognised name can time out too. A topic that is only a suggested topic gets the new prompts as a separate group of the same name. Returns only the prompts just added, with their ids, and <code>topic_total</code>, the number of suggested prompts the topic now holds.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                                <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain to generate prompts for, e.g. acme.com</td></tr>
+                                <tr><td><code>topic</code></td><td>string</td><td>Yes</td><td>Topic to generate prompts for, as listed by <code>list_domain_topics</code> or <code>get_domain_prompts</code> (a new topic name also works), up to 200 characters</td></tr>
+                                <tr><td><code>country</code></td><td>string</td><td>No</td><td>Country the prompts are written for: an ISO country code or a country name. Defaults to the brand&rsquo;s market.</td></tr>
+                                <tr><td><code>language</code></td><td>string</td><td>No</td><td>Language the prompts are written in, a common language name such as English, German or Spanish. Defaults to the brand&rsquo;s language.</td></tr>
+                                <tr><td><code>count</code></td><td>number</td><td>No</td><td>How many prompts to generate: a whole number from 1 to 25 (above about 15 can time out). Leave it out for a standard batch of 5.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-suggest-more-topics"><code>suggest_more_topics</code></h3>
+                    <p>Suggests new topics, each with about ten prompts, for a brand and saves them to its Suggested list. With no option it adds one new suggested topic. <code>replace_topic</code> removes the suggested topic with that name and adds a new one; <code>refresh_all</code> replaces every suggested topic; <code>fill_active_gaps</code> adds one new suggested topic and also suggests prompts for tracked topics that have none. Give at most one option. At most 5 suggested topics are kept, and the count includes topics that are also tracked but still hold suggested prompts. While 5 exist, the call is refused with no option or <code>fill_active_gaps</code>; <code>replace_topic</code> and <code>refresh_all</code> still work. Replacing or refreshing removes the old topics first, so if the call times out they may already be gone: check <code>list_domain_topics</code> before retrying. Each prompt in the answer carries its id. Nothing is tracked until you call <code>track_prompts</code>. An AI model writes the suggestions, which can take half a minute or more; the call is refused for paused subscriptions.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                                <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain to suggest topics for, e.g. acme.com</td></tr>
+                                <tr><td><code>replace_topic</code></td><td>string</td><td>No</td><td>Name of one suggested topic to replace with a new one; matched without regard to letter case, and a name that is not a suggested topic is refused</td></tr>
+                                <tr><td><code>refresh_all</code></td><td>boolean</td><td>No</td><td>If true, replace every suggested topic with new ones</td></tr>
+                                <tr><td><code>fill_active_gaps</code></td><td>boolean</td><td>No</td><td>If true, also suggest prompts for tracked topics that currently have none</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-add-topics"><code>add_topics</code></h3>
+                    <p>Adds new topics to a brand&rsquo;s tracked topic list: an AI model proposes topics the brand&rsquo;s buyers are likely to ask about, based on the saved brand profile, and they are saved to the list. It does not generate prompts; <a href="#tool-generate-suggested-prompts"><code>generate_suggested_prompts</code></a> does that for a topic. The brand&rsquo;s profile must already exist. The call is refused for paused subscriptions. Returns the full topic list and the topics just added.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                                <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain to add topics to, e.g. acme.com</td></tr>
+                                <tr><td><code>count</code></td><td>number</td><td>No</td><td>How many topics to add: a whole number from 1 to 5. Leave it out to add 1.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-start-probe-run"><code>start_probe_run</code></h3>
+                    <p>Starts a one-off AI visibility probe run for a brand: every tracked prompt is asked to the brand&rsquo;s AI engines and the answers are scored. It uses your plan&rsquo;s answer quota, so each call spends real usage, and it does not change the regular schedule. Returns <code>started</code>, <code>run_id</code> and a <code>reason</code>. When a run is already queued or running, nothing new starts and that run&rsquo;s id comes back with reason <code>run_already_in_flight</code>. It is refused when the brand has no tracked prompts, for paused or ineligible subscriptions, and when the answer quota is used up. A run takes from about a minute to several minutes, and the last prompts often take longest. Progress and results are available from <a href="#tool-get-probe-run"><code>get_probe_run</code></a>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                                <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain to run the probe for, e.g. acme.com</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-repair-probe-run"><code>repair_probe_run</code></h3>
+                    <p>Runs again only the prompts that failed or are missing in a probe run, so the run can be completed without starting a new one. Returns <code>started</code>, the run id, the id of the repair run, <code>failed_prompts</code> (how many prompts needed repair) and a <code>reason</code>: <code>started</code>, <code>no_failed_prompts</code>, <code>already_running</code> or <code>exhausted</code>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                                <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain the probe run belongs to, e.g. acme.com</td></tr>
+                                <tr><td><code>run_id</code></td><td>string</td><td>Yes</td><td>Probe run id, from <code>get_probe_run</code> or <code>start_probe_run</code></td></tr>
                         </tbody>
                     </table>
 
@@ -1187,6 +1321,7 @@
                     <a href="#prompt-research" class="toc-link">Prompt Research</a>
                     <a href="#recommendations" class="toc-link">Recommendations</a>
                     <a href="#drafting" class="toc-link">Drafting &amp; Saving</a>
+                    <a href="#manage-prompts" class="toc-link">Managing Prompts &amp; Probe Runs</a>
                     <a href="#diagnostics" class="toc-link">Diagnostics</a>
                     <a href="#more-on-the-way" class="toc-link">Changes over time</a>
                 </nav>
