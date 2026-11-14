@@ -84,12 +84,12 @@
 
                 <section id="server-url" class="content-section">
                     <h2>Server URL</h2>
-                    <p>Every platform uses the same URL. The server is available to existing ThriveStack customers.</p>
+                    <p>Every platform uses the same URL. The server is available to existing ThriveStack customers. This is the ThriveStack Revenue Intelligence connector. AI Visibility (ThriveStack Citedby) is a separate connector with its own address, <code>https://api.app.thrivestack.ai/mcp</code>; to use both, add each as its own connector.</p>
                     <div class="mcp-url-card">
                         <div class="mcp-url-label">Server URL</div>
                         <div class="mcp-url-row">
-                            <code>https://api.app.thrivestack.ai/mcp</code>
-                            <button type="button" class="mcp-btn" data-copy="https://api.app.thrivestack.ai/mcp"><i class="fa-regular fa-copy"></i> Copy</button>
+                            <code>https://api.app.thrivestack.ai/revenue-intelligence/mcp</code>
+                            <button type="button" class="mcp-btn" data-copy="https://api.app.thrivestack.ai/revenue-intelligence/mcp"><i class="fa-regular fa-copy"></i> Copy</button>
                         </div>
                         <div class="mcp-chips">
                             <span class="mcp-chip"><i class="fa-solid fa-bolt"></i> Streamable HTTP (Remote)</span>
@@ -147,7 +147,7 @@
 </li>
 <li class="mcp-step">
 <h3>Enter the server details</h3>
-<p>Enter a name and the server URL, then click <strong>Continue</strong>:</p><ul><li><strong>Name</strong>: ThriveStack (or any name you like)</li><li><strong>MCP server URL</strong>: <code>https://api.app.thrivestack.ai/mcp</code></li></ul><figure class="mcp-shot is-narrow">
+<p>Enter a name and the server URL, then click <strong>Continue</strong>:</p><ul><li><strong>Name</strong>: ThriveStack Revenue Intelligence (or any name you like)</li><li><strong>MCP server URL</strong>: <code>https://api.app.thrivestack.ai/revenue-intelligence/mcp</code></li></ul><figure class="mcp-shot is-narrow">
 <a class="mcp-shot-link" href="../../mcp/img/claude-2-connector-details.png" aria-label="Enlarge screenshot: Claude Add custom connector dialog with the name ThriveStack and the ThriveStack MCP server URL entered">
 <div class="mcp-shot-bar" aria-hidden="true"><span></span><span></span><span></span></div>
 <img src="../../mcp/img/claude-2-connector-details.png" alt="Claude Add custom connector dialog with the name ThriveStack and the ThriveStack MCP server URL entered" loading="lazy">
@@ -180,10 +180,10 @@
 <div class="mcp-code-head"><span class="mcp-code-lang">claude_desktop_config.json</span><button type="button" class="mcp-btn"><i class="fa-regular fa-copy"></i> Copy</button></div>
 <pre><code>{
   &quot;mcpServers&quot;: {
-    &quot;thrivestack&quot;: {
+    &quot;thrivestack-revenue&quot;: {
       &quot;command&quot;: &quot;npx&quot;,
       &quot;args&quot;: [
-        &quot;-y&quot;, &quot;mcp-remote&quot;, &quot;https://api.app.thrivestack.ai/mcp&quot;,
+        &quot;-y&quot;, &quot;mcp-remote&quot;, &quot;https://api.app.thrivestack.ai/revenue-intelligence/mcp&quot;,
         &quot;--header&quot;, &quot;Authorization: Bearer YOUR_PAT_TOKEN&quot;
       ]
     }
@@ -203,12 +203,12 @@
 <h3>Add the server</h3>
 <p>Run this once:</p><div class="mcp-code">
 <div class="mcp-code-head"><span class="mcp-code-lang">Shell</span><button type="button" class="mcp-btn"><i class="fa-regular fa-copy"></i> Copy</button></div>
-<pre><code>claude mcp add --transport http --scope user Thrivestack &quot;https://api.app.thrivestack.ai/mcp&quot;</code></pre>
+<pre><code>claude mcp add --transport http --scope user thrivestack-revenue &quot;https://api.app.thrivestack.ai/revenue-intelligence/mcp&quot;</code></pre>
 </div>
 </li>
 <li class="mcp-step">
 <h3>Sign in</h3>
-<p>Start <code>claude</code>, run <code>/mcp</code>, and select ThriveStack to sign in and allow access.</p>
+<p>Start <code>claude</code>, run <code>/mcp</code>, and select <code>thrivestack-revenue</code> to sign in and allow access.</p>
 </li>
 </ol>
 <details class="mcp-more">
@@ -216,7 +216,7 @@
 <div class="mcp-more-body">
 <p>Replace <code>YOUR_PAT_TOKEN</code> with your <a href="#create-pat">token</a>:</p><div class="mcp-code">
 <div class="mcp-code-head"><span class="mcp-code-lang">Shell</span><button type="button" class="mcp-btn"><i class="fa-regular fa-copy"></i> Copy</button></div>
-<pre><code>claude mcp add --transport http --scope user Thrivestack &quot;https://api.app.thrivestack.ai/mcp&quot; --header &quot;Authorization: Bearer YOUR_PAT_TOKEN&quot;</code></pre>
+<pre><code>claude mcp add --transport http --scope user thrivestack-revenue &quot;https://api.app.thrivestack.ai/revenue-intelligence/mcp&quot; --header &quot;Authorization: Bearer YOUR_PAT_TOKEN&quot;</code></pre>
 </div><p>Then start Claude Code:</p><div class="mcp-code">
 <div class="mcp-code-head"><span class="mcp-code-lang">Shell</span><button type="button" class="mcp-btn"><i class="fa-regular fa-copy"></i> Copy</button></div>
 <pre><code>claude</code></pre>
@@ -240,8 +240,8 @@
 <div class="mcp-code-head"><span class="mcp-code-lang">JSON</span><button type="button" class="mcp-btn"><i class="fa-regular fa-copy"></i> Copy</button></div>
 <pre><code>{
   &quot;mcpServers&quot;: {
-    &quot;thrivestack&quot;: {
-      &quot;url&quot;: &quot;https://api.app.thrivestack.ai/mcp&quot;
+    &quot;thrivestack-revenue&quot;: {
+      &quot;url&quot;: &quot;https://api.app.thrivestack.ai/revenue-intelligence/mcp&quot;
     }
   }
 }</code></pre>
@@ -249,7 +249,7 @@
 </li>
 <li class="mcp-step">
 <h3>Sign in</h3>
-<p>When Cursor shows ThriveStack as needing login, click <strong>Connect</strong>, sign in to ThriveStack, and click <strong>Allow access</strong>.</p>
+<p>When Cursor shows <code>thrivestack-revenue</code> as needing login, click <strong>Connect</strong>, sign in to ThriveStack, and click <strong>Allow access</strong>.</p>
 </li>
 </ol>
 <details class="mcp-more">
@@ -259,8 +259,8 @@
 <div class="mcp-code-head"><span class="mcp-code-lang">JSON</span><button type="button" class="mcp-btn"><i class="fa-regular fa-copy"></i> Copy</button></div>
 <pre><code>{
   &quot;mcpServers&quot;: {
-    &quot;thrivestack&quot;: {
-      &quot;url&quot;: &quot;https://api.app.thrivestack.ai/mcp&quot;,
+    &quot;thrivestack-revenue&quot;: {
+      &quot;url&quot;: &quot;https://api.app.thrivestack.ai/revenue-intelligence/mcp&quot;,
       &quot;headers&quot;: { &quot;Authorization&quot;: &quot;Bearer YOUR_PAT_TOKEN&quot; }
     }
   }
@@ -280,9 +280,9 @@
 <div class="mcp-code-head"><span class="mcp-code-lang">.vscode/mcp.json</span><button type="button" class="mcp-btn"><i class="fa-regular fa-copy"></i> Copy</button></div>
 <pre><code>{
   &quot;servers&quot;: {
-    &quot;thrivestack&quot;: {
+    &quot;thrivestack-revenue&quot;: {
       &quot;type&quot;: &quot;http&quot;,
-      &quot;url&quot;: &quot;https://api.app.thrivestack.ai/mcp&quot;
+      &quot;url&quot;: &quot;https://api.app.thrivestack.ai/revenue-intelligence/mcp&quot;
     }
   }
 }</code></pre>
@@ -300,9 +300,9 @@
 <div class="mcp-code-head"><span class="mcp-code-lang">.vscode/mcp.json</span><button type="button" class="mcp-btn"><i class="fa-regular fa-copy"></i> Copy</button></div>
 <pre><code>{
   &quot;servers&quot;: {
-    &quot;thrivestack&quot;: {
+    &quot;thrivestack-revenue&quot;: {
       &quot;type&quot;: &quot;http&quot;,
-      &quot;url&quot;: &quot;https://api.app.thrivestack.ai/mcp&quot;,
+      &quot;url&quot;: &quot;https://api.app.thrivestack.ai/revenue-intelligence/mcp&quot;,
       &quot;headers&quot;: { &quot;Authorization&quot;: &quot;Bearer YOUR_PAT_TOKEN&quot; }
     }
   }
@@ -326,8 +326,8 @@
 <div class="mcp-code-head"><span class="mcp-code-lang">MCP config</span><button type="button" class="mcp-btn"><i class="fa-regular fa-copy"></i> Copy</button></div>
 <pre><code>{
   &quot;mcpServers&quot;: {
-    &quot;thrivestack&quot;: {
-      &quot;url&quot;: &quot;https://api.app.thrivestack.ai/mcp&quot;,
+    &quot;thrivestack-revenue&quot;: {
+      &quot;url&quot;: &quot;https://api.app.thrivestack.ai/revenue-intelligence/mcp&quot;,
       &quot;headers&quot;: { &quot;Authorization&quot;: &quot;Bearer YOUR_PAT_TOKEN&quot; }
     }
   }
@@ -347,8 +347,8 @@
 <div class="mcp-code-head"><span class="mcp-code-lang">~/.gemini/settings.json</span><button type="button" class="mcp-btn"><i class="fa-regular fa-copy"></i> Copy</button></div>
 <pre><code>{
   &quot;mcpServers&quot;: {
-    &quot;thrivestack&quot;: {
-      &quot;httpUrl&quot;: &quot;https://api.app.thrivestack.ai/mcp&quot;,
+    &quot;thrivestack-revenue&quot;: {
+      &quot;httpUrl&quot;: &quot;https://api.app.thrivestack.ai/revenue-intelligence/mcp&quot;,
       &quot;headers&quot;: { &quot;Authorization&quot;: &quot;Bearer YOUR_PAT_TOKEN&quot; }
     }
   }
@@ -368,7 +368,7 @@
 <ol class="mcp-steps">
 <li class="mcp-step">
 <h3>Set the server URL</h3>
-<p>Configure your client&rsquo;s MCP server URL to <code>https://api.app.thrivestack.ai/mcp</code>.</p>
+<p>Configure your client&rsquo;s MCP server URL to <code>https://api.app.thrivestack.ai/revenue-intelligence/mcp</code>.</p>
 </li>
 <li class="mcp-step">
 <h3>Authenticate</h3>
@@ -420,7 +420,7 @@
 <details><summary>Missing data<i class="fa-solid fa-chevron-down"></i></summary><div class="mcp-faq-body"><ul><li>Check that your account has access to the product and environment you&rsquo;re asking about, and that the data exists.</li></ul></div></details>
 <details><summary>Tool not found<i class="fa-solid fa-chevron-down"></i></summary><div class="mcp-faq-body"><ul><li>Available tools depend on the server version. See <a href="tools.html">Tools</a> for the current list, then reconnect your client to refresh its tool list.</li></ul></div></details>
 <details><summary>Queries timing out<i class="fa-solid fa-chevron-down"></i></summary><div class="mcp-faq-body"><ul><li>Ask a narrower question or use a shorter date range.</li></ul></div></details>
-<details><summary>Connection timeout<i class="fa-solid fa-chevron-down"></i></summary><div class="mcp-faq-body"><ul><li>Check your internet connection.</li><li>Make sure the URL is exactly <code>https://api.app.thrivestack.ai/mcp</code>.</li></ul></div></details>
+<details><summary>Connection timeout<i class="fa-solid fa-chevron-down"></i></summary><div class="mcp-faq-body"><ul><li>Check your internet connection.</li><li>Make sure the URL is exactly <code>https://api.app.thrivestack.ai/revenue-intelligence/mcp</code>.</li></ul></div></details>
 </div>
                     <p style="margin-top: 1rem;">Still stuck? Email <a href="mailto:support@thrivestack.ai">support@thrivestack.ai</a>.</p>
                 </section>

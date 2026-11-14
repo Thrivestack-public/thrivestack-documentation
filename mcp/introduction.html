@@ -215,13 +215,13 @@
                     <h2>Read and write access</h2>
                     <div class="mcp-callout ok">
                         <i class="fa-solid fa-eye"></i>
-                        <div class="mcp-callout-body"><p><strong>Read-only by default.</strong> Every tool only reads your data, with one exception.</p></div>
+                        <div class="mcp-callout-body"><p><strong>Read-only by default.</strong> Most tools only read your data. Ten tools can change it.</p></div>
                     </div>
                     <div class="mcp-callout">
                         <i class="fa-solid fa-pen-to-square"></i>
                         <div class="mcp-callout-body">
-                            <p><strong>One tool can write: <code>save_content_recommendations</code>.</strong> It saves content recommendations to your brand as <em>suggested</em> items for your team to review.</p>
-                            <p>It can only create new suggested items or refresh ones that are still suggested. It can&rsquo;t approve, dismiss, assign or delete anything, and your AI tool asks you to confirm before it runs.</p>
+                            <p><strong>Ten tools can write.</strong> <code>save_content_recommendations</code> saves content recommendations to your brand as <em>suggested</em> items for your team to review. Nine tools manage your prompt library and probe runs: <code>track_prompts</code>, <code>archive_prompts</code>, <code>reactivate_prompts</code>, <code>reject_suggested_prompts</code>, <code>generate_suggested_prompts</code>, <code>suggest_more_topics</code>, <code>add_topics</code>, <code>start_probe_run</code> and <code>repair_probe_run</code>.</p>
+                            <p>They only touch your brand&rsquo;s prompts, topics, probe runs and suggested recommendations. Some can replace or remove items that are still only suggested, and <code>start_probe_run</code> uses part of your plan&rsquo;s answer quota. Your AI tool asks you to confirm before any of them runs.</p>
                         </div>
                     </div>
                     <p>See <a href="tools.html">Tools</a> for the full list.</p>
