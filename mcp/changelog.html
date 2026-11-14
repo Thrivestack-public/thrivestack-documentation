@@ -85,11 +85,38 @@
                         <div class="cl-stat"><b>192</b><span>Tools now</span></div>
                         <div class="cl-stat"><b>0</b><span>Removed</span></div>
                     </div>
-                    <p>New tools are available on the ThriveStack MCP endpoint as soon as they are released. The directory listings (OpenAI, Claude and Cursor) pick up new tools after each platform reviews them, so a listing can show fewer tools than the endpoint.</p>
+                    <p>ThriveStack has two MCP connectors: ThriveStack Citedby (AI Visibility) at <code>/mcp</code> and ThriveStack Revenue Intelligence at <code>/revenue-intelligence/mcp</code>. The counts above are across both. New tools are available on their connector&rsquo;s endpoint as soon as they are released. The directory listings (OpenAI, Claude and Cursor) pick up new tools after each platform reviews them, so a listing can show fewer tools than the endpoint.</p>
                     <p>Tool names link to the <a href="tools.html">Tools Reference</a> when the tool is documented there. New tools are read-only except <a href="../revenue/mcp/tools.html#tool-create-account-segment"><code>create_account_segment</code></a>, which creates a segment, and the nine prompt and probe tools added on Nov 12, which change what a brand tracks or start probe runs.</p>
                 </section>
 
                 <div class="cl-timeline">
+                <article class="cl-entry" id="nov-14">
+                    <div class="cl-meta"><time>Nov 14, 2026</time><span class="cl-count">2 connectors</span></div>
+                    <div class="cl-main">
+                        <h2>Revenue Intelligence has its own connector</h2>
+                        <p class="cl-lead">The ThriveStack MCP server is now two connectors, one for each product. No tool was removed: the Revenue Intelligence tools moved to their own address.</p>
+                    <div class="cl-group">
+                        <div class="cl-badge cl-changed">Changed</div>
+                        <ul class="cl-list">
+                            <li><strong>ThriveStack Citedby</strong> stays at <code>https://api.app.thrivestack.ai/mcp</code> and now serves only the 63 AI Visibility tools. Existing connections keep working with no new sign-in. <code>get_accessible_brands</code> is available here only. See the <a href="tools.html">Citedby Tools Reference</a>.</li>
+                            <li><strong>ThriveStack Revenue Intelligence</strong> is at <code>https://api.app.thrivestack.ai/revenue-intelligence/mcp</code> with 129 tools: revenue, marketing, activation, retention and account tools. The Revenue Intelligence tools are no longer served at <code>/mcp</code>. To keep using them, add a connector for the new address and sign in once. See the <a href="../revenue/mcp/tools.html">Revenue Intelligence Tools Reference</a> and its <a href="../revenue/mcp/setup.html">setup guide</a>.</li>
+                            <li><code>check_connection</code> is on both connectors.</li>
+                            <li>Each connector has its own sign-in screen, product name and prompt, and a sign-in token that works only at its own address. A personal access token works at both addresses.</li>
+                            <li>Each connector checks the subscription for its own product. A canceled AI Visibility subscription pauses the Citedby tools, and a canceled Revenue Intelligence subscription pauses the Revenue Intelligence tools. <code>check_connection</code> keeps working either way.</li>
+                        </ul>
+                    </div>
+                    <div class="cl-group">
+                        <div class="cl-badge cl-changed">Fixed &middot; Revenue Intelligence</div>
+                        <ul class="cl-list">
+                            <li><a href="../revenue/mcp/tools.html#tool-get-setup-status"><code>get_setup_status</code></a>: returns each step&rsquo;s module, step id, whether it is completed and when it last changed. The data stored with a step, which can include API keys, is no longer returned.</li>
+                            <li><a href="../revenue/mcp/tools.html#tool-list-account-exports"><code>list_account_exports</code></a>: a failed export now says only that it failed. Its technical reason is not shown.</li>
+                            <li><a href="../revenue/mcp/tools.html#tool-create-account-segment"><code>create_account_segment</code></a>: takes an optional <code>name</code> and keeps your request as the segment&rsquo;s description. It no longer creates a segment when no criteria are recognized, it reads <code>unpaid</code> as not <code>paid</code>, and it asks for one status per segment.</li>
+                            <li><a href="../revenue/mcp/tools.html#tool-get-account-revenue"><code>get_account_revenue</code></a>: <code>revenueSource</code> is returned as a proper list.</li>
+                            <li>All Revenue Intelligence tools: a value outside an allowed list, such as an unknown <code>time_period</code>, now returns an error that lists the accepted values. A different letter case is accepted.</li>
+                        </ul>
+                    </div>
+                    </div>
+                </article>
                 <article class="cl-entry" id="nov-12">
                     <div class="cl-meta"><time>Nov 12, 2026</time><span class="cl-count">9 new tools</span></div>
                     <div class="cl-main">

@@ -158,7 +158,7 @@
                     </table>
 
                     <h3 id="tool-get-setup-status"><code>get_setup_status</code></h3>
-                    <p>Get current ThriveStack setup status and completed steps for the tenant (product/environment).</p>
+                    <p>Get current ThriveStack setup status and completed steps for the tenant (product/environment): each step's module, step id, whether it is completed and when it last changed. The data stored with a step, which can include API keys, is never returned.</p>
                     <p>No input parameters required.</p>
 
                     <h3 id="tool-get-marketing-setup-status"><code>get_marketing_setup_status</code></h3>
@@ -1712,11 +1712,12 @@
                     </table>
 
                     <h3 id="tool-create-account-segment"><code>create_account_segment</code></h3>
-                    <p>Create an account segment using monetization criteria described in natural language (paid/trial/free, MRR/ARR thresholds, plan).</p>
+                    <p>Create an account segment from criteria written in plain language. Understood: one status (paid, trial or free), an MRR or ARR threshold ('mrr &gt; 500', 'arr at least 1000') and a plan (enterprise, professional, starter or basic). Anything else in the request is ignored. If no criteria are recognized, no segment is created (a segment with no filters would match every account). Pass a short name for the segment in <code>name</code>; without one a name is made from the criteria.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>user_request</code></td><td>string</td><td>Yes</td><td>Natural language segment criteria, e.g. 'paid accounts with MRR &gt; $500'.</td></tr>
+                            <tr><td><code>user_request</code></td><td>string</td><td>Yes</td><td>The segment criteria in plain language, e.g. 'paid accounts with MRR &gt; $500'. Kept as the segment's description.</td></tr>
+                            <tr><td><code>name</code></td><td>string</td><td>No</td><td>Optional short name for the segment, up to 80 characters.</td></tr>
                         </tbody>
                     </table>
 
@@ -1733,7 +1734,7 @@
                     </table>
 
                     <h3 id="tool-list-account-exports"><code>list_account_exports</code></h3>
-                    <p>Lists recent CSV exports of the account or user list made from the app: status (running, success, failed), row count, error message, and when each was started and completed. Download links are only available in the app.</p>
+                    <p>Lists recent CSV exports of the account or user list made from the app: status (running, success, failed), row count, and when each was started and completed. A failed export says only that it failed; its technical reason is not shown. Download links are only available in the app.</p>
                     <table class="params-table">
                         <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                         <tbody>
