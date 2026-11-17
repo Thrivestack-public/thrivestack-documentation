@@ -109,123 +109,48 @@
 
                 <section id="walkthrough" class="content-section">
                     <h2>Step by step: from data to a winning ad</h2>
-                    <p class="section-sub">The prompts below use Notion as your brand and Asana as a rival. Replace them with yours. Run the steps in order in one conversation: each one builds on the last. The example answers use real ChatGPT ad data that ThriveStack collected for these public brands. Notion, Asana and the other names are third-party brands used only as examples; ThriveStack is not affiliated with them.</p>
+                    <p class="section-sub">The prompts below use Notion as your brand and Asana as a rival. Replace them with yours. Run the steps in order in one conversation: each one builds on the last.</p>
 <ol class="mcp-steps">
 <li class="mcp-step">
 <h3>See where you stand</h3>
 <p>Start with the market picture: who advertises on your prompts in ChatGPT, how much of the ad share each has, and who bids on your brand name.</p>
-<figure class="mcp-chat">
-<div class="mcp-chat-bar"><span class="mcp-chat-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mcp-chat-title">Claude</span><span class="mcp-chat-sub">ThriveStack Citedby connected</span></div>
-<div class="mcp-chat-body">
-<div class="mcp-chat-user"><p>Show me the ChatGPT ads report for Notion. Who advertises on our prompts, what share does each advertiser have, and who bids on our brand name?</p></div>
-<div class="mcp-chat-tools"><span class="mcp-chat-tool"><i class="fa-solid fa-check" aria-hidden="true"></i> Used <code>get_accessible_brands</code></span><span class="mcp-chat-tool"><i class="fa-solid fa-check" aria-hidden="true"></i> Used <code>get_chatgpt_ads_report</code></span></div>
-<div class="mcp-chat-reply"><span class="mcp-chat-avatar" aria-hidden="true">&#10043;</span><div class="mcp-chat-content">
-<p><strong>8 brands run ChatGPT ads on 6 of your 10 prompts, and none of them bid on the Notion name.</strong></p>
-<div class="mcp-chat-kpis"><div><b>8</b><span>Advertisers</span></div><div><b>60%</b><span>Ad coverage</span></div><div><b>6/10</b><span>Prompts with ads</span></div><div><b>0</b><span>Bid on your brand</span></div></div>
-<div class="mcp-chat-tablewrap"><table class="mcp-chat-table"><thead><tr><th>Advertiser</th><th>Ad share</th><th>Main topic</th></tr></thead><tbody>
-<tr><td>Juicebox</td><td>11.8%</td><td>AI workflow automation</td></tr>
-<tr><td>T3 Consultants</td><td>11.8%</td><td>Custom AI agents</td></tr>
-<tr><td>Asana</td><td>5.9%</td><td>Collaborative project management</td></tr>
-<tr><td>Azumo</td><td>5.9%</td><td>AI-powered knowledge base</td></tr>
-<tr><td>ClickUp</td><td>5.9%</td><td>Connected workspace platform</td></tr>
-<tr><td>Granola</td><td>5.9%</td><td>Connected workspace platform</td></tr>
-</tbody></table></div>
-<p class="mcp-chat-note">Caylent and Fireworks also advertise, at 5.9% each. Notion shows no ads of its own yet. &ldquo;Custom AI agents&rdquo; is the busiest topic, with 3 advertisers across 2 prompts.</p>
-</div></div>
-</div>
-<figcaption>Example output for Notion, shortened. Based on ThriveStack data from the check run on Oct 28, 2026. Shown in Claude; it works the same in any MCP client.</figcaption>
-</figure>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;Show me the ChatGPT ads report for Notion. Who advertises on our prompts, what share does each advertiser have, and who bids on our brand name?&rdquo;</span></div></div>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_accessible_brands</span><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_report</span></div>
 <p><strong>What you get:</strong> A headline and key numbers, the advertisers seen, each brand&rsquo;s ad share, who bids on your brand name, activity by topic and the ad creatives observed. Name a brand and your assistant finds its domain for you. With no dates the report covers all time, so add a range (&ldquo;last 30 days&rdquo;) to see recent movement.</p>
 </li>
 <li class="mcp-step">
 <h3>Find the competitors that run ads</h3>
 <p>See which advertisers beat you most often, and whether any of them advertise on prompts that name your brand.</p>
-<figure class="mcp-chat">
-<div class="mcp-chat-bar"><span class="mcp-chat-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mcp-chat-title">Claude</span><span class="mcp-chat-sub">ThriveStack Citedby connected</span></div>
-<div class="mcp-chat-body">
-<div class="mcp-chat-user"><p>Which advertisers beat Notion in ChatGPT ads? For each one, tell me on how many of our prompts they win and whether they bid on our brand name.</p></div>
-<div class="mcp-chat-tools"><span class="mcp-chat-tool"><i class="fa-solid fa-check" aria-hidden="true"></i> Used <code>get_chatgpt_ads_rivals</code></span></div>
-<div class="mcp-chat-reply"><span class="mcp-chat-avatar" aria-hidden="true">&#10043;</span><div class="mcp-chat-content">
-<p><strong>8 advertisers beat Notion on at least one prompt each, and none bids on your brand name.</strong> Each one wins 1 prompt, so there is no single dominant rival yet.</p>
-<div class="mcp-chat-tablewrap"><table class="mcp-chat-table"><thead><tr><th>Rival</th><th>Prompts won</th><th>Ads seen</th><th>Bids on your brand</th></tr></thead><tbody>
-<tr><td>Juicebox</td><td>1</td><td>2</td><td>No</td></tr>
-<tr><td>T3 Consultants</td><td>1</td><td>2</td><td>No</td></tr>
-<tr><td>Asana</td><td>1</td><td>1</td><td>No</td></tr>
-<tr><td>Azumo</td><td>1</td><td>1</td><td>No</td></tr>
-</tbody></table></div>
-<p class="mcp-chat-note">Caylent, ClickUp, Fireworks and Granola follow with 1 prompt and 1 ad each. Each prompt was checked once so far, so treat this as an early signal and re-check as more answers come in.</p>
-</div></div>
-</div>
-<figcaption>Example output for Notion, shortened. Based on ThriveStack data from the check run on Oct 28, 2026. Shown in Claude; it works the same in any MCP client.</figcaption>
-</figure>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;Which advertisers beat Notion in ChatGPT ads? For each one, tell me on how many of our prompts they win and whether they bid on our brand name.&rdquo;</span></div></div>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_rivals</span></div>
 <p><strong>What you get:</strong> Rivals ranked by how many of your prompts they win against you (<code>prompts_losing_to_them</code>) and share with you (<code>prompts_contested</code>), their share of rival ads, their main topics, whether they bid on your brand name, and three example prompts you lose to each.</p>
 </li>
 <li class="mcp-step">
 <h3>See where one competitor wins</h3>
 <p>Pick a rival from step 2 and list the prompts where it wins.</p>
-<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;List the prompts where Asana&rsquo;s ad shows up for Notion in ChatGPT ads. For each, show how often Asana&rsquo;s ad appeared compared with ours.&rdquo;</span></div></div>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;List the 10 prompts where Asana wins most in ChatGPT ads for Notion. For each, show how often Asana&rsquo;s ad appeared compared with ours.&rdquo;</span></div></div>
 <div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span></div>
 <p><strong>What you get:</strong> Every prompt with its status (<code>winning</code>, <code>contested</code>, <code>losing</code>, <code>open</code>), how often your ad and the rivals&rsquo; ads showed, and the top rivals on it. The scorecard has no filter for one rival, so your assistant picks out the prompts where Asana appears (each prompt lists up to five rivals) and ranks them. For a large prompt library ask it to read every page (200 prompts a page).</p>
 </li>
 <li class="mcp-step">
 <h3>Look at their ads</h3>
 <p>Take one prompt and read the ads ChatGPT actually showed on it.</p>
-<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;For the prompt &lsquo;How does a connected workspace tie docs, databases, and tasks together so a change in one place shows up everywhere else?&rsquo;, show me the ChatGPT ads that appeared: headline, body and landing page. Did ours show?&rdquo;</span></div></div>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;For the prompt &lsquo;How does a connected workspace tie docs, databases, and tasks together?&rsquo;, show me the ChatGPT ads that appeared: headline, body and landing page. Put ours next to Asana&rsquo;s.&rdquo;</span></div></div>
 <div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_detail</span></div>
 <p><strong>What you get:</strong> The prompt&rsquo;s recent answers with each ad (advertiser, whether it is yours, headline, body, landing page), and the distinct ad copy of your brand and of your rivals with how often each was seen. Ads are text only: headline, body and landing page, with no images.</p>
 </li>
 <li class="mcp-step">
 <h3>Write ad creatives for a topic you want to win</h3>
 <p>Now use what you found to draft creatives. Say the topic, how many you want, and what each should contain.</p>
-<figure class="mcp-chat">
-<div class="mcp-chat-bar"><span class="mcp-chat-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mcp-chat-title">Claude</span><span class="mcp-chat-sub">ThriveStack Citedby connected</span></div>
-<div class="mcp-chat-body">
-<div class="mcp-chat-user"><p>Notion loses on the topic &lsquo;Custom AI Agents&rsquo;. Using the rival ads you found, write 3 ad creative outlines: a headline, the body copy, the landing-page angle, and why each should beat the rival ads.</p></div>
-<div class="mcp-chat-tools"><span class="mcp-chat-tool"><i class="fa-solid fa-check" aria-hidden="true"></i> Used <code>get_chatgpt_ads_prompt_scorecard</code></span><span class="mcp-chat-tool"><i class="fa-solid fa-check" aria-hidden="true"></i> Used <code>get_chatgpt_ads_prompt_detail</code></span></div>
-<div class="mcp-chat-reply"><span class="mcp-chat-avatar" aria-hidden="true">&#10043;</span><div class="mcp-chat-content">
-<p>Notion lost both prompts in this topic to <strong>T3 Consultants</strong> (&ldquo;Control Your AI Agents&rdquo;), <strong>Caylent</strong> (&ldquo;Use AI Where Work Happens&rdquo;) and <strong>Fireworks</strong> (&ldquo;Cut model costs without rewriting your app&rdquo;). All three sell services or model hosting, none a workspace. Here are three outlines:</p>
-<div class="mcp-chat-creative">
-<h5><span>1</span>Replace point tools</h5>
-<div class="mcp-chat-ad"><span class="mcp-chat-ad-tag">Ad preview</span><strong>Replace point tools with one workspace</strong><span>Build AI agents on the docs and data your team already works in. Try it free.</span><em>notion.so</em></div>
-<ul><li><strong>Landing page:</strong> a before-and-after story: the tools a team dropped, and the agents it built in one workspace.</li><li><strong>Why it should win:</strong> T3 sells consulting. This answers the &ldquo;cut software spend&rdquo; question with a product people can try today.</li></ul>
-</div><div class="mcp-chat-creative">
-<h5><span>2</span>Price up front</h5>
-<div class="mcp-chat-ad"><span class="mcp-chat-ad-tag">Ad preview</span><strong>Custom AI agents, with the price up front</strong><span>See what agents cost for a team of 100, and what each plan includes.</span><em>notion.so</em></div>
-<ul><li><strong>Landing page:</strong> the pricing page, with the agent line items and a worked example for 100 people.</li><li><strong>Why it should win:</strong> Fireworks sells model cost and Caylent sells projects. Neither tells a buyer the per-team price the prompt asks for.</li></ul>
-</div><div class="mcp-chat-creative">
-<h5><span>3</span>Agents with guardrails</h5>
-<div class="mcp-chat-ad"><span class="mcp-chat-ad-tag">Ad preview</span><strong>AI agents that follow your permissions</strong><span>Agents only see what each person can see. Set limits and review every action.</span><em>notion.so</em></div>
-<ul><li><strong>Landing page:</strong> the security and permissions page, with a short demo of limiting what an agent can reach.</li><li><strong>Why it should win:</strong> It meets T3&rsquo;s &ldquo;control permissions&rdquo; message head on, from a tool the team already uses and with no services contract.</li></ul>
-</div>
-<p class="mcp-chat-note">Check every claim (free trial, pricing detail, permission model) against your product and your ad policy before you publish.</p>
-</div></div>
-</div>
-<figcaption>Example output for Notion, shortened. Based on ThriveStack data from the check run on Oct 28, 2026. Shown in Claude; it works the same in any MCP client.</figcaption>
-</figure>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;Notion loses on the topic &lsquo;Custom AI Agent&rsquo;. Using the rival ads you found, write 3 ad creative outlines: a headline, the body copy, the landing-page angle, and why each should beat Asana&rsquo;s ads.&rdquo;</span></div></div>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_detail</span></div>
 <p><strong>What you get:</strong> Three creative outlines grounded in real rival copy. The tools supply the evidence (which prompts you lose in that topic, and what the winning ads say). <strong>Your AI assistant writes the creatives; ThriveStack does not generate or publish ads.</strong></p>
 </li>
 <li class="mcp-step">
 <h3>Target one prompt</h3>
 <p>Paste the exact prompt you want to win and ask for one creative aimed at it.</p>
-<figure class="mcp-chat">
-<div class="mcp-chat-bar"><span class="mcp-chat-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mcp-chat-title">Claude</span><span class="mcp-chat-sub">ThriveStack Citedby connected</span></div>
-<div class="mcp-chat-body">
-<div class="mcp-chat-user"><p>I want to win this prompt: &lsquo;How does a connected workspace tie docs, databases, and tasks together so a change in one place shows up everywhere else?&rsquo; Write one ad creative for it, based on the ads that show on it today, and tell me what angle it takes against them.</p></div>
-<div class="mcp-chat-tools"><span class="mcp-chat-tool"><i class="fa-solid fa-check" aria-hidden="true"></i> Used <code>get_chatgpt_ads_prompt_scorecard</code></span><span class="mcp-chat-tool"><i class="fa-solid fa-check" aria-hidden="true"></i> Used <code>get_chatgpt_ads_prompt_detail</code></span></div>
-<div class="mcp-chat-reply"><span class="mcp-chat-avatar" aria-hidden="true">&#10043;</span><div class="mcp-chat-content">
-<p>Two ads showed on this prompt, and Notion had none:</p>
-<ul class="mcp-chat-list"><li><strong>ClickUp:</strong> &ldquo;ClickUp vs. Notion&rdquo; &ndash; a comparison ad that sends people to a compare page.</li><li><strong>Granola:</strong> &ldquo;Deals move faster with Granola&rdquo; &ndash; an AI notepad ad that never answers how docs, databases and tasks connect.</li></ul>
-<p>Here is one creative:</p>
-<div class="mcp-chat-creative">
-<h5><span>&#9733;</span>Answer the question asked</h5>
-<div class="mcp-chat-ad"><span class="mcp-chat-ad-tag">Ad preview</span><strong>One workspace where every change syncs</strong><span>Link docs, databases and tasks once. Edit in one place and it updates everywhere. Try it free.</span><em>notion.so</em></div>
-<ul><li><strong>Landing page:</strong> a short demo of a task linked to a doc and a database updating live.</li><li><strong>Why it should win:</strong> It answers &ldquo;how does it work&rdquo; with a clear promise, where ClickUp argues a comparison and Granola is off topic.</li></ul>
-</div>
-<p class="mcp-chat-note">Angle: explain the mechanism, not the rival. If your ad policy allows comparisons, test a second version that answers ClickUp&rsquo;s claim directly.</p>
-</div></div>
-</div>
-<figcaption>Example output for Notion, shortened. Based on ThriveStack data from the check run on Oct 28, 2026. Shown in Claude; it works the same in any MCP client.</figcaption>
-</figure>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;I want to win this prompt: &lsquo;How does a connected workspace tie docs, databases, and tasks together so a change in one place shows up everywhere else?&rsquo; Write one ad creative for it, based on the ads that show on it today, and tell me what angle it takes against them.&rdquo;</span></div></div>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_detail</span></div>
 <p><strong>What you get:</strong> One creative for that prompt, with the angle explained. Pasting the exact text lets your assistant find the prompt in the scorecard and read its ads.</p>
 </li>
 <li class="mcp-step">
