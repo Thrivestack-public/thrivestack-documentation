@@ -82,8 +82,8 @@
                 </header>
 
                 <section id="overview" class="content-section">
-                    <p>This page documents <strong>63 tools</strong> of the ThriveStack MCP Server, and its one prompt. They cover your brands and brand kit, AI-search visibility and citations, the AI answers and sources behind each tracked prompt, probe runs, the sources AI answers draw on, your site&rsquo;s crawl and indexing health, page traffic and Google search performance, traffic attribution, AI crawler visits, AI revenue, the content audit, prompt research, content recommendations, and managing your tracked prompts and probe runs.</p>
-                    <p><strong>53 of the 63 tools are read-only.</strong> The other 10 change things in your brand. <a href="#tool-save-content-recommendations"><code>save_content_recommendations</code></a> saves recommendations as <em>suggested</em> items for your team; it cannot approve, dismiss, assign or delete anything. The nine tools in <a href="#manage-prompts">Managing Prompts &amp; Probe Runs</a> move prompts between Suggested, Tracked and Archived, generate new suggestions and topics, and start or repair probe runs. Your AI client may ask you to confirm before it runs any of them.</p>
+                    <p>This page documents <strong>68 tools</strong> of the ThriveStack MCP Server, and its one prompt. They cover your brands and brand kit, AI-search visibility and citations, the AI answers and sources behind each tracked prompt, probe runs, the sources AI answers draw on, your site&rsquo;s crawl and indexing health, page traffic and Google search performance, traffic attribution, AI crawler visits, AI revenue, the content audit, prompt research, content recommendations, managing your tracked prompts and probe runs, and the ChatGPT ads shown on your prompts.</p>
+                    <p><strong>58 of the 68 tools are read-only.</strong> The other 10 change things in your brand. <a href="#tool-save-content-recommendations"><code>save_content_recommendations</code></a> saves recommendations as <em>suggested</em> items for your team; it cannot approve, dismiss, assign or delete anything. The nine tools in <a href="#manage-prompts">Managing Prompts &amp; Probe Runs</a> move prompts between Suggested, Tracked and Archived, generate new suggestions and topics, and start or repair probe runs. Your AI client may ask you to confirm before it runs any of them.</p>
                     <p>None of these tools take a <code>project_id</code> or similar tenant parameter. Your product and environment are resolved automatically from how you authenticated (OAuth session or Personal Access Token) &mdash; see <a href="setup.html">Setup</a>.</p>
                     <p>Your AI assistant calls these automatically based on your questions. Each section opens with an <strong>Example prompts</strong> dropdown, with a sample question for every tool in it. The server also provides one prompt, <code>ai_visibility_analyst</code>, a ready-made content-strategy analysis &mdash; see <a href="prompts.html">Prompts</a>. It does not expose any MCP resources.</p>
                 </section>
@@ -1263,6 +1263,121 @@
                         </tbody>
                     </table>
 
+                    <h2 id="chatgpt-ads">ChatGPT Ads</h2>
+
+                    <p>ChatGPT can show ads inside its answers. ThriveStack&rsquo;s ChatGPT Ads job asks ChatGPT your tracked prompts and records which ads appear on each answer: your brand&rsquo;s, a rival&rsquo;s, or none. These five tools read that record. They show which prompts you win and lose, what the ads on one prompt looked like, who your rivals are, how fresh the data is, and whether your plan includes ChatGPT Ads. They only read data: they start no check, buy nothing and create no ads.</p>
+                    <table class="params-table">
+                        <thead><tr><th>To find out&hellip;</th><th>Tool</th></tr></thead>
+                        <tbody>
+                            <tr><td>Which of my prompts win, contest or lose in ChatGPT ads</td><td><a href="#tool-get-chatgpt-ads-prompt-scorecard"><code>get_chatgpt_ads_prompt_scorecard</code></a></td></tr>
+                            <tr><td>What the ads on one prompt looked like, and how the copy compares</td><td><a href="#tool-get-chatgpt-ads-prompt-detail"><code>get_chatgpt_ads_prompt_detail</code></a></td></tr>
+                            <tr><td>Which advertisers beat me, and where</td><td><a href="#tool-get-chatgpt-ads-rivals"><code>get_chatgpt_ads_rivals</code></a></td></tr>
+                            <tr><td>How fresh the ads data is, and whether the last check worked</td><td><a href="#tool-get-chatgpt-ads-runs"><code>get_chatgpt_ads_runs</code></a></td></tr>
+                            <tr><td>Whether the brand has ChatGPT Ads, and why or why not</td><td><a href="#tool-get-chatgpt-ads-addon-status"><code>get_chatgpt_ads_addon_status</code></a></td></tr>
+                        </tbody>
+                    </table>
+                    <ul>
+                        <li><strong>Access.</strong> The first four tools need the ChatGPT Ads add-on or its free trial on the brand. Without it they return <code>ads_entitlement_required</code>. <a href="#tool-get-chatgpt-ads-addon-status"><code>get_chatgpt_ads_addon_status</code></a> says what the brand has and why.</li>
+                        <li><strong>Window.</strong> Pass <code>start_date</code> and <code>end_date</code> (YYYY-MM-DD, inclusive). With no dates the last 56 days are used, and the window used is returned.</li>
+                        <li><strong>What counts.</strong> One <em>sample</em> is one ChatGPT answer to one prompt in one country. Only ads ChatGPT actually displayed are counted, and your brand is recognised the same way as on the Ads dashboard in the app, so the numbers agree.</li>
+                        <li><strong>Empty is not an error.</strong> When no prompt was checked in the window the answer has <code>has_data: false</code> and a message. Nothing is wrong: no check has run yet or none fell in the window.</li>
+                        <li><strong>Little data.</strong> Ads show on only some answers, so a prompt with a few samples can change status on the next check. Rows with fewer samples than <code>min_samples</code> (default 3) are flagged <code>low_confidence</code>.</li>
+                    </ul>
+                    <p>Each prompt gets one of these statuses in <a href="#tool-get-chatgpt-ads-prompt-scorecard"><code>get_chatgpt_ads_prompt_scorecard</code></a>. The scorecard returns the definitions with every answer.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>winning</code></td><td>Your brand&rsquo;s ad was shown on at least as many sampled answers as rivals&rsquo; ads, and at least once</td></tr>
+                            <tr><td><code>contested</code></td><td>Your ad and rivals&rsquo; ads were both shown, but rivals&rsquo; on more answers</td></tr>
+                            <tr><td><code>losing</code></td><td>Rivals&rsquo; ads were shown and yours never was</td></tr>
+                            <tr><td><code>open</code></td><td>Enough answers were sampled and no ad from anyone was shown: an open auction, not a lost one</td></tr>
+                            <tr><td><code>insufficient_data</code></td><td>Too few answers were sampled to tell (fewer than <code>min_samples</code>) and no ad was seen</td></tr>
+                            <tr><td><code>no_data</code></td><td>No answer was sampled: every attempt in the window was skipped or failed. The row says why in <code>issue</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <details class="tools-dropdown tool-examples" id="examples-chatgpt-ads">
+                        <summary class="tools-dropdown__summary">
+                            <span>Example prompts <span class="tool-examples__count">&middot; 5 tools</span></span>
+                            <i class="fa-solid fa-chevron-down tools-dropdown__chevron"></i>
+                        </summary>
+                        <div class="tools-dropdown__content">
+                            <div class="query-examples__tool-grid">
+                                <div class="query-examples__tool-grid-header"><span>Tool</span><span>Example prompt</span></div>
+                                <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-get-chatgpt-ads-prompt-scorecard"><code>get_chatgpt_ads_prompt_scorecard</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Which of acme.com&rsquo;s prompts are losing to rivals&rsquo; ChatGPT ads? Show the worst ones first.&rdquo;</p><p>&ldquo;For acme.com, list the prompts where nobody runs a ChatGPT ad yet, and group them by topic.&rdquo;</p><p>&ldquo;How many of acme.com&rsquo;s prompts are winning, contested and losing in ChatGPT ads this month?&rdquo;</p></div></div>
+                                <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-get-chatgpt-ads-prompt-detail"><code>get_chatgpt_ads_prompt_detail</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Show me the ChatGPT ads seen on prompt 3f9a21 for acme.com: who advertised, and what did their ads say?&rdquo;</p><p>&ldquo;Compare the headline and body of our ChatGPT ad with the rivals&rsquo; ads on prompt 3f9a21.&rdquo;</p></div></div>
+                                <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-get-chatgpt-ads-rivals"><code>get_chatgpt_ads_rivals</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Which advertisers beat acme.com most often in ChatGPT ads, and on how many prompts?&rdquo;</p><p>&ldquo;Does any rival run ChatGPT ads on prompts that name acme.com?&rdquo;</p></div></div>
+                                <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-get-chatgpt-ads-runs"><code>get_chatgpt_ads_runs</code></a></div><div class="tool-examples__prompts"><p>&ldquo;When did the last ChatGPT ads check for acme.com finish, and did every prompt get checked?&rdquo;</p><p>&ldquo;Is a ChatGPT ads check still running for acme.com?&rdquo;</p></div></div>
+                                <div class="query-examples__tool-pair"><div class="query-examples__tool-name"><a href="#tool-get-chatgpt-ads-addon-status"><code>get_chatgpt_ads_addon_status</code></a></div><div class="tool-examples__prompts"><p>&ldquo;Does acme.com have ChatGPT Ads right now, and is it weekly or daily?&rdquo;</p><p>&ldquo;Why does the ChatGPT ads view for acme.com say ads aren&rsquo;t enabled?&rdquo;</p></div></div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <h3 id="tool-get-chatgpt-ads-prompt-scorecard"><code>get_chatgpt_ads_prompt_scorecard</code></h3>
+                    <p>For each tracked prompt, whether your brand&rsquo;s ChatGPT ad is <code>winning</code>, <code>contested</code>, <code>losing</code> or <code>open</code> over a date window. Each prompt row has <code>prompt_id</code>, <code>prompt</code>, <code>topic</code>, <code>countries</code>, <code>status</code>, <code>samples</code>, <code>samples_with_ads</code>, <code>ad_rate</code>, your samples, ads and rate (<code>your_samples</code>, <code>your_ads</code>, <code>your_rate</code>), the same for rivals (<code>rival_samples</code>, <code>rival_ads</code>, <code>rival_rate</code>), <code>top_rivals</code>, <code>brand_related</code> (the prompt names your brand), <code>low_confidence</code>, how many samples were skipped or failed (with <code>issue</code> saying why), and when an ad was last seen. Rows come in priority order, losing first.</p>
+                    <p>The answer also has a <code>summary</code> (prompts, samples, a count per status, the share of answers with any ad and with yours) and a <code>topics</code> breakdown with the status counts per topic, so a weak area shows without reading every prompt. Both cover every prompt whatever filters you set. Prompts come in pages: <code>total</code>, <code>returned</code> and <code>next_offset</code> say where you are. Take a <code>prompt_id</code> to <a href="#tool-get-chatgpt-ads-prompt-detail"><code>get_chatgpt_ads_prompt_detail</code></a> for the ads themselves.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain, e.g. acme.com</td></tr>
+                            <tr><td><code>start_date</code></td><td>string</td><td>No</td><td>Window start, YYYY-MM-DD (inclusive). Omit both dates for the last 56 days</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>No</td><td>Window end, YYYY-MM-DD (inclusive). Omit for no upper bound</td></tr>
+                            <tr><td><code>status</code></td><td>string</td><td>No</td><td>Only prompts with this status: <code>winning</code>, <code>contested</code>, <code>losing</code>, <code>open</code>, <code>insufficient_data</code> or <code>no_data</code></td></tr>
+                            <tr><td><code>topic</code></td><td>string</td><td>No</td><td>Only prompts of this topic, spelled as in the <code>topics</code> breakdown (not case-sensitive)</td></tr>
+                            <tr><td><code>country</code></td><td>string</td><td>No</td><td>Only prompts checked in this country, a two-letter ISO code such as <code>US</code></td></tr>
+                            <tr><td><code>min_samples</code></td><td>number</td><td>No</td><td>Sampled answers a prompt needs before &ldquo;no ad seen&rdquo; counts as <code>open</code> and its status counts as confident (default 3, max 50)</td></tr>
+                            <tr><td><code>sort</code></td><td>string</td><td>No</td><td><code>priority</code> (default, losing first), <code>rival_ads</code>, <code>your_ads</code>, <code>ad_rate</code> or <code>samples</code></td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max prompts per page (default 50, max 200)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Prompts to skip (default 0). Use <code>next_offset</code> from the previous page</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-chatgpt-ads-prompt-detail"><code>get_chatgpt_ads_prompt_detail</code></h3>
+                    <p>The ChatGPT ads history of one tracked prompt. It returns the prompt&rsquo;s scorecard row, the most recent sampled answers (newest first) and the distinct ad creatives seen. For each answer it lists the country, when it was sampled, whether your brand&rsquo;s ad was shown (<code>you_shown</code>) and each ad: the advertiser, whether it is yours (<code>is_you</code>), the conversation turn it appeared on, and its headline, body and landing page (without tracking parameters). A skipped or failed answer says why in <code>reason</code>. <code>creatives</code> separates <code>yours</code> from <code>rivals</code> and counts how often each creative was seen, so you can compare ad copy. The score and creatives cover every answer in the window even when the list of answers is shortened (<code>samples_truncated</code>).</p>
+                    <p>A prompt with no ads samples in the window returns a not-found error. Take the <code>prompt_id</code> from <a href="#tool-get-chatgpt-ads-prompt-scorecard"><code>get_chatgpt_ads_prompt_scorecard</code></a>.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain, e.g. acme.com</td></tr>
+                            <tr><td><code>prompt_id</code></td><td>string</td><td>Yes</td><td>Prompt id, from the scorecard</td></tr>
+                            <tr><td><code>start_date</code></td><td>string</td><td>No</td><td>Window start, YYYY-MM-DD (inclusive). Omit both dates for the last 56 days</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>No</td><td>Window end, YYYY-MM-DD (inclusive). Omit for no upper bound</td></tr>
+                            <tr><td><code>min_samples</code></td><td>number</td><td>No</td><td>Sampled answers needed before &ldquo;no ad seen&rdquo; counts as <code>open</code> (default 3, max 50)</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max sampled answers listed, newest first (default 30, max 100)</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-chatgpt-ads-rivals"><code>get_chatgpt_ads_rivals</code></h3>
+                    <p>The advertisers other than your brand that ChatGPT showed ads for, ranked by how many of your prompts they win against you. Each rival has its <code>ads</code>, the sampled answers (<code>samples_seen</code>) and <code>prompts</code> it appeared on, how many prompts it appeared on without your brand (<code>prompts_losing_to_them</code>) and alongside it (<code>prompts_contested</code>), its <code>share_of_rival_ads</code>, its <code>top_topics</code>, a few <code>example_losing_prompts</code>, and whether it advertises on prompts that name your brand (<code>bids_on_your_brand</code>, with <code>brand_prompts</code>). Your own totals come back in <code>you</code> for comparison. Rivals come in pages: <code>total</code>, <code>returned</code> and <code>next_offset</code> say where you are. Returns <code>has_data: false</code> when no prompt was checked in the window.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain, e.g. acme.com</td></tr>
+                            <tr><td><code>start_date</code></td><td>string</td><td>No</td><td>Window start, YYYY-MM-DD (inclusive). Omit both dates for the last 56 days</td></tr>
+                            <tr><td><code>end_date</code></td><td>string</td><td>No</td><td>Window end, YYYY-MM-DD (inclusive). Omit for no upper bound</td></tr>
+                            <tr><td><code>limit</code></td><td>number</td><td>No</td><td>Max rivals per page (default 20, max 50)</td></tr>
+                            <tr><td><code>offset</code></td><td>number</td><td>No</td><td>Rivals to skip (default 0). Use <code>next_offset</code> from the previous page</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-chatgpt-ads-runs"><code>get_chatgpt_ads_runs</code></h3>
+                    <p>The most recent ChatGPT ads checks for a domain (up to 20, newest first). Each has when it started and finished, its state (<code>running</code>, <code>completed</code>, <code>partial</code>, <code>failed</code> or <code>skipped</code>), how many prompts and sampled answers were planned, completed, skipped or failed, the ads shown and the credits used. It shows how fresh the data behind the other ChatGPT ads tools is, and whether a check is still running or had failures. Returns <code>has_data: false</code> when no ads check has happened for the domain yet.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain, e.g. acme.com</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 id="tool-get-chatgpt-ads-addon-status"><code>get_chatgpt_ads_addon_status</code></h3>
+                    <p>Whether the brand has ChatGPT Ads right now, and why: whether it is enabled, the cadence (weekly or daily), the number of prompts the ads follow, the subscription status, the trial end or paid period end, any change staged for the next period, and the add-on prices. It reads state only. It starts no purchase and returns no checkout link. Use it to explain an <code>ads_entitlement_required</code> result or an empty ChatGPT ads view.</p>
+                    <table class="params-table">
+                        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>domain</code></td><td>string</td><td>Yes</td><td>Brand domain, e.g. acme.com</td></tr>
+                        </tbody>
+                    </table>
+
                     <h2 id="diagnostics">Diagnostics</h2>
 
                     <details class="tools-dropdown tool-examples" id="examples-diagnostics">
@@ -1296,7 +1411,7 @@
                     </div>
                     <div class="footer-links">
                         <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
-                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="tools.html">Last updated: November 4, 2026</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="tools.html">Last updated: November 17, 2026</a>
                     </div>
                 </footer>
             </div>
@@ -1322,6 +1437,7 @@
                     <a href="#recommendations" class="toc-link">Recommendations</a>
                     <a href="#drafting" class="toc-link">Drafting &amp; Saving</a>
                     <a href="#manage-prompts" class="toc-link">Managing Prompts &amp; Probe Runs</a>
+                    <a href="#chatgpt-ads" class="toc-link">ChatGPT Ads</a>
                     <a href="#diagnostics" class="toc-link">Diagnostics</a>
                     <a href="#more-on-the-way" class="toc-link">Changes over time</a>
                 </nav>

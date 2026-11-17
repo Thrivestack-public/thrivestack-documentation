@@ -125,6 +125,10 @@
                     <h3>7. Change what you track, then run a fresh check</h3>
                     <blockquote class="query-examples__prompt">&ldquo;Suggest five more prompts about pricing for ourdomain.com, track the ones about enterprise plans, and run a new visibility check.&rdquo;</blockquote>
                     <p><code>generate_suggested_prompts</code> writes the suggestions for the topic, <code>track_prompts</code> starts tracking the ones you pick (and returns their new ids), and <code>start_probe_run</code> runs every tracked prompt again. <code>get_probe_run</code> shows progress, and <code>get_domain_report</code> has the results when the run finishes. A run uses your plan&rsquo;s answer quota, so your AI client may ask you to confirm before it starts. To stop tracking something, <code>archive_prompts</code> moves it to Archived and <code>reactivate_prompts</code> brings it back; see <a href="tools.html#manage-prompts">Managing Prompts &amp; Probe Runs</a>.</p>
+
+                    <h3>8. Find the prompts where rivals&rsquo; ChatGPT ads beat you</h3>
+                    <blockquote class="query-examples__prompt">&ldquo;Which of ourdomain.com&rsquo;s prompts are losing to rivals&rsquo; ChatGPT ads, who is winning them, and what do their ads say?&rdquo;</blockquote>
+                    <p><code>get_chatgpt_ads_prompt_scorecard</code> lists the prompts by status, losing first, with a count per topic. <code>get_chatgpt_ads_rivals</code> ranks the advertisers that beat you and shows whether any of them bids on prompts that name your brand. <code>get_chatgpt_ads_prompt_detail</code> then shows the ads on one prompt, so you can compare your copy with theirs. Check <code>low_confidence</code> before acting on a prompt with few samples, and use <code>get_chatgpt_ads_runs</code> to see when the data was last refreshed. These tools need the ChatGPT Ads add-on or its trial; <code>get_chatgpt_ads_addon_status</code> says whether the brand has it.</p>
                 </section>
 
                 <section id="more-ideas" class="content-section">
