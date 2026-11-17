@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChatGPT Ads with the ThriveStack MCP Server - ThriveStack Documentation">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <title>MCP ChatGPT Ads - ThriveStack</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67c7d3efa9780ed6d5c6927e/67dd93e9c092f56ea4b02827_256x256.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="mcp.css">
+    <script
+        src="https://cdn.app.thrivestack.ai/latest/script.js"
+        api-key="i1rPJo38lB6hR2qZC5iNNz0xcGRuBYIKRVYfTBdpJyY="
+        source="marketing">
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="../index.html" class="logo">
+                <img src="../logo.png" alt="ThriveStack" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search documentation... (Ctrl+K)">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-links">
+                <a href="../index.html">Get Started</a>
+                <a href="../setup-overview.html">Setup (Unify)</a>
+                <a href="../analyze-signals.html">Analyze Signals</a>
+                <a href="../take-action.html">Take Action</a>
+                <a href="../api-reference.html">API Reference</a>
+                <a href="introduction.html" class="active">MCP</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <a href="https://app.thrivestack.ai/auth/customer-analytics/sign-up" class="btn-primary" target="_blank" rel="noopener noreferrer">Sign In</a>
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="layout-container">
+        <aside class="left-sidebar" id="sidebar">
+            <cited-by-sidebar base-path="../../"></cited-by-sidebar>
+        </aside>
+        <div class="resizer" id="sidebar-resizer"></div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <div class="breadcrumbs">
+                    <a href="../index.html">Documentation</a> <i class="fa-solid fa-chevron-right"></i>
+                    <a href="../cited-by/introduction.html">Cited By</a> <i class="fa-solid fa-chevron-right"></i>
+                    <a href="introduction.html">MCP</a> <i class="fa-solid fa-chevron-right"></i>
+                    <span>ChatGPT Ads</span>
+                </div>
+                <header class="doc-page-header">
+                    <span class="doc-page-header-eyebrow">Cited By · MCP</span>
+                    <h1 class="doc-page-title">ChatGPT Ads</h1>
+                    <p class="doc-page-description">
+                        See who advertises against you in ChatGPT, where they win, and turn it into ad creatives, step by step.
+                    </p>
+                </header>
+
+                <section id="overview" class="content-section">
+                    <p>ChatGPT can show ads inside its answers. ThriveStack asks ChatGPT your tracked prompts and records which ads appear: yours, your rivals&rsquo;, or none. Six tools read that record, so you can ask your AI assistant in plain language which advertisers you compete with, which prompts you lose, and what their ads say, and then have it draft ad creatives from the answer.</p>
+                    <div class="mcp-callout">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <div class="mcp-callout-body"><p><strong>What you need.</strong> The ChatGPT Ads add-on (or its free trial) on the brand. Ask by brand name or by domain; your assistant looks up the domain. If a tool says <code>ads_entitlement_required</code>, ask &ldquo;does Notion have ChatGPT Ads, and why not?&rdquo; and it uses the add-on status.</p></div>
+                    </div>
+                    <div class="mcp-callout ok">
+                        <i class="fa-solid fa-eye"></i>
+                        <div class="mcp-callout-body"><p><strong>Read-only.</strong> These tools only read data. They don&rsquo;t create, edit or publish ads. In steps 5 and 6 your AI assistant writes the creatives from what the tools return.</p></div>
+                    </div>
+                </section>
+
+                <section id="tools" class="content-section">
+                    <h2>The tools</h2>
+                    <p class="section-sub">Each tool links to its full entry with parameters in the <a href="tools.html#chatgpt-ads">Tools reference</a>.</p>
+<table class="params-table">
+<thead><tr><th>Tool</th><th>What it answers</th></tr></thead>
+<tbody>
+<tr><td><a href="tools.html#tool-get-chatgpt-ads-report"><code>get_chatgpt_ads_report</code></a></td><td>The market report: who advertises, their share, who bids on your brand, ad creatives seen. All time unless you pass dates.</td></tr>
+<tr><td><a href="tools.html#tool-get-chatgpt-ads-rivals"><code>get_chatgpt_ads_rivals</code></a></td><td>The advertisers that beat you, ranked by the prompts they win against you.</td></tr>
+<tr><td><a href="tools.html#tool-get-chatgpt-ads-prompt-scorecard"><code>get_chatgpt_ads_prompt_scorecard</code></a></td><td>Each tracked prompt as winning, contested, losing or open, with topic and country filters.</td></tr>
+<tr><td><a href="tools.html#tool-get-chatgpt-ads-prompt-detail"><code>get_chatgpt_ads_prompt_detail</code></a></td><td>The ads shown on one prompt and the distinct ad copy of you and your rivals.</td></tr>
+<tr><td><a href="tools.html#tool-get-chatgpt-ads-runs"><code>get_chatgpt_ads_runs</code></a></td><td>The latest ChatGPT ads checks: when they ran and whether they worked.</td></tr>
+<tr><td><a href="tools.html#tool-get-chatgpt-ads-addon-status"><code>get_chatgpt_ads_addon_status</code></a></td><td>Whether the brand has ChatGPT Ads, its cadence and period, and why a call was refused.</td></tr>
+</tbody>
+</table>
+                </section>
+
+                <section id="walkthrough" class="content-section">
+                    <h2>Step by step: from data to a winning ad</h2>
+                    <p class="section-sub">The prompts below use Notion as your brand and Asana as a rival. Replace them with yours. Run the steps in order in one conversation: each one builds on the last.</p>
+<ol class="mcp-steps">
+<li class="mcp-step">
+<h3>See where you stand</h3>
+<p>Start with the market picture: who advertises on your prompts in ChatGPT, how much of the ad share each has, and who bids on your brand name.</p>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;Show me the ChatGPT ads report for Notion. Who advertises on our prompts, what share does each advertiser have, and who bids on our brand name?&rdquo;</span></div></div>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_accessible_brands</span><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_report</span></div>
+<p><strong>What you get:</strong> A headline and key numbers, the advertisers seen, each brand&rsquo;s ad share, who bids on your brand name, activity by topic and the ad creatives observed. Name a brand and your assistant finds its domain for you. With no dates the report covers all time, so add a range (&ldquo;last 30 days&rdquo;) to see recent movement.</p>
+</li>
+<li class="mcp-step">
+<h3>Find the competitors that run ads</h3>
+<p>See which advertisers beat you most often, and whether any of them advertise on prompts that name your brand.</p>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;Which advertisers beat Notion in ChatGPT ads? For each one, tell me on how many of our prompts they win and whether they bid on our brand name.&rdquo;</span></div></div>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_rivals</span></div>
+<p><strong>What you get:</strong> Rivals ranked by how many of your prompts they win against you (<code>prompts_losing_to_them</code>) and share with you (<code>prompts_contested</code>), their share of rival ads, their main topics, whether they bid on your brand name, and three example prompts you lose to each.</p>
+</li>
+<li class="mcp-step">
+<h3>See where one competitor wins</h3>
+<p>Pick a rival from step 2 and list the prompts where it wins.</p>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;List the 10 prompts where Asana wins most in ChatGPT ads for Notion. For each, show how often Asana&rsquo;s ad appeared compared with ours.&rdquo;</span></div></div>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span></div>
+<p><strong>What you get:</strong> Every prompt with its status (<code>winning</code>, <code>contested</code>, <code>losing</code>, <code>open</code>), how often your ad and the rivals&rsquo; ads showed, and the top rivals on it. The scorecard has no filter for one rival, so your assistant picks out the prompts where Asana appears (each prompt lists up to five rivals) and ranks them. For a large prompt library ask it to read every page (200 prompts a page).</p>
+</li>
+<li class="mcp-step">
+<h3>Look at their ads</h3>
+<p>Take one prompt and read the ads ChatGPT actually showed on it.</p>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;For the prompt &lsquo;How does a connected workspace tie docs, databases, and tasks together?&rsquo;, show me the ChatGPT ads that appeared: headline, body and landing page. Put ours next to Asana&rsquo;s.&rdquo;</span></div></div>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_detail</span></div>
+<p><strong>What you get:</strong> The prompt&rsquo;s recent answers with each ad (advertiser, whether it is yours, headline, body, landing page), and the distinct ad copy of your brand and of your rivals with how often each was seen. Ads are text only: headline, body and landing page, with no images.</p>
+</li>
+<li class="mcp-step">
+<h3>Write ad creatives for a topic you want to win</h3>
+<p>Now use what you found to draft creatives. Say the topic, how many you want, and what each should contain.</p>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;Notion loses on the topic &lsquo;Custom AI Agent&rsquo;. Using the rival ads you found, write 3 ad creative outlines: a headline, the body copy, the landing-page angle, and why each should beat Asana&rsquo;s ads.&rdquo;</span></div></div>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_detail</span></div>
+<p><strong>What you get:</strong> Three creative outlines grounded in real rival copy. The tools supply the evidence (which prompts you lose in that topic, and what the winning ads say). <strong>Your AI assistant writes the creatives; ThriveStack does not generate or publish ads.</strong></p>
+</li>
+<li class="mcp-step">
+<h3>Target one prompt</h3>
+<p>Paste the exact prompt you want to win and ask for one creative aimed at it.</p>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;I want to win this prompt: &lsquo;How does a connected workspace tie docs, databases, and tasks together so a change in one place shows up everywhere else?&rsquo; Write one ad creative for it, based on the ads that show on it today, and tell me what angle it takes against them.&rdquo;</span></div></div>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_detail</span></div>
+<p><strong>What you get:</strong> One creative for that prompt, with the angle explained. Pasting the exact text lets your assistant find the prompt in the scorecard and read its ads.</p>
+</li>
+<li class="mcp-step">
+<h3>Check the data is fresh (optional)</h3>
+<p>Before you act on the numbers, check when the last check ran and whether the add-on is active.</p>
+<div class="mcp-prompts"><div class="mcp-prompt"><i class="fa-regular fa-comment"></i><span>&ldquo;When did the last ChatGPT ads check for Notion run, did it cover every prompt, and is the ChatGPT Ads add-on active?&rdquo;</span></div></div>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_runs</span><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_addon_status</span></div>
+<p><strong>What you get:</strong> The latest checks with their state and how many prompts were checked, skipped or failed, and the add-on&rsquo;s cadence, period and any change staged for the next period. If a call returns <code>ads_entitlement_required</code>, the add-on status explains why.</p>
+</li>
+</ol>
+                </section>
+
+                <section id="more-ways" class="content-section">
+                    <h2>More ways to use it</h2>
+<div class="mcp-feature-grid">
+<div class="mcp-feature">
+<div class="mcp-feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+<h3>Defend your brand name</h3>
+<p>&ldquo;Which advertisers run ChatGPT ads on prompts that name Notion, and on which prompts?&rdquo;</p>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_rivals</span><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span></div>
+</div>
+<div class="mcp-feature">
+<div class="mcp-feature-icon green"><i class="fa-solid fa-door-open"></i></div>
+<h3>Find open auctions</h3>
+<p>&ldquo;Which Notion prompts have no ChatGPT ad from anyone yet? Group them by topic and tell me which to bid on first.&rdquo;</p>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span></div>
+</div>
+<div class="mcp-feature">
+<div class="mcp-feature-icon purple"><i class="fa-solid fa-layer-group"></i></div>
+<h3>See which topics you lose</h3>
+<p>&ldquo;Which topics is Notion losing most in ChatGPT ads? Show the number of winning, contested and losing prompts for each.&rdquo;</p>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span></div>
+</div>
+<div class="mcp-feature">
+<div class="mcp-feature-icon orange"><i class="fa-solid fa-clock-rotate-left"></i></div>
+<h3>Review the change</h3>
+<p>&ldquo;Compare Notion&rsquo;s ChatGPT ads over the last 2 weeks with the 2 weeks before. What changed, and which rivals gained?&rdquo;</p>
+<div class="mcp-chips"><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_rivals</span><span class="mcp-chip"><i class="fa-solid fa-screwdriver-wrench"></i> get_chatgpt_ads_prompt_scorecard</span></div>
+</div>
+</div>
+                </section>
+
+                <section id="tips" class="content-section">
+                    <h2>Tips for better answers</h2>
+                    <ul>
+                        <li><strong>Name the brand and the rival.</strong> &ldquo;Notion&rdquo; and &ldquo;Asana&rdquo; beat &ldquo;us&rdquo; and &ldquo;them&rdquo;.</li>
+                        <li><strong>Paste the exact prompt.</strong> It lets your assistant find the prompt and read the ads shown on it.</li>
+                        <li><strong>Say how many creatives you want and what each should contain</strong>: headline, body, landing-page angle, and why it should win.</li>
+                        <li><strong>Ask for the evidence.</strong> &ldquo;Cite the prompt and the rival ad each creative is based on&rdquo; keeps the drafts grounded.</li>
+                        <li><strong>Include dates</strong> (&ldquo;last 30 days&rdquo;) when you want recent movement. The report covers all time without dates; the other tools default to the last 56 days.</li>
+                    </ul>
+                </section>
+
+                <section id="limits" class="content-section">
+                    <h2>Good to know</h2>
+                    <ul>
+                        <li><strong>The numbers come from sampled answers,</strong> not every ChatGPT conversation. A prompt with few samples is flagged <code>low_confidence</code>; ask your assistant to say so before it draws a conclusion.</li>
+                        <li><strong>Only ads ChatGPT actually showed are counted.</strong> A prompt marked <code>open</code> had enough answers and no ad from anyone: an opportunity, not a failure.</li>
+                        <li><strong>An empty result isn&rsquo;t an error.</strong> If no prompt was checked in the window, the tools say so (<code>has_data: false</code>). Check the date range, then the latest checks (step 7).</li>
+                        <li><strong>Creatives are drafts.</strong> Review them against the ad platform&rsquo;s own rules and your brand guidelines before you use them.</li>
+                    </ul>
+                </section>
+
+                <div class="page-nav">
+                    <a href="use-cases.html" class="nav-card prev-card">
+                        <span class="nav-label">Previous</span>
+                        <span class="nav-title">Use Cases</span>
+                    </a>
+                    <a href="prompts.html" class="nav-card next-card">
+                        <span class="nav-label">Next</span>
+                        <span class="nav-title">Prompts</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <footer class="content-footer">
+                    <p>Was this page helpful?</p>
+                    <div class="feedback-btns">
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-up"></i> Yes</button>
+                        <button class="btn-icon"><i class="fa-regular fa-thumbs-down"></i> No</button>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/Thrivestack-public/thrivestack-documentation" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                        <a class="last-updated" href="#" tabindex="-1" aria-disabled="true" data-file="chatgpt-ads.html">Last updated: November 17, 2026</a>
+                    </div>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="toc-container sticky-top">
+                <h4>On this page</h4>
+                <nav id="toc" class="toc-nav">
+                    <a href="#overview" class="toc-link active">Overview</a>
+                    <a href="#tools" class="toc-link">The tools</a>
+                    <a href="#walkthrough" class="toc-link">Step by step</a>
+                    <a href="#more-ways" class="toc-link">More ways to use it</a>
+                    <a href="#tips" class="toc-link">Tips</a>
+                    <a href="#limits" class="toc-link">Good to know</a>
+                </nav>
+                <ready-to-scale-promo></ready-to-scale-promo>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../script.js"></script>
+    <script src="mcp.js"></script>
+</body>
+</html>

@@ -666,6 +666,7 @@ const DOCS_CITEDBY_MCP_PAGES = [
     docsLeaf('Introduction', 'mcp/introduction.html'),
     docsLeaf('Setup', 'mcp/setup.html'),
     docsLeaf('Use Cases', 'mcp/use-cases.html'),
+    docsLeaf('ChatGPT Ads', 'mcp/chatgpt-ads.html'),
     docsLeaf('Prompts', 'mcp/prompts.html'),
     docsLeaf('Tools', 'mcp/tools.html'),
 ];
